@@ -29,7 +29,7 @@ export default function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
               <Image src="/logo.png" alt="TaoPost" width={36} height={36} style={{ objectFit: 'contain' }} />
               <span style={{ fontWeight: 800, fontSize: '20px' }}>
-                Tao<span style={{ color: '#1B9E7E' }}>Post</span>
+                <span style={{ color: '#FF4400' }}>Tao</span><span style={{ color: '#1B9E7E' }}>Post</span>
               </span>
             </div>
             <p style={{ fontSize: '14px', color: '#9CA3AF', lineHeight: 1.7, maxWidth: '300px', marginBottom: '24px' }}>
