@@ -46,10 +46,10 @@ export default function Hero() {
       }} />
       {/* Dragon background */}
       <div className="dragon-bg" style={{
-        position: 'absolute', bottom: '-40px', right: '-60px',
-        width: '520px', height: '520px',
+        position: 'absolute', bottom: '-60px', right: '-80px',
+        width: '720px', height: '720px',
         pointerEvents: 'none',
-        opacity: 0.12,
+        opacity: 0.13,
         zIndex: 0,
       }}>
         <Image src="/dragon.png" alt="" fill style={{ objectFit: 'contain', objectPosition: 'right bottom' }} />
@@ -265,7 +265,7 @@ export default function Hero() {
           .hero-buttons { flex-direction: column !important; }
           .hero-buttons a { text-align: center !important; justify-content: center !important; }
           .hero-stats { gap: 20px !important; }
-          .dragon-bg { width: 280px !important; height: 280px !important; opacity: 0.08 !important; }
+          .dragon-bg { width: 380px !important; height: 380px !important; bottom: -20px !important; right: -40px !important; opacity: 0.10 !important; }
         }
       `}</style>
     </section>
