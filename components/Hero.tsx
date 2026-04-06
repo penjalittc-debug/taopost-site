@@ -44,7 +44,7 @@ export default function Hero() {
         opacity: 0.13,
         zIndex: 0,
       }}>
-        <Image src="/dragon.png" alt="" fill style={{ objectFit: 'contain', objectPosition: 'right bottom' }} />
+        <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain', objectPosition: 'right bottom' }} />
       </div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
