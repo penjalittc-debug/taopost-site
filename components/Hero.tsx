@@ -25,8 +25,8 @@ export default function Hero() {
       <div style={{
         position: 'absolute',
         top: '50%',
-        right: '-60px',
-        transform: 'translateY(-50%)',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         width: '700px',
         height: '700px',
         pointerEvents: 'none',
