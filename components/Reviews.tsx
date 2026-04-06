@@ -71,7 +71,7 @@ export default function Reviews() {
             }}>
               <Stars count={review.rating} />
               <p style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7, margin: '16px 0 20px', fontStyle: 'italic' }}>
-                "{review.text}"
+                &ldquo;{review.text}&rdquo;
               </p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
