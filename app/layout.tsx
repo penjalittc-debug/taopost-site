@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://taopost.ru",
   },
+  verification: {
+    yandex: "3645f89ced68555a",
+  },
   openGraph: {
     title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688",
     description: "Карго доставка из Китая в Россию. Одежда, обувь, электроника с Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 599₽/кг. Доставляем по всей России.",
