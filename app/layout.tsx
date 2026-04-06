@@ -33,8 +33,8 @@ export default function RootLayout({
           width: '680px',
           height: '680px',
           pointerEvents: 'none',
-          opacity: 0.07,
-          zIndex: 0,
+          opacity: 0.09,
+          zIndex: 10,
         }}>
           <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
         </div>
