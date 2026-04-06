@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 
 const STATS = [
   { value: '5 000+', label: 'Довольных клиентов' },
@@ -36,16 +35,6 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(203,50,52,0.05) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
-      {/* Dragon background */}
-      <div className="dragon-bg" style={{
-        position: 'absolute', bottom: '-60px', right: '-80px',
-        width: '720px', height: '720px',
-        pointerEvents: 'none',
-        opacity: 0.13,
-        zIndex: 0,
-      }}>
-        <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain', objectPosition: 'right bottom' }} />
-      </div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
         <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '60px', alignItems: 'center', maxWidth: '700px' }}>
@@ -173,7 +162,6 @@ export default function Hero() {
           .hero-buttons { flex-direction: column !important; }
           .hero-buttons a { text-align: center !important; justify-content: center !important; }
           .hero-stats { gap: 20px !important; }
-          .dragon-bg { width: 380px !important; height: 380px !important; bottom: -20px !important; right: -40px !important; opacity: 0.10 !important; }
         }
       `}</style>
     </section>
