@@ -1,14 +1,6 @@
 'use client';
 import Image from 'next/image';
 
-const MARKETPLACES = [
-  { name: 'Pinduoduo', img: '/mp/pinduoduo.jpg', color: '#e4003a' },
-  { name: 'Taobao',    img: '/mp/taobao.svg',    color: '#ff4400' },
-  { name: '1688',      img: '/mp/1688.png',       color: '#ff6600' },
-  { name: 'Poizon',    img: '/mp/poizon.png',     color: '#1a1a2e' },
-  { name: 'Goofish',   img: '/mp/gofish.webp',    color: '#ffd600' },
-];
-
 const STATS = [
   { value: '5 000+', label: 'Довольных клиентов' },
   { value: '15–25', label: 'Дней доставки' },
@@ -56,7 +48,7 @@ export default function Hero() {
       </div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
-        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
+        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '60px', alignItems: 'center', maxWidth: '700px' }}>
 
           {/* Left: text */}
           <div>
@@ -170,90 +162,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: visual card */}
-          <div style={{ display: 'flex', justifyContent: 'center' }} className="hero-right">
-            <div style={{
-              background: 'white',
-              borderRadius: '24px',
-              padding: '32px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.10)',
-              width: '100%',
-              maxWidth: '420px',
-              border: '1px solid #f0f0f0',
-            }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#6B7280', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                Поддерживаемые площадки
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '24px' }}>
-                {MARKETPLACES.map((mp) => (
-                  <div
-                    key={mp.name}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      padding: '12px',
-                      background: '#F9FAFB',
-                      borderRadius: '12px',
-                      border: '1px solid #F3F4F6',
-                    }}
-                  >
-                    <div style={{
-                      width: '36px', height: '36px',
-                      borderRadius: '10px',
-                      background: mp.color,
-                      overflow: 'hidden',
-                      flexShrink: 0,
-                    }}>
-                      <Image src={mp.img} alt={mp.name} width={36} height={36} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#374151' }}>{mp.name}</span>
-                  </div>
-                ))}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '12px',
-                  background: '#F9FAFB',
-                  borderRadius: '12px',
-                  border: '1px dashed #D1D5DB',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#9CA3AF',
-                }}>
-                  + другие
-                </div>
-              </div>
-
-              {/* Route indicator */}
-              <div style={{
-                background: 'linear-gradient(135deg, #e8f7f3, #f0fdf9)',
-                borderRadius: '14px',
-                padding: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '8px',
-              }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '20px' }}>🇨🇳</div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#374151', marginTop: '4px' }}>Китай</div>
-                </div>
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <div style={{ flex: 1, height: '2px', background: '#1B9E7E', borderRadius: '2px' }} />
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: '#1B9E7E', whiteSpace: 'nowrap', padding: '3px 8px', background: 'white', borderRadius: '20px', border: '1px solid #c6ede4' }}>
-                    15–25 дней
-                  </div>
-                  <div style={{ flex: 1, height: '2px', background: '#1B9E7E', borderRadius: '2px' }} />
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '20px' }}>🇷🇺</div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#374151', marginTop: '4px' }}>Россия</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
         </div>
       </div>
