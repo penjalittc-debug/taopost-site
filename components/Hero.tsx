@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 const STATS = [
   { value: '5 000+', label: 'Довольных клиентов' },
@@ -20,6 +21,21 @@ export default function Hero() {
         background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 50%, #fff5f5 100%)',
       }}
     >
+      {/* Dragon background */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        right: '-60px',
+        transform: 'translateY(-50%)',
+        width: '700px',
+        height: '700px',
+        pointerEvents: 'none',
+        opacity: 0.10,
+        zIndex: 0,
+      }}>
+        <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
+      </div>
+
       {/* Background decoration */}
       <div style={{
         position: 'absolute', top: '-100px', right: '-100px',

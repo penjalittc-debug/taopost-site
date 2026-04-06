@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -55,24 +54,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body style={{ position: 'relative' }}>
-        {/* Fixed dragon background */}
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          right: '-80px',
-          transform: 'translateY(-50%)',
-          width: '680px',
-          height: '680px',
-          pointerEvents: 'none',
-          opacity: 0.09,
-          zIndex: 10,
-        }}>
-          <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
-        </div>
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {children}
-        </div>
+      <body>
+        {children}
       </body>
     </html>
   );
