@@ -44,8 +44,18 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(203,50,52,0.05) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
+      {/* Dragon background */}
+      <div className="dragon-bg" style={{
+        position: 'absolute', bottom: '-40px', right: '-60px',
+        width: '520px', height: '520px',
+        pointerEvents: 'none',
+        opacity: 0.12,
+        zIndex: 0,
+      }}>
+        <Image src="/dragon.png" alt="" fill style={{ objectFit: 'contain', objectPosition: 'right bottom' }} />
+      </div>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
         <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
 
           {/* Left: text */}
@@ -255,6 +265,7 @@ export default function Hero() {
           .hero-buttons { flex-direction: column !important; }
           .hero-buttons a { text-align: center !important; justify-content: center !important; }
           .hero-stats { gap: 20px !important; }
+          .dragon-bg { width: 280px !important; height: 280px !important; opacity: 0.08 !important; }
         }
       `}</style>
     </section>
