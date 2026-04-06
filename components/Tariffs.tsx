@@ -43,7 +43,7 @@ export default function Tariffs() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div className="tariffs-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
 
           {/* Delivery rates table */}
           <div style={{
@@ -186,7 +186,7 @@ export default function Tariffs() {
 
       <style>{`
         @media (max-width: 768px) {
-          #tariffs .grid-2col { grid-template-columns: 1fr !important; }
+          .tariffs-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

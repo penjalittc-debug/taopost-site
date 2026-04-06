@@ -81,6 +81,7 @@ export default function Header() {
             href="https://taopost.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
+            className="header-cta"
             style={{
               padding: '10px 22px',
               background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
@@ -178,6 +179,7 @@ export default function Header() {
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .mobile-burger { display: flex !important; }
+          .header-cta { display: none !important; }
         }
       `}</style>
     </header>

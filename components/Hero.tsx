@@ -46,7 +46,7 @@ export default function Hero() {
       }} />
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
+        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
 
           {/* Left: text */}
           <div>
@@ -90,7 +90,7 @@ export default function Hero() {
             </p>
 
             {/* CTA Buttons */}
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
+            <div className="hero-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
               <a
                 href="https://taopost.vercel.app"
                 target="_blank"
@@ -150,7 +150,7 @@ export default function Hero() {
             </div>
 
             {/* Stats */}
-            <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+            <div className="hero-stats" style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
               {STATS.map((stat) => (
                 <div key={stat.label}>
                   <div style={{ fontSize: '24px', fontWeight: 900, color: '#111827' }}>{stat.value}</div>
@@ -249,8 +249,12 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .hero-right { display: none !important; }
+          .hero-buttons { flex-direction: column !important; }
+          .hero-buttons a { text-align: center !important; justify-content: center !important; }
+          .hero-stats { gap: 20px !important; }
         }
       `}</style>
     </section>
