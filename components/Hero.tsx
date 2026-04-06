@@ -25,12 +25,12 @@ export default function Hero() {
       <div style={{
         position: 'absolute',
         top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '700px',
-        height: '700px',
+        right: '0px',
+        transform: 'translateY(-50%)',
+        width: '680px',
+        height: '680px',
         pointerEvents: 'none',
-        opacity: 0.10,
+        opacity: 0.18,
         zIndex: 0,
       }}>
         <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
