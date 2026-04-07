@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: 'https://taopost.ru/kak-zakazat-iz-kitaya',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: 'https://taopost.ru/privacy',
       lastModified: new Date(),
       changeFrequency: 'monthly',
