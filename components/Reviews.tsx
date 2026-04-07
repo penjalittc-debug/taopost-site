@@ -55,7 +55,7 @@ export default function Reviews() {
             <span style={{ color: '#1B9E7E' }}>по всей России</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '460px', margin: '0 auto', lineHeight: 1.7 }}>
-            Более 5 000 довольных клиентов уже получили свои заказы из Китая
+            Более 1 000 довольных клиентов и 50 000 доставленных товаров
           </p>
         </div>
 
