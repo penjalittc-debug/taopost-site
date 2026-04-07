@@ -1,16 +1,21 @@
 'use client';
 
-const TARIFF_ROWS = [
-  { route: 'Гуанчжоу → Москва', time: '15–20 дней', price: 'Уточняется', note: 'Авиа' },
-  { route: 'Гуанчжоу → Москва', time: '20–30 дней', price: 'Уточняется', note: 'Авто' },
-  { route: 'Гуанчжоу → Регионы РФ', time: '+3–7 дней', price: 'Уточняется', note: 'ТК' },
+const AUTO_ROWS = [
+  { route: 'Иу → Москва', time: '15–20 дней', price: '2.7–3.3 $/кг', note: 'Авто' },
+  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: '2.7–3.3 $/кг', note: 'Авто' },
+  { route: 'Цзиси → Уссурийск', time: 'Уточняется', price: 'Скоро', note: 'Авто · новый маршрут' },
+];
+
+const AIR_ROWS = [
+  { route: 'Пекин → Москва', time: '3–5 дней', price: 'от 25 $/кг', note: 'Авиа' },
 ];
 
 const SERVICES = [
-  { name: 'Выкуп товара', price: 'от 3%', desc: 'от стоимости товара' },
-  { name: 'Фото со склада', price: 'Бесплатно', desc: 'до 5 фото' },
-  { name: 'Консолидация', price: 'Бесплатно', desc: 'объединение посылок' },
-  { name: 'Страховка', price: 'Уточняется', desc: 'по запросу' },
+  { name: 'Страховка', price: '2%', desc: 'обязательная, от стоимости товара', color: '#CB3234', bg: '#fff0f0' },
+  { name: 'Упаковка груза', price: 'от 5 $', desc: 'зависит от объёма и вида упаковки', color: '#f59e0b', bg: '#fffbeb' },
+  { name: 'Выкуп товара', price: 'от 3%', desc: 'от стоимости товара', color: '#CB3234', bg: '#fff0f0' },
+  { name: 'Фото со склада', price: 'Бесплатно', desc: 'до 5 фото', color: '#1B9E7E', bg: '#e8f7f3' },
+  { name: 'Консолидация', price: 'Бесплатно', desc: 'объединение посылок', color: '#1B9E7E', bg: '#e8f7f3' },
 ];
 
 export default function Tariffs() {
@@ -45,119 +50,115 @@ export default function Tariffs() {
 
         <div className="tariffs-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
 
-          {/* Delivery rates table */}
-          <div style={{
-            background: '#F9FAFB',
-            borderRadius: '20px',
-            padding: '28px',
-            border: '1px solid #F3F4F6',
-          }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '20px' }}>
-              🚀 Сроки и стоимость
+          {/* Auto delivery */}
+          <div style={{ background: '#F9FAFB', borderRadius: '20px', padding: '28px', border: '1px solid #F3F4F6' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
+              🚛 Автодоставка
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {TARIFF_ROWS.map((row, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: 'white',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    border: '1px solid #F3F4F6',
-                  }}
-                >
+            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Минимальный вес — 5 кг</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {AUTO_ROWS.map((row, i) => (
+                <div key={i} style={{
+                  background: 'white', borderRadius: '12px', padding: '14px 16px',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  border: '1px solid #F3F4F6',
+                }}>
                   <div>
                     <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>{row.route}</div>
                     <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>{row.note} · {row.time}</div>
                   </div>
                   <div style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    color: '#1B9E7E',
-                    background: '#e8f7f3',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
+                    fontSize: '13px', fontWeight: 800,
+                    color: row.price === 'Скоро' ? '#9CA3AF' : '#1B9E7E',
+                    background: row.price === 'Скоро' ? '#F3F4F6' : '#e8f7f3',
+                    padding: '4px 12px', borderRadius: '20px', whiteSpace: 'nowrap',
                   }}>
                     {row.price}
                   </div>
                 </div>
               ))}
             </div>
-            <div style={{
-              marginTop: '16px',
-              padding: '14px',
-              background: '#fffbeb',
-              borderRadius: '12px',
-              fontSize: '13px',
-              color: '#92400e',
-              fontWeight: 500,
-              border: '1px solid #fde68a',
-            }}>
-              💡 Точный расчёт стоимости доставки — в нашем Telegram или личном кабинете
-            </div>
           </div>
 
-          {/* Services */}
-          <div style={{
-            background: '#F9FAFB',
-            borderRadius: '20px',
-            padding: '28px',
-            border: '1px solid #F3F4F6',
-          }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '20px' }}>
-              🛠 Дополнительные услуги
+          {/* Air delivery */}
+          <div style={{ background: '#F9FAFB', borderRadius: '20px', padding: '28px', border: '1px solid #F3F4F6' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
+              ✈️ Авиадоставка
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {SERVICES.map((svc) => (
-                <div
-                  key={svc.name}
-                  style={{
-                    background: 'white',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    border: '1px solid #F3F4F6',
-                  }}
-                >
+            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Экспресс-доставка за 3–5 дней</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+              {AIR_ROWS.map((row, i) => (
+                <div key={i} style={{
+                  background: 'white', borderRadius: '12px', padding: '14px 16px',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  border: '1px solid #F3F4F6',
+                }}>
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>{svc.name}</div>
-                    <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>{svc.desc}</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>{row.route}</div>
+                    <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>{row.note} · {row.time}</div>
                   </div>
                   <div style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    color: svc.price === 'Бесплатно' ? '#1B9E7E' : '#CB3234',
-                    background: svc.price === 'Бесплатно' ? '#e8f7f3' : '#fff0f0',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
+                    fontSize: '13px', fontWeight: 800,
+                    color: '#6366f1', background: '#eef2ff',
+                    padding: '4px 12px', borderRadius: '20px', whiteSpace: 'nowrap',
                   }}>
-                    {svc.price}
+                    {row.price}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* CTA */}
+            <div style={{
+              padding: '14px',
+              background: '#fffbeb', borderRadius: '12px',
+              fontSize: '13px', color: '#92400e', fontWeight: 500,
+              border: '1px solid #fde68a',
+            }}>
+              💡 Точный расчёт — в нашем Telegram или личном кабинете
+            </div>
+          </div>
+
+          {/* Services */}
+          <div style={{
+            background: '#F9FAFB', borderRadius: '20px', padding: '28px',
+            border: '1px solid #F3F4F6', gridColumn: '1 / -1',
+          }}
+          className="tariffs-services"
+          >
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '20px' }}>
+              🛠 Дополнительные услуги
+            </h3>
+            <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px' }}>
+              {SERVICES.map((svc) => (
+                <div key={svc.name} style={{
+                  background: 'white', borderRadius: '14px', padding: '16px',
+                  border: '1px solid #F3F4F6',
+                }}>
+                  <div style={{
+                    fontSize: '15px', fontWeight: 800,
+                    color: svc.color, background: svc.bg,
+                    padding: '4px 10px', borderRadius: '20px',
+                    display: 'inline-block', marginBottom: '10px',
+                  }}>
+                    {svc.price}
+                  </div>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>{svc.name}</div>
+                  <div style={{ fontSize: '12px', color: '#9CA3AF', lineHeight: 1.5 }}>{svc.desc}</div>
+                </div>
+              ))}
+            </div>
+
             <a
-              href="https://taopost.vercel.app"
+              href="https://wa.me/79772767778?text=Привет! Хочу рассчитать стоимость доставки"
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: 'block',
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
                 marginTop: '20px',
-                padding: '14px',
+                padding: '14px 28px',
                 background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
-                color: 'white',
-                borderRadius: '14px',
-                textAlign: 'center',
-                textDecoration: 'none',
-                fontWeight: 700,
-                fontSize: '15px',
+                color: 'white', borderRadius: '14px',
+                textDecoration: 'none', fontWeight: 700, fontSize: '15px',
                 boxShadow: '0 4px 14px rgba(27,158,126,0.3)',
               }}
             >
@@ -187,6 +188,11 @@ export default function Tariffs() {
       <style>{`
         @media (max-width: 768px) {
           .tariffs-grid { grid-template-columns: 1fr !important; }
+          .tariffs-services { grid-column: 1 !important; }
+          .services-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .services-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
