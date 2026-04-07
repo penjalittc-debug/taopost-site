@@ -53,27 +53,16 @@ export default function HeroV2() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '680px' }}>
 
-          {/* Badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
-            padding: '6px 14px', fontSize: '13px', fontWeight: 700,
-            marginBottom: '24px',
-            border: '1px solid #c6ede4',
-          }}>
-            <span>✈️</span> Официальная доставка из Китая
-          </div>
-
           {/* Headline - benefit focused */}
           <h1 style={{
             fontSize: 'clamp(36px, 5vw, 62px)',
             fontWeight: 900,
             lineHeight: 1.08,
             color: '#111827',
-            marginBottom: '16px',
+            marginBottom: '20px',
             letterSpacing: '-1.5px',
           }}>
-            Сэкономь до 70%<br />
+            Сэкономьте до 75%<br />
             на товарах<br />
             <span style={{ color: '#1B9E7E' }}>из Китая</span>
           </h1>
@@ -83,14 +72,14 @@ export default function HeroV2() {
             color: '#6B7280',
             lineHeight: 1.7,
             marginBottom: '12px',
-            maxWidth: '460px',
+            maxWidth: '500px',
           }}>
-            Выкупаем и доставляем с{' '}
+            Выкупаем с{' '}
             <span style={{ color: '#e4003a', fontWeight: 700 }}>Pinduoduo</span>,{' '}
             <span style={{ color: '#ff4400', fontWeight: 700 }}>Taobao</span>,{' '}
             <span style={{ color: '#ff6600', fontWeight: 700 }}>1688</span>,{' '}
             <span style={{ color: '#CB3234', fontWeight: 700 }}>Poizon</span>{' '}
-            и других площадок
+            и других китайских площадок — и доставляем до вашего города или прямо до порога
           </p>
 
           {/* Trust badges row */}
