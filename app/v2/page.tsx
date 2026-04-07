@@ -9,6 +9,7 @@ import Tariffs from '@/components/Tariffs';
 import Features from '@/components/Features';
 import Reviews from '@/components/Reviews';
 import FAQ from '@/components/FAQ';
+import WarehouseGallery from '@/components/WarehouseGallery';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 
@@ -84,7 +85,9 @@ export default function HomeV2() {
         <Tariffs />
         {/* 7. Почему мы — преимущества */}
         <Features />
-        {/* 8. Доверие — отзывы */}
+        {/* 8. Фото склада — живое доверие */}
+        <WarehouseGallery />
+        {/* 9. Доверие — отзывы */}
         <Reviews />
         {/* 9. Закрыть возражения — FAQ */}
         <FAQ />

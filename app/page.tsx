@@ -8,6 +8,7 @@ import Calculator from '@/components/Calculator';
 import Tracking from '@/components/Tracking';
 import Tariffs from '@/components/Tariffs';
 import Loyalty from '@/components/Loyalty';
+import WarehouseGallery from '@/components/WarehouseGallery';
 import Reviews from '@/components/Reviews';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
@@ -113,6 +114,7 @@ export default function Home() {
         <Tracking />
         <Tariffs />
         <Loyalty />
+        <WarehouseGallery />
         <Reviews />
         <FAQ />
         <CTA />
