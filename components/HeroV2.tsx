@@ -2,7 +2,7 @@
 import Image from 'next/image';
 
 const STATS = [
-  { value: '5 000+', label: 'Довольных клиентов' },
+  { value: '50 000+', label: 'Доставленных товаров в 2025 году' },
   { value: '15–25', label: 'Дней доставки' },
   { value: '100%', label: 'Официально' },
 ];
