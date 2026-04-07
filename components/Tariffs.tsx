@@ -1,21 +1,21 @@
 'use client';
 
 const AUTO_ROWS = [
-  { route: 'Иу → Москва', time: '15–20 дней', price: '2.7–3.3 $/кг', note: 'Авто' },
-  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: '2.7–3.3 $/кг', note: 'Авто' },
-  { route: 'Цзиси → Уссурийск', time: 'Уточняется', price: 'Скоро', note: 'Авто · новый маршрут' },
+  { route: 'Иу → Москва', time: '15–20 дней', price: '2.7–3.3 $/кг', note: 'Автодоставка' },
+  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: '2.7–3.3 $/кг', note: 'Автодоставка' },
+  { route: 'Цзиси → Уссурийск', time: 'Скоро', price: 'Скоро', note: '🆕 Новый маршрут' },
 ];
 
 const AIR_ROWS = [
-  { route: 'Пекин → Москва', time: '3–5 дней', price: 'от 25 $/кг', note: 'Авиа' },
+  { route: 'Пекин → Москва', time: '3–5 дней', price: 'от 25 $/кг', note: 'Авиадоставка' },
 ];
 
 const SERVICES = [
-  { name: 'Страховка', price: '2%', desc: 'обязательная, от стоимости товара', color: '#CB3234', bg: '#fff0f0' },
-  { name: 'Упаковка груза', price: 'от 5 $', desc: 'зависит от объёма и вида упаковки', color: '#f59e0b', bg: '#fffbeb' },
-  { name: 'Выкуп товара', price: 'от 3%', desc: 'от стоимости товара', color: '#CB3234', bg: '#fff0f0' },
-  { name: 'Фото со склада', price: 'Бесплатно', desc: 'до 5 фото', color: '#1B9E7E', bg: '#e8f7f3' },
-  { name: 'Консолидация', price: 'Бесплатно', desc: 'объединение посылок', color: '#1B9E7E', bg: '#e8f7f3' },
+  { name: '🛡️ Страховка груза', price: '2%', desc: 'Обязательная. Защищает товар от потери и повреждения на всём маршруте', color: '#CB3234', bg: '#fff0f0' },
+  { name: '📦 Упаковка', price: 'от 5 $', desc: 'Надёжная упаковка под любой тип товара. Цена зависит от объёма и вида упаковки', color: '#f59e0b', bg: '#fffbeb' },
+  { name: '🛒 Выкуп товара', price: 'от 3%', desc: 'Выкупаем с любого китайского маркетплейса без китайской карты и аккаунта', color: '#6366f1', bg: '#eef2ff' },
+  { name: '📸 Фото со склада', price: 'Бесплатно', desc: 'До 5 фото вашего товара на нашем складе в Китае перед отправкой', color: '#1B9E7E', bg: '#e8f7f3' },
+  { name: '📬 Консолидация', price: 'Бесплатно', desc: 'Объединяем несколько заказов из разных магазинов в одну посылку', color: '#1B9E7E', bg: '#e8f7f3' },
 ];
 
 export default function Tariffs() {
@@ -44,7 +44,7 @@ export default function Tariffs() {
             Стоимость доставки
           </h2>
           <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
-            Тарифы рассчитываются индивидуально в зависимости от веса, габаритов и типа товара
+            Прозрачные тарифы без скрытых платежей. Цена зависит от веса, габаритов и типа товара
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export default function Tariffs() {
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
               🚛 Автодоставка
             </h3>
-            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Минимальный вес — 5 кг</p>
+            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Выгодная цена · Минимальный вес 5 кг</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {AUTO_ROWS.map((row, i) => (
                 <div key={i} style={{
@@ -85,7 +85,7 @@ export default function Tariffs() {
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
               ✈️ Авиадоставка
             </h3>
-            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Экспресс-доставка за 3–5 дней</p>
+            <p style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px' }}>Когда нужно быстро · Экспресс за 3–5 дней</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
               {AIR_ROWS.map((row, i) => (
                 <div key={i} style={{
@@ -114,7 +114,7 @@ export default function Tariffs() {
               fontSize: '13px', color: '#92400e', fontWeight: 500,
               border: '1px solid #fde68a',
             }}>
-              💡 Точный расчёт — в нашем Telegram или личном кабинете
+              💡 Точная стоимость рассчитывается индивидуально — напишите нам, ответим за несколько минут
             </div>
           </div>
 
@@ -179,8 +179,8 @@ export default function Tariffs() {
           textAlign: 'center',
           lineHeight: 1.6,
         }}>
-          Стоимость доставки зависит от веса, объёма и типа товара. Запрещённые к ввозу товары не принимаем.
-          Для расчёта точной цены напишите нам — ответим в течение нескольких минут.
+          Стоимость доставки рассчитывается по фактическому или объёмному весу — в зависимости от того, какой больше.
+          Товары, запрещённые к ввозу в РФ, не принимаем. Остались вопросы? Напишите нам — ответим быстро.
         </div>
 
       </div>
