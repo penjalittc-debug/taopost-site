@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Header from '@/components/Header';
 import HeroV2 from '@/components/HeroV2';
 import PriceComparison from '@/components/PriceComparison';
@@ -66,7 +67,7 @@ export default function HomeV2() {
         fontWeight: 600,
         zIndex: 99,
       }}>
-        🧪 Тест-версия воронки v2 · <a href="/" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'underline' }}>Смотреть текущий сайт →</a>
+        🧪 Тест-версия воронки v2 · <Link href="/" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'underline' }}>Смотреть текущий сайт →</Link>
       </div>
       <main style={{ paddingTop: '36px' }}>
         {/* 1. Зацепить — выгода в заголовке, WhatsApp как CTA */}
