@@ -33,7 +33,7 @@ export default function PriceComparison() {
           </p>
         </div>
 
-        <div className="prices-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+        <div className="prices-grid three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
           {PRODUCTS.map((p) => {
             const savings = p.priceRU - p.priceCN;
             const savingsPct = Math.round((savings / p.priceRU) * 100);

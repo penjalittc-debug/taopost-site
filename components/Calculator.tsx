@@ -89,7 +89,7 @@ export default function Calculator() {
           </p>
         </div>
 
-        <div style={{
+        <div className="form-box" style={{
           background: 'white',
           borderRadius: '24px',
           padding: '40px',

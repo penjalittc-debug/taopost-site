@@ -24,7 +24,7 @@ export default function WarehouseGallery() {
   };
 
   return (
-    <section style={{ padding: '80px 0', background: 'white', overflow: 'hidden' }}>
+    <section className="section-pad" style={{ paddingLeft: 0, paddingRight: 0, background: 'white', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
 
         {/* Header */}
@@ -206,8 +206,14 @@ export default function WarehouseGallery() {
 
       <style>{`
         div::-webkit-scrollbar { display: none; }
-        @media (max-width: 600px) {
-          .gallery-card { width: 85vw !important; height: 240px !important; }
+        @media (max-width: 1024px) {
+          .gallery-card { width: 400px !important; height: 260px !important; }
+        }
+        @media (max-width: 768px) {
+          .gallery-card { width: 78vw !important; height: 230px !important; }
+        }
+        @media (max-width: 480px) {
+          .gallery-card { width: 88vw !important; height: 200px !important; }
         }
       `}</style>
     </section>

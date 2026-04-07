@@ -2,9 +2,9 @@
 
 export default function CTAV2() {
   return (
-    <section style={{ padding: '80px 24px', background: 'white' }}>
+    <section className="section-pad" style={{ background: 'white' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div style={{
+        <div className="cta-inner" style={{
           background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
           borderRadius: '28px',
           padding: '60px 48px',

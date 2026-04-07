@@ -61,7 +61,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section id="about" style={{ padding: '80px 24px', background: '#F9FAFB' }}>
+    <section id="about" className="section-pad" style={{ background: '#F9FAFB' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         {/* Header */}
@@ -94,7 +94,7 @@ export default function Features() {
         {/* Cards grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
           gap: '20px',
         }}>
           {FEATURES.map((f) => (

@@ -31,7 +31,7 @@ export default function Loyalty() {
           </p>
         </div>
 
-        <div className="loyalty-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '40px' }}>
+        <div className="loyalty-grid four-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '40px' }}>
           {LEVELS.map((level) => (
             <div key={level.name} style={{
               background: level.bg,

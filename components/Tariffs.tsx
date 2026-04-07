@@ -20,7 +20,7 @@ const SERVICES = [
 
 export default function Tariffs() {
   return (
-    <section id="tariffs" style={{ padding: '80px 24px', background: 'white' }}>
+    <section id="tariffs" className="section-pad" style={{ background: 'white' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         <div style={{ textAlign: 'center', marginBottom: '56px' }}>
@@ -128,7 +128,7 @@ export default function Tariffs() {
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '20px' }}>
               🛠 Дополнительные услуги
             </h3>
-            <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px' }}>
+            <div className="services-grid five-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '12px' }}>
               {SERVICES.map((svc) => (
                 <div key={svc.name} style={{
                   background: 'white', borderRadius: '14px', padding: '16px',

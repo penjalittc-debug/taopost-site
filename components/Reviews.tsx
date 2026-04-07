@@ -60,7 +60,7 @@ export default function Reviews() {
         </div>
 
         {/* Cards */}
-        <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
+        <div className="reviews-grid three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
           {getVisible().map((review, i) => (
             <div key={i} style={{
               background: 'white',

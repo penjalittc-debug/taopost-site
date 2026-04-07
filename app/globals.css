@@ -25,3 +25,67 @@ body {
   background: #fff;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Responsive section padding ─────────────────────────────── */
+.section-pad {
+  padding: 80px 24px;
+}
+@media (max-width: 1024px) {
+  .section-pad { padding: 64px 24px; }
+}
+@media (max-width: 768px) {
+  .section-pad { padding: 56px 20px; }
+}
+@media (max-width: 480px) {
+  .section-pad { padding: 40px 16px; }
+}
+
+/* ── Responsive card padding ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .card-pad { padding: 20px !important; }
+}
+
+/* ── Responsive inner CTA box ───────────────────────────────── */
+@media (max-width: 768px) {
+  .cta-inner { padding: 40px 28px !important; }
+}
+@media (max-width: 480px) {
+  .cta-inner { padding: 32px 20px !important; }
+}
+
+/* ── Responsive form box ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .form-box { padding: 24px 16px !important; }
+}
+
+/* ── Two-col → one-col at mobile ────────────────────────────── */
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr !important; }
+}
+
+/* ── Three-col grid ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .three-col { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 480px) {
+  .three-col { grid-template-columns: 1fr !important; }
+}
+
+/* ── Four-col grid ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .four-col { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 480px) {
+  .four-col { grid-template-columns: 1fr !important; }
+}
+
+/* ── Five-col → responsive ──────────────────────────────────── */
+@media (max-width: 1024px) {
+  .five-col { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 768px) {
+  .five-col { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 480px) {
+  .five-col { grid-template-columns: 1fr !important; }
+}
