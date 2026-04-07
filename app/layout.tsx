@@ -58,6 +58,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = 'manual'; if (!location.hash) window.scrollTo(0, 0);` }} />
+      </head>
       <body>
         <Script id="yandex-metrika" strategy="afterInteractive">{`
           (function(m,e,t,r,i,k,a){

@@ -22,7 +22,7 @@ export default function Hero() {
       }}
     >
       {/* Dragon background */}
-      <div style={{
+      <div className="dragon-bg" style={{
         position: 'absolute',
         top: '50%',
         right: '0px',
@@ -178,6 +178,15 @@ export default function Hero() {
           .hero-buttons { flex-direction: column !important; }
           .hero-buttons a { text-align: center !important; justify-content: center !important; }
           .hero-stats { gap: 20px !important; }
+          .dragon-bg {
+            width: 320px !important;
+            height: 320px !important;
+            top: auto !important;
+            bottom: 0px !important;
+            right: -40px !important;
+            transform: none !important;
+            opacity: 0.12 !important;
+          }
         }
       `}</style>
     </section>
