@@ -115,30 +115,41 @@ export default function Footer() {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div>
-                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Telegram</div>
+                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Телефон</div>
                 <a
-                  href="https://t.me/taopost"
-                  style={{ fontSize: '14px', color: '#1B9E7E', textDecoration: 'none', fontWeight: 600 }}
-                >
-                  @taopost
-                </a>
-              </div>
-              <div>
-                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>WhatsApp / Телефон</div>
-                <a
-                  href="tel:+79999999999"
+                  href="tel:+79772767778"
                   style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'none' }}
                 >
-                  +7 (999) 999-99-99
+                  +7 977 276 77 78
                 </a>
               </div>
               <div>
-                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Email</div>
+                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Telegram (менеджер)</div>
+                <a
+                  href="https://t.me/taopostmaneger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '14px', color: '#1B9E7E', textDecoration: 'none', fontWeight: 600 }}
+                >
+                  @taopostmaneger
+                </a>
+              </div>
+              <div>
+                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Email — сотрудничество</div>
                 <a
                   href="mailto:info@taopost.ru"
                   style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'none' }}
                 >
                   info@taopost.ru
+                </a>
+              </div>
+              <div>
+                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '3px' }}>Email — обращения и жалобы</div>
+                <a
+                  href="mailto:help@taopost.ru"
+                  style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'none' }}
+                >
+                  help@taopost.ru
                 </a>
               </div>
               <div>
