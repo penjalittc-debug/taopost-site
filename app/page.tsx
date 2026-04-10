@@ -135,8 +135,8 @@ export default function Home() {
       <Header />
       <main>
         <HeroV2 />
-        <PriceComparison />
         <Marketplaces />
+        <PriceComparison />
         <HowItWorks />
         <Calculator />
         <Tariffs />
