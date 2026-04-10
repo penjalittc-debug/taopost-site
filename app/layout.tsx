@@ -38,6 +38,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://taopost.ru",
   },
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: '/icon.png',
+    shortcut: '/icon.png',
+  },
   verification: {
     yandex: "3645f89ced68555a",
   },
