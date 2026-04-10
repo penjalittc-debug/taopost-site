@@ -59,7 +59,7 @@ export default function Calculator() {
       `📞 Телефон: ${phone}`,
     ].filter(Boolean).join('\n');
 
-    const url = `https://wa.me/79772767778?text=${encodeURIComponent(lines)}`;
+    const url = `https://t.me/taopostmaneger?text=${encodeURIComponent(lines)}`;
     window.open(url, '_blank');
     setSent(true);
   };
