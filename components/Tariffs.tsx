@@ -149,7 +149,7 @@ export default function Tariffs() {
             </div>
 
             <a
-              href="https://wa.me/79772767778?text=Привет! Хочу рассчитать стоимость доставки"
+              href="https://t.me/taopostmaneger"
               target="_blank"
               rel="noopener noreferrer"
               style={{
