@@ -31,12 +31,12 @@ export default function HeroV2() {
       <div className="dragon-bg" style={{
         position: 'absolute',
         top: '50%',
-        right: '0px',
+        right: '-40px',
         transform: 'translateY(-50%)',
-        width: '680px',
-        height: '680px',
+        width: '850px',
+        height: '850px',
         pointerEvents: 'none',
-        opacity: 0.18,
+        opacity: 0.45,
         zIndex: 0,
       }}>
         <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
