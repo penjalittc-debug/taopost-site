@@ -130,26 +130,29 @@ export default function HeroV2() {
               style={{
                 padding: '18px 32px',
                 background: 'white',
-                color: '#374151',
+                color: '#1B9E7E',
                 fontWeight: 700,
                 fontSize: '16px',
                 borderRadius: '50px',
                 textDecoration: 'none',
-                border: '2px solid #e5e7eb',
+                border: '2px solid #1B9E7E',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                transition: 'border-color 0.15s, color 0.15s',
+                transition: 'background 0.15s, color 0.15s',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = '#1B9E7E';
-                (e.currentTarget as HTMLElement).style.color = '#1B9E7E';
+                (e.currentTarget as HTMLElement).style.background = '#1B9E7E';
+                (e.currentTarget as HTMLElement).style.color = 'white';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb';
-                (e.currentTarget as HTMLElement).style.color = '#374151';
+                (e.currentTarget as HTMLElement).style.background = 'white';
+                (e.currentTarget as HTMLElement).style.color = '#1B9E7E';
               }}
             >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
+              </svg>
               Рассчитать стоимость
             </a>
           </div>

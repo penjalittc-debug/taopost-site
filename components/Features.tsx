@@ -1,59 +1,60 @@
 'use client';
+import { ShieldCheck, ShoppingCart, MapPin, Zap, Package, Camera, Users, TrendingUp } from 'lucide-react';
 
 const FEATURES = [
   {
-    icon: '🛡️',
+    Icon: ShieldCheck,
     title: 'Официальная доставка',
     description: 'Соблюдаем все нормы таможенного и налогового законодательства РФ. Никаких сюрпризов на таможне.',
     color: '#1B9E7E',
     bg: '#e8f7f3',
   },
   {
-    icon: '🛒',
+    Icon: ShoppingCart,
     title: 'Выкуп товаров',
     description: 'Поможем купить товар, если у вас нет китайской карты или аккаунта на маркетплейсе.',
     color: '#CB3234',
     bg: '#fff0f0',
   },
   {
-    icon: '📍',
+    Icon: MapPin,
     title: 'Отслеживание посылок',
     description: 'Следите за статусом заказа в реальном времени через наше приложение — от склада до двери.',
     color: '#6366f1',
     bg: '#eef2ff',
   },
   {
-    icon: '⚡',
+    Icon: Zap,
     title: 'Быстрая доставка',
     description: 'Доставляем за 15–25 дней. Регулярные рейсы из Гуанчжоу напрямую в Россию.',
     color: '#f59e0b',
     bg: '#fffbeb',
   },
   {
-    icon: '📦',
+    Icon: Package,
     title: 'Консолидация',
     description: 'Объединяем несколько заказов из разных магазинов в одну посылку — платите за доставку один раз.',
     color: '#8b5cf6',
     bg: '#f5f3ff',
   },
   {
-    icon: '📸',
+    Icon: Camera,
     title: 'Фото товара',
     description: 'По запросу сделаем фотографии вашего товара на складе в Китае перед отправкой.',
     color: '#ec4899',
     bg: '#fdf2f8',
   },
   {
-    icon: '🤝',
+    Icon: Users,
     title: 'Совместный выкуп',
-    description: 'Не хватает до минимальных 5 кг? Объединяем вас с другими заказчиками — платите только за свой вес, доставка идёт общей партией.',
+    description: 'Не хватает до минимальных 5 кг? Объединяем вас с другими заказчиками — платите только за свой вес.',
     color: '#0ea5e9',
     bg: '#e0f2fe',
   },
   {
-    icon: '💱',
+    Icon: TrendingUp,
     title: 'Выгодный курс юаня',
-    description: 'Быстрая конвертация рублей в юани по выгодному курсу. Оплатили — менеджер сразу оформляет заказ у поставщика.',
+    description: 'Быстрая конвертация рублей в юани по выгодному курсу. Оплатили — менеджер сразу оформляет заказ.',
     color: '#16a34a',
     bg: '#dcfce7',
   },
@@ -121,10 +122,9 @@ export default function Features() {
                 background: f.bg,
                 borderRadius: '16px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '24px',
                 marginBottom: '18px',
               }}>
-                {f.icon}
+                <f.Icon size={24} color={f.color} strokeWidth={2} />
               </div>
               <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', marginBottom: '10px' }}>
                 {f.title}

@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Outfit } from "next/font/google";
 import "./globals.css";
+
+const outfit = Outfit({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688, Pinduoduo",
@@ -68,7 +75,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = 'manual'; if (!location.hash) window.scrollTo(0, 0);` }} />
       </head>
-      <body>
+      <body className={outfit.className}>
         <Script id="yandex-metrika" strategy="afterInteractive">{`
           (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

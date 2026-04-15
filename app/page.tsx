@@ -11,6 +11,7 @@ import Reviews from '@/components/Reviews';
 import FAQ from '@/components/FAQ';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
+import FadeIn from '@/components/FadeIn';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -135,16 +136,16 @@ export default function Home() {
       <Header />
       <main>
         <HeroV2 />
-        <Marketplaces />
-        <PriceComparison />
-        <HowItWorks />
-        <Calculator />
-        <Tariffs />
-        <Features />
-        <WarehouseGallery />
-        <Reviews />
-        <FAQ />
-        <CTAV2 />
+        <FadeIn><Marketplaces /></FadeIn>
+        <FadeIn delay={50}><PriceComparison /></FadeIn>
+        <FadeIn delay={50}><HowItWorks /></FadeIn>
+        <FadeIn delay={50}><Calculator /></FadeIn>
+        <FadeIn delay={50}><Tariffs /></FadeIn>
+        <FadeIn delay={50}><Features /></FadeIn>
+        <FadeIn delay={50}><WarehouseGallery /></FadeIn>
+        <FadeIn delay={50}><Reviews /></FadeIn>
+        <FadeIn delay={50}><FAQ /></FadeIn>
+        <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>
       <Footer />
       <TelegramFloat />
