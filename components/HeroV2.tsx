@@ -36,7 +36,7 @@ export default function HeroV2() {
         width: '850px',
         height: '850px',
         pointerEvents: 'none',
-        opacity: 0.45,
+        opacity: 1,
         zIndex: 0,
       }}>
         <Image src="/dragon.webp" alt="" fill style={{ objectFit: 'contain' }} />
