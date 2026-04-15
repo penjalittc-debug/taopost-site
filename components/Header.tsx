@@ -40,7 +40,7 @@ export default function Header() {
 
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <Image src="/logo.png" alt="TaoPost" width={36} height={36} style={{ objectFit: 'contain' }} priority />
+          <Image src="/logo.png" alt="TaoPost" width={48} height={48} style={{ objectFit: 'contain' }} priority />
           <span style={{ fontWeight: 800, fontSize: '20px', color: '#111827', letterSpacing: '-0.5px' }}>
             Tao<span style={{ color: '#1B9E7E' }}>Post</span>
           </span>
