@@ -79,7 +79,7 @@ export default function Header() {
         {/* CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <a
-            href="https://taopost.vercel.app"
+            href="https://t.me/taopostmaneger?start=site"
             target="_blank"
             rel="noopener noreferrer"
             className="header-cta"
@@ -104,7 +104,7 @@ export default function Header() {
               (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(27,158,126,0.35)';
             }}
           >
-            Войти в сервис
+            Написать нам
           </a>
 
           {/* Mobile burger */}

@@ -95,7 +95,7 @@ export default function Loyalty() {
               Уровень считается по общему весу за месяц. Например: в январе вы отправили 35 кг — значит в феврале вам присваивается «Золото» и кешбэк 50 ₽ с каждого кг.
             </div>
           </div>
-          <a href="https://taopost.vercel.app" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://t.me/taopostmaneger?start=site" target="_blank" rel="noopener noreferrer" style={{
             padding: '12px 24px', background: '#1B9E7E', color: 'white',
             borderRadius: '50px', textDecoration: 'none', fontWeight: 700,
             fontSize: '14px', whiteSpace: 'nowrap',

@@ -51,7 +51,7 @@ export default function CTA() {
 
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href="https://taopost.vercel.app"
+                href="https://t.me/taopostmaneger?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

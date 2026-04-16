@@ -87,7 +87,7 @@ export default function Tracking() {
                 📦 Для отслеживания войдите в личный кабинет или напишите нам в Telegram
               </div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
-                <a href="https://taopost.vercel.app" target="_blank" rel="noopener noreferrer" style={{
+                <a href="https://t.me/taopostmaneger?start=site" target="_blank" rel="noopener noreferrer" style={{
                   flex: 1, padding: '12px', background: '#1B9E7E', color: 'white',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center',

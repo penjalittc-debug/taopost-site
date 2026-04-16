@@ -114,7 +114,7 @@ export default function GuidePage() {
               кто заказывает из Китая впервые и для опытных покупателей
             </p>
             <a
-              href="https://taopost.vercel.app"
+              href="https://t.me/taopostmaneger?start=site"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -284,7 +284,7 @@ export default function GuidePage() {
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href="https://taopost.vercel.app"
+                href="https://t.me/taopostmaneger?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

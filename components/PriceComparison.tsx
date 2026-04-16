@@ -116,7 +116,7 @@ export default function PriceComparison() {
           <p style={{ fontSize: '16px', color: '#6B7280', marginBottom: '20px' }}>
             Хотите узнать цену конкретного товара?
           </p>
-          <a href="https://taopost.vercel.app" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://t.me/taopostmaneger?start=site" target="_blank" rel="noopener noreferrer" style={{
             display: 'inline-block', padding: '16px 40px',
             background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
             color: 'white', fontWeight: 800, fontSize: '16px',
