@@ -49,7 +49,7 @@ export default function BlogPage() {
               marginBottom: '20px',
               letterSpacing: '-1px',
             }}>
-              Блог TaoPost
+              Блог Tao<span style={{ color: '#1B9E7E' }}>Post</span>
             </h1>
             <p style={{
               fontSize: '18px',
