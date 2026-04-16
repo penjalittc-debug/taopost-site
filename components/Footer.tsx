@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'Тарифы', href: '#tariffs' },
   { label: 'FAQ', href: '#faq' },
   { label: '📚 Как заказать из Китая', href: '/kak-zakazat-iz-kitaya' },
+  { label: '📖 Блог', href: '/blog' },
 ];
 
 export default function Footer() {

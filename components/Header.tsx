@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { label: 'Маркетплейсы', href: '#marketplaces' },
   { label: 'Тарифы', href: '#tariffs' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Блог', href: '/blog' },
   { label: 'Контакты', href: '#contacts' },
 ];
 
