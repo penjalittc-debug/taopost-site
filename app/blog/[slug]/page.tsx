@@ -32,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'TaoPost',
       locale: 'ru_RU',
       type: 'article',
+      images: [{ url: 'https://taopost.ru/og-image.png', width: 1200, height: 630, alt: article.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: ['https://taopost.ru/og-image.png'],
     },
   };
 }
@@ -46,6 +53,7 @@ export default async function ArticlePage({ params }: Props) {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
+    image: 'https://taopost.ru/og-image.png',
     author: {
       '@type': 'Organization',
       name: 'TaoPost',
@@ -65,11 +73,25 @@ export default async function ArticlePage({ params }: Props) {
     mainEntityOfPage: `https://taopost.ru/blog/${article.slug}`,
   };
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://taopost.ru' },
+      { '@type': 'ListItem', position: 2, name: 'Блог', item: 'https://taopost.ru/blog' },
+      { '@type': 'ListItem', position: 3, name: article.title, item: `https://taopost.ru/blog/${article.slug}` },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <Header />
       <main>

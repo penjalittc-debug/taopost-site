@@ -62,6 +62,20 @@ export const metadata: Metadata = {
     siteName: "TaoPost",
     locale: "ru_RU",
     type: "website",
+    images: [
+      {
+        url: "https://taopost.ru/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "TaoPost — Доставка из Китая в Россию",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TaoPost — Доставка из Китая в Россию",
+    description: "Карго доставка из Китая в Россию. Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 599₽/кг.",
+    images: ["https://taopost.ru/og-image.png"],
   },
 };
 

@@ -18,6 +18,13 @@ export const metadata: Metadata = {
     siteName: 'TaoPost',
     locale: 'ru_RU',
     type: 'website',
+    images: [{ url: 'https://taopost.ru/og-image.png', width: 1200, height: 630, alt: 'Блог TaoPost' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Блог TaoPost — Гайды по доставке из Китая',
+    description: 'Полезные статьи о доставке из Китая: размерные сетки, таможенные нормы, инструкции по Taobao и Pinduoduo.',
+    images: ['https://taopost.ru/og-image.png'],
   },
 };
 
