@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { Send } from 'lucide-react';
 
 const MARKETPLACES = [
   {
@@ -46,71 +47,29 @@ const MARKETPLACES = [
 
 export default function Marketplaces() {
   return (
-    <section id="marketplaces" style={{ padding: '80px 24px', background: 'white' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="marketplaces" className="tp-section">
+      <div className="tp-mesh tp-mesh--coral tp-mesh--tr" />
+      <div className="tp-mesh tp-mesh--green tp-mesh--bl" />
 
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
-            borderRadius: '50px', padding: '6px 14px',
-            fontSize: '13px', fontWeight: 700,
-            marginBottom: '16px',
-            border: '1px solid #c6ede4',
-          }}>
+      <div className="tp-container">
+        <div className="tp-section__head">
+          <span className="tp-eyebrow">
+            <span className="tp-eyebrow__dot" />
             Маркетплейсы
-          </div>
-          <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
-            fontWeight: 900,
-            color: '#111827',
-            letterSpacing: '-0.5px',
-            marginBottom: '16px',
-          }}>
+          </span>
+          <h2 className="tp-h2">
             Везём с любого<br />
-            <span style={{ color: '#1B9E7E' }}>китайского маркетплейса</span>
+            <span className="tp-gradient-text">китайского маркетплейса</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p className="tp-lede">
             Просто скопируйте ссылку на товар и отправьте нам — всё остальное сделаем мы
           </p>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
-        }}>
+        <div className="mp__grid">
           {MARKETPLACES.map((mp) => (
-            <div
-              key={mp.name}
-              style={{
-                background: '#F9FAFB',
-                borderRadius: '20px',
-                padding: '24px 20px',
-                border: '1px solid #F3F4F6',
-                textAlign: 'center',
-                transition: 'transform 0.2s, box-shadow 0.2s, background 0.2s',
-                cursor: 'default',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(0,0,0,0.08)';
-                (e.currentTarget as HTMLElement).style.background = 'white';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-                (e.currentTarget as HTMLElement).style.background = '#F9FAFB';
-              }}
-            >
-              <div style={{
-                width: '64px', height: '64px',
-                background: mp.color,
-                borderRadius: '20px',
-                overflow: 'hidden',
-                margin: '0 auto 14px',
-                boxShadow: `0 8px 20px ${mp.color}40`,
-              }}>
+            <div key={mp.name} className="tp-card tp-card--hover mp__card">
+              <div className="mp__logo" style={{ background: mp.color, boxShadow: `0 10px 24px -6px ${mp.color}60` }}>
                 <Image
                   src={mp.img}
                   alt={mp.name}
@@ -120,58 +79,107 @@ export default function Marketplaces() {
                 />
               </div>
 
-              <div style={{
-                display: 'inline-block',
-                background: mp.tagColor + '15',
-                color: mp.tagColor,
-                borderRadius: '20px',
-                padding: '3px 10px',
-                fontSize: '11px',
-                fontWeight: 700,
-                marginBottom: '10px',
-              }}>
+              <span
+                className="mp__tag"
+                style={{ background: mp.tagColor + '15', color: mp.tagColor }}
+              >
                 {mp.tag}
-              </div>
+              </span>
 
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                {mp.name}
-              </h3>
-              <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.5 }}>
-                {mp.description}
-              </p>
+              <h3 className="mp__name">{mp.name}</h3>
+              <p className="mp__desc">{mp.description}</p>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div style={{
-          marginTop: '40px',
-          textAlign: 'center',
-          padding: '32px',
-          background: 'linear-gradient(135deg, #e8f7f3, #f0fdf9)',
-          borderRadius: '20px',
-          border: '1px solid #c6ede4',
-        }}>
-          <p style={{ fontSize: '17px', fontWeight: 700, color: '#374151', marginBottom: '16px' }}>
+        <div className="tp-card tp-card--glass mp__cta">
+          <p className="mp__ctaText">
             Не нашли нужный маркетплейс? Мы работаем и с другими площадками — напишите нам
           </p>
           <a
-            href="#contacts"
-            style={{
-              display: 'inline-block',
-              padding: '12px 28px',
-              background: '#1B9E7E',
-              color: 'white',
-              borderRadius: '50px',
-              textDecoration: 'none',
-              fontWeight: 700,
-              fontSize: '15px',
-            }}
+            href="https://t.me/taopostmaneger?start=site"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tp-btn tp-btn--primary"
           >
-            Написать в Telegram →
+            <Send size={18} strokeWidth={2.5} />
+            Написать в Telegram
           </a>
         </div>
       </div>
+
+      <style jsx>{`
+        .mp__grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 20px;
+        }
+        .mp__card {
+          padding: 28px 22px;
+          text-align: center;
+        }
+        .mp__logo {
+          width: 64px; height: 64px;
+          border-radius: 20px;
+          overflow: hidden;
+          margin: 0 auto 16px;
+        }
+        .mp__tag {
+          display: inline-block;
+          border-radius: 999px;
+          padding: 4px 11px;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+        }
+        .mp__name {
+          font-size: 17px;
+          font-weight: 800;
+          color: var(--ink);
+          margin: 0 0 8px;
+          letter-spacing: -0.3px;
+        }
+        .mp__desc {
+          font-size: 13.5px;
+          color: var(--text-muted);
+          line-height: 1.55;
+          margin: 0;
+        }
+
+        .mp__cta {
+          margin-top: 48px;
+          padding: 36px 32px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+        .mp__ctaText {
+          font-size: 17px;
+          font-weight: 600;
+          color: var(--ink);
+          margin: 0;
+          flex: 1;
+          min-width: 260px;
+          line-height: 1.5;
+        }
+
+        @media (max-width: 1024px) {
+          .mp__grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 680px) {
+          .mp__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+          .mp__card { padding: 22px 16px; }
+          .mp__cta { flex-direction: column; text-align: center; padding: 28px 22px; }
+          .mp__ctaText { text-align: center; }
+        }
+        @media (max-width: 400px) {
+          .mp__grid { grid-template-columns: 1fr; }
+        }
+      `}</style>
     </section>
   );
 }

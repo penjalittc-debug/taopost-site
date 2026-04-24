@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import HeroV2 from '@/components/HeroV2';
+import HeroV3 from '@/components/HeroV3';
 import PriceComparison from '@/components/PriceComparison';
 import Marketplaces from '@/components/Marketplaces';
 import HowItWorks from '@/components/HowItWorks';
@@ -135,7 +135,7 @@ export default function Home() {
       />
       <Header />
       <main>
-        <HeroV2 />
+        <HeroV3 />
         <FadeIn><Marketplaces /></FadeIn>
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
