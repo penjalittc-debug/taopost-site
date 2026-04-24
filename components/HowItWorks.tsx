@@ -1,12 +1,21 @@
 'use client';
+import { ShoppingCart, CreditCard, Warehouse, Truck, PackageCheck, CheckCircle2, type LucideIcon } from 'lucide-react';
 
-const STEPS = [
+type Step = {
+  number: string;
+  Icon: LucideIcon;
+  title: string;
+  tile: 'coral' | 'green' | 'ink';
+  description: string | null;
+  options: { label: string; text: string }[] | null;
+};
+
+const STEPS: Step[] = [
   {
     number: '01',
-    icon: '🛒',
+    Icon: ShoppingCart,
     title: 'Оформление покупки',
-    color: '#1B9E7E',
-    bg: '#e8f7f3',
+    tile: 'coral',
     description: null,
     options: [
       {
@@ -21,37 +30,33 @@ const STEPS = [
   },
   {
     number: '02',
-    icon: '💳',
+    Icon: CreditCard,
     title: 'Расчёт и оплата',
-    color: '#6366f1',
-    bg: '#eef2ff',
+    tile: 'green',
     description: 'Рассчитаем итоговую стоимость товара и логистики. Оплата любым удобным способом — банковской картой или переводом.',
     options: null,
   },
   {
     number: '03',
-    icon: '🏭',
+    Icon: Warehouse,
     title: 'Склад и консолидация',
-    color: '#f59e0b',
-    bg: '#fffbeb',
+    tile: 'ink',
     description: 'Вы полностью контролируете товары в приложении. Объединяйте несколько заказов в один ящик или разделяйте их для отправки в разные пункты.',
     options: null,
   },
   {
     number: '04',
-    icon: '🚛',
+    Icon: Truck,
     title: 'Доставка в РФ и Беларусь',
-    color: '#CB3234',
-    bg: '#fff0f0',
+    tile: 'coral',
     description: 'После подтверждения отправляем груз. Средний срок — 15–20 дней, максимальный — до 25 дней.',
     options: null,
   },
   {
     number: '05',
-    icon: '📬',
+    Icon: PackageCheck,
     title: 'Получение и доставка до адреса',
-    color: '#0891b2',
-    bg: '#e0f7fa',
+    tile: 'green',
     description: 'Когда груз прибудет в Россию — вы получите уведомление. Оформите доставку до конечного адреса прямо в приложении.',
     options: null,
   },
@@ -59,180 +64,180 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section id="how" style={{ padding: '80px 24px', background: '#F9FAFB' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="how" className="tp-section">
+      <div className="tp-mesh tp-mesh--coral tp-mesh--tr" />
+      <div className="tp-mesh tp-mesh--green tp-mesh--bl" />
 
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
-            borderRadius: '50px', padding: '6px 14px',
-            fontSize: '13px', fontWeight: 700,
-            marginBottom: '16px',
-            border: '1px solid #c6ede4',
-          }}>
+      <div className="tp-container">
+        <div className="tp-section__head">
+          <span className="tp-eyebrow">
+            <span className="tp-eyebrow__dot" />
             Процесс
-          </div>
-          <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
-            fontWeight: 900,
-            color: '#111827',
-            letterSpacing: '-0.5px',
-            marginBottom: '16px',
-          }}>
-            Как сделать заказ
+          </span>
+          <h2 className="tp-h2">
+            Как сделать <span className="tp-gradient-text">заказ</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '460px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p className="tp-lede">
             5 простых шагов — от выбора товара до получения посылки у вас дома
           </p>
         </div>
 
-        {/* Steps — first row 3, second row 2 centered */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '20px',
-          }} className="steps-row-3">
-            {STEPS.slice(0, 3).map((step, idx) => (
-              <StepCard key={step.number} step={step} idx={idx} total={3} />
-            ))}
+        <div className="hiw__rows">
+          <div className="hiw__row hiw__row--3">
+            {STEPS.slice(0, 3).map((step) => <StepCard key={step.number} step={step} />)}
           </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '20px',
-            maxWidth: '800px',
-            margin: '0 auto',
-            width: '100%',
-          }} className="steps-row-2">
-            {STEPS.slice(3).map((step, idx) => (
-              <StepCard key={step.number} step={step} idx={idx} total={2} />
-            ))}
+          <div className="hiw__row hiw__row--2">
+            {STEPS.slice(3).map((step) => <StepCard key={step.number} step={step} />)}
           </div>
         </div>
 
-        {/* Bottom note */}
-        <div style={{
-          marginTop: '40px',
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '32px',
-          flexWrap: 'wrap',
-        }}>
+        <div className="hiw__note">
           {[
-            { icon: '✅', text: 'Без предоплаты за выкуп' },
-            { icon: '✅', text: 'Трекинг на каждом этапе' },
-            { icon: '✅', text: 'Поддержка в Telegram' },
-          ].map((item) => (
-            <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 600, color: '#374151' }}>
-              <span>{item.icon}</span>
-              <span>{item.text}</span>
-            </div>
+            'Без предоплаты за выкуп',
+            'Трекинг на каждом этапе',
+            'Поддержка в Telegram',
+          ].map((text) => (
+            <span key={text} className="hiw__noteItem">
+              <CheckCircle2 size={18} strokeWidth={2.5} />
+              {text}
+            </span>
           ))}
         </div>
-
       </div>
 
-      <style>{`
+      <style jsx>{`
+        .hiw__rows {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+        .hiw__row {
+          display: grid;
+          gap: 24px;
+        }
+        .hiw__row--3 { grid-template-columns: repeat(3, 1fr); }
+        .hiw__row--2 {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 820px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .hiw__note {
+          margin-top: 56px;
+          display: flex;
+          justify-content: center;
+          gap: 28px;
+          flex-wrap: wrap;
+        }
+        .hiw__noteItem {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 14.5px;
+          font-weight: 600;
+          color: #374151;
+        }
+        .hiw__noteItem :global(svg) { color: var(--green); }
+
         @media (max-width: 900px) {
-          .steps-row-3 { grid-template-columns: 1fr !important; }
-          .steps-row-2 { grid-template-columns: 1fr !important; max-width: 100% !important; }
+          .hiw__row--3, .hiw__row--2 {
+            grid-template-columns: 1fr;
+            max-width: 560px;
+            margin: 0 auto;
+            width: 100%;
+          }
         }
       `}</style>
     </section>
   );
 }
 
-function StepCard({ step, idx, total }: { step: typeof STEPS[0]; idx: number; total: number }) {
+function StepCard({ step }: { step: Step }) {
+  const tileClass = `tp-icon-tile tp-icon-tile--${step.tile}`;
   return (
-    <div style={{ position: 'relative' }}>
-      {idx < total - 1 && (
-        <div
-          className="step-connector"
-          style={{
-            position: 'absolute',
-            top: '36px',
-            right: '-20px',
-            width: '40px',
-            height: '2px',
-            background: step.color,
-            zIndex: 1,
-            opacity: 0.3,
-          }}
-        />
-      )}
-      <div
-        style={{
-          background: 'white',
-          borderRadius: '20px',
-          padding: '28px 24px',
-          border: '1px solid #F3F4F6',
-          height: '100%',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)';
-          (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(0,0,0,0.08)';
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-          (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-          <div style={{
-            width: '48px', height: '48px',
-            background: step.bg,
-            borderRadius: '14px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '22px',
-          }}>
-            {step.icon}
-          </div>
-          <div style={{
-            fontSize: '28px',
-            fontWeight: 900,
-            color: step.color,
-            opacity: 0.25,
-            lineHeight: 1,
-          }}>
-            {step.number}
-          </div>
+    <div className="tp-card tp-card--hover hiw__card">
+      <div className="hiw__head">
+        <div className={tileClass}>
+          <step.Icon size={22} strokeWidth={2.3} />
         </div>
-
-        <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', marginBottom: '12px' }}>
-          {step.title}
-        </h3>
-
-        {step.description && (
-          <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6 }}>
-            {step.description}
-          </p>
-        )}
-
-        {step.options && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {step.options.map((opt) => (
-              <div key={opt.label} style={{
-                background: '#F9FAFB',
-                borderRadius: '12px',
-                padding: '12px 14px',
-                borderLeft: `3px solid ${step.color}`,
-              }}>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827', marginBottom: '4px' }}>
-                  {opt.label}
-                </div>
-                <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.55 }}>
-                  {opt.text}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <span className="hiw__num">{step.number}</span>
       </div>
+
+      <h3 className="hiw__title">{step.title}</h3>
+
+      {step.description && <p className="hiw__desc">{step.description}</p>}
+
+      {step.options && (
+        <div className="hiw__options">
+          {step.options.map((opt) => (
+            <div key={opt.label} className="hiw__option">
+              <div className="hiw__optLabel">{opt.label}</div>
+              <div className="hiw__optText">{opt.text}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <style jsx>{`
+        .hiw__card {
+          padding: 28px 24px;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        .hiw__head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 18px;
+        }
+        .hiw__num {
+          font-size: 36px;
+          font-weight: 900;
+          letter-spacing: -2px;
+          line-height: 1;
+          background: linear-gradient(135deg, rgba(27,158,126,0.15), rgba(255,107,71,0.15));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .hiw__title {
+          font-size: 18px;
+          font-weight: 800;
+          color: var(--ink);
+          margin: 0 0 10px;
+          letter-spacing: -0.3px;
+        }
+        .hiw__desc {
+          font-size: 14px;
+          color: var(--text-muted);
+          line-height: 1.6;
+          margin: 0;
+        }
+        .hiw__options {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .hiw__option {
+          background: #F9FAFB;
+          border-radius: 12px;
+          padding: 12px 14px;
+          border-left: 3px solid var(--coral);
+        }
+        .hiw__optLabel {
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--ink);
+          margin-bottom: 4px;
+        }
+        .hiw__optText {
+          font-size: 13px;
+          color: var(--text-muted);
+          line-height: 1.55;
+        }
+      `}</style>
     </div>
   );
 }

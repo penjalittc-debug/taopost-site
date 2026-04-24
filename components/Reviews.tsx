@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { ArrowLeft, ArrowRight, Star, Quote } from 'lucide-react';
 
 const REVIEWS = [
   { name: 'Алина М.', city: 'Москва', text: 'Заказывала кроссовки с Poizon — пришли за 18 дней, всё оригинальное, упаковка целая. Очень довольна сервисом!', rating: 5, date: 'март 2026' },
@@ -12,10 +13,19 @@ const REVIEWS = [
 
 function Stars({ count }: { count: number }) {
   return (
-    <div style={{ display: 'flex', gap: '2px' }}>
+    <div className="rev__stars">
       {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} style={{ color: i < count ? '#FFD600' : '#E5E7EB', fontSize: '16px' }}>★</span>
+        <Star
+          key={i}
+          size={15}
+          strokeWidth={1.5}
+          fill={i < count ? '#FFC93C' : 'transparent'}
+          color={i < count ? '#FFC93C' : '#E5E7EB'}
+        />
       ))}
+      <style jsx>{`
+        .rev__stars { display: inline-flex; gap: 3px; }
+      `}</style>
     </div>
   );
 }
@@ -37,91 +47,177 @@ export default function Reviews() {
   };
 
   return (
-    <section id="reviews" style={{ padding: '80px 24px', background: '#F9FAFB' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="reviews" className="tp-section tp-section--muted">
+      <div className="tp-mesh tp-mesh--coral tp-mesh--tr" />
+      <div className="tp-mesh tp-mesh--green tp-mesh--bl" />
 
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
-            borderRadius: '50px', padding: '6px 14px',
-            fontSize: '13px', fontWeight: 700, marginBottom: '16px',
-            border: '1px solid #c6ede4',
-          }}>
+      <div className="tp-container">
+        <div className="tp-section__head">
+          <span className="tp-eyebrow">
+            <span className="tp-eyebrow__dot" />
             Отзывы
-          </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#111827', letterSpacing: '-0.5px', marginBottom: '16px' }}>
+          </span>
+          <h2 className="tp-h2">
             Нам доверяют клиенты<br />
-            <span style={{ color: '#1B9E7E' }}>по всей России</span>
+            <span className="tp-gradient-text">по всей России</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '460px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p className="tp-lede">
             Более 1 000 довольных клиентов и 50 000 доставленных товаров
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="reviews-grid three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
+        <div className="rev__grid">
           {getVisible().map((review, i) => (
-            <div key={i} style={{
-              background: 'white',
-              borderRadius: '20px',
-              padding: '28px',
-              border: '1px solid #F3F4F6',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-            }}>
+            <div key={i} className="tp-card rev__card">
+              <Quote size={28} strokeWidth={2.3} className="rev__quote" />
               <Stars count={review.rating} />
-              <p style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7, margin: '16px 0 20px', fontStyle: 'italic' }}>
-                &ldquo;{review.text}&rdquo;
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <p className="rev__text">{review.text}</p>
+              <div className="rev__foot">
                 <div>
-                  <div style={{ fontSize: '14px', fontWeight: 800, color: '#111827' }}>{review.name}</div>
-                  <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>{review.city}</div>
+                  <div className="rev__name">{review.name}</div>
+                  <div className="rev__city">{review.city}</div>
                 </div>
-                <div style={{ fontSize: '12px', color: '#D1D5DB' }}>{review.date}</div>
+                <div className="rev__date">{review.date}</div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Controls */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px' }}>
-          <button onClick={prev} style={{
-            width: '44px', height: '44px', borderRadius: '50%',
-            border: '2px solid #E5E7EB', background: 'white',
-            cursor: 'pointer', fontSize: '18px', color: '#374151',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'all 0.15s',
-          }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = '#1B9E7E'; (e.currentTarget as HTMLElement).style.color = '#1B9E7E'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = '#E5E7EB'; (e.currentTarget as HTMLElement).style.color = '#374151'; }}
-          >←</button>
-          <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="rev__controls">
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Предыдущий отзыв"
+            className="rev__navBtn"
+          >
+            <ArrowLeft size={18} strokeWidth={2.3} />
+          </button>
+          <div className="rev__dots">
             {REVIEWS.map((_, i) => (
-              <div key={i} onClick={() => setCurrent(i)} style={{
-                width: i === current ? '24px' : '8px', height: '8px',
-                borderRadius: '4px',
-                background: i === current ? '#1B9E7E' : '#D1D5DB',
-                cursor: 'pointer', transition: 'all 0.2s',
-              }} />
+              <button
+                key={i}
+                type="button"
+                aria-label={`Отзыв ${i + 1}`}
+                onClick={() => setCurrent(i)}
+                className={`rev__dot${i === current ? ' rev__dot--active' : ''}`}
+              />
             ))}
           </div>
-          <button onClick={next} style={{
-            width: '44px', height: '44px', borderRadius: '50%',
-            border: '2px solid #E5E7EB', background: 'white',
-            cursor: 'pointer', fontSize: '18px', color: '#374151',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'all 0.15s',
-          }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = '#1B9E7E'; (e.currentTarget as HTMLElement).style.color = '#1B9E7E'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = '#E5E7EB'; (e.currentTarget as HTMLElement).style.color = '#374151'; }}
-          >→</button>
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Следующий отзыв"
+            className="rev__navBtn"
+          >
+            <ArrowRight size={18} strokeWidth={2.3} />
+          </button>
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .reviews-grid { grid-template-columns: 1fr !important; }
+      <style jsx>{`
+        .rev__grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          margin-bottom: 40px;
+        }
+        .rev__card {
+          padding: 30px 28px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+        }
+        .rev__card :global(.rev__quote) {
+          position: absolute;
+          top: 22px;
+          right: 22px;
+          color: rgba(255,107,71,0.22);
+        }
+
+        .rev__text {
+          font-size: 15px;
+          color: #374151;
+          line-height: 1.65;
+          margin: 14px 0 22px;
+        }
+        .rev__foot {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
+          padding-top: 16px;
+          border-top: 1px solid #F3F4F6;
+        }
+        .rev__name {
+          font-size: 14.5px;
+          font-weight: 800;
+          color: var(--ink);
+          letter-spacing: -0.2px;
+        }
+        .rev__city {
+          font-size: 12.5px;
+          color: var(--text-muted);
+          margin-top: 2px;
+        }
+        .rev__date {
+          font-size: 12px;
+          color: #9CA3AF;
+          font-weight: 500;
+        }
+
+        .rev__controls {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 18px;
+        }
+        .rev__navBtn {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 1.5px solid #E5E7EB;
+          background: #fff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--ink);
+          transition: all .2s ease;
+          font-family: inherit;
+        }
+        .rev__navBtn:hover {
+          border-color: var(--green);
+          background: rgba(27,158,126,0.08);
+          color: var(--green-dark);
+          transform: translateY(-2px);
+        }
+
+        .rev__dots {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+        }
+        .rev__dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
+          background: #D1D5DB;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: all .25s ease;
+        }
+        .rev__dot--active {
+          width: 28px;
+          background: linear-gradient(90deg, var(--green), var(--coral));
+        }
+
+        @media (max-width: 960px) {
+          .rev__grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+          .rev__grid { grid-template-columns: 1fr; }
+          .rev__card { padding: 26px 22px; }
         }
       `}</style>
     </section>

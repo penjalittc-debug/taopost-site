@@ -1,8 +1,8 @@
 'use client';
 import { useRef } from 'react';
 import Image from 'next/image';
+import { ArrowLeft, ArrowRight, Camera, Plus } from 'lucide-react';
 
-// Замените null на '/warehouse/photo1.jpg' и т.д. когда добавите фото
 const PHOTOS: { src: string | null; caption: string }[] = [
   { src: null, caption: 'Приёмка груза на складе в Китае' },
   { src: null, caption: 'Проверка и взвешивание товара' },
@@ -17,90 +17,49 @@ export default function WarehouseGallery() {
 
   const scroll = (dir: 'left' | 'right') => {
     if (!trackRef.current) return;
-    const card = trackRef.current.querySelector('.gallery-card') as HTMLElement;
+    const card = trackRef.current.querySelector('.wg__card') as HTMLElement;
     const gap = 16;
     const step = card ? card.offsetWidth + gap : 320;
     trackRef.current.scrollBy({ left: dir === 'right' ? step : -step, behavior: 'smooth' });
   };
 
   return (
-    <section className="section-pad" style={{ paddingLeft: 0, paddingRight: 0, background: 'white', overflow: 'hidden' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
+    <section className="tp-section wg__section">
+      <div className="tp-mesh tp-mesh--coral tp-mesh--tr" />
+      <div className="tp-mesh tp-mesh--green tp-mesh--bl" />
 
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '36px', flexWrap: 'wrap', gap: '16px' }}>
-          <div>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E',
-              borderRadius: '50px', padding: '6px 14px',
-              fontSize: '13px', fontWeight: 700, marginBottom: '12px',
-              border: '1px solid #c6ede4',
-            }}>
-              📸 Наш склад
-            </div>
-            <h2 style={{
-              fontSize: 'clamp(24px, 3.5vw, 38px)',
-              fontWeight: 900, color: '#111827',
-              letterSpacing: '-0.5px', lineHeight: 1.15,
-            }}>
-              Как проходит процесс<br />
-              <span style={{ color: '#1B9E7E' }}>на складе</span>
-            </h2>
-          </div>
+      <div className="tp-container wg__head">
+        <div>
+          <span className="tp-eyebrow tp-eyebrow--coral">
+            <Camera size={14} strokeWidth={2.3} />
+            Наш склад
+          </span>
+          <h2 className="tp-h2 wg__title">
+            Как проходит процесс<br />
+            <span className="tp-gradient-text">на складе</span>
+          </h2>
+        </div>
 
-          {/* Arrow buttons */}
-          <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
-            {(['left', 'right'] as const).map((dir) => (
-              <button
-                key={dir}
-                onClick={() => scroll(dir)}
-                aria-label={dir === 'left' ? 'Назад' : 'Вперёд'}
-                style={{
-                  width: '44px', height: '44px',
-                  borderRadius: '50%',
-                  border: '2px solid #E5E7EB',
-                  background: 'white',
-                  cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '18px',
-                  transition: 'border-color 0.15s, background 0.15s',
-                  color: '#374151',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = '#1B9E7E';
-                  (e.currentTarget as HTMLElement).style.background = '#e8f7f3';
-                  (e.currentTarget as HTMLElement).style.color = '#1B9E7E';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = '#E5E7EB';
-                  (e.currentTarget as HTMLElement).style.background = 'white';
-                  (e.currentTarget as HTMLElement).style.color = '#374151';
-                }}
-              >
-                {dir === 'left' ? '←' : '→'}
-              </button>
-            ))}
-          </div>
+        <div className="wg__nav">
+          {(['left', 'right'] as const).map((dir) => (
+            <button
+              key={dir}
+              type="button"
+              onClick={() => scroll(dir)}
+              aria-label={dir === 'left' ? 'Назад' : 'Вперёд'}
+              className="wg__navBtn"
+            >
+              {dir === 'left'
+                ? <ArrowLeft size={18} strokeWidth={2.3} />
+                : <ArrowRight size={18} strokeWidth={2.3} />}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Scrollable track — full width */}
       <div
         ref={trackRef}
-        style={{
-          display: 'flex',
-          gap: '16px',
-          overflowX: 'auto',
-          scrollSnapType: 'x mandatory',
-          paddingLeft: '24px',
-          paddingRight: '24px',
-          paddingBottom: '8px',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          WebkitOverflowScrolling: 'touch',
-          cursor: 'grab',
-        }}
+        className="wg__track"
         onMouseDown={e => {
           const el = e.currentTarget;
           el.style.cursor = 'grabbing';
@@ -119,22 +78,7 @@ export default function WarehouseGallery() {
         }}
       >
         {PHOTOS.map((photo, i) => (
-          <div
-            key={i}
-            className="gallery-card"
-            style={{
-              flexShrink: 0,
-              width: '480px',
-              height: '290px',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              scrollSnapAlign: 'start',
-              position: 'relative',
-              background: '#F3F4F6',
-              border: '1px solid #E5E7EB',
-              userSelect: 'none',
-            }}
-          >
+          <div key={i} className="wg__card">
             {photo.src ? (
               <Image
                 src={photo.src}
@@ -144,76 +88,182 @@ export default function WarehouseGallery() {
                 draggable={false}
               />
             ) : (
-              /* Плейсхолдер — замените на <Image> когда добавите фото */
-              <div style={{
-                width: '100%', height: '100%',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                background: 'linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%)',
-                gap: '12px',
-              }}>
-                <div style={{
-                  width: '56px', height: '56px',
-                  background: '#e8f7f3', borderRadius: '16px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '24px',
-                }}>📷</div>
-                <div style={{ fontSize: '13px', color: '#9CA3AF', fontWeight: 600 }}>Фото #{i + 1}</div>
+              <div className="wg__placeholder">
+                <div className="tp-icon-tile tp-icon-tile--coral">
+                  <Camera size={22} strokeWidth={2.3} />
+                </div>
+                <div className="wg__placeholderLabel">Фото #{i + 1}</div>
               </div>
             )}
 
-            {/* Caption overlay */}
-            <div style={{
-              position: 'absolute', bottom: 0, left: 0, right: 0,
-              background: 'linear-gradient(to top, rgba(17,24,39,0.75) 0%, transparent 100%)',
-              padding: '32px 20px 16px',
-            }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: 'white' }}>
-                {photo.caption}
-              </div>
+            <div className="wg__caption">
+              <div className="wg__captionText">{photo.caption}</div>
             </div>
 
-            {/* Number badge */}
-            <div style={{
-              position: 'absolute', top: '14px', left: '14px',
-              background: 'rgba(255,255,255,0.9)',
-              borderRadius: '20px', padding: '4px 12px',
-              fontSize: '12px', fontWeight: 700, color: '#374151',
-            }}>
-              {i + 1} / {PHOTOS.length}
-            </div>
+            <div className="wg__badge">{i + 1} / {PHOTOS.length}</div>
           </div>
         ))}
 
-        {/* Add photo card */}
-        <div style={{
-          flexShrink: 0,
-          width: '200px', height: '290px',
-          borderRadius: '20px',
-          border: '2px dashed #D1D5DB',
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center',
-          gap: '10px', color: '#9CA3AF',
-          scrollSnapAlign: 'start',
-          background: '#FAFAFA',
-        }}>
-          <div style={{ fontSize: '32px' }}>+</div>
-          <div style={{ fontSize: '13px', fontWeight: 600, textAlign: 'center', padding: '0 16px' }}>
-            Добавить фото
-          </div>
+        <div className="wg__addCard">
+          <Plus size={28} strokeWidth={2.3} />
+          <div className="wg__addLabel">Добавить фото</div>
         </div>
       </div>
 
-      <style>{`
-        div::-webkit-scrollbar { display: none; }
+      <style jsx>{`
+        .wg__section {
+          padding-left: 0;
+          padding-right: 0;
+          overflow: hidden;
+        }
+        .wg__head {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          margin-bottom: 36px;
+          flex-wrap: wrap;
+          gap: 16px;
+          padding: 0 24px;
+        }
+        .wg__title { margin: 0; }
+
+        .wg__nav {
+          display: flex;
+          gap: 10px;
+          flex-shrink: 0;
+        }
+        .wg__navBtn {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 1.5px solid #E5E7EB;
+          background: #fff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all .2s ease;
+          color: var(--ink);
+          font-family: inherit;
+        }
+        .wg__navBtn:hover {
+          border-color: var(--green);
+          background: rgba(27,158,126,0.08);
+          color: var(--green-dark);
+          transform: translateY(-2px);
+        }
+
+        .wg__track {
+          display: flex;
+          gap: 16px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          padding: 8px 24px;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          -webkit-overflow-scrolling: touch;
+          cursor: grab;
+        }
+        .wg__track::-webkit-scrollbar { display: none; }
+
+        .wg__card {
+          flex-shrink: 0;
+          width: 480px;
+          height: 300px;
+          border-radius: 24px;
+          overflow: hidden;
+          scroll-snap-align: start;
+          position: relative;
+          background: #F3F4F6;
+          border: 1px solid rgba(10,15,28,0.05);
+          box-shadow:
+            0 1px 2px rgba(10,15,28,0.04),
+            0 24px 60px -20px rgba(10,15,28,0.12);
+          user-select: none;
+        }
+        .wg__placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          background: linear-gradient(135deg, #FAFBFC 0%, #F3F4F6 100%);
+        }
+        .wg__placeholderLabel {
+          font-size: 13px;
+          color: var(--text-muted);
+          font-weight: 600;
+        }
+
+        .wg__caption {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(to top, rgba(10,15,28,0.8) 0%, transparent 100%);
+          padding: 40px 22px 18px;
+          pointer-events: none;
+        }
+        .wg__captionText {
+          font-size: 14px;
+          font-weight: 700;
+          color: #fff;
+          letter-spacing: -0.2px;
+        }
+
+        .wg__badge {
+          position: absolute;
+          top: 14px;
+          left: 14px;
+          background: rgba(255,255,255,0.92);
+          backdrop-filter: blur(6px);
+          border-radius: 999px;
+          padding: 5px 12px;
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+
+        .wg__addCard {
+          flex-shrink: 0;
+          width: 220px;
+          height: 300px;
+          border-radius: 24px;
+          border: 2px dashed #D1D5DB;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          color: #9CA3AF;
+          scroll-snap-align: start;
+          background: rgba(255,255,255,0.5);
+          transition: border-color .2s, color .2s, background .2s;
+        }
+        .wg__addCard:hover {
+          border-color: var(--green);
+          color: var(--green);
+          background: rgba(27,158,126,0.04);
+        }
+        .wg__addLabel {
+          font-size: 13.5px;
+          font-weight: 600;
+          text-align: center;
+          padding: 0 16px;
+        }
+
         @media (max-width: 1024px) {
-          .gallery-card { width: 400px !important; height: 260px !important; }
+          .wg__card { width: 420px; height: 270px; }
         }
         @media (max-width: 768px) {
-          .gallery-card { width: 78vw !important; height: 230px !important; }
+          .wg__card { width: 78vw; height: 240px; }
+          .wg__addCard { height: 240px; width: 180px; }
         }
         @media (max-width: 480px) {
-          .gallery-card { width: 88vw !important; height: 200px !important; }
+          .wg__card { width: 88vw; height: 210px; }
+          .wg__addCard { height: 210px; width: 160px; }
         }
       `}</style>
     </section>

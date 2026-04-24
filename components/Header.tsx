@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Send, Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '#about' },
@@ -24,163 +25,203 @@ export default function Header() {
   }, []);
 
   return (
-    <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: scrolled ? '1px solid #e5e7eb' : '1px solid transparent',
-        transition: 'all 0.2s ease',
-      }}
-    >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
-        {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+    <header className={`hdr${scrolled ? ' hdr--scrolled' : ''}`}>
+      <div className="hdr__inner">
+        <Link href="/" className="hdr__logo">
           <Image src="/logo.png" alt="TaoPost" width={100} height={100} style={{ objectFit: 'contain' }} priority />
-          <span style={{ fontWeight: 800, fontSize: '26px', color: '#111827', letterSpacing: '-0.5px' }}>
-            Tao<span style={{ color: '#1B9E7E' }}>Post</span>
+          <span className="hdr__brand">
+            Tao<span className="hdr__brandAccent">Post</span>
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">
+        <nav className="hdr__nav">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              style={{
-                padding: '8px 14px',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#374151',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                transition: 'color 0.15s, background 0.15s',
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.color = '#1B9E7E';
-                (e.target as HTMLElement).style.background = '#e8f7f3';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.color = '#374151';
-                (e.target as HTMLElement).style.background = 'transparent';
-              }}
-            >
+            <a key={link.href} href={link.href} className="hdr__navLink">
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* CTA */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="hdr__actions">
           <a
             href="https://t.me/taopostmaneger?start=site"
             target="_blank"
             rel="noopener noreferrer"
-            className="header-cta"
-            style={{
-              padding: '10px 22px',
-              background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
-              color: 'white',
-              fontWeight: 700,
-              fontSize: '14px',
-              borderRadius: '50px',
-              textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(27,158,126,0.35)',
-              transition: 'transform 0.15s, box-shadow 0.15s',
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(27,158,126,0.45)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(27,158,126,0.35)';
-            }}
+            className="hdr__cta"
           >
+            <Send size={14} strokeWidth={2.5} />
             Написать нам
           </a>
 
-          {/* Mobile burger */}
           <button
+            type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="mobile-burger"
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '6px',
-              flexDirection: 'column',
-              gap: '5px',
-            }}
-            aria-label="Меню"
+            className="hdr__burger"
+            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
           >
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                style={{
-                  display: 'block',
-                  width: '22px',
-                  height: '2px',
-                  background: '#374151',
-                  borderRadius: '2px',
-                  transition: 'all 0.2s',
-                  transform: menuOpen
-                    ? i === 0 ? 'rotate(45deg) translate(5px, 5px)'
-                    : i === 1 ? 'opacity: 0'
-                    : 'rotate(-45deg) translate(5px, -5px)'
-                    : 'none',
-                  opacity: menuOpen && i === 1 ? 0 : 1,
-                }}
-              />
-            ))}
+            {menuOpen
+              ? <X size={22} strokeWidth={2.3} />
+              : <Menu size={22} strokeWidth={2.3} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div
-          style={{
-            background: 'white',
-            borderTop: '1px solid #e5e7eb',
-            padding: '12px 24px 20px',
-          }}
-          className="mobile-menu"
-        >
+        <div className="hdr__mobile">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              style={{
-                display: 'block',
-                padding: '12px 0',
-                fontSize: '16px',
-                fontWeight: 500,
-                color: '#374151',
-                textDecoration: 'none',
-                borderBottom: '1px solid #f3f4f6',
-              }}
+              className="hdr__mobileLink"
             >
               {link.label}
             </a>
           ))}
+          <a
+            href="https://t.me/taopostmaneger?start=site"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tp-btn tp-btn--primary hdr__mobileCta"
+            onClick={() => setMenuOpen(false)}
+          >
+            <Send size={16} strokeWidth={2.5} />
+            Написать в Telegram
+          </a>
         </div>
       )}
 
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-burger { display: flex !important; }
-          .header-cta { display: none !important; }
+      <style jsx>{`
+        .hdr {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          background: rgba(255,255,255,0.75);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border-bottom: 1px solid transparent;
+          transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+        .hdr--scrolled {
+          background: rgba(255,255,255,0.88);
+          border-bottom-color: rgba(10,15,28,0.06);
+          box-shadow: 0 4px 24px -8px rgba(10,15,28,0.05);
+        }
+
+        .hdr__inner {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 24px;
+          height: 72px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .hdr__logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+        }
+        .hdr__brand {
+          font-weight: 900;
+          font-size: 24px;
+          color: var(--ink);
+          letter-spacing: -0.6px;
+        }
+        .hdr__brandAccent {
+          background: linear-gradient(90deg, var(--green), var(--coral));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .hdr__nav {
+          display: flex;
+          gap: 2px;
+          align-items: center;
+        }
+        .hdr__navLink {
+          padding: 8px 14px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #374151;
+          text-decoration: none;
+          border-radius: 10px;
+          transition: color .15s, background .15s;
+        }
+        .hdr__navLink:hover {
+          color: var(--green-dark);
+          background: rgba(27,158,126,0.08);
+        }
+
+        .hdr__actions {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .hdr__cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 11px 22px;
+          background: var(--coral);
+          color: #fff;
+          font-weight: 700;
+          font-size: 14px;
+          border-radius: 12px;
+          text-decoration: none;
+          box-shadow: 0 8px 22px -8px rgba(255,107,71,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
+          transition: transform .15s, box-shadow .15s;
+          white-space: nowrap;
+        }
+        .hdr__cta:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 28px -8px rgba(255,107,71,0.65), inset 0 -2px 0 rgba(0,0,0,0.12);
+        }
+
+        .hdr__burger {
+          display: none;
+          width: 40px;
+          height: 40px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 12px;
+          border: 1.5px solid #E5E7EB;
+          background: #fff;
+          cursor: pointer;
+          color: var(--ink);
+        }
+
+        .hdr__mobile {
+          background: rgba(255,255,255,0.96);
+          backdrop-filter: blur(12px);
+          border-top: 1px solid rgba(10,15,28,0.06);
+          padding: 16px 24px 24px;
+          display: flex;
+          flex-direction: column;
+        }
+        .hdr__mobileLink {
+          display: block;
+          padding: 14px 4px;
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--ink);
+          text-decoration: none;
+          border-bottom: 1px solid #F3F4F6;
+        }
+        .hdr__mobileCta {
+          margin-top: 18px;
+          width: 100%;
+        }
+
+        @media (max-width: 900px) {
+          .hdr__nav { display: none; }
+          .hdr__cta { display: none; }
+          .hdr__burger { display: inline-flex; }
         }
       `}</style>
     </header>

@@ -1,115 +1,208 @@
 'use client';
+import { Send, MessageCircle, Clock } from 'lucide-react';
 
 export default function CTAV2() {
   return (
-    <section className="section-pad" style={{ background: 'white' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div className="cta-inner" style={{
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
-          borderRadius: '28px',
-          padding: '60px 48px',
-          textAlign: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            position: 'absolute', top: '-60px', right: '-60px',
-            width: '200px', height: '200px',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.06)',
-          }} />
-          <div style={{
-            position: 'absolute', bottom: '-40px', left: '-40px',
-            width: '150px', height: '150px',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.04)',
-          }} />
+    <section className="tp-section">
+      <div className="tp-mesh tp-mesh--green tp-mesh--tr" />
+      <div className="tp-mesh tp-mesh--coral tp-mesh--bl" />
 
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 38px)',
-              fontWeight: 900,
-              color: 'white',
-              marginBottom: '16px',
-              letterSpacing: '-0.5px',
-              lineHeight: 1.2,
-            }}>
-              Готовы сэкономить<br />на следующей покупке?
+      <div className="ctav2__wrap">
+        <div className="ctav2__card">
+          <div className="ctav2__orb ctav2__orb--tr" />
+          <div className="ctav2__orb ctav2__orb--bl" />
+          <div className="ctav2__grid" />
+
+          <div className="ctav2__inner">
+            <span className="ctav2__pill">
+              <span className="ctav2__pillDot" />
+              Мы на связи
+            </span>
+
+            <h2 className="ctav2__title">
+              Готовы сэкономить<br />
+              на <span className="ctav2__titleAccent">следующей покупке?</span>
             </h2>
-            <p style={{
-              fontSize: '17px',
-              color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1.6,
-              maxWidth: '440px',
-              margin: '0 auto 36px',
-            }}>
-              Напишите нам прямо сейчас — ответим за 5 минут, подберём оптимальный тариф и поможем оформить первый заказ
+
+            <p className="ctav2__lede">
+              Напишите прямо сейчас — ответим за 5 минут, подберём оптимальный тариф и поможем оформить первый заказ
             </p>
 
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className="ctav2__buttons">
               <a
-                href="https://t.me/taopostmaneger"
+                href="https://t.me/taopostmaneger?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  padding: '16px 32px',
-                  background: '#0088cc',
-                  color: 'white',
-                  fontWeight: 800,
-                  fontSize: '16px',
-                  borderRadius: '50px',
-                  textDecoration: 'none',
-                  boxShadow: '0 8px 24px rgba(0,136,204,0.4)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  transition: 'transform 0.15s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'}
+                className="ctav2__btn ctav2__btn--primary"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                </svg>
+                <Send size={18} strokeWidth={2.5} />
                 Написать в Telegram
               </a>
               <a
                 href="https://t.me/taopost"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  padding: '16px 32px',
-                  background: 'rgba(255,255,255,0.15)',
-                  color: 'white',
-                  fontWeight: 700,
-                  fontSize: '16px',
-                  borderRadius: '50px',
-                  textDecoration: 'none',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  transition: 'background 0.15s',
-                  backdropFilter: 'blur(8px)',
-                }}
-                onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.25)'}
-                onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.15)'}
+                className="ctav2__btn ctav2__btn--ghost"
               >
-                ✈️ Telegram
+                <MessageCircle size={18} strokeWidth={2.3} />
+                Наш канал
               </a>
             </div>
 
-            <p style={{ marginTop: '24px', fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+            <div className="ctav2__note">
+              <Clock size={14} strokeWidth={2.3} />
               Отвечаем ежедневно с 9:00 до 22:00 МСК
-            </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 600px) {
-          .ctav2-buttons { flex-direction: column !important; }
-          .ctav2-buttons a { width: 100% !important; justify-content: center !important; }
+      <style jsx>{`
+        .ctav2__wrap {
+          max-width: 960px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .ctav2__card {
+          position: relative;
+          overflow: hidden;
+          border-radius: 32px;
+          padding: 72px 56px;
+          background: linear-gradient(135deg, #0A0F1C 0%, #1F2937 100%);
+          color: #fff;
+          isolation: isolate;
+          box-shadow:
+            0 40px 80px -30px rgba(10,15,28,0.45),
+            0 1px 2px rgba(10,15,28,0.1);
+        }
+
+        .ctav2__orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(70px);
+          z-index: 0;
+          pointer-events: none;
+        }
+        .ctav2__orb--tr {
+          top: -120px; right: -100px;
+          width: 380px; height: 380px;
+          background: radial-gradient(circle, rgba(27,158,126,0.55), transparent 65%);
+        }
+        .ctav2__orb--bl {
+          bottom: -140px; left: -100px;
+          width: 360px; height: 360px;
+          background: radial-gradient(circle, rgba(255,107,71,0.45), transparent 65%);
+        }
+        .ctav2__grid {
+          position: absolute; inset: 0;
+          background-image:
+            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+          background-size: 48px 48px;
+          mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+          -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .ctav2__inner {
+          position: relative;
+          z-index: 1;
+          text-align: center;
+        }
+        .ctav2__pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 7px 14px;
+          border-radius: 999px;
+          font-size: 12.5px;
+          font-weight: 600;
+          color: #E5E7EB;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.12);
+          backdrop-filter: blur(8px);
+          margin-bottom: 22px;
+        }
+        .ctav2__pillDot {
+          width: 8px; height: 8px;
+          border-radius: 50%;
+          background: var(--green);
+          box-shadow: 0 0 0 4px rgba(27,158,126,0.25);
+        }
+
+        .ctav2__title {
+          font-size: clamp(28px, 4.2vw, 44px);
+          font-weight: 900;
+          letter-spacing: -1.2px;
+          line-height: 1.1;
+          margin: 0 0 18px;
+        }
+        .ctav2__titleAccent {
+          background: linear-gradient(90deg, var(--green) 0%, var(--coral) 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .ctav2__lede {
+          font-size: 17px;
+          color: rgba(255,255,255,0.7);
+          line-height: 1.6;
+          max-width: 520px;
+          margin: 0 auto 36px;
+        }
+
+        .ctav2__buttons {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        .ctav2__btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 30px;
+          border-radius: 14px;
+          font-size: 16px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        .ctav2__btn--primary {
+          background: var(--coral);
+          color: #fff;
+          box-shadow: 0 14px 32px -10px rgba(255,107,71,0.6), inset 0 -2px 0 rgba(0,0,0,0.14);
+        }
+        .ctav2__btn--primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 20px 42px -10px rgba(255,107,71,0.7), inset 0 -2px 0 rgba(0,0,0,0.14);
+        }
+        .ctav2__btn--ghost {
+          background: rgba(255,255,255,0.08);
+          color: #fff;
+          border: 1.5px solid rgba(255,255,255,0.18);
+          backdrop-filter: blur(8px);
+        }
+        .ctav2__btn--ghost:hover {
+          background: rgba(255,255,255,0.14);
+          transform: translateY(-2px);
+        }
+
+        .ctav2__note {
+          margin-top: 28px;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 13px;
+          color: rgba(255,255,255,0.55);
+          font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+          .ctav2__card { padding: 52px 28px; border-radius: 24px; }
+          .ctav2__buttons { flex-direction: column; }
+          .ctav2__btn { width: 100%; justify-content: center; }
         }
       `}</style>
     </section>

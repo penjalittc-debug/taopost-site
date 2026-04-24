@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 
 const FAQS = [
   {
@@ -40,98 +41,135 @@ export default function FAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section id="faq" style={{ padding: '80px 24px', background: '#F9FAFB' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <section id="faq" className="tp-section">
+      <div className="tp-mesh tp-mesh--green tp-mesh--tl" />
+      <div className="tp-mesh tp-mesh--coral tp-mesh--br" />
 
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
-            borderRadius: '50px', padding: '6px 14px',
-            fontSize: '13px', fontWeight: 700,
-            marginBottom: '16px',
-            border: '1px solid #c6ede4',
-          }}>
+      <div className="faq__wrap">
+        <div className="tp-section__head">
+          <span className="tp-eyebrow">
+            <span className="tp-eyebrow__dot" />
             FAQ
-          </div>
-          <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
-            fontWeight: 900,
-            color: '#111827',
-            letterSpacing: '-0.5px',
-            marginBottom: '16px',
-          }}>
-            Частые вопросы
+          </span>
+          <h2 className="tp-h2">
+            Частые <span className="tp-gradient-text">вопросы</span>
           </h2>
-          <p style={{ fontSize: '17px', color: '#6B7280', lineHeight: 1.7 }}>
+          <p className="tp-lede">
             Не нашли ответ? Напишите нам в Telegram — ответим за несколько минут
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="faq__list">
           {FAQS.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
-              <div
-                key={idx}
-                style={{
-                  background: 'white',
-                  borderRadius: '16px',
-                  border: isOpen ? '1px solid #c6ede4' : '1px solid #F3F4F6',
-                  overflow: 'hidden',
-                  transition: 'border-color 0.2s',
-                }}
-              >
+              <div key={idx} className={`faq__item${isOpen ? ' faq__item--open' : ''}`}>
                 <button
+                  type="button"
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
-                  style={{
-                    width: '100%',
-                    padding: '20px 24px',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '16px',
-                    textAlign: 'left',
-                  }}
+                  className="faq__trigger"
+                  aria-expanded={isOpen}
                 >
-                  <span style={{
-                    fontSize: '16px',
-                    fontWeight: 700,
-                    color: isOpen ? '#1B9E7E' : '#111827',
-                    transition: 'color 0.2s',
-                    lineHeight: 1.4,
-                  }}>
-                    {faq.question}
-                  </span>
-                  <span style={{
-                    fontSize: '20px',
-                    color: isOpen ? '#1B9E7E' : '#9CA3AF',
-                    transition: 'transform 0.2s, color 0.2s',
-                    transform: isOpen ? 'rotate(45deg)' : 'none',
-                    flexShrink: 0,
-                    lineHeight: 1,
-                  }}>
-                    +
+                  <span className="faq__q">{faq.question}</span>
+                  <span className="faq__toggle" aria-hidden>
+                    <Plus size={20} strokeWidth={2.5} />
                   </span>
                 </button>
-                {isOpen && (
-                  <div style={{
-                    padding: '0 24px 20px',
-                    fontSize: '15px',
-                    color: '#6B7280',
-                    lineHeight: 1.7,
-                  }}>
-                    {faq.answer}
-                  </div>
-                )}
+                <div className={`faq__panel${isOpen ? ' faq__panel--open' : ''}`}>
+                  <div className="faq__a">{faq.answer}</div>
+                </div>
               </div>
             );
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        .faq__wrap {
+          max-width: 820px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .faq__list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .faq__item {
+          background: #fff;
+          border-radius: 18px;
+          border: 1px solid rgba(10,15,28,0.06);
+          overflow: hidden;
+          transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .faq__item--open {
+          border-color: rgba(27,158,126,0.25);
+          box-shadow: 0 18px 42px -22px rgba(10,15,28,0.18);
+        }
+
+        .faq__trigger {
+          width: 100%;
+          padding: 22px 24px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 16px;
+          text-align: left;
+          font-family: inherit;
+        }
+        .faq__q {
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--ink);
+          line-height: 1.4;
+          letter-spacing: -0.2px;
+          transition: color .2s;
+        }
+        .faq__item--open .faq__q { color: var(--green-dark); }
+
+        .faq__toggle {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          background: #F3F4F6;
+          color: #6B7280;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all .25s ease;
+        }
+        .faq__item--open .faq__toggle {
+          background: linear-gradient(135deg, var(--green), var(--green-dark));
+          color: #fff;
+          transform: rotate(45deg);
+        }
+
+        .faq__panel {
+          display: grid;
+          grid-template-rows: 0fr;
+          transition: grid-template-rows .28s ease;
+        }
+        .faq__panel--open { grid-template-rows: 1fr; }
+        .faq__panel > .faq__a {
+          overflow: hidden;
+        }
+        .faq__a {
+          padding: 0 24px 22px;
+          font-size: 15px;
+          color: var(--text-muted);
+          line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+          .faq__trigger { padding: 20px 20px; }
+          .faq__a { padding: 0 20px 20px; }
+        }
+      `}</style>
     </section>
   );
 }
