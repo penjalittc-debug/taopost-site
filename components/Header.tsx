@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Send, Menu, X } from 'lucide-react';
+import { Send, Menu, X, User } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '#about' },
@@ -44,6 +44,16 @@ export default function Header() {
 
         <div className="hdr__actions">
           <a
+            href="https://app.taopost.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hdr__login"
+          >
+            <User size={14} strokeWidth={2.5} />
+            Личный кабинет
+          </a>
+
+          <a
             href="https://t.me/taopostmaneger?start=site"
             target="_blank"
             rel="noopener noreferrer"
@@ -78,6 +88,16 @@ export default function Header() {
               {link.label}
             </a>
           ))}
+          <a
+            href="https://app.taopost.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tp-btn tp-btn--ghost hdr__mobileLogin"
+            onClick={() => setMenuOpen(false)}
+          >
+            <User size={16} strokeWidth={2.5} />
+            Личный кабинет
+          </a>
           <a
             href="https://t.me/taopostmaneger?start=site"
             target="_blank"
@@ -163,6 +183,27 @@ export default function Header() {
           align-items: center;
           gap: 10px;
         }
+        .hdr__login {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 18px;
+          background: #fff;
+          color: var(--ink);
+          font-weight: 600;
+          font-size: 14px;
+          border-radius: 12px;
+          text-decoration: none;
+          border: 1.5px solid #E5E7EB;
+          transition: border-color .15s, color .15s, background .15s, transform .15s;
+          white-space: nowrap;
+        }
+        .hdr__login:hover {
+          border-color: var(--green);
+          color: var(--green-dark);
+          background: rgba(27,158,126,0.06);
+          transform: translateY(-1px);
+        }
         .hdr__cta {
           display: inline-flex;
           align-items: center;
@@ -213,14 +254,19 @@ export default function Header() {
           text-decoration: none;
           border-bottom: 1px solid #F3F4F6;
         }
-        .hdr__mobileCta {
+        .hdr__mobileLogin {
           margin-top: 18px;
+          width: 100%;
+        }
+        .hdr__mobileCta {
+          margin-top: 10px;
           width: 100%;
         }
 
         @media (max-width: 900px) {
           .hdr__nav { display: none; }
           .hdr__cta { display: none; }
+          .hdr__login { display: none; }
           .hdr__burger { display: inline-flex; }
         }
         @media (max-width: 480px) {
