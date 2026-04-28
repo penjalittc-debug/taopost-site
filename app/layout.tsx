@@ -11,7 +11,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688, Pinduoduo",
-  description: "Карго доставка из Китая в Россию. Выкупаем и доставляем одежду, обувь, электронику с Taobao, Poizon, Pinduoduo, 1688, Goofish. Авиа от 750₽/кг, авто от 599₽/кг. Москва, СПб, Новосибирск, Екатеринбург, Казань и все города РФ.",
+  description: "Карго доставка из Китая в Россию. Выкупаем и доставляем одежду, обувь, электронику с Taobao, Poizon, Pinduoduo, 1688, Goofish. Авиа от 750₽/кг, авто от 240₽/кг. Москва, СПб, Новосибирск, Екатеринбург, Казань и все города РФ.",
   keywords: [
     "доставка из Китая",
     "карго из Китая в Россию",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688",
-    description: "Карго доставка из Китая в Россию. Одежда, обувь, электроника с Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 599₽/кг. Доставляем по всей России.",
+    description: "Карго доставка из Китая в Россию. Одежда, обувь, электроника с Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 240₽/кг. Доставляем по всей России.",
     url: "https://taopost.ru",
     siteName: "TaoPost",
     locale: "ru_RU",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "TaoPost — Доставка из Китая в Россию",
-    description: "Карго доставка из Китая в Россию. Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 599₽/кг.",
+    description: "Карго доставка из Китая в Россию. Taobao, Poizon, Pinduoduo, 1688. Авиа от 750₽/кг, авто от 240₽/кг.",
     images: ["https://taopost.ru/og-image.png"],
   },
 };

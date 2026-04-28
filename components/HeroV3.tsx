@@ -78,7 +78,7 @@ export default function HeroV3() {
               </div>
               <div className="hero3__price">
                 <span className="hero3__priceFrom">от</span>
-                <span className="hero3__priceValue">599</span>
+                <span className="hero3__priceValue">240</span>
                 <span className="hero3__priceCur">₽/кг</span>
               </div>
               <div className="hero3__route">
