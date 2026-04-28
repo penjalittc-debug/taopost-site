@@ -1,15 +1,20 @@
 'use client';
 import { useRef } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, Camera, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Camera, Play } from 'lucide-react';
 
-const PHOTOS: { src: string | null; caption: string }[] = [
-  { src: null, caption: 'Приёмка груза на складе в Китае' },
-  { src: null, caption: 'Проверка и взвешивание товара' },
-  { src: null, caption: 'Сортировка и маркировка посылок' },
-  { src: null, caption: 'Упаковка груза перед отправкой' },
-  { src: null, caption: 'Погрузка в транспортное средство' },
-  { src: null, caption: 'Склад в Москве — выдача товара' },
+type Slide =
+  | { type: 'image'; src: string; caption: string }
+  | { type: 'video'; src: string; caption: string };
+
+const SLIDES: Slide[] = [
+  { type: 'image', src: '/warehouse/photo-1.jpg', caption: 'Сортировка посылок на складе в Гуанчжоу' },
+  { type: 'image', src: '/warehouse/photo-2.jpg', caption: 'Приёмка и сканирование посылок' },
+  { type: 'video', src: '/warehouse/video-1.mp4', caption: 'Как проходит обработка груза' },
+  { type: 'image', src: '/warehouse/photo-3.jpg', caption: 'Подготовка к отправке в Россию' },
+  { type: 'image', src: '/warehouse/photo-4.jpg', caption: 'Загрузка фуры до границы' },
+  { type: 'video', src: '/warehouse/video-2.mp4', caption: 'Сканирование и взвешивание на конвейере' },
+  { type: 'image', src: '/warehouse/photo-5.jpg', caption: 'Конвейер и контроль каждой посылки' },
 ];
 
 export default function WarehouseGallery() {
@@ -77,37 +82,42 @@ export default function WarehouseGallery() {
           window.addEventListener('mouseup', onUp);
         }}
       >
-        {PHOTOS.map((photo, i) => (
+        {SLIDES.map((slide, i) => (
           <div key={i} className="wg__card">
-            {photo.src ? (
+            {slide.type === 'image' ? (
               <Image
-                src={photo.src}
-                alt={photo.caption}
+                src={slide.src}
+                alt={slide.caption}
                 fill
+                sizes="(max-width: 480px) 88vw, (max-width: 768px) 78vw, 480px"
                 style={{ objectFit: 'cover' }}
                 draggable={false}
               />
             ) : (
-              <div className="wg__placeholder">
-                <div className="tp-icon-tile tp-icon-tile--coral">
-                  <Camera size={22} strokeWidth={2.3} />
+              <>
+                <video
+                  src={slide.src}
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  preload="metadata"
+                  className="wg__video"
+                />
+                <div className="wg__videoBadge">
+                  <Play size={12} strokeWidth={2.5} fill="currentColor" />
+                  Видео
                 </div>
-                <div className="wg__placeholderLabel">Фото #{i + 1}</div>
-              </div>
+              </>
             )}
 
             <div className="wg__caption">
-              <div className="wg__captionText">{photo.caption}</div>
+              <div className="wg__captionText">{slide.caption}</div>
             </div>
 
-            <div className="wg__badge">{i + 1} / {PHOTOS.length}</div>
+            <div className="wg__badge">{i + 1} / {SLIDES.length}</div>
           </div>
         ))}
-
-        <div className="wg__addCard">
-          <Plus size={28} strokeWidth={2.3} />
-          <div className="wg__addLabel">Добавить фото</div>
-        </div>
       </div>
 
       <style jsx>{`
@@ -181,20 +191,27 @@ export default function WarehouseGallery() {
             0 24px 60px -20px rgba(10,15,28,0.12);
           user-select: none;
         }
-        .wg__placeholder {
+        .wg__video {
           width: 100%;
           height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 14px;
-          background: linear-gradient(135deg, #FAFBFC 0%, #F3F4F6 100%);
+          object-fit: cover;
+          display: block;
         }
-        .wg__placeholderLabel {
-          font-size: 13px;
-          color: var(--text-muted);
-          font-weight: 600;
+        .wg__videoBadge {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          background: rgba(255,107,71,0.95);
+          color: #fff;
+          backdrop-filter: blur(6px);
+          border-radius: 999px;
+          padding: 5px 12px 5px 10px;
+          font-size: 12px;
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          letter-spacing: 0.2px;
         }
 
         .wg__caption {
@@ -226,44 +243,14 @@ export default function WarehouseGallery() {
           color: var(--ink);
         }
 
-        .wg__addCard {
-          flex-shrink: 0;
-          width: 220px;
-          height: 300px;
-          border-radius: 24px;
-          border: 2px dashed #D1D5DB;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          color: #9CA3AF;
-          scroll-snap-align: start;
-          background: rgba(255,255,255,0.5);
-          transition: border-color .2s, color .2s, background .2s;
-        }
-        .wg__addCard:hover {
-          border-color: var(--green);
-          color: var(--green);
-          background: rgba(27,158,126,0.04);
-        }
-        .wg__addLabel {
-          font-size: 13.5px;
-          font-weight: 600;
-          text-align: center;
-          padding: 0 16px;
-        }
-
         @media (max-width: 1024px) {
           .wg__card { width: 420px; height: 270px; }
         }
         @media (max-width: 768px) {
           .wg__card { width: 78vw; height: 240px; }
-          .wg__addCard { height: 240px; width: 180px; }
         }
         @media (max-width: 480px) {
           .wg__card { width: 88vw; height: 210px; }
-          .wg__addCard { height: 210px; width: 160px; }
         }
       `}</style>
     </section>
