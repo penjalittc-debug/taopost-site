@@ -28,7 +28,7 @@ export default function Header() {
     <header className={`hdr${scrolled ? ' hdr--scrolled' : ''}`}>
       <div className="hdr__inner">
         <Link href="/" className="hdr__logo">
-          <Image src="/logo.png" alt="TaoPost" width={100} height={100} style={{ objectFit: 'contain' }} priority />
+          <Image src="/logo.png" alt="TaoPost" width={40} height={40} style={{ objectFit: 'contain', flexShrink: 0 }} priority />
           <span className="hdr__brand">
             Tao<span className="hdr__brandAccent">Post</span>
           </span>
@@ -222,6 +222,10 @@ export default function Header() {
           .hdr__nav { display: none; }
           .hdr__cta { display: none; }
           .hdr__burger { display: inline-flex; }
+        }
+        @media (max-width: 480px) {
+          .hdr__inner { padding: 0 16px; height: 64px; }
+          .hdr__brand { font-size: 20px; }
         }
       `}</style>
     </header>
