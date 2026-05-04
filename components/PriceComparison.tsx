@@ -1,13 +1,14 @@
 'use client';
+import Image from 'next/image';
 import { ArrowRight, Send, TrendingDown } from 'lucide-react';
 
 const PRODUCTS = [
-  { name: 'Nike Air Force 1', category: 'Кроссовки', priceRU: 12990, priceCN: 5200, emoji: '👟', marketplace: 'Poizon' },
-  { name: 'Adidas Samba OG', category: 'Кроссовки', priceRU: 21040, priceCN: 9276, emoji: '👟', marketplace: 'Poizon' },
-  { name: 'Jordan Air Jordan 1', category: 'Кроссовки', priceRU: 23999, priceCN: 8688, emoji: '👟', marketplace: 'Poizon' },
-  { name: 'Levi\'s 501 Джинсы', category: 'Одежда', priceRU: 11899, priceCN: 6321, emoji: '👖', marketplace: '1688' },
-  { name: 'Carhartt WIP Куртка', category: 'Одежда', priceRU: 19795, priceCN: 13507, emoji: '🧥', marketplace: 'Taobao' },
-  { name: 'Samsung Galaxy Fit 3', category: 'Электроника', priceRU: 7621, priceCN: 5352, emoji: '⌚', marketplace: '1688' },
+  { name: 'Nike Air Force 1', category: 'Кроссовки', priceRU: 12990, priceCN: 5200, img: '/products/nike-air-force-1.webp', marketplace: 'Poizon' },
+  { name: 'Adidas Samba OG', category: 'Кроссовки', priceRU: 21040, priceCN: 9276, img: '/products/adidas-samba-og.avif', marketplace: 'Poizon' },
+  { name: 'Jordan Air Jordan 1', category: 'Кроссовки', priceRU: 23999, priceCN: 8688, img: '/products/air-jordan-1.webp', marketplace: 'Poizon' },
+  { name: 'Levi\'s 501 Джинсы', category: 'Одежда', priceRU: 11899, priceCN: 6321, img: '/products/levis-501.jpg', marketplace: '1688' },
+  { name: 'Carhartt WIP Куртка', category: 'Одежда', priceRU: 19795, priceCN: 13507, img: '/products/carhartt-wip-jacket.jpg', marketplace: 'Taobao' },
+  { name: 'Samsung Galaxy Fit 3', category: 'Электроника', priceRU: 7621, priceCN: 5352, img: '/products/samsung-galaxy-fit-3.webp', marketplace: '1688' },
 ];
 
 export default function PriceComparison() {
@@ -38,7 +39,15 @@ export default function PriceComparison() {
             return (
               <div key={p.name} className="tp-card tp-card--hover pc__card">
                 <div className="pc__head">
-                  <div className="pc__emoji">{p.emoji}</div>
+                  <div className="pc__photo">
+                    <Image
+                      src={p.img}
+                      alt={p.name}
+                      width={120}
+                      height={120}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  </div>
                   <div className="pc__meta">
                     <div className="pc__name">{p.name}</div>
                     <div className="pc__cat">{p.category} · {p.marketplace}</div>
@@ -100,14 +109,15 @@ export default function PriceComparison() {
           gap: 14px;
           margin-bottom: 20px;
         }
-        .pc__emoji {
-          width: 52px; height: 52px;
+        .pc__photo {
+          width: 64px; height: 64px;
           border-radius: 14px;
-          background: linear-gradient(135deg, rgba(27,158,126,0.12), rgba(255,107,71,0.12));
+          background: #fff;
           display: flex; align-items: center; justify-content: center;
-          font-size: 24px;
           flex-shrink: 0;
-          border: 1px solid rgba(10,15,28,0.04);
+          border: 1px solid #E5E7EB;
+          padding: 6px;
+          overflow: hidden;
         }
         .pc__meta { min-width: 0; }
         .pc__name {
