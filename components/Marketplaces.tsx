@@ -36,6 +36,14 @@ const MARKETPLACES = [
     tagColor: '#6366f1',
   },
   {
+    name: 'Tmall',
+    description: 'Брендовые товары и официальные магазины Китая (天猫)',
+    img: '/mp/tmall.svg',
+    color: '#ff0036',
+    tag: 'Бренды',
+    tagColor: '#ff0036',
+  },
+  {
     name: 'Goofish',
     description: 'Б/у товары и раритеты по выгодным ценам',
     img: '/mp/gofish.webp',
@@ -111,8 +119,8 @@ export default function Marketplaces() {
       <style jsx>{`
         .mp__grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 20px;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 18px;
         }
         .mp__card {
           padding: 28px 22px;
@@ -167,7 +175,7 @@ export default function Marketplaces() {
           line-height: 1.5;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1180px) {
           .mp__grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 680px) {
