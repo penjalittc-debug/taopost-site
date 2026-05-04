@@ -62,7 +62,7 @@ export default function Reviews() {
             <span className="tp-gradient-text">по всей России</span>
           </h2>
           <p className="tp-lede">
-            Более 1 000 довольных клиентов и 50 000 доставленных товаров
+            Более 200 000 доставленных посылок в год — отзывы наших клиентов
           </p>
         </div>
 

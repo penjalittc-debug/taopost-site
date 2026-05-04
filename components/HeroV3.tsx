@@ -8,7 +8,7 @@ const TRUST = [
 ];
 
 const STATS = [
-  { value: '50k+', label: 'Доставлено в 2025', accent: '#1B9E7E' },
+  { value: '200 000+', label: 'Посылок в год', accent: '#1B9E7E' },
   { value: '15–25', label: 'Дней в пути', accent: '#FF6B47' },
   { value: '−75%', label: 'Средняя экономия', accent: '#0A0F1C' },
 ];
