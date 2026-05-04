@@ -61,7 +61,7 @@ const FEATURES: Feature[] = [
 
 export default function Features() {
   return (
-    <section id="about" className="tp-section tp-section--muted">
+    <section className="tp-section tp-section--muted">
       <div className="tp-mesh tp-mesh--green tp-mesh--tl" />
       <div className="tp-mesh tp-mesh--coral tp-mesh--br" />
 
