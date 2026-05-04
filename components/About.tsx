@@ -1,10 +1,10 @@
 'use client';
-import { Building2, Globe2, Package, Users } from 'lucide-react';
+import { CalendarDays, Globe2, Package, Warehouse } from 'lucide-react';
 
 const STATS = [
-  { value: '6+', label: 'лет на рынке', Icon: Building2 },
-  { value: '50 000+', label: 'довольных клиентов', Icon: Users },
-  { value: '1,2 млн', label: 'доставленных посылок', Icon: Package },
+  { value: '6+', label: 'лет на рынке', Icon: CalendarDays },
+  { value: '200 000+', label: 'посылок в год', Icon: Package },
+  { value: 'Гуанчжоу', label: 'собственный склад в Китае', Icon: Warehouse },
   { value: '85+', label: 'городов России', Icon: Globe2 },
 ];
 
