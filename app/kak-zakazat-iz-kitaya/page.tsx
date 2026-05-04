@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { CITIES } from '@/lib/cities';
 
 export const metadata: Metadata = {
   title: 'Как заказать из Китая — Инструкции и видео | TaoPost',
@@ -264,6 +266,48 @@ export default function GuidePage() {
                     Скоро →
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Cities */}
+        <section style={{ padding: '80px 24px', background: '#fff' }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <h2 style={{
+              fontSize: 'clamp(26px, 4vw, 40px)',
+              fontWeight: 900, color: '#111827',
+              textAlign: 'center', marginBottom: '12px',
+            }}>
+              Доставка из Китая по городам России
+            </h2>
+            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '40px', maxWidth: '620px', margin: '0 auto 40px' }}>
+              Сроки, цены и пункты выдачи для вашего города
+            </p>
+            <div className="cities-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: '12px',
+            }}>
+              {CITIES.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/kak-zakazat-iz-kitaya/${c.slug}`}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '14px 18px',
+                    background: '#F9FAFB',
+                    borderRadius: '12px',
+                    color: '#111827',
+                    fontSize: '15px',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    border: '1px solid #F3F4F6',
+                  }}
+                >
+                  <span>{c.name}</span>
+                  <span style={{ color: '#1B9E7E', fontSize: '13px', fontWeight: 700 }}>→</span>
+                </Link>
               ))}
             </div>
           </div>
