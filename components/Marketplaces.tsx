@@ -38,8 +38,8 @@ const MARKETPLACES = [
   {
     name: 'Tmall',
     description: 'Брендовые товары и официальные магазины Китая (天猫)',
-    img: '/mp/tmall.svg',
-    color: '#ff0036',
+    img: '/mp/tmall.jpg',
+    color: '#ffffff',
     tag: 'Бренды',
     tagColor: '#ff0036',
   },
