@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { CITIES, getCityBySlug } from '@/lib/cities';
@@ -35,7 +36,8 @@ const GUIDES = [
     id: 1,
     platform: 'Taobao',
     color: '#ff4400',
-    emoji: '🛍️',
+    logo: '/mp/taobao.svg',
+    logoBg: '#ff4400',
     title: 'Как заказать с Taobao',
     description: 'Пошаговая инструкция: регистрация, поиск товара, оформление заказа через TaoPost',
     steps: ['Найдите товар на Taobao', 'Скопируйте ссылку на товар', 'Вставьте ссылку в личном кабинете TaoPost', 'Менеджер оформит выкуп и доставку'],
@@ -43,8 +45,9 @@ const GUIDES = [
   {
     id: 2,
     platform: 'Poizon',
-    color: '#CB3234',
-    emoji: '👟',
+    color: '#1a1a2e',
+    logo: '/mp/poizon.png',
+    logoBg: '#1a1a2e',
     title: 'Как заказать с Poizon (得物)',
     description: 'Выкуп оригинальных кроссовок и одежды с Poizon с проверкой подлинности',
     steps: ['Найдите кроссовки или одежду на Poizon', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Мы проверим оригинальность и доставим'],
@@ -53,7 +56,8 @@ const GUIDES = [
     id: 3,
     platform: 'Pinduoduo',
     color: '#e4003a',
-    emoji: '🏷️',
+    logo: '/mp/pinduoduo.jpg',
+    logoBg: '#e4003a',
     title: 'Как заказать с Pinduoduo',
     description: 'Самые низкие цены на китайские товары — одежда, электроника, аксессуары',
     steps: ['Найдите товар на Pinduoduo', 'Скопируйте ссылку', 'Создайте заказ в TaoPost', 'Получите товар'],
@@ -62,16 +66,28 @@ const GUIDES = [
     id: 4,
     platform: '1688',
     color: '#ff6600',
-    emoji: '🏭',
+    logo: '/mp/1688.png',
+    logoBg: '#ff6600',
     title: 'Как заказать с 1688',
     description: 'Оптовые закупки напрямую от производителей Китая через TaoPost',
     steps: ['Найдите товар на 1688', 'Скопируйте ссылку', 'Укажите количество в заявке TaoPost', 'Доставим оптом по выгодной цене'],
   },
   {
     id: 5,
+    platform: 'Tmall',
+    color: '#ff0036',
+    logo: '/mp/tmall.jpg',
+    logoBg: '#ffffff',
+    title: 'Как заказать с Tmall (天猫)',
+    description: 'Брендовые товары и официальные магазины Китая через TaoPost',
+    steps: ['Найдите товар на Tmall', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Получите оригинальный брендовый товар'],
+  },
+  {
+    id: 6,
     platform: 'Goofish',
-    color: '#1B9E7E',
-    emoji: '🐟',
+    color: '#d97706',
+    logo: '/mp/gofish.webp',
+    logoBg: '#d97706',
     title: 'Как заказать с Goofish (闲鱼)',
     description: 'Выкуп товаров со вторичного рынка Китая — редкие вещи по низким ценам',
     steps: ['Найдите лот на Goofish', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Менеджер свяжется с продавцом и выкупит'],
@@ -271,8 +287,24 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                   padding: '32px',
                   border: '1px solid #F3F4F6',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                    <span style={{ fontSize: '28px' }}>{guide.emoji}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                    <div style={{
+                      width: '44px', height: '44px',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      background: guide.logoBg,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0,
+                      border: '1px solid rgba(0,0,0,0.06)',
+                    }}>
+                      <Image
+                        src={guide.logo}
+                        alt={guide.platform}
+                        width={44}
+                        height={44}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    </div>
                     <span style={{
                       background: guide.color + '15',
                       color: guide.color,
