@@ -145,18 +145,17 @@ export default function PriceComparison() {
           padding: 12px 10px;
           border-radius: 12px;
           text-align: center;
-        }
-        .pc__price--ru {
-          background: #FFF0F0;
-          border: 1px solid rgba(203,50,52,0.12);
+          background: #F9FAFB;
+          border: 1px solid #F0F1F3;
         }
         .pc__price--cn {
-          background: rgba(27,158,126,0.08);
-          border: 1px solid rgba(27,158,126,0.18);
+          background: #fff;
+          border: 1px solid #E5F4EE;
+          box-shadow: inset 0 0 0 1px rgba(27,158,126,0.05);
         }
         .pc__priceLabel {
           font-size: 11px;
-          color: var(--text-muted);
+          color: #9CA3AF;
           font-weight: 600;
           margin-bottom: 4px;
           text-transform: uppercase;
@@ -167,7 +166,11 @@ export default function PriceComparison() {
           font-weight: 900;
           letter-spacing: -0.3px;
         }
-        .pc__price--ru .pc__priceValue { color: var(--red); }
+        .pc__price--ru .pc__priceValue {
+          color: #9CA3AF;
+          text-decoration: line-through;
+          text-decoration-thickness: 1.5px;
+        }
         .pc__price--cn .pc__priceValue { color: var(--green-dark); }
         .pc__arrow { color: #9CA3AF; flex-shrink: 0; }
 
