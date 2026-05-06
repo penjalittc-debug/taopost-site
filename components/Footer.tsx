@@ -162,7 +162,7 @@ export default function Footer() {
           background: radial-gradient(circle, rgba(255,107,71,0.18), transparent 65%);
         }
         .ftr__inner {
-          max-width: 1280px;
+          max-width: 1440px;
           margin: 0 auto;
           position: relative;
           z-index: 1;

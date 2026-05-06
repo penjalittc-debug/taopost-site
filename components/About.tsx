@@ -89,7 +89,7 @@ export default function About() {
           background: #fff;
         }
         .abt__container {
-          max-width: 1200px;
+          max-width: 1440px;
           margin: 0 auto;
         }
         .abt__head {

@@ -167,7 +167,7 @@ export default function HeroV3() {
         }
 
         .hero3__container {
-          max-width: 1280px; margin: 0 auto; width: 100%;
+          max-width: 1440px; margin: 0 auto; width: 100%;
           position: relative;
         }
         .hero3__layout {
