@@ -117,7 +117,7 @@ export default function About() {
           background: var(--green);
         }
         .abt__title {
-          font-size: clamp(28px, 4vw, 44px);
+          font-size: clamp(32px, 4.6vw, 56px);
           font-weight: 900;
           color: var(--ink);
           margin: 0 0 18px;

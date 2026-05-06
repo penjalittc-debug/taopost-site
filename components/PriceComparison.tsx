@@ -43,8 +43,8 @@ export default function PriceComparison() {
                     <Image
                       src={p.img}
                       alt={p.name}
-                      width={120}
-                      height={120}
+                      width={176}
+                      height={176}
                       style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                   </div>
@@ -98,52 +98,52 @@ export default function PriceComparison() {
         .pc__grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          gap: 24px;
         }
 
-        .pc__card { padding: 24px; }
+        .pc__card { padding: 32px; }
 
         .pc__head {
           display: flex;
           align-items: center;
-          gap: 14px;
-          margin-bottom: 20px;
+          gap: 18px;
+          margin-bottom: 24px;
         }
         .pc__photo {
-          width: 64px; height: 64px;
-          border-radius: 14px;
+          width: 88px; height: 88px;
+          border-radius: 16px;
           background: #fff;
           display: flex; align-items: center; justify-content: center;
           flex-shrink: 0;
           border: 1px solid #E5E7EB;
-          padding: 6px;
+          padding: 8px;
           overflow: hidden;
         }
         .pc__meta { min-width: 0; }
         .pc__name {
-          font-size: 15px;
+          font-size: 17px;
           font-weight: 800;
           color: var(--ink);
           line-height: 1.3;
-          letter-spacing: -0.2px;
+          letter-spacing: -0.3px;
         }
         .pc__cat {
-          font-size: 12px;
+          font-size: 13px;
           color: var(--text-muted);
-          margin-top: 3px;
+          margin-top: 4px;
           font-weight: 500;
         }
 
         .pc__prices {
           display: flex;
           align-items: center;
-          gap: 10px;
-          margin-bottom: 14px;
+          gap: 12px;
+          margin-bottom: 18px;
         }
         .pc__price {
           flex: 1;
-          padding: 12px 10px;
-          border-radius: 12px;
+          padding: 14px 12px;
+          border-radius: 14px;
           text-align: center;
           background: #F9FAFB;
           border: 1px solid #F0F1F3;
@@ -157,14 +157,14 @@ export default function PriceComparison() {
           font-size: 11px;
           color: #9CA3AF;
           font-weight: 600;
-          margin-bottom: 4px;
+          margin-bottom: 5px;
           text-transform: uppercase;
           letter-spacing: 0.4px;
         }
         .pc__priceValue {
-          font-size: 16px;
+          font-size: 19px;
           font-weight: 900;
-          letter-spacing: -0.3px;
+          letter-spacing: -0.4px;
         }
         .pc__price--ru .pc__priceValue {
           color: #9CA3AF;
@@ -178,8 +178,8 @@ export default function PriceComparison() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 12px 16px;
-          border-radius: 12px;
+          padding: 14px 18px;
+          border-radius: 14px;
           background: linear-gradient(135deg, var(--ink) 0%, #1F2937 100%);
           color: #fff;
         }
@@ -187,12 +187,12 @@ export default function PriceComparison() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          font-size: 13px;
+          font-size: 14px;
           color: rgba(255,255,255,0.75);
           font-weight: 600;
         }
         .pc__savingsValue {
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 800;
           letter-spacing: -0.2px;
         }
