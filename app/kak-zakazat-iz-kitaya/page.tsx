@@ -374,7 +374,7 @@ export default function GuidePage() {
                 Начать заказ →
               </a>
               <a
-                href="https://t.me/taopost"
+                href="https://t.me/taopostmanager"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

@@ -469,7 +469,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 Начать заказ →
               </a>
               <a
-                href="https://t.me/taopost"
+                href="https://t.me/taopostmanager"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

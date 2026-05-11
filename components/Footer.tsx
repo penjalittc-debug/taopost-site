@@ -33,7 +33,7 @@ export default function Footer() {
             </p>
             <div className="ftr__socials">
               <a
-                href="https://t.me/taopost"
+                href="https://t.me/taopostmanager"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ftr__socBtn ftr__socBtn--tg"

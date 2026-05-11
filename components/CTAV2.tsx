@@ -39,7 +39,7 @@ export default function CTAV2() {
                 Написать в Telegram
               </a>
               <a
-                href="https://t.me/taopost"
+                href="https://t.me/taopostmanager"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--ghost"

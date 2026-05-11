@@ -94,7 +94,7 @@ export default function Tracking() {
                 }}>
                   Личный кабинет
                 </a>
-                <a href="https://t.me/taopost" target="_blank" rel="noopener noreferrer" style={{
+                <a href="https://t.me/taopostmanager" target="_blank" rel="noopener noreferrer" style={{
                   flex: 1, padding: '12px', background: '#e8f7f3', color: '#1B9E7E',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center', border: '1px solid #c6ede4',

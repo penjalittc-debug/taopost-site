@@ -122,7 +122,7 @@ export default function PrivacyPage() {
               <p>По вопросам, связанным с обработкой персональных данных, вы можете обратиться:</p>
               <ul>
                 <li>Email: <a href="mailto:info@taopost.ru" style={{ color: '#1B9E7E' }}>info@taopost.ru</a></li>
-                <li>Telegram: <a href="https://t.me/taopost" style={{ color: '#1B9E7E' }}>@taopost</a></li>
+                <li>Telegram: <a href="https://t.me/taopostmanager" style={{ color: '#1B9E7E' }}>@taopostmanager</a></li>
               </ul>
             </Section>
 

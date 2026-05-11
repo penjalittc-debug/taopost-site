@@ -41,7 +41,7 @@ const jsonLd = {
     "Доставка с 1688"
   ],
   "sameAs": [
-    "https://t.me/taopost"
+    "https://t.me/taopostmanager"
   ]
 };
 
