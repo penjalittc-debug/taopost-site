@@ -122,6 +122,29 @@ export default function Footer() {
               </div>
             </div>
           </div>
+
+          <div className="ftr__certCol">
+            <h4 className="ftr__colTitle">Лицензия</h4>
+            <a
+              href="/certificate.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ftr__certBox"
+              aria-label="Бизнес-лицензия КНР — открыть в полном размере"
+            >
+              <img
+                src="/certificate.jpg"
+                alt="营业执照 — Бизнес-лицензия КНР компании TaoPost"
+                loading="lazy"
+                width={2458}
+                height={1762}
+              />
+            </a>
+            <div className="ftr__certCaption">
+              营业执照<br />
+              <span>Бизнес-лицензия КНР</span>
+            </div>
+          </div>
         </div>
 
         <div className="ftr__divider" />
@@ -170,9 +193,48 @@ export default function Footer() {
 
         .ftr__grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1.2fr;
-          gap: 56px;
+          grid-template-columns: 1.6fr 1fr 1.2fr auto;
+          gap: 48px;
           margin-bottom: 48px;
+          align-items: start;
+        }
+        .ftr__certCol {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .ftr__certBox {
+          display: block;
+          width: 140px;
+          background: #fff;
+          border-radius: 10px;
+          padding: 6px;
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+          transition: transform .2s ease, box-shadow .2s ease;
+          overflow: hidden;
+        }
+        .ftr__certBox img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 6px;
+        }
+        .ftr__certBox:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+        }
+        .ftr__certCaption {
+          margin-top: 10px;
+          font-size: 12px;
+          font-weight: 700;
+          color: #D1D5DB;
+          line-height: 1.4;
+        }
+        .ftr__certCaption span {
+          font-size: 11px;
+          font-weight: 500;
+          color: #9CA3AF;
         }
 
         .ftr__brand {
@@ -339,6 +401,8 @@ export default function Footer() {
         @media (max-width: 900px) {
           .ftr__grid { grid-template-columns: 1fr 1fr; gap: 40px; }
           .ftr__brandCol { grid-column: 1 / -1; }
+          .ftr__certCol { grid-column: 1 / -1; }
+          .ftr__certBox { width: 120px; }
         }
         @media (max-width: 560px) {
           .ftr__grid { grid-template-columns: 1fr; gap: 36px; }
