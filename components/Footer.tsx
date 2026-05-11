@@ -91,6 +91,35 @@ export default function Footer() {
                 <a href="mailto:help@taopost.ru" className="ftr__contactValue">help@taopost.ru</a>
               </div>
 
+              <div className="ftr__warehouse">
+                <div className="ftr__warehouseHead">
+                  <span className="ftr__warehouseFlag" aria-hidden="true">🇨🇳</span>
+                  <div>
+                    <div className="ftr__warehouseTitle">Склад в Китае · Карго 778</div>
+                    <div className="ftr__warehouseSub">Офис TaoPost · Гуанчжоу / Фошань</div>
+                  </div>
+                </div>
+                <a
+                  href="https://maps.google.com/?q=广东省佛山市南海区里水镇流潮社区水口大道西3号"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ftr__warehouseAddr"
+                >
+                  广东省佛山市南海区里水镇流潮社区水口大道西3号 · 905百货旁<br />
+                  <span>志洋国际货运 · Открыть на карте →</span>
+                </a>
+                <div className="ftr__warehousePhones">
+                  <a href="tel:+8618520707778" className="ftr__warehousePhone">
+                    <span className="ftr__warehousePhoneLabel">Телефон офиса (Китай)</span>
+                    <span className="ftr__warehousePhoneValue">+86 185 2070 7778</span>
+                  </a>
+                  <a href="tel:+8618302004584" className="ftr__warehousePhone">
+                    <span className="ftr__warehousePhoneLabel">Для курьеров (Китай)</span>
+                    <span className="ftr__warehousePhoneValue">+86 183 0200 4584</span>
+                  </a>
+                </div>
+              </div>
+
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">
                   <Smartphone size={12} strokeWidth={2.3} style={{ verticalAlign: 'middle', marginRight: 5 }} />
@@ -331,6 +360,80 @@ export default function Footer() {
           font-weight: 600;
         }
         .ftr__contactValue--accent:hover { color: #23b892; }
+
+        .ftr__warehouse {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px;
+          padding: 14px 16px;
+          margin-top: 4px;
+        }
+        .ftr__warehouseHead {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+        .ftr__warehouseFlag {
+          font-size: 20px;
+          line-height: 1;
+        }
+        .ftr__warehouseTitle {
+          font-size: 13px;
+          font-weight: 700;
+          color: #F9FAFB;
+          line-height: 1.3;
+        }
+        .ftr__warehouseSub {
+          font-size: 11px;
+          color: #9CA3AF;
+          margin-top: 2px;
+        }
+        .ftr__warehouseAddr {
+          display: block;
+          font-size: 12.5px;
+          color: #D1D5DB;
+          line-height: 1.55;
+          text-decoration: none;
+          padding: 10px 0;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          transition: color .15s;
+        }
+        .ftr__warehouseAddr:hover { color: #fff; }
+        .ftr__warehouseAddr span {
+          display: inline-block;
+          margin-top: 4px;
+          font-size: 11.5px;
+          color: var(--green);
+          font-weight: 600;
+        }
+        .ftr__warehousePhones {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 10px;
+        }
+        .ftr__warehousePhone {
+          display: flex;
+          flex-direction: column;
+          text-decoration: none;
+        }
+        .ftr__warehousePhoneLabel {
+          font-size: 10.5px;
+          color: #6B7280;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          font-weight: 600;
+          margin-bottom: 2px;
+        }
+        .ftr__warehousePhoneValue {
+          font-size: 14px;
+          color: #D1D5DB;
+          font-weight: 600;
+          transition: color .15s;
+        }
+        .ftr__warehousePhone:hover .ftr__warehousePhoneValue { color: #fff; }
 
         .ftr__apps {
           display: flex;
