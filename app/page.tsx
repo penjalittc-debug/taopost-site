@@ -96,7 +96,7 @@ const faqJsonLd = {
 function TelegramFloat() {
   return (
     <a
-      href="https://t.me/taopostmaneger?start=site"
+      href="https://t.me/taopostmanager?start=site"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Написать менеджеру в Telegram"

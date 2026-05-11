@@ -39,7 +39,7 @@ export default function Calculator() {
       `📞 Телефон: ${phone}`,
     ].filter(Boolean).join('\n');
 
-    const url = `https://t.me/taopostmaneger?text=${encodeURIComponent(lines)}`;
+    const url = `https://t.me/taopostmanager?text=${encodeURIComponent(lines)}`;
     window.open(url, '_blank');
     setSent(true);
   };

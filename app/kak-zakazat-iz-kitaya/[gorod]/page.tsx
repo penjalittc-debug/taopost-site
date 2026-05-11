@@ -170,7 +170,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </div>
 
             <a
-              href="https://t.me/taopostmaneger?start=site"
+              href="https://t.me/taopostmanager?start=site"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -456,7 +456,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href="https://t.me/taopostmaneger?start=site"
+                href="https://t.me/taopostmanager?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
