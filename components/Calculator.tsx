@@ -16,14 +16,14 @@ export default function Calculator() {
   const [weight, setWeight] = useState('');
   const [volume, setVolume] = useState('');
   const [phone, setPhone] = useState('');
-  const [sent, setSent] = useState(false);
+  const [website, setWebsite] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const selectedRoute = ROUTES.find(r => r.city === fromCity);
   const routeInfo = selectedRoute?.[transport];
 
-  const handleSubmit = () => {
-    if (!fromCity || !toCity || !weight || !phone) return;
-
+  const buildTelegramUrl = () => {
     const transportLabel = transport === 'auto' ? 'Автодоставка' : 'Авиадоставка';
     const lines = [
       '📦 *Запрос расчёта доставки*',
@@ -38,10 +38,29 @@ export default function Calculator() {
       '',
       `📞 Телефон: ${phone}`,
     ].filter(Boolean).join('\n');
+    return `https://t.me/taopostmanager?text=${encodeURIComponent(lines)}`;
+  };
 
-    const url = `https://t.me/taopostmanager?text=${encodeURIComponent(lines)}`;
-    window.open(url, '_blank');
-    setSent(true);
+  const handleSubmit = async () => {
+    if (!fromCity || !toCity || !weight || !phone || status === 'sending') return;
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/calculator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fromCity, toCity, transport, weight, volume, phone, website }),
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j.error || 'Не удалось отправить');
+      }
+      setStatus('sent');
+    } catch (e) {
+      setStatus('error');
+      setErrorMsg(e instanceof Error ? e.message : 'Ошибка отправки');
+      window.open(buildTelegramUrl(), '_blank');
+    }
   };
 
   const isValid = Boolean(fromCity && toCity && weight && phone);
@@ -192,20 +211,39 @@ export default function Calculator() {
             </div>
           )}
 
+          <input
+            type="text"
+            value={website}
+            onChange={e => setWebsite(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+          />
+
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={!isValid}
-            className={`tp-btn tp-btn--primary tp-btn--lg calc__submit${!isValid ? ' calc__submit--disabled' : ''}`}
+            disabled={!isValid || status === 'sending' || status === 'sent'}
+            className={`tp-btn tp-btn--primary tp-btn--lg calc__submit${!isValid || status === 'sending' || status === 'sent' ? ' calc__submit--disabled' : ''}`}
           >
             <Send size={18} strokeWidth={2.5} />
-            Запросить расчёт доставки
+            {status === 'sending' ? 'Отправляем…' : status === 'sent' ? 'Заявка отправлена' : 'Запросить расчёт доставки'}
           </button>
 
-          {sent && (
+          {status === 'sent' && (
             <div className="calc__sent">
               <CheckCircle2 size={18} strokeWidth={2.5} />
-              Заявка отправлена! Менеджер свяжется с вами в ближайшее время.
+              Заявка отправлена менеджеру! Свяжемся с вами в ближайшее время. Можно также{' '}
+              <a href={buildTelegramUrl()} target="_blank" rel="noopener noreferrer" className="calc__sentLink">
+                написать в Telegram
+              </a>{' '}для быстрого ответа.
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="calc__error">
+              Не удалось отправить через сайт ({errorMsg}). Открыли Telegram — отправьте заявку оттуда.
             </div>
           )}
 
@@ -369,6 +407,25 @@ export default function Calculator() {
           align-items: center;
           justify-content: center;
           gap: 8px;
+          width: 100%;
+          box-sizing: border-box;
+          flex-wrap: wrap;
+        }
+        .calc__sentLink {
+          color: var(--green-dark);
+          text-decoration: underline;
+        }
+        .calc__sentLink:hover { color: var(--green); }
+        .calc__error {
+          margin-top: 16px;
+          padding: 14px 16px;
+          background: rgba(220, 38, 38, 0.06);
+          border: 1px solid rgba(220, 38, 38, 0.22);
+          border-radius: 12px;
+          font-size: 14px;
+          color: #B91C1C;
+          font-weight: 600;
+          text-align: center;
           width: 100%;
           box-sizing: border-box;
         }
