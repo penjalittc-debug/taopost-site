@@ -65,6 +65,7 @@ export default function PrivacyPage() {
 
             <Section title="1. Общие положения">
               <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей сервиса TaoPost (далее — «Сервис»), доступного по адресу taopost.ru.</p>
+              <p>Оператором персональных данных и владельцем Сервиса является компания <strong>广州亚世名进出口有限公司</strong> (Guangzhou Yashiming Import &amp; Export Co., Ltd.), зарегистрированная в Китайской Народной Республике (регистрационный код 91440100MAEGJX2C1Y).</p>
               <p>Используя Сервис, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны с данной Политикой, пожалуйста, прекратите использование Сервиса.</p>
             </Section>
 
@@ -128,6 +129,18 @@ export default function PrivacyPage() {
 
             <Section title="9. Изменения политики">
               <p>Мы оставляем за собой право вносить изменения в настоящую Политику. Актуальная версия всегда доступна на странице taopost.ru/privacy.</p>
+            </Section>
+
+            <Section title="10. Реквизиты оператора">
+              <ul>
+                <li><strong>Компания:</strong> 广州亚世名进出口有限公司 (Guangzhou Yashiming Import &amp; Export Co., Ltd.)</li>
+                <li><strong>Регистрационный код (КНР):</strong> 91440100MAEGJX2C1Y</li>
+                <li><strong>Дата регистрации:</strong> 09.04.2025</li>
+                <li><strong>Юридический адрес:</strong> Гуанчжоу, район Ливань, ул. Чжаньцянь, 90</li>
+                <li><strong>Адрес склада:</strong> 广东省佛山市南海区里水镇流潮社区水口大道西3号 · 905百货旁 (Гуанчжоу / Фошань, КНР)</li>
+                <li><strong>Email:</strong> <a href="mailto:info@taopost.ru" style={{ color: '#1B9E7E' }}>info@taopost.ru</a></li>
+              </ul>
+              <p>Реестровая информация доступна для проверки в государственном реестре КНР на сайте <a href="https://www.gsxt.gov.cn/" target="_blank" rel="noopener noreferrer" style={{ color: '#1B9E7E' }}>gsxt.gov.cn</a>.</p>
             </Section>
 
           </div>
