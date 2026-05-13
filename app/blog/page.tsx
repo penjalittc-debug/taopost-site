@@ -89,7 +89,7 @@ export default function BlogPage() {
                   <article style={{
                     background: '#F9FAFB',
                     borderRadius: '20px',
-                    padding: '32px',
+                    overflow: 'hidden',
                     border: '1px solid #F3F4F6',
                     height: '100%',
                     display: 'flex',
@@ -99,6 +99,21 @@ export default function BlogPage() {
                   }}
                   className="blog-card"
                   >
+                    {/* Cover image */}
+                    {article.image && (
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '16 / 9',
+                        background: `url(${article.image}) center/cover no-repeat, #E5E7EB`,
+                      }} />
+                    )}
+
+                    <div style={{
+                      padding: '32px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flex: 1,
+                    }}>
                     {/* Category */}
                     <div style={{ marginBottom: '16px' }}>
                       <span style={{
@@ -152,6 +167,7 @@ export default function BlogPage() {
                       }}>
                         Читать →
                       </span>
+                    </div>
                     </div>
                   </article>
                 </Link>

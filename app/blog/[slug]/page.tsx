@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'TaoPost',
       locale: 'ru_RU',
       type: 'article',
-      images: [{ url: 'https://taopost.ru/og-image.png', width: 1200, height: 630, alt: article.title }],
+      images: [{ url: article.image ? `https://taopost.ru${article.image}` : 'https://taopost.ru/og-image.png', width: 1200, height: 630, alt: article.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
-      images: ['https://taopost.ru/og-image.png'],
+      images: [article.image ? `https://taopost.ru${article.image}` : 'https://taopost.ru/og-image.png'],
     },
   };
 }
@@ -53,7 +53,7 @@ export default async function ArticlePage({ params }: Props) {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: 'https://taopost.ru/og-image.png',
+    image: article.image ? `https://taopost.ru${article.image}` : 'https://taopost.ru/og-image.png',
     author: {
       '@type': 'Organization',
       name: 'TaoPost',
@@ -149,6 +149,26 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </div>
         </section>
+
+        {/* Cover image */}
+        {article.image && (
+          <section style={{ padding: '0 24px' }}>
+            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={article.image}
+                alt={article.title}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '20px',
+                  display: 'block',
+                  marginTop: '20px',
+                }}
+              />
+            </div>
+          </section>
+        )}
 
         {/* Article content */}
         <section style={{ padding: '60px 24px 80px' }}>
