@@ -1,10 +1,10 @@
 'use client';
 
 const LEVELS = [
-  { name: 'Базовый', icon: '🌱', kg: 'До 5 кг/мес', cashback: '0 ₽/кг', color: '#9CA3AF', bg: '#F9FAFB', border: '#E5E7EB' },
+  { name: 'Базовый', icon: '🌱', kg: 'До 5 кг/мес', cashback: '10 ₽/кг', color: '#9CA3AF', bg: '#F9FAFB', border: '#E5E7EB' },
   { name: 'Серебро', icon: '🥈', kg: '5–30 кг/мес', cashback: '30 ₽/кг', color: '#6B7280', bg: '#F3F4F6', border: '#D1D5DB' },
   { name: 'Золото', icon: '🥇', kg: '30–50 кг/мес', cashback: '50 ₽/кг', color: '#D97706', bg: '#FFFBEB', border: '#FDE68A', popular: true },
-  { name: 'Бриллиант', icon: '💎', kg: 'От 50 кг/мес', cashback: '70 ₽/кг', color: '#1B9E7E', bg: '#E8F7F3', border: '#C6EDE4' },
+  { name: 'Бриллиант', icon: '💎', kg: 'От 50 кг/мес', cashback: '80 ₽/кг', color: '#1B9E7E', bg: '#E8F7F3', border: '#C6EDE4' },
 ];
 
 export default function Loyalty() {
