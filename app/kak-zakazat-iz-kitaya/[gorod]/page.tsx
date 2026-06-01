@@ -157,7 +157,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               </div>
               <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
                 <div style={{ fontSize: '22px', fontWeight: 900, color: '#1B9E7E', marginBottom: '4px' }}>
-                  240 ₽/кг
+                  350 ₽/кг
                 </div>
                 <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Цена за кг</div>
               </div>
@@ -250,11 +250,11 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 </div>
                 <div>
                   <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Тариф авто</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 240 ₽/кг</div>
+                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 350 ₽/кг</div>
                 </div>
                 <div>
                   <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Тариф авиа</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 6 $/кг</div>
+                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 2 700 ₽/кг</div>
                 </div>
                 <div style={{ gridColumn: '1 / -1' }}>
                   <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Получение {city.nameLocative}</div>
@@ -362,7 +362,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               },
               {
                 q: `Сколько стоит доставка из Китая ${city.nameIn}?`,
-                a: `Авто-тариф — от 240 ₽/кг. Авиа — от 6 $/кг. Минимальный вес посылки 0,5 кг. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
+                a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимальный вес посылки 0,5 кг. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
               },
               {
                 q: `Как получить посылку ${city.nameLocative}?`,

@@ -1,5 +1,5 @@
 'use client';
-import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles } from 'lucide-react';
+import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award } from 'lucide-react';
 
 const TRUST = [
   { Icon: ShieldCheck, text: 'Без предоплаты' },
@@ -8,9 +8,9 @@ const TRUST = [
 ];
 
 const STATS = [
-  { value: '200 000+', label: 'Посылок в год', accent: '#1B9E7E' },
-  { value: '15–25', label: 'Дней в пути', accent: '#FF6B47' },
-  { value: '−75%', label: 'Средняя экономия', accent: '#0A0F1C' },
+  { Icon: Boxes, value: '200 000+', label: 'Посылок доставлено', accent: '#1B9E7E' },
+  { Icon: Award, value: '6+ лет', label: 'На рынке КНР → РФ', accent: '#FF6B47' },
+  { Icon: Star, value: '4.9 / 5', label: 'Рейтинг клиентов', accent: '#F59E0B' },
 ];
 
 export default function HeroV3() {
@@ -78,7 +78,7 @@ export default function HeroV3() {
               </div>
               <div className="hero3__price">
                 <span className="hero3__priceFrom">от</span>
-                <span className="hero3__priceValue">240</span>
+                <span className="hero3__priceValue">350</span>
                 <span className="hero3__priceCur">₽/кг</span>
               </div>
               <div className="hero3__route">
@@ -104,7 +104,7 @@ export default function HeroV3() {
                 <Plane size={20} strokeWidth={2.3} />
               </div>
               <div>
-                <div className="hero3__aviaTitle">Авиа от 750₽/кг</div>
+                <div className="hero3__aviaTitle">Авиа от 2 700 ₽/кг</div>
                 <div className="hero3__aviaSub">3–5 дней</div>
               </div>
             </div>
@@ -118,10 +118,15 @@ export default function HeroV3() {
 
         {/* Stat strip */}
         <div className="hero3__stats">
-          {STATS.map((s) => (
-            <div key={s.label} className="hero3__stat">
-              <div className="hero3__statValue" style={{ color: s.accent }}>{s.value}</div>
-              <div className="hero3__statLabel">{s.label}</div>
+          {STATS.map(({ Icon, value, label, accent }) => (
+            <div key={label} className="hero3__stat">
+              <div className="hero3__statIcon" style={{ color: accent, background: `${accent}14` }}>
+                <Icon size={20} strokeWidth={2.3} />
+              </div>
+              <div className="hero3__statBody">
+                <div className="hero3__statValue" style={{ color: accent }}>{value}</div>
+                <div className="hero3__statLabel">{label}</div>
+              </div>
             </div>
           ))}
         </div>
@@ -372,14 +377,29 @@ export default function HeroV3() {
           backdrop-filter: blur(12px);
           box-shadow: 0 10px 40px -10px rgba(10,15,28,0.08);
         }
-        .hero3__stat { text-align: center; }
+        .hero3__stat {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          justify-content: center;
+        }
+        .hero3__statIcon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .hero3__statBody { text-align: left; }
         .hero3__statValue {
-          font-size: clamp(28px, 3.2vw, 40px);
+          font-size: clamp(22px, 2.6vw, 32px);
           font-weight: 900; letter-spacing: -1px; line-height: 1;
         }
         .hero3__statLabel {
           font-size: 13px; color: #6B7280; font-weight: 500;
-          margin-top: 8px;
+          margin-top: 6px;
         }
 
         @media (max-width: 960px) {

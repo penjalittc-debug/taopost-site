@@ -2,13 +2,13 @@
 import { Truck, Plane, Shield, Package, ShoppingCart, Camera, Boxes, Send, Info, Lightbulb, type LucideIcon } from 'lucide-react';
 
 const AUTO_ROWS = [
-  { route: 'Иу → Москва', time: '15–20 дней', price: '2.7–3.3 $/кг', note: 'Автодоставка' },
-  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: '2.7–3.3 $/кг', note: 'Автодоставка' },
+  { route: 'Иу → Москва', time: '15–20 дней', price: 'от 350 ₽/кг', note: 'Автодоставка' },
+  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: 'от 350 ₽/кг', note: 'Автодоставка' },
   { route: 'Цзиси → Уссурийск', time: 'Скоро', price: 'Скоро', note: 'Новый маршрут' },
 ];
 
 const AIR_ROWS = [
-  { route: 'Пекин → Москва', time: '3–5 дней', price: 'от 25 $/кг', note: 'Авиадоставка' },
+  { route: 'Пекин → Москва', time: '3–5 дней', price: 'от 2 700 ₽/кг', note: 'Авиадоставка' },
 ];
 
 type Service = {
@@ -21,7 +21,7 @@ type Service = {
 
 const SERVICES: Service[] = [
   { Icon: Shield, name: 'Страховка груза', price: '2%', desc: 'Обязательная. Защищает товар от потери и повреждения на всём маршруте', tone: 'coral' },
-  { Icon: Package, name: 'Упаковка', price: 'от 5 $', desc: 'Надёжная упаковка под любой тип товара. Цена зависит от объёма и вида упаковки', tone: 'ink' },
+  { Icon: Package, name: 'Упаковка', price: 'от 450 ₽', desc: 'Надёжная упаковка под любой тип товара. Цена зависит от объёма и вида упаковки', tone: 'ink' },
   { Icon: ShoppingCart, name: 'Выкуп товара', price: 'от 3%', desc: 'Выкупаем с любого китайского маркетплейса без китайской карты и аккаунта', tone: 'coral' },
   { Icon: Camera, name: 'Фото со склада', price: 'Бесплатно', desc: 'До 5 фото вашего товара на нашем складе в Китае перед отправкой', tone: 'green' },
   { Icon: Boxes, name: 'Консолидация', price: 'Бесплатно', desc: 'Объединяем несколько заказов из разных магазинов в одну посылку', tone: 'green' },

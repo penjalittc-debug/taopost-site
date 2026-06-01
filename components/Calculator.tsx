@@ -1,69 +1,83 @@
 'use client';
-import { useState } from 'react';
-import { Send, Truck, Plane, MapPin, Clock, Coins, CheckCircle2 } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock } from 'lucide-react';
 
-const ROUTES = [
-  { city: 'Иу', label: 'Иу (Yiwu)', auto: { days: '15–20 дней', price: '2.7–3.3 $/кг' }, air: null },
-  { city: 'Гуанчжоу', label: 'Гуанчжоу (Guangzhou)', auto: { days: '18–25 дней', price: '2.7–3.3 $/кг' }, air: null },
-  { city: 'Пекин', label: 'Пекин (Beijing)', auto: null, air: { days: '3–5 дней', price: 'от 25 $/кг' } },
-  { city: 'Цзиси', label: 'Цзиси (Jixi) — скоро', auto: { days: 'уточняется', price: 'скоро' }, air: null },
+type Transport = 'auto' | 'air';
+
+const RATES: Record<Transport, number> = { auto: 350, air: 2700 };
+const TERMS: Record<Transport, string> = { auto: '15–25 дней', air: '3–5 дней' };
+const INSURANCE_RATE = 0.02;
+const VOL_DIVISOR = 6000;
+
+type BoxPreset = {
+  id: string;
+  name: string;
+  dims: [number, number, number];
+  maxWeight: number;
+  desc: string;
+};
+
+// Размеры СДЭК
+const BOXES: BoxPreset[] = [
+  { id: 'xs', name: 'XS', dims: [24, 17, 10], maxWeight: 1, desc: 'Аксессуары, бижутерия' },
+  { id: 's', name: 'S', dims: [34, 24, 10], maxWeight: 2, desc: 'Футболка, кроссовки' },
+  { id: 'm', name: 'M', dims: [24, 24, 21], maxWeight: 3, desc: 'Одежда, средняя электроника' },
+  { id: 'l', name: 'L', dims: [40, 24, 21], maxWeight: 5, desc: 'Две пары обуви, одежда' },
+  { id: 'xl', name: 'XL', dims: [40, 35, 28], maxWeight: 10, desc: 'Куртка, крупная электроника' },
 ];
 
+const formatRub = (n: number) =>
+  new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(Math.round(n));
+
 export default function Calculator() {
-  const [fromCity, setFromCity] = useState('');
-  const [toCity, setToCity] = useState('');
-  const [transport, setTransport] = useState<'auto' | 'air'>('auto');
-  const [weight, setWeight] = useState('');
-  const [volume, setVolume] = useState('');
-  const [phone, setPhone] = useState('');
-  const [website, setWebsite] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [transport, setTransport] = useState<Transport>('auto');
+  const [mode, setMode] = useState<'preset' | 'custom'>('preset');
+  const [selectedBox, setSelectedBox] = useState('m');
+  const [customWeight, setCustomWeight] = useState('');
+  const [customL, setCustomL] = useState('');
+  const [customW, setCustomW] = useState('');
+  const [customH, setCustomH] = useState('');
+  const [itemPrice, setItemPrice] = useState('');
 
-  const selectedRoute = ROUTES.find(r => r.city === fromCity);
-  const routeInfo = selectedRoute?.[transport];
+  const calc = useMemo(() => {
+    let weight = 0;
+    let volWeight = 0;
+    if (mode === 'preset') {
+      const box = BOXES.find(b => b.id === selectedBox);
+      if (box) {
+        weight = box.maxWeight;
+        volWeight = (box.dims[0] * box.dims[1] * box.dims[2]) / VOL_DIVISOR;
+      }
+    } else {
+      weight = parseFloat(customWeight.replace(',', '.')) || 0;
+      const l = parseFloat(customL.replace(',', '.')) || 0;
+      const w = parseFloat(customW.replace(',', '.')) || 0;
+      const h = parseFloat(customH.replace(',', '.')) || 0;
+      volWeight = (l * w * h) / VOL_DIVISOR;
+    }
+    const chargeable = Math.max(weight, volWeight);
+    const shipping = chargeable * RATES[transport];
+    const insurance = (parseFloat(itemPrice.replace(/\s/g, '').replace(',', '.')) || 0) * INSURANCE_RATE;
+    const total = shipping + insurance;
+    return { weight, volWeight, chargeable, shipping, insurance, total };
+  }, [transport, mode, selectedBox, customWeight, customL, customW, customH, itemPrice]);
 
-  const buildTelegramUrl = () => {
-    const transportLabel = transport === 'auto' ? 'Автодоставка' : 'Авиадоставка';
+  const hasResult = calc.chargeable > 0;
+
+  const tgUrl = useMemo(() => {
+    const box = BOXES.find(b => b.id === selectedBox);
     const lines = [
-      '📦 *Запрос расчёта доставки*',
+      '📦 *Запрос на доставку из Китая*',
       '',
-      `🏙 Откуда: ${fromCity} (Китай)`,
-      `📍 Куда: ${toCity} (Россия)`,
-      `🚛 Вид транспорта: ${transportLabel}`,
-      `⚖️ Вес: ${weight} кг`,
-      volume ? `📐 Объём: ${volume} м³` : null,
-      routeInfo ? `⏱ Примерный срок: ${routeInfo.days}` : null,
-      routeInfo ? `💰 Ориентировочная цена: ${routeInfo.price}` : null,
-      '',
-      `📞 Телефон: ${phone}`,
+      `🚛 ${transport === 'auto' ? 'Автодоставка' : 'Авиадоставка'} (${TERMS[transport]})`,
+      mode === 'preset' && box
+        ? `📐 Размер: ${box.name} — ${box.dims.join('×')} см, до ${box.maxWeight} кг`
+        : `⚖ Вес: ${customWeight || '?'} кг · Габариты: ${customL || '?'}×${customW || '?'}×${customH || '?'} см`,
+      itemPrice ? `💰 Стоимость товара: ${formatRub(parseFloat(itemPrice.replace(/\s/g, '').replace(',', '.')) || 0)} ₽` : null,
+      hasResult ? `📊 Предварительный расчёт: ≈ ${formatRub(calc.total)} ₽` : null,
     ].filter(Boolean).join('\n');
     return `https://t.me/taopostmanager?text=${encodeURIComponent(lines)}`;
-  };
-
-  const handleSubmit = async () => {
-    if (!fromCity || !toCity || !weight || !phone || status === 'sending') return;
-    setStatus('sending');
-    setErrorMsg('');
-    try {
-      const res = await fetch('/api/calculator', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fromCity, toCity, transport, weight, volume, phone, website }),
-      });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j.error || 'Не удалось отправить');
-      }
-      setStatus('sent');
-    } catch (e) {
-      setStatus('error');
-      setErrorMsg(e instanceof Error ? e.message : 'Ошибка отправки');
-      window.open(buildTelegramUrl(), '_blank');
-    }
-  };
-
-  const isValid = Boolean(fromCity && toCity && weight && phone);
+  }, [transport, mode, selectedBox, customWeight, customL, customW, customH, itemPrice, calc.total, hasResult]);
 
   return (
     <section id="calculator" className="tp-section tp-section--muted">
@@ -77,242 +91,247 @@ export default function Calculator() {
             Калькулятор
           </span>
           <h2 className="tp-h2">
-            Рассчитай стоимость<br />
-            <span className="tp-gradient-text">доставки</span>
+            Рассчитайте стоимость <span className="tp-gradient-text">за секунду</span>
           </h2>
           <p className="tp-lede">
-            Заполните форму — менеджер свяжется и назовёт точную цену
+            Мгновенный расчёт по объёмному весу. Без формы и ожидания менеджера
           </p>
         </div>
 
-        <div className="tp-card calc__form">
-          <div className="calc__row">
-            <div className="calc__field">
-              <label className="calc__label">Город отправки в Китае</label>
-              <select
-                value={fromCity}
-                onChange={e => { setFromCity(e.target.value); setTransport('auto'); }}
-                className="calc__input calc__input--select"
-              >
-                <option value="">Выберите город</option>
-                {ROUTES.map(r => (
-                  <option key={r.city} value={r.city}>{r.label}</option>
-                ))}
-              </select>
-            </div>
-            <div className="calc__field">
-              <label className="calc__label">Город получения в России</label>
-              <input
-                type="text"
-                value={toCity}
-                onChange={e => setToCity(e.target.value)}
-                placeholder="Например: Москва"
-                className="calc__input"
-              />
-            </div>
-          </div>
-
-          <div className="calc__field calc__field--full">
-            <label className="calc__label">Вид транспорта</label>
-            <div className="calc__transport">
-              {[
-                { key: 'auto' as const, Icon: Truck, label: 'Автодоставка' },
-                { key: 'air' as const, Icon: Plane, label: 'Авиадоставка' },
-              ].map(({ key, Icon, label }) => {
-                const disabled = fromCity ? !selectedRoute?.[key] : false;
-                const active = transport === key;
-                const info = fromCity && !disabled ? selectedRoute?.[key] : null;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => !disabled && setTransport(key)}
-                    disabled={disabled}
-                    className={`calc__transportBtn${active ? ' calc__transportBtn--active' : ''}${disabled ? ' calc__transportBtn--disabled' : ''}`}
-                  >
-                    <div className="calc__transportTitle">
-                      <Icon size={18} strokeWidth={2.3} />
-                      {label}
-                    </div>
-                    {info && (
-                      <div className="calc__transportInfo">
-                        {info.days} · {info.price}
+        <div className="calc__grid">
+          {/* LEFT: form */}
+          <div className="tp-card calc__form">
+            <div className="calc__block">
+              <div className="calc__label">Способ доставки</div>
+              <div className="calc__transport">
+                {([
+                  { key: 'auto' as const, Icon: Truck, title: 'Автодоставка', meta: 'от 350 ₽/кг · 15–25 дней' },
+                  { key: 'air' as const, Icon: Plane, title: 'Авиадоставка', meta: 'от 2 700 ₽/кг · 3–5 дней' },
+                ]).map(({ key, Icon, title, meta }) => {
+                  const active = transport === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setTransport(key)}
+                      className={`calc__transportBtn${active ? ' calc__transportBtn--active' : ''}`}
+                    >
+                      <div className="calc__transportTitle">
+                        <Icon size={18} strokeWidth={2.3} />
+                        {title}
                       </div>
-                    )}
-                  </button>
-                );
-              })}
+                      <div className="calc__transportInfo">{meta}</div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          <div className="calc__row">
-            <div className="calc__field">
-              <label className="calc__label">Общий вес (кг) *</label>
-              <input
-                type="number"
-                min="0.1"
-                step="0.1"
-                value={weight}
-                onChange={e => setWeight(e.target.value)}
-                placeholder="Например: 10"
-                className="calc__input"
-              />
+            <div className="calc__block">
+              <div className="calc__label">Размер посылки</div>
+              <div className="calc__boxes">
+                {BOXES.map(box => {
+                  const active = mode === 'preset' && selectedBox === box.id;
+                  return (
+                    <button
+                      key={box.id}
+                      type="button"
+                      onClick={() => { setMode('preset'); setSelectedBox(box.id); }}
+                      className={`calc__box${active ? ' calc__box--active' : ''}`}
+                    >
+                      <div className="calc__boxHead">
+                        <span className="calc__boxName">{box.name}</span>
+                        <span className="calc__boxWeight">до {box.maxWeight} кг</span>
+                      </div>
+                      <div className="calc__boxDims">{box.dims.join('×')} см</div>
+                      <div className="calc__boxDesc">{box.desc}</div>
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => setMode('custom')}
+                  className={`calc__box calc__box--custom${mode === 'custom' ? ' calc__box--active' : ''}`}
+                >
+                  <div className="calc__boxHead">
+                    <span className="calc__boxName">
+                      <Ruler size={14} strokeWidth={2.4} />
+                      Свои габариты
+                    </span>
+                  </div>
+                  <div className="calc__boxDesc">Укажите вес и размеры вручную</div>
+                </button>
+              </div>
+
+              {mode === 'custom' && (
+                <div className="calc__custom">
+                  <div className="calc__customRow">
+                    <label className="calc__field">
+                      <span className="calc__fieldLabel">Вес, кг</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        value={customWeight}
+                        onChange={e => setCustomWeight(e.target.value.replace(/[^\d.,]/g, ''))}
+                        placeholder="10"
+                        className="calc__input"
+                      />
+                    </label>
+                    <label className="calc__field">
+                      <span className="calc__fieldLabel">Длина, см</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        value={customL}
+                        onChange={e => setCustomL(e.target.value.replace(/[^\d.,]/g, ''))}
+                        placeholder="40"
+                        className="calc__input"
+                      />
+                    </label>
+                    <label className="calc__field">
+                      <span className="calc__fieldLabel">Ширина, см</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        value={customW}
+                        onChange={e => setCustomW(e.target.value.replace(/[^\d.,]/g, ''))}
+                        placeholder="30"
+                        className="calc__input"
+                      />
+                    </label>
+                    <label className="calc__field">
+                      <span className="calc__fieldLabel">Высота, см</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        value={customH}
+                        onChange={e => setCustomH(e.target.value.replace(/[^\d.,]/g, ''))}
+                        placeholder="20"
+                        className="calc__input"
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="calc__field">
-              <label className="calc__label">
-                Общий объём (м³) <span className="calc__labelMuted">необязательно</span>
+
+            <div className="calc__block">
+              <label className="calc__field calc__field--full">
+                <span className="calc__label">
+                  Стоимость товара
+                  <span className="calc__labelHint">для расчёта страховки 2%</span>
+                </span>
+                <div className="calc__priceInputWrap">
+                  <Coins size={16} strokeWidth={2.4} className="calc__priceIcon" />
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={itemPrice}
+                    onChange={e => setItemPrice(e.target.value.replace(/[^\d.,\s]/g, ''))}
+                    placeholder="Например, 15 000"
+                    className="calc__input calc__input--price"
+                  />
+                  <span className="calc__priceCur">₽</span>
+                </div>
               </label>
-              <input
-                type="number"
-                min="0.001"
-                step="0.001"
-                value={volume}
-                onChange={e => setVolume(e.target.value)}
-                placeholder="Например: 0.5"
-                className="calc__input"
-              />
             </div>
           </div>
 
-          <div className="calc__field calc__field--full">
-            <label className="calc__label">Номер телефона *</label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={e => setPhone(e.target.value)}
-              placeholder="+7 (999) 000-00-00"
-              className="calc__input"
-            />
+          {/* RIGHT: live result */}
+          <div className="calc__result">
+            <div className="calc__resultCard">
+              <div className="calc__resultLabel">Стоимость доставки</div>
+              <div className="calc__resultTotal">
+                {hasResult ? (
+                  <>
+                    <span className="calc__approx">≈</span>
+                    <span className="calc__totalValue">{formatRub(calc.total)}</span>
+                    <span className="calc__totalCur">₽</span>
+                  </>
+                ) : (
+                  <span className="calc__totalEmpty">— ₽</span>
+                )}
+              </div>
+
+              {hasResult && (
+                <div className="calc__resultMeta">
+                  <div className="calc__metaRow">
+                    <Clock size={14} strokeWidth={2.4} />
+                    <span>Срок: <b>{TERMS[transport]}</b> до Москвы</span>
+                  </div>
+                  <div className="calc__metaRow">
+                    <Sparkles size={14} strokeWidth={2.4} />
+                    <span>Расчётный вес: <b>{calc.chargeable.toFixed(2)} кг</b></span>
+                  </div>
+                  {calc.insurance > 0 && (
+                    <div className="calc__metaRow">
+                      <span className="calc__metaDot" />
+                      <span>В т.ч. страховка: <b>{formatRub(calc.insurance)} ₽</b></span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <a
+                href={tgUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`tp-btn tp-btn--primary tp-btn--lg calc__cta${!hasResult ? ' calc__cta--muted' : ''}`}
+              >
+                <Send size={18} strokeWidth={2.5} />
+                {hasResult ? 'Оформить заявку' : 'Уточнить у менеджера'}
+              </a>
+
+              <div className="calc__note">
+                Доставка по РФ от Москвы (СДЭК, Boxberry, курьер) оплачивается отдельно — рассчитаем при оформлении.
+                Точная цена зависит от категории товара и подтверждается менеджером.
+              </div>
+            </div>
           </div>
-
-          {fromCity && routeInfo && (
-            <div className="calc__summary">
-              <div className="calc__summaryItem">
-                <MapPin size={14} strokeWidth={2.5} />
-                <div>
-                  <div className="calc__summaryLabel">Маршрут</div>
-                  <div className="calc__summaryValue">{fromCity} → {toCity || '...'}</div>
-                </div>
-              </div>
-              <div className="calc__summaryItem">
-                <Clock size={14} strokeWidth={2.5} />
-                <div>
-                  <div className="calc__summaryLabel">Срок</div>
-                  <div className="calc__summaryValue calc__summaryValue--accent">{routeInfo.days}</div>
-                </div>
-              </div>
-              <div className="calc__summaryItem">
-                <Coins size={14} strokeWidth={2.5} />
-                <div>
-                  <div className="calc__summaryLabel">Цена</div>
-                  <div className="calc__summaryValue calc__summaryValue--accent">{routeInfo.price}</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <input
-            type="text"
-            value={website}
-            onChange={e => setWebsite(e.target.value)}
-            tabIndex={-1}
-            autoComplete="off"
-            aria-hidden="true"
-            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
-          />
-
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={!isValid || status === 'sending' || status === 'sent'}
-            className={`tp-btn tp-btn--primary tp-btn--lg calc__submit${!isValid || status === 'sending' || status === 'sent' ? ' calc__submit--disabled' : ''}`}
-          >
-            <Send size={18} strokeWidth={2.5} />
-            {status === 'sending' ? 'Отправляем…' : status === 'sent' ? 'Заявка отправлена' : 'Запросить расчёт доставки'}
-          </button>
-
-          {status === 'sent' && (
-            <div className="calc__sent">
-              <CheckCircle2 size={18} strokeWidth={2.5} />
-              Заявка отправлена менеджеру! Свяжемся с вами в ближайшее время. Можно также{' '}
-              <a href={buildTelegramUrl()} target="_blank" rel="noopener noreferrer" className="calc__sentLink">
-                написать в Telegram
-              </a>{' '}для быстрого ответа.
-            </div>
-          )}
-
-          {status === 'error' && (
-            <div className="calc__error">
-              Не удалось отправить через сайт ({errorMsg}). Открыли Telegram — отправьте заявку оттуда.
-            </div>
-          )}
-
-          <p className="calc__note">
-            * Итоговая стоимость уточняется менеджером. Цена зависит от объёмного веса и характера груза.
-          </p>
         </div>
       </div>
 
       <style jsx>{`
         .calc__wrap {
-          max-width: 860px;
+          max-width: 1080px;
           margin: 0 auto;
           position: relative;
         }
-        .calc__form {
-          padding: 40px;
-        }
-        .calc__row {
+        .calc__grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-          margin-bottom: 18px;
+          grid-template-columns: 1.4fr 1fr;
+          gap: 24px;
+          align-items: start;
         }
-        .calc__field { min-width: 0; }
-        .calc__field--full { margin-bottom: 18px; }
+        .calc__form {
+          padding: 32px;
+        }
+        .calc__block {
+          margin-bottom: 26px;
+        }
+        .calc__block:last-child { margin-bottom: 0; }
+
         .calc__label {
           font-size: 13px;
           font-weight: 700;
           color: #374151;
-          display: block;
-          margin-bottom: 8px;
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          margin-bottom: 10px;
         }
-        .calc__labelMuted {
+        .calc__labelHint {
+          font-size: 12px;
+          font-weight: 500;
           color: var(--text-muted);
-          font-weight: 400;
-        }
-        .calc__input {
-          width: 100%;
-          padding: 14px 16px;
-          border-radius: 12px;
-          border: 2px solid #E5E7EB;
-          font-size: 15px;
-          outline: none;
-          transition: border-color .15s, box-shadow .15s;
-          background: #fff;
-          color: var(--ink);
-          box-sizing: border-box;
-          font-family: inherit;
-        }
-        .calc__input:focus {
-          border-color: var(--green);
-          box-shadow: 0 0 0 4px rgba(27,158,126,0.12);
-        }
-        .calc__input--select {
-          appearance: none;
-          cursor: pointer;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3e%3cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
-          background-repeat: no-repeat;
-          background-position: right 16px center;
-          padding-right: 44px;
         }
 
         .calc__transport {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           gap: 12px;
         }
         .calc__transportBtn {
-          flex: 1;
           padding: 14px 16px;
           border-radius: 14px;
           border: 2px solid #E5E7EB;
@@ -322,14 +341,12 @@ export default function Calculator() {
           transition: all .15s;
           font-family: inherit;
         }
+        .calc__transportBtn:hover:not(.calc__transportBtn--active) {
+          border-color: #D1D5DB;
+        }
         .calc__transportBtn--active {
           border-color: var(--green);
           background: rgba(27,158,126,0.06);
-        }
-        .calc__transportBtn--disabled {
-          background: #F9FAFB;
-          cursor: not-allowed;
-          opacity: .4;
         }
         .calc__transportTitle {
           display: flex;
@@ -341,106 +358,249 @@ export default function Calculator() {
         }
         .calc__transportBtn--active .calc__transportTitle { color: var(--green-dark); }
         .calc__transportInfo {
-          font-size: 12px;
+          font-size: 12.5px;
           color: var(--text-muted);
           margin-top: 4px;
           padding-left: 26px;
         }
 
-        .calc__summary {
-          background: linear-gradient(135deg, rgba(27,158,126,0.08), rgba(255,107,71,0.08));
-          border: 1px solid rgba(27,158,126,0.18);
-          border-radius: 14px;
-          padding: 16px 20px;
-          display: flex;
-          gap: 28px;
-          flex-wrap: wrap;
-          margin-bottom: 20px;
-        }
-        .calc__summaryItem {
-          display: flex;
+        .calc__boxes {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
           gap: 10px;
-          align-items: flex-start;
         }
-        .calc__summaryItem :global(svg) {
-          color: var(--green-dark);
-          margin-top: 3px;
+        .calc__box {
+          padding: 14px;
+          background: #fff;
+          border: 2px solid #E5E7EB;
+          border-radius: 12px;
+          cursor: pointer;
+          text-align: left;
+          transition: all .15s;
+          font-family: inherit;
         }
-        .calc__summaryLabel {
-          font-size: 11px;
-          color: var(--text-muted);
-          text-transform: uppercase;
-          letter-spacing: 0.4px;
-          font-weight: 600;
+        .calc__box:hover:not(.calc__box--active) {
+          border-color: #D1D5DB;
         }
-        .calc__summaryValue {
-          font-size: 15px;
+        .calc__box--active {
+          border-color: var(--green);
+          background: rgba(27,158,126,0.06);
+        }
+        .calc__box--custom { grid-column: 1 / -1; }
+        .calc__boxHead {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          margin-bottom: 4px;
+        }
+        .calc__boxName {
+          font-size: 14px;
           font-weight: 800;
           color: var(--ink);
-          margin-top: 2px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
         }
-        .calc__summaryValue--accent { color: var(--green-dark); }
+        .calc__boxWeight {
+          font-size: 11.5px;
+          color: var(--text-muted);
+          font-weight: 600;
+        }
+        .calc__boxDims {
+          font-size: 12.5px;
+          color: var(--green-dark);
+          font-weight: 700;
+          margin-bottom: 2px;
+        }
+        .calc__boxDesc {
+          font-size: 12px;
+          color: var(--text-muted);
+          line-height: 1.4;
+        }
 
-        .calc__submit {
-          width: 100%;
-          margin-top: 4px;
+        .calc__custom {
+          margin-top: 14px;
         }
-        .calc__submit--disabled {
-          background: #E5E7EB;
-          color: #9CA3AF;
-          box-shadow: none;
-          cursor: not-allowed;
+        .calc__customRow {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+        }
+        .calc__field {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .calc__field--full { width: 100%; }
+        .calc__fieldLabel {
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--text-muted);
+        }
+        .calc__input {
+          width: 100%;
+          padding: 12px 14px;
+          border-radius: 10px;
+          border: 2px solid #E5E7EB;
+          font-size: 14px;
+          outline: none;
+          transition: border-color .15s, box-shadow .15s;
+          background: #fff;
+          color: var(--ink);
+          box-sizing: border-box;
+          font-family: inherit;
+        }
+        .calc__input:focus {
+          border-color: var(--green);
+          box-shadow: 0 0 0 4px rgba(27,158,126,0.12);
+        }
+
+        .calc__priceInputWrap {
+          position: relative;
+        }
+        .calc__priceIcon {
+          position: absolute;
+          left: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--text-muted);
+          pointer-events: none;
+        }
+        .calc__input--price {
+          padding-left: 38px;
+          padding-right: 32px;
+          font-size: 15px;
+        }
+        .calc__priceCur {
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--text-muted);
+          font-weight: 700;
+          font-size: 14px;
           pointer-events: none;
         }
 
-        .calc__sent {
-          margin-top: 16px;
-          padding: 14px 16px;
-          background: rgba(27,158,126,0.08);
-          border: 1px solid rgba(27,158,126,0.22);
-          border-radius: 12px;
-          font-size: 14px;
-          color: var(--green-dark);
-          font-weight: 600;
-          text-align: center;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          width: 100%;
-          box-sizing: border-box;
-          flex-wrap: wrap;
+        /* Result */
+        .calc__result {
+          position: sticky;
+          top: 88px;
         }
-        .calc__sentLink {
-          color: var(--green-dark);
-          text-decoration: underline;
+        .calc__resultCard {
+          background: linear-gradient(160deg, #fff 0%, rgba(27,158,126,0.04) 100%);
+          border: 1px solid rgba(27,158,126,0.18);
+          border-radius: 24px;
+          padding: 28px;
+          box-shadow: 0 18px 50px -20px rgba(10,15,28,0.18);
         }
-        .calc__sentLink:hover { color: var(--green); }
-        .calc__error {
-          margin-top: 16px;
-          padding: 14px 16px;
-          background: rgba(220, 38, 38, 0.06);
-          border: 1px solid rgba(220, 38, 38, 0.22);
-          border-radius: 12px;
-          font-size: 14px;
-          color: #B91C1C;
-          font-weight: 600;
-          text-align: center;
-          width: 100%;
-          box-sizing: border-box;
-        }
-        .calc__note {
+        .calc__resultLabel {
           font-size: 12px;
-          color: #9CA3AF;
-          margin-top: 16px;
-          text-align: center;
-          line-height: 1.6;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.6px;
+          color: var(--text-muted);
+          margin-bottom: 10px;
+        }
+        .calc__resultTotal {
+          display: flex;
+          align-items: baseline;
+          gap: 6px;
+          margin-bottom: 18px;
+          min-height: 56px;
+        }
+        .calc__approx {
+          font-size: 22px;
+          color: var(--text-muted);
+          font-weight: 600;
+        }
+        .calc__totalValue {
+          font-size: clamp(40px, 5vw, 54px);
+          font-weight: 900;
+          color: var(--ink);
+          letter-spacing: -2px;
+          line-height: 1;
+          background: linear-gradient(90deg, var(--green-dark), var(--coral-dark));
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .calc__totalCur {
+          font-size: 22px;
+          font-weight: 800;
+          color: var(--text-muted);
+        }
+        .calc__totalEmpty {
+          font-size: 40px;
+          font-weight: 900;
+          color: #D1D5DB;
+          letter-spacing: -1px;
         }
 
+        .calc__resultMeta {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-bottom: 20px;
+          padding: 14px 16px;
+          background: rgba(27,158,126,0.06);
+          border-radius: 12px;
+        }
+        .calc__metaRow {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13.5px;
+          color: var(--text-muted);
+        }
+        .calc__metaRow b {
+          color: var(--ink);
+          font-weight: 700;
+        }
+        .calc__metaRow :global(svg) { color: var(--green-dark); flex-shrink: 0; }
+        .calc__metaDot {
+          width: 14px;
+          height: 14px;
+          display: inline-block;
+          flex-shrink: 0;
+          position: relative;
+        }
+        .calc__metaDot::before {
+          content: '';
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          width: 4px; height: 4px;
+          border-radius: 50%;
+          background: var(--coral);
+        }
+
+        .calc__cta {
+          width: 100%;
+          justify-content: center;
+        }
+        .calc__cta--muted {
+          background: var(--ink);
+          box-shadow: none;
+        }
+
+        .calc__note {
+          margin-top: 14px;
+          font-size: 12px;
+          color: #9CA3AF;
+          line-height: 1.55;
+          text-align: center;
+        }
+
+        @media (max-width: 900px) {
+          .calc__grid { grid-template-columns: 1fr; }
+          .calc__result { position: static; }
+        }
         @media (max-width: 600px) {
-          .calc__row { grid-template-columns: 1fr; gap: 18px; }
-          .calc__form { padding: 28px 22px; }
-          .calc__transport { flex-direction: column; }
+          .calc__form { padding: 24px 20px; }
+          .calc__resultCard { padding: 22px; }
+          .calc__transport { grid-template-columns: 1fr; }
+          .calc__customRow { grid-template-columns: 1fr 1fr; }
         }
       `}</style>
     </section>
