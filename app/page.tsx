@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import { REVIEWS, AGGREGATE_RATING } from '@/lib/reviews';
 import HeroV3 from '@/components/HeroV3';
 import About from '@/components/About';
 import PriceComparison from '@/components/PriceComparison';
@@ -23,6 +24,17 @@ const jsonLd = {
   "logo": "https://taopost.ru/logo.png",
   "description": "Карго доставка товаров из Китая в Россию. Выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688, Goofish.",
   "telephone": "+7 977 276 77 78",
+  "email": "info@taopost.ru",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+7 977 276 77 78",
+      "contactType": "customer service",
+      "areaServed": "RU",
+      "availableLanguage": ["Russian", "Chinese"],
+      "contactOption": "TollFree"
+    }
+  ],
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "RU"
@@ -43,7 +55,39 @@ const jsonLd = {
   ],
   "sameAs": [
     "https://t.me/taopostmanager"
-  ]
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": AGGREGATE_RATING.ratingValue,
+    "reviewCount": AGGREGATE_RATING.reviewCount,
+    "bestRating": AGGREGATE_RATING.bestRating,
+    "worstRating": AGGREGATE_RATING.worstRating
+  },
+  "review": REVIEWS.map((r) => ({
+    "@type": "Review",
+    "author": { "@type": "Person", "name": r.name },
+    "datePublished": r.isoDate,
+    "reviewBody": r.text,
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": r.rating,
+      "bestRating": 5,
+      "worstRating": 1
+    }
+  }))
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TaoPost",
+  "url": "https://taopost.ru",
+  "inLanguage": "ru-RU",
+  "publisher": {
+    "@type": "Organization",
+    "name": "TaoPost",
+    "logo": "https://taopost.ru/logo.png"
+  }
 };
 
 const faqJsonLd = {
@@ -202,6 +246,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       <script
         type="application/ld+json"

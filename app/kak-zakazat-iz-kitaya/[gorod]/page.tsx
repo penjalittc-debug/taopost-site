@@ -101,8 +101,77 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
 
   const otherCities = CITIES.filter((c) => c.slug !== city.slug).slice(0, 12);
 
+  const cityFaq = [
+    {
+      q: `Сколько идёт посылка из Китая ${city.nameIn}?`,
+      a: `Авто-доставка занимает ${city.deliveryDays} с момента отправки нашим складом. Авиа — ${city.deliveryDaysAvia}. К этому добавьте 1–3 дня на выкуп товара продавцом и приёмку на нашем складе в Гуанчжоу.`,
+    },
+    {
+      q: `Сколько стоит доставка из Китая ${city.nameIn}?`,
+      a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимальный вес посылки 0,5 кг. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
+    },
+    {
+      q: `Как получить посылку ${city.nameLocative}?`,
+      a: city.pvz + '. Также возможна курьерская доставка до двери — оформляется при создании заказа.',
+    },
+    {
+      q: 'Берёте ли вы комиссию за выкуп?',
+      a: 'Нет, выкуп товара в Китае мы делаем без комиссии. Вы платите только стоимость самого товара продавцу и доставку до России.',
+    },
+    {
+      q: 'Что если товар придёт бракованным?',
+      a: 'Мы делаем фото каждой посылки на складе в Китае перед отправкой. Если вы заметите брак до отправки — вернём продавцу и вернём вам деньги. Также есть страховка груза.',
+    },
+    {
+      q: `Можно ли заказать опт ${city.nameIn} с 1688?`,
+      a: 'Да, через 1688 — это основная B2B-площадка Китая. Оформляем оптовые партии напрямую от производителей с минимальным заказом.',
+    },
+  ];
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://taopost.ru' },
+      { '@type': 'ListItem', position: 2, name: 'Как заказать из Китая', item: 'https://taopost.ru/kak-zakazat-iz-kitaya' },
+      { '@type': 'ListItem', position: 3, name: city.nameIn, item: `https://taopost.ru/kak-zakazat-iz-kitaya/${city.slug}` },
+    ],
+  };
+
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: cityFaq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+
+  const serviceLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: `Доставка из Китая ${city.nameIn}`,
+    provider: {
+      '@type': 'Organization',
+      name: 'TaoPost',
+      url: 'https://taopost.ru',
+      telephone: '+7 977 276 77 78',
+    },
+    areaServed: { '@type': 'City', name: city.name },
+    description: `Карго доставка товаров из Китая ${city.nameIn} с Taobao, Poizon, Pinduoduo, 1688. Срок ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа).`,
+    offers: [
+      { '@type': 'Offer', name: 'Автодоставка', price: '350', priceCurrency: 'RUB', priceSpecification: { '@type': 'UnitPriceSpecification', price: '350', priceCurrency: 'RUB', unitCode: 'KGM' } },
+      { '@type': 'Offer', name: 'Авиадоставка', price: '2700', priceCurrency: 'RUB', priceSpecification: { '@type': 'UnitPriceSpecification', price: '2700', priceCurrency: 'RUB', unitCode: 'KGM' } },
+    ],
+    url: `https://taopost.ru/kak-zakazat-iz-kitaya/${city.slug}`,
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
       <Header />
       <main>
 
@@ -113,6 +182,13 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '880px', margin: '0 auto' }}>
+            <nav aria-label="breadcrumb" style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px', display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
+              <span>›</span>
+              <Link href="/kak-zakazat-iz-kitaya" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Как заказать из Китая</Link>
+              <span>›</span>
+              <span style={{ color: '#374151' }}>{city.nameIn}</span>
+            </nav>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
               background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
@@ -186,6 +262,38 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </a>
           </div>
         </section>
+
+        {/* Local context block — uniqueness for SEO */}
+        {city.localText && (
+          <section style={{ padding: '70px 24px', background: '#fff' }}>
+            <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+              {city.region && (
+                <div style={{
+                  display: 'inline-block',
+                  background: '#f3f4f6', color: '#374151',
+                  fontSize: '12px', fontWeight: 700,
+                  padding: '4px 12px', borderRadius: '50px',
+                  marginBottom: '16px',
+                }}>
+                  {city.region}
+                </div>
+              )}
+              <h2 style={{
+                fontSize: 'clamp(22px, 3.5vw, 32px)',
+                fontWeight: 900, color: '#111827',
+                marginBottom: '20px', lineHeight: 1.25,
+              }}>
+                Доставка из Китая {city.nameIn} — особенности города
+              </h2>
+              <p style={{
+                fontSize: '17px', color: '#374151',
+                lineHeight: 1.8, marginBottom: 0,
+              }}>
+                {city.localText}
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* How it works in this city */}
         <section style={{ padding: '80px 24px', background: '#fff' }}>
@@ -355,32 +463,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               Частые вопросы о доставке {city.nameIn}
             </h2>
 
-            {[
-              {
-                q: `Сколько идёт посылка из Китая ${city.nameIn}?`,
-                a: `Авто-доставка занимает ${city.deliveryDays} с момента отправки нашим складом. Авиа — ${city.deliveryDaysAvia}. К этому добавьте 1–3 дня на выкуп товара продавцом и приёмку на нашем складе в Гуанчжоу.`,
-              },
-              {
-                q: `Сколько стоит доставка из Китая ${city.nameIn}?`,
-                a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимальный вес посылки 0,5 кг. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
-              },
-              {
-                q: `Как получить посылку ${city.nameLocative}?`,
-                a: city.pvz + '. Также возможна курьерская доставка до двери — оформляется при создании заказа.',
-              },
-              {
-                q: 'Берёте ли вы комиссию за выкуп?',
-                a: 'Нет, выкуп товара в Китае мы делаем без комиссии. Вы платите только стоимость самого товара продавцу и доставку до России.',
-              },
-              {
-                q: 'Что если товар придёт бракованным?',
-                a: 'Мы делаем фото каждой посылки на складе в Китае перед отправкой. Если вы заметите брак до отправки — вернём продавцу и вернём вам деньги. Также есть страховка груза.',
-              },
-              {
-                q: `Можно ли заказать опт ${city.nameIn} с 1688?`,
-                a: 'Да, через 1688 — это основная B2B-площадка Китая. Оформляем оптовые партии напрямую от производителей с минимальным заказом.',
-              },
-            ].map((item, i) => (
+            {cityFaq.map((item, i) => (
               <details key={i} style={{
                 background: '#fff', borderRadius: '14px',
                 padding: '20px 24px', marginBottom: '12px',

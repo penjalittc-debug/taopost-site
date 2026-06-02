@@ -6,12 +6,36 @@ import Footer from '@/components/Footer';
 import { CITIES } from '@/lib/cities';
 
 export const metadata: Metadata = {
-  title: 'Как заказать из Китая — Инструкции и видео | TaoPost',
-  description: 'Пошаговые инструкции как заказать товары из Китая через TaoPost. Видео-гайды по Taobao, Poizon, Pinduoduo, 1688. Бесплатные обучающие материалы.',
-  keywords: 'как заказать с taobao, как купить с poizon, как пользоваться pinduoduo, инструкция заказ из китая, видео как заказать из китая, обучение карго',
+  title: 'Как заказать из Китая — Инструкции по Taobao, Poizon, 1688 | TaoPost',
+  description: 'Пошаговые инструкции как заказать товары из Китая через TaoPost. Гайды по Taobao, Poizon, Pinduoduo, 1688. Сроки и тарифы для 27 городов России.',
+  keywords: 'как заказать с taobao, как купить с poizon, инструкция заказ из китая, обучение карго',
   alternates: {
     canonical: 'https://taopost.ru/kak-zakazat-iz-kitaya',
   },
+  openGraph: {
+    title: 'Как заказать из Китая — Инструкции по Taobao, Poizon, 1688',
+    description: 'Пошаговые гайды по китайским маркетплейсам и сроки доставки по 27 городам России.',
+    url: 'https://taopost.ru/kak-zakazat-iz-kitaya',
+    siteName: 'TaoPost',
+    locale: 'ru_RU',
+    type: 'website',
+    images: [{ url: 'https://taopost.ru/og-image.png', width: 1200, height: 630, alt: 'TaoPost — Как заказать из Китая' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Как заказать из Китая — Инструкции TaoPost',
+    description: 'Пошаговые гайды по Taobao, Poizon, 1688 и сроки доставки по России.',
+    images: ['https://taopost.ru/og-image.png'],
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://taopost.ru' },
+    { '@type': 'ListItem', position: 2, name: 'Как заказать из Китая', item: 'https://taopost.ru/kak-zakazat-iz-kitaya' },
+  ],
 };
 
 const GUIDES = [
@@ -84,15 +108,16 @@ const GUIDES = [
 ];
 
 const MATERIALS = [
-  { emoji: '📋', title: 'Памятка новичка', desc: 'Всё что нужно знать перед первым заказом из Китая', tag: 'PDF' },
-  { emoji: '📦', title: 'Что можно везти из Китая', desc: 'Список запрещённых и разрешённых товаров для ввоза в Россию', tag: 'Статья' },
-  { emoji: '⚖️', title: 'Нормы беспошлинного ввоза', desc: 'Лимиты на 2026 год — вес, стоимость, количество посылок', tag: 'PDF' },
-  { emoji: '💰', title: 'Как сэкономить на доставке', desc: 'Советы по консолидации, выбору маршрута и упаковке', tag: 'Статья' },
+  { emoji: '📏', title: 'Размерная сетка китайской одежды', desc: 'Таблицы соответствия китайских и российских размеров с реальными замерами', href: '/blog/razmernaya-setka-kitayskoy-odezhdy' },
+  { emoji: '⚖️', title: 'Нормы беспошлинного ввоза 2026', desc: 'Лимиты по весу и стоимости посылок из Китая — что изменилось', href: '/blog/normy-besposhlinogo-vvoza-2026' },
+  { emoji: '🚫', title: 'Что нельзя везти из Китая', desc: 'Запрещённые товары для ввоза в Россию — полный актуальный список', href: '/blog/chto-nelzya-vezti-iz-kitaya' },
+  { emoji: '🔍', title: 'Как найти товар на Taobao по фото', desc: 'Гайд по поиску по картинке: приложение, расширения, лайфхаки', href: '/blog/kak-nayti-tovar-na-taobao-po-foto' },
 ];
 
 export default function GuidePage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <Header />
       <main>
 
@@ -208,29 +233,6 @@ export default function GuidePage() {
                     {guide.description}
                   </p>
 
-                  {/* Video placeholder */}
-                  <div style={{
-                    background: '#111827',
-                    borderRadius: '12px',
-                    height: '160px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginBottom: '20px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}>
-                    <div style={{ textAlign: 'center', color: 'white' }}>
-                      <div style={{
-                        width: '52px', height: '52px',
-                        background: 'rgba(255,255,255,0.15)',
-                        borderRadius: '50%',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        margin: '0 auto 8px',
-                        fontSize: '20px',
-                      }}>▶</div>
-                      <div style={{ fontSize: '13px', opacity: 0.6 }}>Видео скоро появится</div>
-                    </div>
-                  </div>
-
                   {/* Steps */}
                   <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
                     {guide.steps.map((step, i) => (
@@ -271,21 +273,21 @@ export default function GuidePage() {
 
             <div className="materials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
               {MATERIALS.map((mat, i) => (
-                <div key={i} style={{
-                  background: '#fff',
-                  borderRadius: '16px',
-                  padding: '28px 24px',
-                  border: '1px solid #E5E7EB',
-                  cursor: 'pointer',
-                }}>
+                <Link
+                  key={i}
+                  href={mat.href}
+                  style={{
+                    background: '#fff',
+                    borderRadius: '16px',
+                    padding: '28px 24px',
+                    border: '1px solid #E5E7EB',
+                    textDecoration: 'none',
+                    display: 'block',
+                    transition: 'box-shadow 0.2s, transform 0.2s',
+                  }}
+                  className="material-card"
+                >
                   <div style={{ fontSize: '36px', marginBottom: '12px' }}>{mat.emoji}</div>
-                  <div style={{
-                    display: 'inline-block',
-                    background: '#e8f7f3', color: '#1B9E7E',
-                    fontSize: '11px', fontWeight: 700,
-                    padding: '2px 10px', borderRadius: '50px',
-                    marginBottom: '10px',
-                  }}>{mat.tag}</div>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
                     {mat.title}
                   </h3>
@@ -296,9 +298,9 @@ export default function GuidePage() {
                     fontSize: '13px', fontWeight: 700, color: '#1B9E7E',
                     display: 'flex', alignItems: 'center', gap: '4px',
                   }}>
-                    Скоро →
+                    Читать →
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -395,6 +397,10 @@ export default function GuidePage() {
       <Footer />
 
       <style>{`
+        .material-card:hover {
+          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+          transform: translateY(-2px);
+        }
         @media (max-width: 768px) {
           .materials-grid { grid-template-columns: 1fr 1fr !important; }
         }

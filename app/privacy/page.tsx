@@ -3,7 +3,17 @@ import Image from 'next/image';
 
 export const metadata = {
   title: 'Политика конфиденциальности — TaoPost',
-  description: 'Политика конфиденциальности сервиса TaoPost',
+  description: 'Политика конфиденциальности сервиса TaoPost — как мы обрабатываем персональные данные клиентов.',
+  alternates: { canonical: 'https://taopost.ru/privacy' },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: 'Политика конфиденциальности — TaoPost',
+    description: 'Как TaoPost обрабатывает персональные данные клиентов.',
+    url: 'https://taopost.ru/privacy',
+    siteName: 'TaoPost',
+    locale: 'ru_RU',
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {

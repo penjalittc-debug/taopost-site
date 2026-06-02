@@ -3,7 +3,17 @@ import Image from 'next/image';
 
 export const metadata = {
   title: 'Пользовательское соглашение — TaoPost',
-  description: 'Пользовательское соглашение сервиса TaoPost — условия предоставления услуг доставки из Китая в Россию',
+  description: 'Пользовательское соглашение сервиса TaoPost — условия предоставления услуг доставки из Китая в Россию.',
+  alternates: { canonical: 'https://taopost.ru/terms' },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: 'Пользовательское соглашение — TaoPost',
+    description: 'Условия предоставления услуг доставки из Китая в Россию.',
+    url: 'https://taopost.ru/terms',
+    siteName: 'TaoPost',
+    locale: 'ru_RU',
+    type: 'website',
+  },
 };
 
 export default function TermsPage() {
