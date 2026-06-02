@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { articles, getArticleBySlug } from '@/lib/blog';
@@ -154,10 +155,13 @@ export default async function ArticlePage({ params }: Props) {
         {article.image && (
           <section style={{ padding: '0 24px' }}>
             <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={article.image}
                 alt={article.title}
+                width={1600}
+                height={900}
+                priority
+                sizes="(max-width: 900px) 100vw, 900px"
                 style={{
                   width: '100%',
                   height: 'auto',

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { articles } from '@/lib/blog';
@@ -102,10 +103,19 @@ export default function BlogPage() {
                     {/* Cover image */}
                     {article.image && (
                       <div style={{
+                        position: 'relative',
                         width: '100%',
                         aspectRatio: '16 / 9',
-                        background: `url(${article.image}) center/cover no-repeat, #E5E7EB`,
-                      }} />
+                        background: '#E5E7EB',
+                      }}>
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          fill
+                          sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 360px"
+                          style={{ objectFit: 'cover' }}
+                        />
+                      </div>
                     )}
 
                     <div style={{

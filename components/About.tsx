@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { CalendarDays, Globe2, Package, Warehouse } from 'lucide-react';
 
 const STATS = [
@@ -76,12 +77,12 @@ export default function About() {
             rel="noopener noreferrer"
             aria-label="Открыть бизнес-лицензию в полном размере"
           >
-            <img
+            <Image
               src="/certificate.jpg"
               alt="Бизнес-лицензия КНР (营业执照) компании 广州亚世名进出口有限公司"
-              loading="lazy"
-              width={2458}
-              height={1762}
+              width={1200}
+              height={883}
+              sizes="(max-width: 768px) 100vw, 600px"
             />
             <span className="abt__certZoom" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

@@ -161,12 +161,12 @@ export default function Footer() {
               className="ftr__certBox"
               aria-label="Бизнес-лицензия КНР — открыть в полном размере"
             >
-              <img
+              <Image
                 src="/certificate.jpg"
                 alt="营业执照 — Бизнес-лицензия КНР компании TaoPost"
-                loading="lazy"
-                width={2458}
-                height={1762}
+                width={1200}
+                height={883}
+                sizes="(max-width: 768px) 100vw, 320px"
               />
             </a>
             <div className="ftr__certCaption">
