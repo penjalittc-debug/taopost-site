@@ -166,7 +166,7 @@ export default function TermsPage() {
               <ul>
                 <li>Email: <a href="mailto:info@taopost.ru" style={{ color: '#1B9E7E' }}>info@taopost.ru</a></li>
                 <li>Email (обращения и жалобы): <a href="mailto:help@taopost.ru" style={{ color: '#1B9E7E' }}>help@taopost.ru</a></li>
-                <li>Telegram: <a href="https://t.me/taopostmanager" style={{ color: '#1B9E7E' }}>@taopostmanager</a></li>
+                <li>Telegram: <a href="https://t.me/taopostsupport" style={{ color: '#1B9E7E' }}>@taopostsupport</a></li>
               </ul>
             </Section>
 

@@ -54,7 +54,7 @@ const jsonLd = {
     "Доставка с 1688"
   ],
   "sameAs": [
-    "https://t.me/taopostmanager"
+    "https://t.me/taopostsupport"
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -213,7 +213,7 @@ const faqJsonLd = {
 function TelegramFloat() {
   return (
     <a
-      href="https://t.me/taopostmanager?start=site"
+      href="https://t.me/taopostsupport?start=site"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Написать менеджеру в Telegram"

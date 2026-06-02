@@ -87,14 +87,14 @@ export default function Tracking() {
                 📦 Для отслеживания войдите в личный кабинет или напишите нам в Telegram
               </div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
-                <a href="https://t.me/taopostmanager?start=site" target="_blank" rel="noopener noreferrer" style={{
+                <a href="https://t.me/taopostsupport?start=site" target="_blank" rel="noopener noreferrer" style={{
                   flex: 1, padding: '12px', background: '#1B9E7E', color: 'white',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center',
                 }}>
                   Личный кабинет
                 </a>
-                <a href="https://t.me/taopostmanager" target="_blank" rel="noopener noreferrer" style={{
+                <a href="https://t.me/taopostsupport" target="_blank" rel="noopener noreferrer" style={{
                   flex: 1, padding: '12px', background: '#e8f7f3', color: '#1B9E7E',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center', border: '1px solid #c6ede4',

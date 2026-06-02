@@ -99,7 +99,7 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="hero-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '48px' }}>
               <a
-                href="https://t.me/taopostmanager?start=site"
+                href="https://t.me/taopostsupport?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

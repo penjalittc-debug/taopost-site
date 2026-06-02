@@ -30,7 +30,7 @@ export default function CTAV2() {
 
             <div className="ctav2__buttons">
               <a
-                href="https://t.me/taopostmanager?start=site"
+                href="https://t.me/taopostsupport?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--primary"
@@ -39,7 +39,7 @@ export default function CTAV2() {
                 Написать в Telegram
               </a>
               <a
-                href="https://t.me/taopostmanager"
+                href="https://t.me/taopostsupport"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--ghost"
