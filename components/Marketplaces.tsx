@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Send } from 'lucide-react';
+import { Send, Package, Footprints } from 'lucide-react';
 
 const MARKETPLACES = [
   {
@@ -72,6 +72,27 @@ export default function Marketplaces() {
           <p className="tp-lede">
             Просто скопируйте ссылку на товар и отправьте нам — всё остальное сделаем мы
           </p>
+          <div className="tp-min-policy">
+            <div className="tp-min-policy__item">
+              <span className="tp-min-policy__icon tp-min-policy__icon--coral">
+                <Package size={18} strokeWidth={2.5} />
+              </span>
+              <span>
+                <strong>Taobao</strong> и <strong>Pinduoduo</strong>
+                <span className="tp-min-policy__val"> — от 5 кг</span>
+              </span>
+            </div>
+            <div className="tp-min-policy__sep" />
+            <div className="tp-min-policy__item">
+              <span className="tp-min-policy__icon tp-min-policy__icon--green">
+                <Footprints size={18} strokeWidth={2.5} />
+              </span>
+              <span>
+                <strong>Poizon</strong>
+                <span className="tp-min-policy__val"> — от 1 пары кроссовок</span>
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="mp__grid">

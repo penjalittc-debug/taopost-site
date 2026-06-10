@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock } from 'lucide-react';
+import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock, Package, Footprints } from 'lucide-react';
 
 type Transport = 'auto' | 'air';
 
@@ -97,9 +97,26 @@ export default function Calculator() {
           <p className="tp-lede">
             Мгновенный расчёт по объёмному весу. Без формы и ожидания менеджера
           </p>
-          <div className="calc__minPill">
-            <Sparkles size={14} strokeWidth={2.5} />
-            Taobao и Pinduoduo — от 5 кг · Poizon — от 1 пары кроссовок
+          <div className="tp-min-policy">
+            <div className="tp-min-policy__item">
+              <span className="tp-min-policy__icon tp-min-policy__icon--coral">
+                <Package size={18} strokeWidth={2.5} />
+              </span>
+              <span>
+                <strong>Taobao</strong> и <strong>Pinduoduo</strong>
+                <span className="tp-min-policy__val"> — от 5 кг</span>
+              </span>
+            </div>
+            <div className="tp-min-policy__sep" />
+            <div className="tp-min-policy__item">
+              <span className="tp-min-policy__icon tp-min-policy__icon--green">
+                <Footprints size={18} strokeWidth={2.5} />
+              </span>
+              <span>
+                <strong>Poizon</strong>
+                <span className="tp-min-policy__val"> — от 1 пары кроссовок</span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -306,20 +323,6 @@ export default function Calculator() {
           max-width: 1080px;
           margin: 0 auto;
           position: relative;
-        }
-        .calc__minPill {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          margin-top: 14px;
-          padding: 8px 14px;
-          border-radius: 999px;
-          background: rgba(255,107,71,0.10);
-          color: var(--coral-dark);
-          border: 1px solid rgba(255,107,71,0.22);
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: -0.1px;
         }
         .calc__warn {
           margin-top: 14px;

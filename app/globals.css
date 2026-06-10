@@ -320,3 +320,70 @@ body {
 
 /* ── Utility ─────────────────────────────────────────────────── */
 .tp-muted { color: var(--text-muted); }
+
+/* ── Min-order policy badge (используется в калькуляторе и в маркетплейсах) ── */
+.tp-min-policy {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 20px;
+  padding: 14px 22px;
+  border-radius: 18px;
+  background: #fff;
+  border: 2px solid rgba(255,107,71,0.30);
+  box-shadow: 0 14px 36px -16px rgba(255,107,71,0.35), 0 2px 6px rgba(10,15,28,0.04);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tp-min-policy__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.tp-min-policy__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: #fff;
+}
+.tp-min-policy__icon--coral {
+  background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+  box-shadow: 0 6px 14px -4px rgba(255,107,71,0.55);
+}
+.tp-min-policy__icon--green {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  box-shadow: 0 6px 14px -4px rgba(27,158,126,0.55);
+}
+.tp-min-policy__val {
+  color: var(--coral-dark);
+  font-weight: 800;
+}
+.tp-min-policy__item:last-child .tp-min-policy__val { color: var(--green-dark); }
+.tp-min-policy__sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(10,15,28,0.10);
+}
+@media (max-width: 640px) {
+  .tp-min-policy {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    text-align: left;
+  }
+  .tp-min-policy__sep {
+    width: 100%;
+    height: 1px;
+  }
+}
