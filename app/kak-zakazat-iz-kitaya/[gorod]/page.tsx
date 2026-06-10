@@ -108,7 +108,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
     },
     {
       q: `Сколько стоит доставка из Китая ${city.nameIn}?`,
-      a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимальный вес посылки 0,5 кг. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
+      a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимум с Taobao и Pinduoduo — 5 кг. С Poizon выкупаем от 1 пары кроссовок. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
     },
     {
       q: `Как получить посылку ${city.nameLocative}?`,

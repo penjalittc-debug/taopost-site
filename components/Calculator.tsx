@@ -17,13 +17,14 @@ type BoxPreset = {
   desc: string;
 };
 
-// Размеры СДЭК
+const MIN_WEIGHT = 5;
+
+// Минимальная отправка от 5 кг. Габариты — типичные для соответствующего веса.
 const BOXES: BoxPreset[] = [
-  { id: 'xs', name: 'XS', dims: [24, 17, 10], maxWeight: 1, desc: 'Аксессуары, бижутерия' },
-  { id: 's', name: 'S', dims: [34, 24, 10], maxWeight: 2, desc: 'Футболка, кроссовки' },
-  { id: 'm', name: 'M', dims: [24, 24, 21], maxWeight: 3, desc: 'Одежда, средняя электроника' },
-  { id: 'l', name: 'L', dims: [40, 24, 21], maxWeight: 5, desc: 'Две пары обуви, одежда' },
-  { id: 'xl', name: 'XL', dims: [40, 35, 28], maxWeight: 10, desc: 'Куртка, крупная электроника' },
+  { id: 'base', name: '5 кг', dims: [40, 30, 25], maxWeight: 5, desc: 'Одежда, обувь, аксессуары' },
+  { id: 'm', name: '10 кг', dims: [50, 40, 30], maxWeight: 10, desc: 'Несколько вещей, электроника' },
+  { id: 'l', name: '20 кг', dims: [60, 50, 40], maxWeight: 20, desc: 'Объёмный заказ, текстиль' },
+  { id: 'xl', name: '30 кг', dims: [70, 60, 50], maxWeight: 30, desc: 'Малый опт, бизнес' },
 ];
 
 const formatRub = (n: number) =>
@@ -32,7 +33,7 @@ const formatRub = (n: number) =>
 export default function Calculator() {
   const [transport, setTransport] = useState<Transport>('auto');
   const [mode, setMode] = useState<'preset' | 'custom'>('preset');
-  const [selectedBox, setSelectedBox] = useState('m');
+  const [selectedBox, setSelectedBox] = useState('base');
   const [customWeight, setCustomWeight] = useState('');
   const [customL, setCustomL] = useState('');
   const [customW, setCustomW] = useState('');
@@ -96,6 +97,10 @@ export default function Calculator() {
           <p className="tp-lede">
             Мгновенный расчёт по объёмному весу. Без формы и ожидания менеджера
           </p>
+          <div className="calc__minPill">
+            <Sparkles size={14} strokeWidth={2.5} />
+            Taobao и Pinduoduo — от 5 кг · Poizon — от 1 пары кроссовок
+          </div>
         </div>
 
         <div className="calc__grid">
@@ -173,7 +178,7 @@ export default function Calculator() {
                         inputMode="decimal"
                         value={customWeight}
                         onChange={e => setCustomWeight(e.target.value.replace(/[^\d.,]/g, ''))}
-                        placeholder="10"
+                        placeholder="5"
                         className="calc__input"
                       />
                     </label>
@@ -211,6 +216,11 @@ export default function Calculator() {
                       />
                     </label>
                   </div>
+                  {calc.chargeable > 0 && calc.chargeable < MIN_WEIGHT && (
+                    <div className="calc__warn">
+                      Минимальная отправка — {MIN_WEIGHT} кг. Совместный выкуп поможет добрать вес — напишите нам.
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -296,6 +306,31 @@ export default function Calculator() {
           max-width: 1080px;
           margin: 0 auto;
           position: relative;
+        }
+        .calc__minPill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 14px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: rgba(255,107,71,0.10);
+          color: var(--coral-dark);
+          border: 1px solid rgba(255,107,71,0.22);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: -0.1px;
+        }
+        .calc__warn {
+          margin-top: 14px;
+          padding: 12px 16px;
+          background: rgba(255,107,71,0.10);
+          border: 1px solid rgba(255,107,71,0.22);
+          border-radius: 12px;
+          color: var(--coral-dark);
+          font-size: 13.5px;
+          font-weight: 600;
+          line-height: 1.5;
         }
         .calc__grid {
           display: grid;
