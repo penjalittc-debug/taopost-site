@@ -206,12 +206,12 @@ export default function Footer() {
         .ftr__orb--tr {
           top: -160px; right: -140px;
           width: 520px; height: 520px;
-          background: radial-gradient(circle, rgba(27,158,126,0.25), transparent 65%);
+          background: radial-gradient(circle, rgba(0, 92, 67,0.25), transparent 65%);
         }
         .ftr__orb--bl {
           bottom: -180px; left: -120px;
           width: 460px; height: 460px;
-          background: radial-gradient(circle, rgba(255,107,71,0.18), transparent 65%);
+          background: radial-gradient(circle, rgba(255, 90, 71,0.18), transparent 65%);
         }
         .ftr__inner {
           max-width: 1440px;

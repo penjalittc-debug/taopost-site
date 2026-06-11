@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   const html = `<!doctype html>
 <html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;padding:24px;margin:0;color:#0f172a">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e5e7eb">
-    <div style="background:linear-gradient(135deg,#1B9E7E,#FF6B47);padding:22px 26px;color:#fff">
+    <div style="background:linear-gradient(135deg,#005C43,#FF5A47);padding:22px 26px;color:#fff">
       <div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;opacity:.85">TaoPost · Калькулятор</div>
       <div style="font-size:22px;font-weight:800;margin-top:6px">Новая заявка на расчёт</div>
     </div>
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
         ${volume ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Объём</td>
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(volume)} м³</td></tr>` : ''}
         <tr><td style="padding:14px 26px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Телефон</td>
-            <td style="padding:14px 26px;font-weight:700;font-size:16px;color:#1B9E7E"><a href="tel:${esc(phone)}" style="color:#1B9E7E;text-decoration:none">${esc(phone)}</a></td></tr>
+            <td style="padding:14px 26px;font-weight:700;font-size:16px;color:#005C43"><a href="tel:${esc(phone)}" style="color:#005C43;text-decoration:none">${esc(phone)}</a></td></tr>
       </tbody>
     </table>
     <div style="padding:14px 26px;background:#f9fafb;color:#6b7280;font-size:12px">Получено: ${esc(submittedAt)} МСК · taopost.ru</div>

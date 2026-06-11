@@ -29,7 +29,7 @@ export default function TermsPage() {
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
             <Image src="/logo.png" alt="TaoPost" width={36} height={36} style={{ objectFit: 'contain' }} priority />
             <span style={{ fontWeight: 800, fontSize: '20px', color: '#111827', letterSpacing: '-0.5px' }}>
-              Tao<span style={{ color: '#1B9E7E' }}>Post</span>
+              Tao<span style={{ color: '#005C43' }}>Post</span>
             </span>
           </Link>
           <Link href="/" style={{
@@ -53,7 +53,7 @@ export default function TermsPage() {
           <div style={{ marginBottom: '48px' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E',
+              background: '#e8f7f3', color: '#005C43',
               borderRadius: '50px', padding: '6px 14px',
               fontSize: '13px', fontWeight: 700, marginBottom: '16px',
               border: '1px solid #c6ede4',
@@ -164,9 +164,9 @@ export default function TermsPage() {
             <Section title="10. Контакты">
               <p>По вопросам, связанным с оказанием услуг, обращайтесь:</p>
               <ul>
-                <li>Email: <a href="mailto:info@taopost.ru" style={{ color: '#1B9E7E' }}>info@taopost.ru</a></li>
-                <li>Email (обращения и жалобы): <a href="mailto:help@taopost.ru" style={{ color: '#1B9E7E' }}>help@taopost.ru</a></li>
-                <li>Telegram: <a href="https://t.me/taopostsupport" style={{ color: '#1B9E7E' }}>@taopostsupport</a></li>
+                <li>Email: <a href="mailto:info@taopost.ru" style={{ color: '#005C43' }}>info@taopost.ru</a></li>
+                <li>Email (обращения и жалобы): <a href="mailto:help@taopost.ru" style={{ color: '#005C43' }}>help@taopost.ru</a></li>
+                <li>Telegram: <a href="https://t.me/taopostsupport" style={{ color: '#005C43' }}>@taopostsupport</a></li>
               </ul>
             </Section>
 
@@ -182,9 +182,9 @@ export default function TermsPage() {
                 <li><strong>Юридический адрес:</strong> Гуанчжоу, район Ливань, ул. Чжаньцянь, 90</li>
                 <li><strong>Адрес склада:</strong> 广东省佛山市南海区里水镇流潮社区水口大道西3号 · 905百货旁 (Гуанчжоу / Фошань, КНР)</li>
                 <li><strong>Телефон офиса (Китай):</strong> +86 185 2070 7778</li>
-                <li><strong>Email:</strong> <a href="mailto:info@taopost.ru" style={{ color: '#1B9E7E' }}>info@taopost.ru</a></li>
+                <li><strong>Email:</strong> <a href="mailto:info@taopost.ru" style={{ color: '#005C43' }}>info@taopost.ru</a></li>
               </ul>
-              <p>Реестровая информация доступна для проверки в государственном реестре КНР на сайте <a href="https://www.gsxt.gov.cn/" target="_blank" rel="noopener noreferrer" style={{ color: '#1B9E7E' }}>gsxt.gov.cn</a>.</p>
+              <p>Реестровая информация доступна для проверки в государственном реестре КНР на сайте <a href="https://www.gsxt.gov.cn/" target="_blank" rel="noopener noreferrer" style={{ color: '#005C43' }}>gsxt.gov.cn</a>.</p>
             </Section>
 
           </div>
@@ -192,10 +192,10 @@ export default function TermsPage() {
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
             <Link href="/" style={{
               display: 'inline-block', padding: '14px 32px',
-              background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
+              background: 'linear-gradient(135deg, #005C43, #004232)',
               color: 'white', fontWeight: 700, fontSize: '15px',
               borderRadius: '50px', textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(27,158,126,0.3)',
+              boxShadow: '0 4px 14px rgba(0, 92, 67,0.3)',
             }}>
               ← Вернуться на главную
             </Link>

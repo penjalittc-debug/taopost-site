@@ -41,7 +41,7 @@ export default function Hero() {
         position: 'absolute', top: '-100px', right: '-100px',
         width: '500px', height: '500px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(27,158,126,0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(0, 92, 67,0.08) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
       <div style={{
@@ -60,7 +60,7 @@ export default function Hero() {
             {/* Badge */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
+              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
               padding: '6px 14px', fontSize: '13px', fontWeight: 700,
               marginBottom: '24px',
               border: '1px solid #c6ede4',
@@ -78,7 +78,7 @@ export default function Hero() {
             }}>
               Доставка товаров<br />
               из Китая<br />
-              <span style={{ color: '#1B9E7E' }}>в Россию</span>
+              <span style={{ color: '#005C43' }}>в Россию</span>
             </h1>
 
             <p style={{
@@ -104,13 +104,13 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 style={{
                   padding: '16px 32px',
-                  background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
+                  background: 'linear-gradient(135deg, #005C43, #004232)',
                   color: 'white',
                   fontWeight: 800,
                   fontSize: '16px',
                   borderRadius: '50px',
                   textDecoration: 'none',
-                  boxShadow: '0 8px 24px rgba(27,158,126,0.35)',
+                  boxShadow: '0 8px 24px rgba(0, 92, 67,0.35)',
                   transition: 'transform 0.15s, box-shadow 0.15s',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -118,11 +118,11 @@ export default function Hero() {
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 32px rgba(27,158,126,0.45)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 32px rgba(0, 92, 67,0.45)';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(27,158,126,0.35)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(0, 92, 67,0.35)';
                 }}
               >
                 Начать заказ <span>→</span>
@@ -144,8 +144,8 @@ export default function Hero() {
                   gap: '8px',
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = '#1B9E7E';
-                  (e.currentTarget as HTMLElement).style.color = '#1B9E7E';
+                  (e.currentTarget as HTMLElement).style.borderColor = '#005C43';
+                  (e.currentTarget as HTMLElement).style.color = '#005C43';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb';

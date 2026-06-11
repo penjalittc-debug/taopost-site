@@ -158,7 +158,7 @@ export default function WarehouseGallery() {
         }
         .wg__navBtn:hover {
           border-color: var(--green);
-          background: rgba(27,158,126,0.08);
+          background: rgba(0, 92, 67,0.08);
           color: var(--green-dark);
           transform: translateY(-2px);
         }
@@ -201,7 +201,7 @@ export default function WarehouseGallery() {
           position: absolute;
           top: 14px;
           right: 14px;
-          background: rgba(255,107,71,0.95);
+          background: rgba(255, 90, 71,0.95);
           color: #fff;
           backdrop-filter: blur(6px);
           border-radius: 999px;

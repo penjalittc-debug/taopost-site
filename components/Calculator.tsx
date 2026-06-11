@@ -327,8 +327,8 @@ export default function Calculator() {
         .calc__warn {
           margin-top: 14px;
           padding: 12px 16px;
-          background: rgba(255,107,71,0.10);
-          border: 1px solid rgba(255,107,71,0.22);
+          background: rgba(255, 90, 71,0.10);
+          border: 1px solid rgba(255, 90, 71,0.22);
           border-radius: 12px;
           color: var(--coral-dark);
           font-size: 13.5px;
@@ -384,7 +384,7 @@ export default function Calculator() {
         }
         .calc__transportBtn--active {
           border-color: var(--green);
-          background: rgba(27,158,126,0.06);
+          background: rgba(0, 92, 67,0.06);
         }
         .calc__transportTitle {
           display: flex;
@@ -422,7 +422,7 @@ export default function Calculator() {
         }
         .calc__box--active {
           border-color: var(--green);
-          background: rgba(27,158,126,0.06);
+          background: rgba(0, 92, 67,0.06);
         }
         .calc__box--custom { grid-column: 1 / -1; }
         .calc__boxHead {
@@ -490,7 +490,7 @@ export default function Calculator() {
         }
         .calc__input:focus {
           border-color: var(--green);
-          box-shadow: 0 0 0 4px rgba(27,158,126,0.12);
+          box-shadow: 0 0 0 4px rgba(0, 92, 67,0.12);
         }
 
         .calc__priceInputWrap {
@@ -526,8 +526,8 @@ export default function Calculator() {
           top: 88px;
         }
         .calc__resultCard {
-          background: linear-gradient(160deg, #fff 0%, rgba(27,158,126,0.04) 100%);
-          border: 1px solid rgba(27,158,126,0.18);
+          background: linear-gradient(160deg, #fff 0%, rgba(0, 92, 67,0.04) 100%);
+          border: 1px solid rgba(0, 92, 67,0.18);
           border-radius: 24px;
           padding: 28px;
           box-shadow: 0 18px 50px -20px rgba(10,15,28,0.18);
@@ -581,7 +581,7 @@ export default function Calculator() {
           gap: 8px;
           margin-bottom: 20px;
           padding: 14px 16px;
-          background: rgba(27,158,126,0.06);
+          background: rgba(0, 92, 67,0.06);
           border-radius: 12px;
         }
         .calc__metaRow {

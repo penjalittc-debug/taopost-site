@@ -8,8 +8,8 @@ const TRUST = [
 ];
 
 const STATS = [
-  { Icon: Boxes, value: '200 000+', label: 'Посылок доставлено', accent: '#1B9E7E' },
-  { Icon: Award, value: '6+ лет', label: 'На рынке КНР → РФ', accent: '#FF6B47' },
+  { Icon: Boxes, value: '200 000+', label: 'Посылок доставлено', accent: '#005C43' },
+  { Icon: Award, value: '6+ лет', label: 'На рынке КНР → РФ', accent: '#FF5A47' },
   { Icon: Star, value: '4.9 / 5', label: 'Рейтинг клиентов', accent: '#F59E0B' },
 ];
 
@@ -152,12 +152,12 @@ export default function HeroV3() {
         .hero3__mesh--green {
           top: -180px; right: -120px;
           width: 620px; height: 620px;
-          background: radial-gradient(circle, rgba(27,158,126,0.35), transparent 65%);
+          background: radial-gradient(circle, rgba(0, 92, 67,0.35), transparent 65%);
         }
         .hero3__mesh--coral {
           bottom: -200px; left: -140px;
           width: 620px; height: 620px;
-          background: radial-gradient(circle, rgba(255,107,71,0.30), transparent 65%);
+          background: radial-gradient(circle, rgba(255, 90, 71,0.30), transparent 65%);
         }
         .hero3__grid {
           position: absolute; inset: 0;
@@ -191,16 +191,16 @@ export default function HeroV3() {
           border-radius: 999px;
           font-size: 13px;
           font-weight: 600;
-          color: #0D7A5F;
-          background: rgba(27,158,126,0.08);
-          border: 1px solid rgba(27,158,126,0.18);
+          color: #004232;
+          background: rgba(0, 92, 67,0.08);
+          border: 1px solid rgba(0, 92, 67,0.18);
           margin-bottom: 24px;
           backdrop-filter: blur(8px);
         }
         .hero3__pillDot {
           width: 8px; height: 8px; border-radius: 50%;
-          background: #1B9E7E;
-          box-shadow: 0 0 0 4px rgba(27,158,126,0.18);
+          background: #005C43;
+          box-shadow: 0 0 0 4px rgba(0, 92, 67,0.18);
         }
         .hero3__title {
           font-size: clamp(40px, 5.6vw, 76px);
@@ -211,7 +211,7 @@ export default function HeroV3() {
           margin: 0 0 22px;
         }
         .hero3__titleAccent {
-          background: linear-gradient(90deg, #1B9E7E 0%, #FF6B47 100%);
+          background: linear-gradient(90deg, #005C43 0%, #FF5A47 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -239,13 +239,13 @@ export default function HeroV3() {
           will-change: transform;
         }
         .hero3__btn--primary {
-          background: #FF6B47;
+          background: #FF5A47;
           color: #fff;
-          box-shadow: 0 12px 30px -10px rgba(255,107,71,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
+          box-shadow: 0 12px 30px -10px rgba(255, 90, 71,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
         }
         .hero3__btn--primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 18px 38px -10px rgba(255,107,71,0.65), inset 0 -2px 0 rgba(0,0,0,0.12);
+          box-shadow: 0 18px 38px -10px rgba(255, 90, 71,0.65), inset 0 -2px 0 rgba(0,0,0,0.12);
         }
         .hero3__btn--ghost {
           background: #fff;
@@ -253,8 +253,8 @@ export default function HeroV3() {
           border: 1.5px solid #E5E7EB;
         }
         .hero3__btn--ghost:hover {
-          border-color: #1B9E7E;
-          color: #1B9E7E;
+          border-color: #005C43;
+          color: #005C43;
           transform: translateY(-2px);
         }
 
@@ -265,7 +265,7 @@ export default function HeroV3() {
           display: inline-flex; align-items: center; gap: 7px;
           font-size: 13.5px; color: #4B5563; font-weight: 500;
         }
-        .hero3__trustItem :global(svg) { color: #1B9E7E; }
+        .hero3__trustItem :global(svg) { color: #005C43; }
 
         /* Right visual */
         .hero3__visual {
@@ -297,7 +297,7 @@ export default function HeroV3() {
         .hero3__cardBadge {
           display: inline-flex; align-items: center; gap: 6px;
           padding: 6px 10px; border-radius: 999px;
-          background: rgba(27,158,126,0.1); color: #0D7A5F;
+          background: rgba(0, 92, 67,0.1); color: #004232;
           font-size: 12px; font-weight: 600;
         }
         .hero3__price {
@@ -321,8 +321,8 @@ export default function HeroV3() {
           display: inline-flex; align-items: center; gap: 6px;
           font-size: 13px; font-weight: 600; color: #0A0F1C;
         }
-        .hero3__routePoint :global(svg) { color: #FF6B47; }
-        .hero3__routePoint--end :global(svg) { color: #1B9E7E; }
+        .hero3__routePoint :global(svg) { color: #FF5A47; }
+        .hero3__routePoint--end :global(svg) { color: #005C43; }
         .hero3__routeLine {
           flex: 1; display: flex; justify-content: space-between;
           padding: 0 6px;
@@ -341,10 +341,10 @@ export default function HeroV3() {
         }
         .hero3__aviaIcon {
           width: 44px; height: 44px; border-radius: 12px;
-          background: linear-gradient(135deg, #FF6B47, #E5532F);
+          background: linear-gradient(135deg, #FF5A47, #E54632);
           color: #fff;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 8px 20px -6px rgba(255,107,71,0.5);
+          box-shadow: 0 8px 20px -6px rgba(255, 90, 71,0.5);
         }
         .hero3__aviaTitle { font-size: 15px; font-weight: 800; color: #0A0F1C; }
         .hero3__aviaSub { font-size: 12px; color: #6B7280; margin-top: 2px; }
@@ -359,7 +359,7 @@ export default function HeroV3() {
         }
         .hero3__saveValue {
           font-size: 28px; font-weight: 900; letter-spacing: -1px;
-          background: linear-gradient(90deg, #1B9E7E, #FF6B47);
+          background: linear-gradient(90deg, #005C43, #FF5A47);
           -webkit-background-clip: text; background-clip: text; color: transparent;
         }
         .hero3__saveLabel { font-size: 11px; color: #9CA3AF; margin-top: 2px; font-weight: 500; }

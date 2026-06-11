@@ -86,12 +86,12 @@ export default function CTAV2() {
         .ctav2__orb--tr {
           top: -120px; right: -100px;
           width: 380px; height: 380px;
-          background: radial-gradient(circle, rgba(27,158,126,0.55), transparent 65%);
+          background: radial-gradient(circle, rgba(0, 92, 67,0.55), transparent 65%);
         }
         .ctav2__orb--bl {
           bottom: -140px; left: -100px;
           width: 360px; height: 360px;
-          background: radial-gradient(circle, rgba(255,107,71,0.45), transparent 65%);
+          background: radial-gradient(circle, rgba(255, 90, 71,0.45), transparent 65%);
         }
         .ctav2__grid {
           position: absolute; inset: 0;
@@ -128,7 +128,7 @@ export default function CTAV2() {
           width: 8px; height: 8px;
           border-radius: 50%;
           background: var(--green);
-          box-shadow: 0 0 0 4px rgba(27,158,126,0.25);
+          box-shadow: 0 0 0 4px rgba(0, 92, 67,0.25);
         }
 
         .ctav2__title {
@@ -172,11 +172,11 @@ export default function CTAV2() {
         .ctav2__btn--primary {
           background: var(--coral);
           color: #fff;
-          box-shadow: 0 14px 32px -10px rgba(255,107,71,0.6), inset 0 -2px 0 rgba(0,0,0,0.14);
+          box-shadow: 0 14px 32px -10px rgba(255, 90, 71,0.6), inset 0 -2px 0 rgba(0,0,0,0.14);
         }
         .ctav2__btn--primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 20px 42px -10px rgba(255,107,71,0.7), inset 0 -2px 0 rgba(0,0,0,0.14);
+          box-shadow: 0 20px 42px -10px rgba(255, 90, 71,0.7), inset 0 -2px 0 rgba(0,0,0,0.14);
         }
         .ctav2__btn--ghost {
           background: rgba(255,255,255,0.08);

@@ -130,7 +130,7 @@ export default function GuidePage() {
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
+              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
               padding: '6px 16px', fontSize: '13px', fontWeight: 700,
               marginBottom: '24px', border: '1px solid #c6ede4',
             }}>
@@ -145,7 +145,7 @@ export default function GuidePage() {
               letterSpacing: '-1px',
             }}>
               Как заказать товары<br />
-              <span style={{ color: '#1B9E7E' }}>из Китая</span>
+              <span style={{ color: '#005C43' }}>из Китая</span>
             </h1>
             <p style={{
               fontSize: '18px',
@@ -164,10 +164,10 @@ export default function GuidePage() {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '16px 36px',
-                background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
+                background: 'linear-gradient(135deg, #005C43, #004232)',
                 color: 'white', fontWeight: 800, fontSize: '16px',
                 borderRadius: '50px', textDecoration: 'none',
-                boxShadow: '0 8px 24px rgba(27,158,126,0.35)',
+                boxShadow: '0 8px 24px rgba(0, 92, 67,0.35)',
               }}
             >
               Начать первый заказ →
@@ -295,7 +295,7 @@ export default function GuidePage() {
                     {mat.desc}
                   </p>
                   <div style={{
-                    fontSize: '13px', fontWeight: 700, color: '#1B9E7E',
+                    fontSize: '13px', fontWeight: 700, color: '#005C43',
                     display: 'flex', alignItems: 'center', gap: '4px',
                   }}>
                     Читать →
@@ -341,7 +341,7 @@ export default function GuidePage() {
                   }}
                 >
                   <span>{c.name}</span>
-                  <span style={{ color: '#1B9E7E', fontSize: '13px', fontWeight: 700 }}>→</span>
+                  <span style={{ color: '#005C43', fontSize: '13px', fontWeight: 700 }}>→</span>
                 </Link>
               ))}
             </div>
@@ -351,7 +351,7 @@ export default function GuidePage() {
         {/* CTA */}
         <section style={{
           padding: '80px 24px',
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
+          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -368,7 +368,7 @@ export default function GuidePage() {
                 rel="noopener noreferrer"
                 style={{
                   padding: '16px 36px',
-                  background: '#fff', color: '#1B9E7E',
+                  background: '#fff', color: '#005C43',
                   fontWeight: 800, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                 }}

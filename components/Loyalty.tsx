@@ -4,7 +4,7 @@ const LEVELS = [
   { name: 'Базовый', icon: '🌱', kg: 'До 5 кг/мес', cashback: '10 ₽/кг', color: '#9CA3AF', bg: '#F9FAFB', border: '#E5E7EB' },
   { name: 'Серебро', icon: '🥈', kg: '5–30 кг/мес', cashback: '30 ₽/кг', color: '#6B7280', bg: '#F3F4F6', border: '#D1D5DB' },
   { name: 'Золото', icon: '🥇', kg: '30–50 кг/мес', cashback: '50 ₽/кг', color: '#D97706', bg: '#FFFBEB', border: '#FDE68A', popular: true },
-  { name: 'Бриллиант', icon: '💎', kg: 'От 50 кг/мес', cashback: '80 ₽/кг', color: '#1B9E7E', bg: '#E8F7F3', border: '#C6EDE4' },
+  { name: 'Бриллиант', icon: '💎', kg: 'От 50 кг/мес', cashback: '80 ₽/кг', color: '#005C43', bg: '#E8F7F3', border: '#C6EDE4' },
 ];
 
 export default function Loyalty() {
@@ -15,7 +15,7 @@ export default function Loyalty() {
         <div style={{ textAlign: 'center', marginBottom: '56px' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
+            background: '#e8f7f3', color: '#005C43',
             borderRadius: '50px', padding: '6px 14px',
             fontSize: '13px', fontWeight: 700, marginBottom: '16px',
             border: '1px solid #c6ede4',
@@ -24,7 +24,7 @@ export default function Loyalty() {
           </div>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#111827', letterSpacing: '-0.5px', marginBottom: '16px' }}>
             Чем больше отправляешь —<br />
-            <span style={{ color: '#1B9E7E' }}>тем больше бонусов</span>
+            <span style={{ color: '#005C43' }}>тем больше бонусов</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '540px', margin: '0 auto', lineHeight: 1.7 }}>
             Кешбэк баллами за каждый килограмм. 1 балл = 1 ₽, списываются на оплату следующей доставки. Уровень пересчитывается каждый месяц
@@ -96,7 +96,7 @@ export default function Loyalty() {
             </div>
           </div>
           <a href="https://t.me/taopostsupport?start=site" target="_blank" rel="noopener noreferrer" style={{
-            padding: '12px 24px', background: '#1B9E7E', color: 'white',
+            padding: '12px 24px', background: '#005C43', color: 'white',
             borderRadius: '50px', textDecoration: 'none', fontWeight: 700,
             fontSize: '14px', whiteSpace: 'nowrap',
           }}>

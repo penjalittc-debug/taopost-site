@@ -188,7 +188,7 @@ export default async function ArticlePage({ params }: Props) {
             {/* Back link */}
             <Link href="/blog" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              fontSize: '14px', fontWeight: 700, color: '#1B9E7E',
+              fontSize: '14px', fontWeight: 700, color: '#005C43',
               textDecoration: 'none',
             }}>
               ← Все статьи
@@ -199,7 +199,7 @@ export default async function ArticlePage({ params }: Props) {
         {/* CTA */}
         <section style={{
           padding: '80px 24px',
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
+          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -216,7 +216,7 @@ export default async function ArticlePage({ params }: Props) {
                 rel="noopener noreferrer"
                 style={{
                   padding: '16px 36px',
-                  background: '#fff', color: '#1B9E7E',
+                  background: '#fff', color: '#005C43',
                   fontWeight: 800, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                 }}
@@ -288,7 +288,7 @@ export default async function ArticlePage({ params }: Props) {
           display: block;
         }
         .article-content table thead tr {
-          background: #1B9E7E;
+          background: #005C43;
           color: white;
         }
         .article-content table th {

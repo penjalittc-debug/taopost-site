@@ -168,13 +168,13 @@ export default function About() {
           align-items: center;
           gap: 8px;
           padding: 6px 14px;
-          background: rgba(27,158,126,0.08);
+          background: rgba(0, 92, 67,0.08);
           color: var(--green-dark);
           border-radius: 50px;
           font-size: 13px;
           font-weight: 700;
           margin-bottom: 18px;
-          border: 1px solid rgba(27,158,126,0.18);
+          border: 1px solid rgba(0, 92, 67,0.18);
         }
         .abt__dot {
           width: 6px;
@@ -276,7 +276,7 @@ export default function About() {
           border-radius: 14px;
           padding: 10px;
           box-shadow: 0 12px 32px rgba(180, 60, 30, 0.10);
-          border: 1px solid rgba(255, 107, 71, 0.18);
+          border: 1px solid rgba(255, 90, 71, 0.18);
           overflow: hidden;
           transition: transform .25s ease, box-shadow .25s ease;
         }
@@ -314,13 +314,13 @@ export default function About() {
           align-items: center;
           gap: 8px;
           padding: 6px 14px;
-          background: rgba(255, 107, 71, 0.10);
+          background: rgba(255, 90, 71, 0.10);
           color: var(--coral);
           border-radius: 50px;
           font-size: 13px;
           font-weight: 700;
           margin-bottom: 16px;
-          border: 1px solid rgba(255, 107, 71, 0.22);
+          border: 1px solid rgba(255, 90, 71, 0.22);
         }
         .abt__certBadgeDot {
           width: 6px;
@@ -396,7 +396,7 @@ export default function About() {
           width: 40px;
           height: 40px;
           border-radius: 10px;
-          background: rgba(27,158,126,0.12);
+          background: rgba(0, 92, 67,0.12);
           color: var(--green-dark);
           display: flex;
           align-items: center;

@@ -175,7 +175,7 @@ export default function Header() {
         }
         .hdr__navLink:hover {
           color: var(--green-dark);
-          background: rgba(27,158,126,0.08);
+          background: rgba(0, 92, 67,0.08);
         }
 
         .hdr__actions {
@@ -201,7 +201,7 @@ export default function Header() {
         .hdr__login:hover {
           border-color: var(--green);
           color: var(--green-dark);
-          background: rgba(27,158,126,0.06);
+          background: rgba(0, 92, 67,0.06);
           transform: translateY(-1px);
         }
         .hdr__cta {
@@ -215,13 +215,13 @@ export default function Header() {
           font-size: 14px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 8px 22px -8px rgba(255,107,71,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
+          box-shadow: 0 8px 22px -8px rgba(255, 90, 71,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
           transition: transform .15s, box-shadow .15s;
           white-space: nowrap;
         }
         .hdr__cta:hover {
           transform: translateY(-1px);
-          box-shadow: 0 12px 28px -8px rgba(255,107,71,0.65), inset 0 -2px 0 rgba(0,0,0,0.12);
+          box-shadow: 0 12px 28px -8px rgba(255, 90, 71,0.65), inset 0 -2px 0 rgba(0,0,0,0.12);
         }
 
         .hdr__burger {

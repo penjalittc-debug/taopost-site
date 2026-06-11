@@ -189,16 +189,16 @@ export default function Tariffs() {
           font-size: 13px;
           font-weight: 800;
           color: var(--green-dark);
-          background: rgba(27,158,126,0.10);
+          background: rgba(0, 92, 67,0.10);
           padding: 6px 12px;
           border-radius: 999px;
           white-space: nowrap;
-          border: 1px solid rgba(27,158,126,0.18);
+          border: 1px solid rgba(0, 92, 67,0.18);
         }
         .tar__price--air {
           color: var(--coral-dark);
-          background: rgba(255,107,71,0.10);
-          border-color: rgba(255,107,71,0.22);
+          background: rgba(255, 90, 71,0.10);
+          border-color: rgba(255, 90, 71,0.22);
         }
         .tar__price--soon {
           color: #9CA3AF;
@@ -212,8 +212,8 @@ export default function Tariffs() {
           gap: 10px;
           margin-top: 16px;
           padding: 14px 16px;
-          background: rgba(255,107,71,0.08);
-          border: 1px solid rgba(255,107,71,0.18);
+          background: rgba(255, 90, 71,0.08);
+          border: 1px solid rgba(255, 90, 71,0.18);
           border-radius: 12px;
           font-size: 13px;
           color: var(--coral-dark);
@@ -236,7 +236,7 @@ export default function Tariffs() {
         }
         .tar__svc:hover {
           transform: translateY(-3px);
-          border-color: rgba(27,158,126,0.22);
+          border-color: rgba(0, 92, 67,0.22);
           box-shadow: 0 12px 28px -14px rgba(10,15,28,0.15);
         }
         .tar__svcIcon {

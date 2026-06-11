@@ -17,7 +17,7 @@ export default function Tracking() {
         <div style={{ marginBottom: '40px' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#e8f7f3', color: '#1B9E7E',
+            background: '#e8f7f3', color: '#005C43',
             borderRadius: '50px', padding: '6px 14px',
             fontSize: '13px', fontWeight: 700, marginBottom: '16px',
             border: '1px solid #c6ede4',
@@ -54,16 +54,16 @@ export default function Tracking() {
                 fontFamily: 'Nunito, sans-serif',
                 transition: 'border-color 0.15s',
               }}
-              onFocus={(e) => (e.target as HTMLElement).style.borderColor = '#1B9E7E'}
+              onFocus={(e) => (e.target as HTMLElement).style.borderColor = '#005C43'}
               onBlur={(e) => (e.target as HTMLElement).style.borderColor = '#E5E7EB'}
               onKeyDown={(e) => e.key === 'Enter' && handleTrack()}
             />
             <button onClick={handleTrack} style={{
               padding: '16px 28px',
-              background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
+              background: 'linear-gradient(135deg, #005C43, #004232)',
               color: 'white', fontWeight: 800, fontSize: '15px',
               borderRadius: '14px', border: 'none', cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(27,158,126,0.35)',
+              boxShadow: '0 4px 14px rgba(0, 92, 67,0.35)',
               fontFamily: 'Nunito, sans-serif',
               whiteSpace: 'nowrap',
             }}>
@@ -88,14 +88,14 @@ export default function Tracking() {
               </div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
                 <a href="https://t.me/taopostsupport?start=site" target="_blank" rel="noopener noreferrer" style={{
-                  flex: 1, padding: '12px', background: '#1B9E7E', color: 'white',
+                  flex: 1, padding: '12px', background: '#005C43', color: 'white',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center',
                 }}>
                   Личный кабинет
                 </a>
                 <a href="https://t.me/taopostsupport" target="_blank" rel="noopener noreferrer" style={{
-                  flex: 1, padding: '12px', background: '#e8f7f3', color: '#1B9E7E',
+                  flex: 1, padding: '12px', background: '#e8f7f3', color: '#005C43',
                   borderRadius: '12px', textDecoration: 'none', fontWeight: 700,
                   fontSize: '14px', textAlign: 'center', border: '1px solid #c6ede4',
                 }}>

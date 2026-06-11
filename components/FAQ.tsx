@@ -132,7 +132,7 @@ export default function FAQ() {
           transition: border-color .2s ease, box-shadow .2s ease;
         }
         .faq__item--open {
-          border-color: rgba(27,158,126,0.25);
+          border-color: rgba(0, 92, 67,0.25);
           box-shadow: 0 18px 42px -22px rgba(10,15,28,0.18);
         }
 

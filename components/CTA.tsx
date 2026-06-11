@@ -5,7 +5,7 @@ export default function CTA() {
     <section className="section-pad" style={{ background: 'white' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <div className="cta-inner" style={{
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
+          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
           borderRadius: '28px',
           padding: '60px 48px',
           textAlign: 'center',
@@ -57,7 +57,7 @@ export default function CTA() {
                 style={{
                   padding: '16px 36px',
                   background: 'white',
-                  color: '#1B9E7E',
+                  color: '#005C43',
                   fontWeight: 800,
                   fontSize: '16px',
                   borderRadius: '50px',

@@ -197,7 +197,7 @@ function StepCard({ step }: { step: Step }) {
           font-weight: 900;
           letter-spacing: -2px;
           line-height: 1;
-          background: linear-gradient(135deg, rgba(27,158,126,0.15), rgba(255,107,71,0.15));
+          background: linear-gradient(135deg, rgba(0, 92, 67,0.15), rgba(255, 90, 71,0.15));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

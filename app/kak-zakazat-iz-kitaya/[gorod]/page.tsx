@@ -191,7 +191,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </nav>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
+              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
               padding: '6px 16px', fontSize: '13px', fontWeight: 700,
               marginBottom: '24px', border: '1px solid #c6ede4',
             }}>
@@ -206,7 +206,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               letterSpacing: '-1px',
             }}>
               Как заказать из Китая<br />
-              <span style={{ color: '#1B9E7E' }}>{city.nameIn}</span>
+              <span style={{ color: '#005C43' }}>{city.nameIn}</span>
             </h1>
             <p style={{
               fontSize: '18px',
@@ -226,19 +226,19 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               maxWidth: '640px', margin: '0 auto 36px',
             }}>
               <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#1B9E7E', marginBottom: '4px' }}>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
                   {city.deliveryDays}
                 </div>
                 <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Авто-доставка</div>
               </div>
               <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#1B9E7E', marginBottom: '4px' }}>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
                   350 ₽/кг
                 </div>
                 <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Цена за кг</div>
               </div>
               <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#1B9E7E', marginBottom: '4px' }}>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
                   0%
                 </div>
                 <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Комиссия выкупа</div>
@@ -252,10 +252,10 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '16px 36px',
-                background: 'linear-gradient(135deg, #1B9E7E, #0D7A5F)',
+                background: 'linear-gradient(135deg, #005C43, #004232)',
                 color: 'white', fontWeight: 800, fontSize: '16px',
                 borderRadius: '50px', textDecoration: 'none',
-                boxShadow: '0 8px 24px rgba(27,158,126,0.35)',
+                boxShadow: '0 8px 24px rgba(0, 92, 67,0.35)',
               }}
             >
               Заказать {city.nameIn} →
@@ -322,7 +322,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 }}>
                   <div style={{
                     width: '36px', height: '36px',
-                    background: '#1B9E7E', color: 'white',
+                    background: '#005C43', color: 'white',
                     borderRadius: '50%', display: 'flex',
                     alignItems: 'center', justifyContent: 'center',
                     fontWeight: 900, marginBottom: '12px',
@@ -527,7 +527,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
         {/* CTA */}
         <section style={{
           padding: '80px 24px',
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
+          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -544,7 +544,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 rel="noopener noreferrer"
                 style={{
                   padding: '16px 36px',
-                  background: '#fff', color: '#1B9E7E',
+                  background: '#fff', color: '#005C43',
                   fontWeight: 800, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                 }}

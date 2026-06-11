@@ -123,7 +123,7 @@ export default function Reviews() {
           position: absolute;
           top: 22px;
           right: 22px;
-          color: rgba(255,107,71,0.22);
+          color: rgba(255, 90, 71,0.22);
         }
 
         .rev__text {
@@ -179,7 +179,7 @@ export default function Reviews() {
         }
         .rev__navBtn:hover {
           border-color: var(--green);
-          background: rgba(27,158,126,0.08);
+          background: rgba(0, 92, 67,0.08);
           color: var(--green-dark);
           transform: translateY(-2px);
         }

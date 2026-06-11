@@ -151,7 +151,7 @@ export default function PriceComparison() {
         .pc__price--cn {
           background: #fff;
           border: 1px solid #E5F4EE;
-          box-shadow: inset 0 0 0 1px rgba(27,158,126,0.05);
+          box-shadow: inset 0 0 0 1px rgba(0, 92, 67,0.05);
         }
         .pc__priceLabel {
           font-size: 11px;
@@ -197,7 +197,7 @@ export default function PriceComparison() {
           letter-spacing: -0.2px;
         }
         .pc__savingsPct {
-          background: linear-gradient(90deg, #1B9E7E, #FF6B47);
+          background: linear-gradient(90deg, #005C43, #FF5A47);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

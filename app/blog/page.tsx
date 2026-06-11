@@ -43,7 +43,7 @@ export default function BlogPage() {
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#1B9E7E', borderRadius: '50px',
+              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
               padding: '6px 16px', fontSize: '13px', fontWeight: 700,
               marginBottom: '24px', border: '1px solid #c6ede4',
             }}>
@@ -57,7 +57,7 @@ export default function BlogPage() {
               marginBottom: '20px',
               letterSpacing: '-1px',
             }}>
-              Блог Tao<span style={{ color: '#1B9E7E' }}>Post</span>
+              Блог Tao<span style={{ color: '#005C43' }}>Post</span>
             </h1>
             <p style={{
               fontSize: '18px',
@@ -173,7 +173,7 @@ export default function BlogPage() {
                       <span style={{
                         fontSize: '13px',
                         fontWeight: 700,
-                        color: '#1B9E7E',
+                        color: '#005C43',
                       }}>
                         Читать →
                       </span>
@@ -189,7 +189,7 @@ export default function BlogPage() {
         {/* CTA */}
         <section style={{
           padding: '80px 24px',
-          background: 'linear-gradient(135deg, #1B9E7E 0%, #0D7A5F 100%)',
+          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -206,7 +206,7 @@ export default function BlogPage() {
                 rel="noopener noreferrer"
                 style={{
                   padding: '16px 36px',
-                  background: '#fff', color: '#1B9E7E',
+                  background: '#fff', color: '#005C43',
                   fontWeight: 800, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                 }}
