@@ -149,7 +149,7 @@ export default function Tariffs() {
         }
         .tar__title {
           font-size: 19px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0;
           letter-spacing: -0.3px;
@@ -187,7 +187,7 @@ export default function Tariffs() {
         }
         .tar__price {
           font-size: 13px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--green-dark);
           background: rgba(0, 92, 67,0.10);
           padding: 6px 12px;
@@ -247,7 +247,7 @@ export default function Tariffs() {
         }
         .tar__svcPrice {
           font-size: 16px;
-          font-weight: 900;
+          font-weight: 700;
           color: var(--ink);
           letter-spacing: -0.3px;
           margin-bottom: 4px;

@@ -142,7 +142,7 @@ export default function Reviews() {
         }
         .rev__name {
           font-size: 14.5px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           letter-spacing: -0.2px;
         }
@@ -201,7 +201,7 @@ export default function Reviews() {
         }
         .rev__dot--active {
           width: 28px;
-          background: linear-gradient(90deg, var(--green), var(--coral));
+          background: var(--green);
         }
 
         @media (max-width: 960px) {

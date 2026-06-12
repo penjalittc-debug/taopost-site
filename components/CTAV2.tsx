@@ -133,13 +133,13 @@ export default function CTAV2() {
 
         .ctav2__title {
           font-size: clamp(32px, 4.8vw, 56px);
-          font-weight: 900;
+          font-weight: 700;
           letter-spacing: -1.6px;
           line-height: 1.05;
           margin: 0 0 20px;
         }
         .ctav2__titleAccent {
-          background: linear-gradient(90deg, var(--green) 0%, var(--coral) 100%);
+          background: var(--green);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

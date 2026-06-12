@@ -273,12 +273,12 @@ export default function Footer() {
           margin-bottom: 18px;
         }
         .ftr__brandName {
-          font-weight: 900;
+          font-weight: 700;
           font-size: 22px;
           letter-spacing: -0.6px;
         }
         .ftr__brandAccent {
-          background: linear-gradient(90deg, var(--green), var(--coral));
+          background: var(--green);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

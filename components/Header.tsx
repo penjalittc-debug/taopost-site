@@ -147,13 +147,13 @@ export default function Header() {
           text-decoration: none;
         }
         .hdr__brand {
-          font-weight: 900;
+          font-weight: 700;
           font-size: 24px;
           color: var(--ink);
           letter-spacing: -0.6px;
         }
         .hdr__brandAccent {
-          background: linear-gradient(90deg, var(--green), var(--coral));
+          background: var(--green);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

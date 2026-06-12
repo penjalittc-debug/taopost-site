@@ -204,14 +204,14 @@ export default function HeroV3() {
         }
         .hero3__title {
           font-size: clamp(40px, 5.6vw, 76px);
-          font-weight: 900;
+          font-weight: 700;
           line-height: 1.02;
           letter-spacing: -2px;
           color: #0A0F1C;
           margin: 0 0 22px;
         }
         .hero3__titleAccent {
-          background: linear-gradient(90deg, #005C43 0%, #FF5A47 100%);
+          background: #005C43;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -306,7 +306,7 @@ export default function HeroV3() {
         }
         .hero3__priceFrom { font-size: 16px; color: #6B7280; font-weight: 500; }
         .hero3__priceValue {
-          font-size: 64px; font-weight: 900; line-height: 1;
+          font-size: 64px; font-weight: 700; line-height: 1;
           color: #0A0F1C; letter-spacing: -2px;
         }
         .hero3__priceCur { font-size: 18px; color: #6B7280; font-weight: 700; }
@@ -346,7 +346,7 @@ export default function HeroV3() {
           display: flex; align-items: center; justify-content: center;
           box-shadow: 0 8px 20px -6px rgba(255, 90, 71,0.5);
         }
-        .hero3__aviaTitle { font-size: 15px; font-weight: 800; color: #0A0F1C; }
+        .hero3__aviaTitle { font-size: 15px; font-weight: 700; color: #0A0F1C; }
         .hero3__aviaSub { font-size: 12px; color: #6B7280; margin-top: 2px; }
 
         .hero3__card--save {
@@ -358,8 +358,8 @@ export default function HeroV3() {
           border: none;
         }
         .hero3__saveValue {
-          font-size: 28px; font-weight: 900; letter-spacing: -1px;
-          background: linear-gradient(90deg, #005C43, #FF5A47);
+          font-size: 28px; font-weight: 700; letter-spacing: -1px;
+          background: #005C43;
           -webkit-background-clip: text; background-clip: text; color: transparent;
         }
         .hero3__saveLabel { font-size: 11px; color: #9CA3AF; margin-top: 2px; font-weight: 500; }
@@ -395,7 +395,7 @@ export default function HeroV3() {
         .hero3__statBody { text-align: left; }
         .hero3__statValue {
           font-size: clamp(22px, 2.6vw, 32px);
-          font-weight: 900; letter-spacing: -1px; line-height: 1;
+          font-weight: 700; letter-spacing: -1px; line-height: 1;
         }
         .hero3__statLabel {
           font-size: 13px; color: #6B7280; font-weight: 500;

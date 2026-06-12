@@ -65,9 +65,9 @@ export async function POST(req: NextRequest) {
   const html = `<!doctype html>
 <html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;padding:24px;margin:0;color:#0f172a">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e5e7eb">
-    <div style="background:linear-gradient(135deg,#005C43,#FF5A47);padding:22px 26px;color:#fff">
+    <div style="background:#005C43;padding:22px 26px;color:#fff">
       <div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;opacity:.85">TaoPost · Калькулятор</div>
-      <div style="font-size:22px;font-weight:800;margin-top:6px">Новая заявка на расчёт</div>
+      <div style="font-size:22px;font-weight: 700;margin-top:6px">Новая заявка на расчёт</div>
     </div>
     <table style="width:100%;border-collapse:collapse">
       <tbody>

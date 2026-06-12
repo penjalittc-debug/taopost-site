@@ -194,7 +194,7 @@ function StepCard({ step }: { step: Step }) {
         }
         .hiw__num {
           font-size: 36px;
-          font-weight: 900;
+          font-weight: 700;
           letter-spacing: -2px;
           line-height: 1;
           background: linear-gradient(135deg, rgba(0, 92, 67,0.15), rgba(255, 90, 71,0.15));
@@ -204,7 +204,7 @@ function StepCard({ step }: { step: Step }) {
         }
         .hiw__title {
           font-size: 18px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 10px;
           letter-spacing: -0.3px;

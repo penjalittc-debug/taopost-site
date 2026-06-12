@@ -244,7 +244,7 @@ export default async function ArticlePage({ params }: Props) {
       <style>{`
         .article-content h2 {
           font-size: clamp(20px, 3vw, 26px);
-          font-weight: 800;
+          font-weight: 700;
           color: #111827;
           margin: 40px 0 16px;
           line-height: 1.3;

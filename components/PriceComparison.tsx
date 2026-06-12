@@ -122,7 +122,7 @@ export default function PriceComparison() {
         .pc__meta { min-width: 0; }
         .pc__name {
           font-size: 17px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           line-height: 1.3;
           letter-spacing: -0.3px;
@@ -163,7 +163,7 @@ export default function PriceComparison() {
         }
         .pc__priceValue {
           font-size: 19px;
-          font-weight: 900;
+          font-weight: 700;
           letter-spacing: -0.4px;
         }
         .pc__price--ru .pc__priceValue {
@@ -193,11 +193,11 @@ export default function PriceComparison() {
         }
         .pc__savingsValue {
           font-size: 15px;
-          font-weight: 800;
+          font-weight: 700;
           letter-spacing: -0.2px;
         }
         .pc__savingsPct {
-          background: linear-gradient(90deg, #005C43, #FF5A47);
+          background: #005C43;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;

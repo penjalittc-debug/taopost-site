@@ -184,14 +184,14 @@ export default function About() {
         }
         .abt__title {
           font-size: clamp(32px, 4.6vw, 56px);
-          font-weight: 900;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 18px;
           letter-spacing: -1px;
           line-height: 1.15;
         }
         .abt__accent {
-          background: linear-gradient(90deg, var(--green), var(--coral));
+          background: var(--green);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -217,7 +217,7 @@ export default function About() {
         }
         .abt__h3 {
           font-size: 20px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 14px;
           letter-spacing: -0.3px;
@@ -330,7 +330,7 @@ export default function About() {
         }
         .abt__certTitle {
           font-size: 26px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 12px;
           letter-spacing: -0.5px;
@@ -405,7 +405,7 @@ export default function About() {
         }
         .abt__statValue {
           font-size: 28px;
-          font-weight: 900;
+          font-weight: 700;
           color: var(--ink);
           letter-spacing: -0.6px;
           line-height: 1;

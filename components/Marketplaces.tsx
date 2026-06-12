@@ -165,7 +165,7 @@ export default function Marketplaces() {
         }
         .mp__name {
           font-size: 17px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 8px;
           letter-spacing: -0.3px;

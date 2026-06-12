@@ -391,7 +391,7 @@ export default function Calculator() {
           align-items: center;
           gap: 8px;
           font-size: 15px;
-          font-weight: 800;
+          font-weight: 700;
           color: #374151;
         }
         .calc__transportBtn--active .calc__transportTitle { color: var(--green-dark); }
@@ -433,7 +433,7 @@ export default function Calculator() {
         }
         .calc__boxName {
           font-size: 14px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           display: inline-flex;
           align-items: center;
@@ -554,23 +554,23 @@ export default function Calculator() {
         }
         .calc__totalValue {
           font-size: clamp(40px, 5vw, 54px);
-          font-weight: 900;
+          font-weight: 700;
           color: var(--ink);
           letter-spacing: -2px;
           line-height: 1;
-          background: linear-gradient(90deg, var(--green-dark), var(--coral-dark));
+          background: var(--green);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
         }
         .calc__totalCur {
           font-size: 22px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--text-muted);
         }
         .calc__totalEmpty {
           font-size: 40px;
-          font-weight: 900;
+          font-weight: 700;
           color: #D1D5DB;
           letter-spacing: -1px;
         }

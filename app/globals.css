@@ -195,7 +195,7 @@ body {
 
 .tp-h2 {
   font-size: clamp(36px, 5vw, 64px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.04;
   letter-spacing: -1.8px;
   color: var(--ink);
@@ -203,17 +203,14 @@ body {
 }
 .tp-h3 {
   font-size: clamp(24px, 2.8vw, 34px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.6px;
   color: var(--ink);
   margin: 0 0 12px;
 }
 .tp-gradient-text {
-  background: linear-gradient(90deg, var(--green) 0%, var(--coral) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--green);
 }
 .tp-lede {
   font-size: 19px;
@@ -370,7 +367,7 @@ body {
 }
 .tp-min-policy__val {
   color: var(--coral-dark);
-  font-weight: 800;
+  font-weight: 700;
 }
 .tp-min-policy__item:last-child .tp-min-policy__val { color: var(--green-dark); }
 .tp-min-policy__sep {

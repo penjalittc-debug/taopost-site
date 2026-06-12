@@ -107,7 +107,7 @@ export default function Features() {
         .feat__card :global(.tp-icon-tile) { margin-bottom: 18px; }
         .feat__title {
           font-size: 17px;
-          font-weight: 800;
+          font-weight: 700;
           color: var(--ink);
           margin: 0 0 10px;
           letter-spacing: -0.3px;
