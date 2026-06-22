@@ -48,6 +48,8 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="hdr__login"
+            data-ym-goal="cabinet_click"
+            data-ym-params='{"place":"header"}'
           >
             <User size={14} strokeWidth={2.5} />
             Личный кабинет
@@ -58,6 +60,8 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="hdr__cta"
+            data-ym-goal="telegram_click"
+            data-ym-params='{"place":"header"}'
           >
             <Send size={14} strokeWidth={2.5} />
             Написать нам
@@ -94,6 +98,8 @@ export default function Header() {
             rel="noopener noreferrer"
             className="tp-btn tp-btn--ghost hdr__mobileLogin"
             onClick={() => setMenuOpen(false)}
+            data-ym-goal="cabinet_click"
+            data-ym-params='{"place":"header_mobile"}'
           >
             <User size={16} strokeWidth={2.5} />
             Личный кабинет
@@ -104,6 +110,8 @@ export default function Header() {
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary hdr__mobileCta"
             onClick={() => setMenuOpen(false)}
+            data-ym-goal="telegram_click"
+            data-ym-params='{"place":"header_mobile"}'
           >
             <Send size={16} strokeWidth={2.5} />
             Написать в Telegram

@@ -38,6 +38,8 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="ftr__socBtn ftr__socBtn--tg"
                 aria-label="Telegram"
+                data-ym-goal="channel_click"
+                data-ym-params='{"place":"footer"}'
               >
                 <Send size={18} strokeWidth={2.3} />
               </a>
@@ -47,6 +49,8 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="ftr__socBtn ftr__socBtn--msg"
                 aria-label="Написать менеджеру"
+                data-ym-goal="telegram_click"
+                data-ym-params='{"place":"footer"}'
               >
                 <MessageCircle size={18} strokeWidth={2.3} />
               </a>
@@ -69,7 +73,7 @@ export default function Footer() {
             <div className="ftr__contacts">
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Телефон</div>
-                <a href="tel:+79772767778" className="ftr__contactValue">+7 977 276 77 78</a>
+                <a href="tel:+79772767778" className="ftr__contactValue" data-ym-goal="phone_click" data-ym-params='{"place":"footer"}'>+7 977 276 77 78</a>
               </div>
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Telegram (менеджер)</div>
@@ -78,6 +82,8 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ftr__contactValue ftr__contactValue--accent"
+                  data-ym-goal="telegram_click"
+                  data-ym-params='{"place":"footer_contacts"}'
                 >
                   @taopostsupport
                 </a>

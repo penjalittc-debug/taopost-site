@@ -46,11 +46,18 @@ export default function HeroV3() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero3__btn hero3__btn--primary"
+                data-ym-goal="telegram_click"
+                data-ym-params='{"place":"hero"}'
               >
                 <Send size={18} strokeWidth={2.5} />
                 Написать в Telegram
               </a>
-              <a href="#calculator" className="hero3__btn hero3__btn--ghost">
+              <a
+                href="#calculator"
+                className="hero3__btn hero3__btn--ghost"
+                data-ym-goal="scroll_to_calculator"
+                data-ym-params='{"place":"hero"}'
+              >
                 <CalcIcon size={18} strokeWidth={2.5} />
                 Рассчитать стоимость
               </a>

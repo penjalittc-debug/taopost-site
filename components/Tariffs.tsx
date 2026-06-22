@@ -118,6 +118,8 @@ export default function Tariffs() {
               target="_blank"
               rel="noopener noreferrer"
               className="tp-btn tp-btn--primary tar__cta"
+              data-ym-goal="telegram_click"
+              data-ym-params='{"place":"tariffs"}'
             >
               <Send size={18} strokeWidth={2.5} />
               Рассчитать стоимость

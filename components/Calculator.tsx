@@ -304,6 +304,14 @@ export default function Calculator() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`tp-btn tp-btn--primary tp-btn--lg calc__cta${!hasResult ? ' calc__cta--muted' : ''}`}
+                data-ym-goal={hasResult ? 'calc_submit' : 'telegram_click'}
+                data-ym-params={JSON.stringify({
+                  place: 'calculator',
+                  transport,
+                  weight: Number(calc.chargeable.toFixed(2)),
+                  total: Math.round(calc.total),
+                  hasResult,
+                })}
               >
                 <Send size={18} strokeWidth={2.5} />
                 {hasResult ? 'Оформить заявку' : 'Уточнить у менеджера'}

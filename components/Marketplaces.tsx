@@ -130,6 +130,8 @@ export default function Marketplaces() {
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary"
+            data-ym-goal="telegram_click"
+            data-ym-params='{"place":"marketplaces"}'
           >
             <Send size={18} strokeWidth={2.5} />
             Написать в Telegram

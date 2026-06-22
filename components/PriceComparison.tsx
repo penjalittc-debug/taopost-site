@@ -87,6 +87,8 @@ export default function PriceComparison() {
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary"
+            data-ym-goal="telegram_click"
+            data-ym-params='{"place":"price_comparison"}'
           >
             <Send size={18} strokeWidth={2.5} />
             Узнать стоимость

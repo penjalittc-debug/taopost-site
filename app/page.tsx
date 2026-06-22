@@ -15,6 +15,8 @@ import FAQ from '@/components/FAQ';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
+import Cities from '@/components/Cities';
+import BlogPreview from '@/components/BlogPreview';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -225,6 +227,8 @@ function TelegramFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Написать менеджеру в Telegram"
+      data-ym-goal="telegram_click"
+      data-ym-params='{"place":"float"}'
       style={{
         position: 'fixed',
         bottom: '24px',
@@ -276,6 +280,8 @@ export default function Home() {
         <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
+        <FadeIn delay={50}><Cities /></FadeIn>
+        <FadeIn delay={50}><BlogPreview /></FadeIn>
         <FadeIn delay={50}><FAQ /></FadeIn>
         <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>

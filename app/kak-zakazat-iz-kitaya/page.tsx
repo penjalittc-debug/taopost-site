@@ -6,15 +6,15 @@ import Footer from '@/components/Footer';
 import { CITIES } from '@/lib/cities';
 
 export const metadata: Metadata = {
-  title: 'Как заказать из Китая — Инструкции по Taobao, Poizon, 1688 | TaoPost',
-  description: 'Пошаговые инструкции как заказать товары из Китая через TaoPost. Гайды по Taobao, Poizon, Pinduoduo, 1688. Сроки и тарифы для 27 городов России.',
+  title: `Как заказать из Китая — Инструкции по Taobao, Poizon, 1688 | TaoPost`,
+  description: `Пошаговые инструкции как заказать товары из Китая через TaoPost. Гайды по Taobao, Poizon, Pinduoduo, 1688. Сроки и тарифы для ${CITIES.length} городов России.`,
   keywords: 'как заказать с taobao, как купить с poizon, инструкция заказ из китая, обучение карго',
   alternates: {
     canonical: 'https://taopost.ru/kak-zakazat-iz-kitaya',
   },
   openGraph: {
     title: 'Как заказать из Китая — Инструкции по Taobao, Poizon, 1688',
-    description: 'Пошаговые гайды по китайским маркетплейсам и сроки доставки по 27 городам России.',
+    description: `Пошаговые гайды по китайским маркетплейсам и сроки доставки по ${CITIES.length} городам России.`,
     url: 'https://taopost.ru/kak-zakazat-iz-kitaya',
     siteName: 'TaoPost',
     locale: 'ru_RU',
@@ -328,6 +328,8 @@ export default function GuidePage() {
                 <Link
                   key={c.slug}
                   href={`/kak-zakazat-iz-kitaya/${c.slug}`}
+                  data-ym-goal="city_card_click"
+                  data-ym-params={JSON.stringify({ slug: c.slug, place: 'cities_index' })}
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: '14px 18px',

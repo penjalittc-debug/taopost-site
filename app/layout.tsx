@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Rubik } from "next/font/google";
 import "./globals.css";
+import MetrikaTracker from "@/components/MetrikaTracker";
 
 const rubik = Rubik({
   subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
@@ -86,6 +87,7 @@ export default function RootLayout({
             <img src="https://mc.yandex.ru/watch/108426590" style={{position:'absolute', left:'-9999px'}} alt="" />
           </div>
         </noscript>
+        <MetrikaTracker />
         {children}
       </body>
     </html>
