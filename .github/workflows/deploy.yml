@@ -1,0 +1,39 @@
+name: Deploy to Selectel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: SSH deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          command_timeout: 10m
+          script: |
+            set -e
+            cd ${{ secrets.DEPLOY_PATH }}
+            echo "=== Pull ==="
+            git fetch origin main
+            git reset --hard origin/main
+            echo "=== Install ==="
+            npm ci --no-audit --no-fund
+            echo "=== Build ==="
+            npm run build
+            echo "=== Reload ==="
+            ${{ secrets.RELOAD_CMD || 'pm2 reload all' }}
+            echo "=== Done ==="
