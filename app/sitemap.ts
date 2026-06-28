@@ -34,6 +34,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...marketplacePages,
     {
+      url: 'https://taopost.ru/tarify',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: 'https://taopost.ru/o-kompanii',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://taopost.ru/kontakty',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://taopost.ru/garantii',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: 'https://taopost.ru/kak-zakazat-iz-kitaya',
       lastModified: new Date(),
       changeFrequency: 'weekly',

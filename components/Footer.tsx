@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { Send, MessageCircle, BookOpen } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'О компании', href: '#about' },
-  { label: 'Как это работает', href: '#how' },
-  { label: 'Тарифы', href: '#tariffs' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'О компании', href: '/o-kompanii' },
+  { label: 'Тарифы', href: '/tarify' },
+  { label: 'Гарантии', href: '/garantii' },
+  { label: 'Контакты', href: '/kontakty' },
   { label: 'Как заказать из Китая', href: '/kak-zakazat-iz-kitaya', Icon: BookOpen },
   { label: 'Блог', href: '/blog', Icon: BookOpen },
 ];

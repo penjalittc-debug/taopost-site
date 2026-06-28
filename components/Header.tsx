@@ -5,14 +5,12 @@ import Link from 'next/link';
 import { Send, Menu, X, User } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'О компании', href: '/#about' },
-  { label: 'Как это работает', href: '/#how' },
+  { label: 'О компании', href: '/o-kompanii' },
+  { label: 'Тарифы', href: '/tarify' },
   { label: 'Маркетплейсы', href: '/#marketplaces' },
-  { label: 'Тарифы', href: '/#tariffs' },
-  { label: 'FAQ', href: '/#faq' },
+  { label: 'Гарантии', href: '/garantii' },
   { label: 'Блог', href: '/blog' },
-  { label: 'Заявка', href: '/#zayavka' },
-  { label: 'Контакты', href: '/#contacts' },
+  { label: 'Контакты', href: '/kontakty' },
 ];
 
 export default function Header() {
