@@ -4,7 +4,7 @@ import { CalendarDays, Globe2, Package, Warehouse } from 'lucide-react';
 
 const STATS = [
   { value: '6+', label: 'лет на рынке', Icon: CalendarDays },
-  { value: '200 000+', label: 'посылок в год', Icon: Package },
+  { value: '200 000+', label: 'посылок доставлено', Icon: Package },
   { value: 'Гуанчжоу', label: 'собственный склад в Китае', Icon: Warehouse },
   { value: '85+', label: 'городов России', Icon: Globe2 },
 ];
@@ -62,8 +62,8 @@ export default function About() {
                 Без скрытых комиссий за выкуп.
               </li>
               <li>
-                <strong>Поддержка 24/7.</strong> Менеджер на связи в Telegram —
-                ответ в течение 5 минут.
+                <strong>Быстрая поддержка.</strong> Менеджер на связи в Telegram —
+                ответ в среднем за 5 минут, ежедневно с 9:00 до 22:00 МСК.
               </li>
             </ul>
           </div>

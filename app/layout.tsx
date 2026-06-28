@@ -5,14 +5,14 @@ import "./globals.css";
 import MetrikaTracker from "@/components/MetrikaTracker";
 
 const rubik = Rubik({
-  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "700", "800"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 от 350 ₽/кг",
-  description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 700 ₽/кг. Москва, СПб и вся РФ за 12–20 дней.",
+  description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 700 ₽/кг. Москва, СПб и вся РФ за 15–25 дней.",
   keywords: [
     "доставка из Китая",
     "карго из Китая в Россию",

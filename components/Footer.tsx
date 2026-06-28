@@ -1,15 +1,22 @@
 'use client';
 import Image from 'next/image';
-import { Send, MessageCircle, BookOpen, Smartphone } from 'lucide-react';
+import { Send, MessageCircle, BookOpen } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '#about' },
   { label: 'Как это работает', href: '#how' },
-  { label: 'Маркетплейсы', href: '#marketplaces' },
   { label: 'Тарифы', href: '#tariffs' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Как заказать из Китая', href: '/kak-zakazat-iz-kitaya', Icon: BookOpen },
   { label: 'Блог', href: '/blog', Icon: BookOpen },
+];
+
+const MARKETPLACE_LINKS = [
+  { label: 'Taobao', href: '/taobao' },
+  { label: 'Poizon', href: '/poizon' },
+  { label: '1688', href: '/1688' },
+  { label: 'Tmall', href: '/tmall' },
+  { label: 'Pinduoduo', href: '/pinduoduo' },
 ];
 
 export default function Footer() {
@@ -61,6 +68,17 @@ export default function Footer() {
             <h4 className="ftr__colTitle">Навигация</h4>
             <div className="ftr__links">
               {NAV_LINKS.map((link) => (
+                <a key={link.href} href={link.href} className="ftr__link">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className="ftr__colTitle">Маркетплейсы</h4>
+            <div className="ftr__links">
+              {MARKETPLACE_LINKS.map((link) => (
                 <a key={link.href} href={link.href} className="ftr__link">
                   {link.label}
                 </a>
@@ -127,33 +145,17 @@ export default function Footer() {
               </div>
 
               <div className="ftr__contact">
-                <div className="ftr__contactLabel">
-                  <Smartphone size={12} strokeWidth={2.3} style={{ verticalAlign: 'middle', marginRight: 5 }} />
-                  Скачать приложение
-                </div>
-                <div className="ftr__apps">
-                  <a href="#" className="ftr__app" aria-label="App Store">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                    <div>
-                      <div className="ftr__appHint">Загрузить в</div>
-                      <div className="ftr__appName">App Store</div>
-                    </div>
-                  </a>
-                  <a href="#" className="ftr__app" aria-label="Google Play">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l.09-.05 11.29-6.52-2.5-2.5-9.87 8.93zm-1.1-19.74A1.7 1.7 0 0 0 2 4.87v14.26c0 .43.14.82.37 1.13l.07.08 7.99-7.99v-.19L2.08 4.02zm16.04 9.39-2.73-1.58-2.77 2.77 2.77 2.77 2.75-1.59c.78-.45.78-1.92-.02-2.37zM4.17.24 15.46 6.76l-2.5 2.5L2.27.38A1.16 1.16 0 0 1 4.17.24z"/></svg>
-                    <div>
-                      <div className="ftr__appHint">Доступно в</div>
-                      <div className="ftr__appName">Google Play</div>
-                    </div>
-                  </a>
-                  <a href="#" className="ftr__app" aria-label="AppGallery">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-                    <div>
-                      <div className="ftr__appHint">Доступно в</div>
-                      <div className="ftr__appName">AppGallery</div>
-                    </div>
-                  </a>
-                </div>
+                <div className="ftr__contactLabel">Личный кабинет</div>
+                <a
+                  href="https://app.taopost.ru"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ftr__contactValue ftr__contactValue--accent"
+                  data-ym-goal="cabinet_click"
+                  data-ym-params='{"place":"footer"}'
+                >
+                  app.taopost.ru — оформить заказ онлайн
+                </a>
               </div>
             </div>
           </div>

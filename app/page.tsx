@@ -17,29 +17,46 @@ import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
 import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
+import LeadForm from '@/components/LeadForm';
+import { FAQS } from '@/lib/faq';
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
+  "@id": "https://taopost.ru/#organization",
   "name": "TaoPost",
+  "legalName": "Guangzhou Yashiming Import & Export Co., Ltd. (广州亚世名进出口有限公司)",
   "url": "https://taopost.ru",
   "logo": "https://taopost.ru/logo.png",
-  "description": "Карго доставка товаров из Китая в Россию. Выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688, Goofish.",
+  "image": "https://taopost.ru/og-image.png",
+  "description": "Карго доставка товаров из Китая в Россию. Выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688, Goofish. Официальное юр.лицо в КНР с бизнес-лицензией.",
   "telephone": "+7 977 276 77 78",
   "email": "info@taopost.ru",
+  "foundingDate": "2025-04-09",
+  "taxID": "91440100MAEGJX2C1Y",
+  "iso6523Code": "0199:91440100MAEGJX2C1Y",
   "contactPoint": [
     {
       "@type": "ContactPoint",
       "telephone": "+7 977 276 77 78",
       "contactType": "customer service",
       "areaServed": "RU",
-      "availableLanguage": ["Russian", "Chinese"],
-      "contactOption": "TollFree"
+      "availableLanguage": ["Russian", "Chinese"]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+86 185 2070 7778",
+      "contactType": "warehouse",
+      "areaServed": "CN",
+      "availableLanguage": ["Chinese", "Russian"]
     }
   ],
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "RU"
+    "streetAddress": "ул. Чжаньцянь, 90",
+    "addressLocality": "Гуанчжоу",
+    "addressRegion": "Ливань",
+    "addressCountry": "CN"
   },
   "areaServed": [
     "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург",
@@ -79,6 +96,55 @@ const jsonLd = {
   }))
 };
 
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://taopost.ru/#service",
+  "name": "Карго доставка из Китая в Россию",
+  "serviceType": "Карго доставка и выкуп товаров",
+  "provider": { "@id": "https://taopost.ru/#organization" },
+  "areaServed": { "@type": "Country", "name": "Россия" },
+  "url": "https://taopost.ru",
+  "description": "Выкуп и доставка товаров с Taobao, Poizon, Pinduoduo, 1688, Tmall, Goofish. Авто 15-25 дней, авиа 3-5 дней. Собственный склад в Гуанчжоу, страховка груза, проверка качества.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "RUB",
+    "lowPrice": "350",
+    "highPrice": "2700",
+    "offerCount": 2,
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Автодоставка из Китая",
+        "price": "350",
+        "priceCurrency": "RUB",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "350",
+          "priceCurrency": "RUB",
+          "unitCode": "KGM",
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "KGM" }
+        },
+        "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 15, "maxValue": 25, "unitCode": "DAY" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Авиадоставка из Китая",
+        "price": "2700",
+        "priceCurrency": "RUB",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "2700",
+          "priceCurrency": "RUB",
+          "unitCode": "KGM",
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "KGM" }
+        },
+        "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 5, "unitCode": "DAY" }
+      }
+    ]
+  }
+};
+
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -95,128 +161,14 @@ const websiteJsonLd = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Как долго идёт доставка из Китая?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В среднем 15–25 дней с момента отправки с нашего склада в Гуанчжоу. Авиадоставка занимает 3–5 дней, автодоставка дешевле."
-      }
+  "mainEntity": FAQS.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
     },
-    {
-      "@type": "Question",
-      "name": "Сколько стоит доставка из Китая?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Автодоставка — от 350 ₽/кг, авиадоставка — от 2 700 ₽/кг. Стоимость считается по большему из фактического и объёмного веса."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Как оплатить товары на китайских маркетплейсах?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Вам не нужна китайская карта или аккаунт — мы делаем всё за вас. Вы оплачиваете нам в рублях, а мы выкупаем товар в Китае на наши юани."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Платится ли таможенная пошлина?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Для посылок физлиц до 200 € и до 31 кг пошлина не взимается. При превышении — 15% с суммы превышения. Расчёт берём на себя и подскажем, как разделить заказы выгоднее."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Можно ли заказать несколько товаров из разных магазинов?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, мы объединяем заказы из разных магазинов в одну посылку (консолидация) — платите за доставку один раз. Минимальный суммарный вес отправки — 5 кг."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Что если товар пришёл повреждённым или не тем?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Проверяем товары на складе в Гуанчжоу и фотографируем по запросу до отправки. Все посылки идут со страховкой 2% — поможем оформить возврат или компенсацию."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Можно ли вернуть товар или поменять размер?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "До отправки со склада в Китае — да, поможем вернуть или обменять. После выезда из Китая возврат возможен только при повреждении или браке по страховке."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Что делать, если посылка задержалась или потерялась?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Все посылки отслеживаются в личном кабинете. При задержке менеджер сам выходит на связь. В случае утери страховка покрывает стоимость товара."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Какие товары нельзя привезти?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Не перевозим товары, запрещённые к ввозу в РФ: оружие, наркотические вещества, явный контрафакт, скоропортящиеся продукты, литий-ионные аккумуляторы свыше нормы."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "С каких маркетплейсов вы выкупаете?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Taobao, Tmall, Poizon (得物), Pinduoduo, 1688, Goofish (Xianyu) и другие китайские площадки."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Какой минимальный вес отправки?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "С Taobao, Pinduoduo и других обычных маркетплейсов — минимум 5 кг. Если ваш заказ не набирает 5 кг, используйте совместный выкуп: объединяем вас с другими заказчиками, платите только за свой вес. Максимального ограничения нет."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "А с Poizon тоже минимум 5 кг?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Нет, с Poizon выкупаем от 1 штуки, если это кроссовки. Они идут в нашем общем потоке отправок без минимального веса."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Как отследить мою посылку?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В личном кабинете приложения TaoPost виден статус заказа в реальном времени: выкуп, приёмка на складе в Китае, отправка, граница, доставка по РФ."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "В какие города России вы доставляете?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "По всей России: Москва, Санкт-Петербург, Новосибирск, Екатеринбург, Казань, Красноярск, Нижний Новгород, Челябинск, Уфа, Ростов-на-Дону, Краснодар, Воронеж и другие — через СДЭК, Boxberry или курьером до двери."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Как с вами связаться?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Пишите нам в Telegram — отвечаем в среднем за 5 минут. Также можно оставить заявку через калькулятор на сайте или зарегистрироваться в личном кабинете."
-      }
-    }
-  ]
+  })),
 };
 
 // Плавающая кнопка Telegram
@@ -261,6 +213,10 @@ export default function Home() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       <script
@@ -275,6 +231,7 @@ export default function Home() {
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><Calculator /></FadeIn>
+        <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><Tariffs /></FadeIn>
         <FadeIn delay={50}><Loyalty /></FadeIn>
         <FadeIn delay={50}><Features /></FadeIn>

@@ -62,7 +62,7 @@ export default function HeroV2() {
             marginBottom: '20px',
             letterSpacing: '-1.5px',
           }}>
-            Сэкономьте до 75%<br />
+            Сэкономьте до 60%<br />
             на товарах<br />
             <span style={{ color: '#005C43' }}>из Китая</span>
           </h1>

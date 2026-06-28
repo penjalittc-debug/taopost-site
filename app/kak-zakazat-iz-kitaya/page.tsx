@@ -42,68 +42,68 @@ const GUIDES = [
   {
     id: 1,
     platform: 'Taobao',
+    slug: 'taobao',
     color: '#ff4400',
     logo: '/mp/taobao.svg',
     logoBg: '#ff4400',
     title: 'Как заказать с Taobao',
     description: 'Пошаговая инструкция: регистрация, поиск товара, оформление заказа через TaoPost',
     steps: ['Найдите товар на Taobao', 'Скопируйте ссылку на товар', 'Вставьте ссылку в личном кабинете TaoPost', 'Менеджер оформит выкуп и доставку'],
-    videoUrl: null,
   },
   {
     id: 2,
     platform: 'Poizon',
+    slug: 'poizon',
     color: '#1a1a2e',
     logo: '/mp/poizon.png',
     logoBg: '#1a1a2e',
     title: 'Как заказать с Poizon (得物)',
     description: 'Выкуп оригинальных кроссовок и одежды с Poizon с проверкой подлинности',
     steps: ['Найдите кроссовки или одежду на Poizon', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Мы проверим оригинальность и доставим'],
-    videoUrl: null,
   },
   {
     id: 3,
     platform: 'Pinduoduo',
+    slug: 'pinduoduo',
     color: '#e4003a',
     logo: '/mp/pinduoduo.jpg',
     logoBg: '#e4003a',
     title: 'Как заказать с Pinduoduo',
     description: 'Самые низкие цены на китайские товары — одежда, электроника, аксессуары',
     steps: ['Найдите товар на Pinduoduo', 'Скопируйте ссылку', 'Создайте заказ в TaoPost', 'Получите товар в вашем городе'],
-    videoUrl: null,
   },
   {
     id: 4,
     platform: '1688',
+    slug: '1688',
     color: '#ff6600',
     logo: '/mp/1688.png',
     logoBg: '#ff6600',
     title: 'Как заказать с 1688',
     description: 'Оптовые закупки напрямую от производителей Китая через TaoPost',
     steps: ['Найдите товар на 1688', 'Скопируйте ссылку', 'Укажите количество в заявке TaoPost', 'Доставим оптом по выгодной цене'],
-    videoUrl: null,
   },
   {
     id: 5,
     platform: 'Tmall',
+    slug: 'tmall',
     color: '#ff0036',
     logo: '/mp/tmall.jpg',
     logoBg: '#ffffff',
     title: 'Как заказать с Tmall (天猫)',
     description: 'Брендовые товары и официальные магазины Китая через TaoPost',
     steps: ['Найдите товар на Tmall', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Получите оригинальный брендовый товар'],
-    videoUrl: null,
   },
   {
     id: 6,
     platform: 'Goofish',
+    slug: null as string | null,
     color: '#d97706',
     logo: '/mp/gofish.webp',
     logoBg: '#d97706',
     title: 'Как заказать с Goofish (闲鱼)',
     description: 'Выкуп товаров со вторичного рынка Китая — редкие вещи по низким ценам',
     steps: ['Найдите лот на Goofish', 'Скопируйте ссылку', 'Оставьте заявку в TaoPost', 'Менеджер свяжется с продавцом и выкупит'],
-    videoUrl: null,
   },
 ];
 
@@ -190,69 +190,98 @@ export default function GuidePage() {
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
-              {GUIDES.map((guide) => (
-                <article key={guide.id} style={{
+              {GUIDES.map((guide) => {
+                const inner = (
+                  <>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                      <div style={{
+                        width: '44px', height: '44px',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        background: guide.logoBg,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0,
+                        border: '1px solid rgba(0,0,0,0.06)',
+                      }}>
+                        <Image
+                          src={guide.logo}
+                          alt={guide.platform}
+                          width={44}
+                          height={44}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
+                      <span style={{
+                        background: guide.color + '15',
+                        color: guide.color,
+                        fontWeight: 800, fontSize: '13px',
+                        padding: '4px 12px', borderRadius: '50px',
+                        border: `1px solid ${guide.color}30`,
+                      }}>{guide.platform}</span>
+                    </div>
+
+                    <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
+                      {guide.title}
+                    </h3>
+                    <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
+                      {guide.description}
+                    </p>
+
+                    <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
+                      {guide.steps.map((step, i) => (
+                        <li key={i} style={{
+                          display: 'flex', gap: '12px', alignItems: 'flex-start',
+                          marginBottom: '10px', fontSize: '14px', color: '#374151',
+                        }}>
+                          <span style={{
+                            minWidth: '24px', height: '24px',
+                            background: guide.color,
+                            color: 'white', borderRadius: '50%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: '12px', fontWeight: 800, flexShrink: 0,
+                          }}>{i + 1}</span>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+
+                    {guide.slug && (
+                      <div style={{
+                        marginTop: '20px',
+                        paddingTop: '16px',
+                        borderTop: '1px solid #E5E7EB',
+                        fontSize: '14px', fontWeight: 700, color: guide.color,
+                      }}>
+                        Узнать больше →
+                      </div>
+                    )}
+                  </>
+                );
+
+                const cardStyle: React.CSSProperties = {
                   background: '#F9FAFB',
                   borderRadius: '20px',
                   padding: '32px',
                   border: '1px solid #F3F4F6',
-                  transition: 'box-shadow 0.2s',
-                }}>
-                  {/* Platform badge */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <div style={{
-                      width: '44px', height: '44px',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      background: guide.logoBg,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0,
-                      border: '1px solid rgba(0,0,0,0.06)',
-                    }}>
-                      <Image
-                        src={guide.logo}
-                        alt={guide.platform}
-                        width={44}
-                        height={44}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    </div>
-                    <span style={{
-                      background: guide.color + '15',
-                      color: guide.color,
-                      fontWeight: 800, fontSize: '13px',
-                      padding: '4px 12px', borderRadius: '50px',
-                      border: `1px solid ${guide.color}30`,
-                    }}>{guide.platform}</span>
-                  </div>
+                  display: 'block',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                };
 
-                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                    {guide.title}
-                  </h3>
-                  <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
-                    {guide.description}
-                  </p>
-
-                  {/* Steps */}
-                  <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                    {guide.steps.map((step, i) => (
-                      <li key={i} style={{
-                        display: 'flex', gap: '12px', alignItems: 'flex-start',
-                        marginBottom: '10px', fontSize: '14px', color: '#374151',
-                      }}>
-                        <span style={{
-                          minWidth: '24px', height: '24px',
-                          background: guide.color,
-                          color: 'white', borderRadius: '50%',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: '12px', fontWeight: 800, flexShrink: 0,
-                        }}>{i + 1}</span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
-                </article>
-              ))}
+                return guide.slug ? (
+                  <Link
+                    key={guide.id}
+                    href={`/${guide.slug}`}
+                    data-ym-goal="marketplace_card_click"
+                    data-ym-params={`{"slug":"${guide.slug}","place":"guide_index"}`}
+                    style={cardStyle}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <article key={guide.id} style={cardStyle}>{inner}</article>
+                );
+              })}
             </div>
           </div>
         </section>

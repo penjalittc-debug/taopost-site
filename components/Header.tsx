@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: 'Тарифы', href: '/#tariffs' },
   { label: 'FAQ', href: '/#faq' },
   { label: 'Блог', href: '/blog' },
+  { label: 'Заявка', href: '/#zayavka' },
   { label: 'Контакты', href: '/#contacts' },
 ];
 

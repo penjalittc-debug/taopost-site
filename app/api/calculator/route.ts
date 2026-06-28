@@ -25,14 +25,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const fromCity = (data.fromCity || '').trim().slice(0, 80);
+  const fromCity = (data.fromCity || '').trim().slice(0, 80) || 'Китай (маркетплейсы)';
   const toCity = (data.toCity || '').trim().slice(0, 80);
   const transport = data.transport === 'air' ? 'air' : 'auto';
-  const weight = (data.weight || '').trim().slice(0, 20);
+  const weight = (data.weight || '').trim().slice(0, 20) || 'не указан';
   const volume = (data.volume || '').trim().slice(0, 20);
   const phone = (data.phone || '').trim().slice(0, 40);
 
-  if (!fromCity || !toCity || !weight || !phone) {
+  // Обязательны только город получения и телефон — минимум трения для лида.
+  if (!toCity || !phone) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 

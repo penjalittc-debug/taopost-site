@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { articles, getArticleBySlug } from '@/lib/blog';
+import { CITIES } from '@/lib/cities';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,11 @@ export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) notFound();
+
+  const popularCities = CITIES.filter((c) =>
+    ['moskva', 'sankt-peterburg', 'ekaterinburg', 'novosibirsk', 'kazan', 'krasnodar', 'rostov-na-donu', 'nizhniy-novgorod'].includes(c.slug),
+  );
+  const otherArticles = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -193,6 +199,82 @@ export default async function ArticlePage({ params }: Props) {
             }}>
               ← Все статьи
             </Link>
+          </div>
+        </section>
+
+        {/* Related articles */}
+        {otherArticles.length > 0 && (
+          <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
+            <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+              <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>
+                Читайте также
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+                {otherArticles.map((a) => (
+                  <Link
+                    key={a.slug}
+                    href={`/blog/${a.slug}`}
+                    style={{
+                      display: 'block', padding: '24px',
+                      background: '#fff', borderRadius: '14px',
+                      border: '1px solid #E5E7EB',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span style={{
+                      display: 'inline-block', marginBottom: '12px',
+                      background: a.categoryColor + '18', color: a.categoryColor,
+                      fontWeight: 700, fontSize: '11px',
+                      padding: '3px 10px', borderRadius: '50px',
+                    }}>
+                      {a.category}
+                    </span>
+                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#111827', lineHeight: 1.4, marginBottom: '8px' }}>
+                      {a.title}
+                    </div>
+                    <div style={{ fontSize: '13px', color: '#6B7280' }}>
+                      {a.readTime} чтения
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Cities cross-link */}
+        <section style={{ padding: '60px 24px', background: '#fff' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 900, color: '#111827', marginBottom: '8px' }}>
+              Доставка в популярные города
+            </h2>
+            <p style={{ fontSize: '15px', color: '#6B7280', marginBottom: '24px' }}>
+              Сроки и тарифы для вашего города
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '10px' }}>
+              {popularCities.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/kak-zakazat-iz-kitaya/${c.slug}`}
+                  data-ym-goal="city_card_click"
+                  data-ym-params={`{"slug":"${c.slug}","place":"article_${article.slug}"}`}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '14px 18px',
+                    background: '#F9FAFB',
+                    borderRadius: '10px',
+                    color: '#111827',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                    border: '1px solid #F3F4F6',
+                  }}
+                >
+                  <span>Доставка {c.nameIn}</span>
+                  <span style={{ color: '#005C43', fontSize: '13px' }}>→</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

@@ -1,10 +1,84 @@
 'use client';
-import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award } from 'lucide-react';
+import { useState } from 'react';
+import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award, Phone, FileCheck2, Shirt, Footprints } from 'lucide-react';
+
+type Segment = {
+  id: 'clothing' | 'sneakers' | 'wholesale';
+  label: string;
+  Icon: typeof Shirt;
+  mp: string;
+  mpSlug: string;
+  mpColor: string;
+  subtitle: string;
+  cardTag: string;
+  cardBadge: string;
+  CardBadgeIcon: typeof Truck;
+  priceFrom: string;
+  priceUnit: string;
+  route: { from: string; to: string };
+  cardFoot: string;
+  ctaLabel: string;
+};
+
+const SEGMENTS: Segment[] = [
+  {
+    id: 'clothing',
+    label: 'Одежда и товары',
+    Icon: Shirt,
+    mp: 'Taobao',
+    mpSlug: 'taobao',
+    mpColor: '#ff4400',
+    subtitle: 'Выкупаем и доставляем одежду, аксессуары и электронику с Taobao, Pinduoduo, Tmall. До вашего города — или прямо до двери.',
+    cardTag: 'Авто · Taobao',
+    cardBadge: 'Гуанчжоу',
+    CardBadgeIcon: Truck,
+    priceFrom: '350',
+    priceUnit: '₽/кг',
+    route: { from: 'Гуанчжоу', to: 'Москва' },
+    cardFoot: '15–25 дней · от 5 кг · с отслеживанием',
+    ctaLabel: 'Заказать с Taobao',
+  },
+  {
+    id: 'sneakers',
+    label: 'Кроссовки и бренды',
+    Icon: Footprints,
+    mp: 'Poizon',
+    mpSlug: 'poizon',
+    mpColor: '#1a1a2e',
+    subtitle: 'Оригинальные кроссовки и брендовая одежда с Poizon (得物). С проверкой подлинности, от 1 пары, авиа за 3-5 дней.',
+    cardTag: 'Авиа · Poizon',
+    cardBadge: 'От 1 пары',
+    CardBadgeIcon: Plane,
+    priceFrom: '2 700',
+    priceUnit: '₽/кг',
+    route: { from: 'Гуанчжоу', to: 'Москва' },
+    cardFoot: '3–5 дней авиа · от 1 пары · аутентификация',
+    ctaLabel: 'Заказать с Poizon',
+  },
+  {
+    id: 'wholesale',
+    label: 'Опт с 1688',
+    Icon: Boxes,
+    mp: '1688',
+    mpSlug: '1688',
+    mpColor: '#ff6600',
+    subtitle: 'Оптовые партии напрямую с фабрик Китая через 1688. Контроль качества, документы для бизнеса, консолидация заказов.',
+    cardTag: 'Опт · 1688',
+    cardBadge: 'Иу/Гуанчжоу',
+    CardBadgeIcon: Truck,
+    priceFrom: '350',
+    priceUnit: '₽/кг',
+    route: { from: 'Иу', to: 'Москва' },
+    cardFoot: '15–25 дней · от 50 шт · фото-отчёт',
+    ctaLabel: 'Опт с 1688',
+  },
+];
 
 const TRUST = [
+  { Icon: FileCheck2, text: 'Лицензия КНР' },
   { Icon: ShieldCheck, text: 'Без предоплаты' },
-  { Icon: Package, text: 'Отслеживание посылки' },
-  { Icon: Sparkles, text: 'Страховка товара' },
+  { Icon: Package, text: 'Отслеживание' },
+  { Icon: Sparkles, text: 'Страховка груза' },
 ];
 
 const STATS = [
@@ -14,51 +88,79 @@ const STATS = [
 ];
 
 export default function HeroV3() {
+  const [activeId, setActiveId] = useState<Segment['id']>('clothing');
+  const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
+  const BadgeIcon = seg.CardBadgeIcon;
+
   return (
     <section className="hero3">
-      {/* Gradient mesh background */}
       <div className="hero3__mesh hero3__mesh--green" />
       <div className="hero3__mesh hero3__mesh--coral" />
       <div className="hero3__grid" />
 
       <div className="hero3__container">
         <div className="hero3__layout">
-          {/* Left: Copy */}
           <div className="hero3__copy">
             <span className="hero3__pill">
               <span className="hero3__pillDot" />
-              Китай → Россия · Работаем с 2021
+              Лицензия КНР · Собственный склад в Гуанчжоу
             </span>
 
             <h1 className="hero3__title">
               Товары из Китая<br />
-              <span className="hero3__titleAccent">выгоднее на&nbsp;75%</span>
+              <span className="hero3__titleAccent">дешевле до&nbsp;60%</span>
             </h1>
 
-            <p className="hero3__lede">
-              Выкупаем и доставляем с Taobao, Poizon, Pinduoduo, 1688 и Goofish.
-              До вашего города — или прямо до&nbsp;двери.
-            </p>
+            <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
+              {SEGMENTS.map((s) => {
+                const Icon = s.Icon;
+                const active = s.id === activeId;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setActiveId(s.id)}
+                    className={`hero3__chip${active ? ' hero3__chip--active' : ''}`}
+                    data-ym-goal="hero_segment_click"
+                    data-ym-params={`{"segment":"${s.id}"}`}
+                  >
+                    <Icon size={16} strokeWidth={2.4} />
+                    {s.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <p className="hero3__lede">{seg.subtitle}</p>
 
             <div className="hero3__ctas">
               <a
-                href="https://t.me/taopostsupport?start=site"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/${seg.mpSlug}`}
                 className="hero3__btn hero3__btn--primary"
-                data-ym-goal="telegram_click"
-                data-ym-params='{"place":"hero"}'
+                data-ym-goal="hero_segment_cta_click"
+                data-ym-params={`{"segment":"${seg.id}","slug":"${seg.mpSlug}"}`}
               >
                 <Send size={18} strokeWidth={2.5} />
-                Написать в Telegram
+                {seg.ctaLabel} →
+              </a>
+              <a
+                href="tel:+79772767778"
+                className="hero3__btn hero3__btn--ghost"
+                data-ym-goal="phone_click"
+                data-ym-params='{"place":"hero"}'
+              >
+                <Phone size={18} strokeWidth={2.5} />
+                Позвонить
               </a>
               <a
                 href="#calculator"
-                className="hero3__btn hero3__btn--ghost"
+                className="hero3__btn hero3__btn--link"
                 data-ym-goal="scroll_to_calculator"
                 data-ym-params='{"place":"hero"}'
               >
-                <CalcIcon size={18} strokeWidth={2.5} />
+                <CalcIcon size={16} strokeWidth={2.5} />
                 Рассчитать стоимость
               </a>
             </div>
@@ -73,25 +175,24 @@ export default function HeroV3() {
             </div>
           </div>
 
-          {/* Right: Visual card cluster */}
           <div className="hero3__visual">
-            <div className="hero3__card hero3__card--main">
+            <div className="hero3__card hero3__card--main" key={seg.id}>
               <div className="hero3__cardHead">
-                <span className="hero3__cardTag">Тариф · авто</span>
+                <span className="hero3__cardTag" style={{ color: seg.mpColor }}>{seg.cardTag}</span>
                 <span className="hero3__cardBadge">
-                  <Truck size={14} strokeWidth={2.5} />
-                  Гуанчжоу
+                  <BadgeIcon size={14} strokeWidth={2.5} />
+                  {seg.cardBadge}
                 </span>
               </div>
               <div className="hero3__price">
                 <span className="hero3__priceFrom">от</span>
-                <span className="hero3__priceValue">350</span>
-                <span className="hero3__priceCur">₽/кг</span>
+                <span className="hero3__priceValue">{seg.priceFrom}</span>
+                <span className="hero3__priceCur">{seg.priceUnit}</span>
               </div>
               <div className="hero3__route">
                 <div className="hero3__routePoint">
                   <MapPin size={14} strokeWidth={2.5} />
-                  Гуанчжоу
+                  {seg.route.from}
                 </div>
                 <div className="hero3__routeLine">
                   <span className="hero3__routeDot" />
@@ -100,10 +201,10 @@ export default function HeroV3() {
                 </div>
                 <div className="hero3__routePoint hero3__routePoint--end">
                   <MapPin size={14} strokeWidth={2.5} />
-                  Москва
+                  {seg.route.to}
                 </div>
               </div>
-              <div className="hero3__cardFoot">15–25 дней · с отслеживанием</div>
+              <div className="hero3__cardFoot">{seg.cardFoot}</div>
             </div>
 
             <div className="hero3__card hero3__card--avia">
@@ -117,13 +218,12 @@ export default function HeroV3() {
             </div>
 
             <div className="hero3__card hero3__card--save">
-              <div className="hero3__saveValue">−75%</div>
+              <div className="hero3__saveValue">−60%</div>
               <div className="hero3__saveLabel">к розничной цене в РФ</div>
             </div>
           </div>
         </div>
 
-        {/* Stat strip */}
         <div className="hero3__stats">
           {STATS.map(({ Icon, value, label, accent }) => (
             <div key={label} className="hero3__stat">
@@ -189,7 +289,6 @@ export default function HeroV3() {
           align-items: center;
         }
 
-        /* Left copy */
         .hero3__pill {
           display: inline-flex;
           align-items: center;
@@ -223,12 +322,48 @@ export default function HeroV3() {
           background-clip: text;
           color: transparent;
         }
+
+        .hero3__chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin: 0 0 22px;
+        }
+        .hero3__chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 9px 14px;
+          border-radius: 999px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #4B5563;
+          background: #fff;
+          border: 1.5px solid #E5E7EB;
+          cursor: pointer;
+          transition: color .15s, background .15s, border-color .15s, transform .15s;
+          font-family: inherit;
+        }
+        .hero3__chip:hover {
+          border-color: #005C43;
+          color: #005C43;
+          transform: translateY(-1px);
+        }
+        .hero3__chip--active {
+          background: #005C43;
+          color: #fff;
+          border-color: #005C43;
+          box-shadow: 0 6px 18px -6px rgba(0,92,67,0.45);
+        }
+        .hero3__chip--active :global(svg) { color: #fff; }
+
         .hero3__lede {
-          font-size: 19px;
+          font-size: 18px;
           line-height: 1.55;
           color: #4B5563;
-          max-width: 520px;
-          margin: 0 0 32px;
+          max-width: 540px;
+          margin: 0 0 28px;
+          min-height: 80px;
         }
 
         .hero3__ctas {
@@ -264,6 +399,16 @@ export default function HeroV3() {
           color: #005C43;
           transform: translateY(-2px);
         }
+        .hero3__btn--link {
+          background: transparent;
+          color: #4B5563;
+          padding: 14px 18px;
+          font-size: 15px;
+          font-weight: 600;
+        }
+        .hero3__btn--link:hover {
+          color: #005C43;
+        }
 
         .hero3__trust {
           display: flex; gap: 22px; flex-wrap: wrap;
@@ -274,7 +419,6 @@ export default function HeroV3() {
         }
         .hero3__trustItem :global(svg) { color: #005C43; }
 
-        /* Right visual */
         .hero3__visual {
           position: relative;
           height: 480px;
@@ -292,6 +436,11 @@ export default function HeroV3() {
           top: 40px; left: 0; right: 60px;
           padding: 28px;
           z-index: 2;
+          animation: heroCardFade .35s ease;
+        }
+        @keyframes heroCardFade {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         .hero3__cardHead {
           display: flex; justify-content: space-between; align-items: center;
@@ -299,7 +448,6 @@ export default function HeroV3() {
         }
         .hero3__cardTag {
           font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-          color: #6B7280;
         }
         .hero3__cardBadge {
           display: inline-flex; align-items: center; gap: 6px;
@@ -371,7 +519,6 @@ export default function HeroV3() {
         }
         .hero3__saveLabel { font-size: 11px; color: #9CA3AF; margin-top: 2px; font-weight: 500; }
 
-        /* Stats */
         .hero3__stats {
           margin-top: 80px;
           display: grid;
@@ -414,6 +561,7 @@ export default function HeroV3() {
           .hero3__layout { grid-template-columns: 1fr; gap: 48px; }
           .hero3__visual { height: 440px; max-width: 480px; margin: 0 auto; width: 100%; }
           .hero3__card--main { right: 40px; }
+          .hero3__lede { min-height: 0; }
         }
         @media (max-width: 560px) {
           .hero3__visual { height: 420px; }
@@ -425,6 +573,8 @@ export default function HeroV3() {
           .hero3__stats { grid-template-columns: 1fr; padding: 20px; margin-top: 60px; }
           .hero3__ctas { flex-direction: column; }
           .hero3__btn { justify-content: center; }
+          .hero3__chips { gap: 6px; }
+          .hero3__chip { font-size: 13px; padding: 8px 12px; }
         }
       `}</style>
     </section>

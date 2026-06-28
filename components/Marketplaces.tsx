@@ -1,10 +1,12 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Send, Package, Footprints } from 'lucide-react';
 
 const MARKETPLACES = [
   {
     name: 'Pinduoduo',
+    slug: 'pinduoduo',
     description: 'Лучшие цены от китайских производителей напрямую',
     img: '/mp/pinduoduo.jpg',
     color: '#e4003a',
@@ -13,6 +15,7 @@ const MARKETPLACES = [
   },
   {
     name: 'Taobao',
+    slug: 'taobao',
     description: 'Крупнейший ритейл-маркетплейс Китая с миллионами товаров',
     img: '/mp/taobao.svg',
     color: '#ff4400',
@@ -21,6 +24,7 @@ const MARKETPLACES = [
   },
   {
     name: '1688',
+    slug: '1688',
     description: 'Оптовые закупки напрямую от производителей по заводским ценам',
     img: '/mp/1688.png',
     color: '#ff6600',
@@ -29,6 +33,7 @@ const MARKETPLACES = [
   },
   {
     name: 'Poizon',
+    slug: 'poizon',
     description: 'Оригинальные кроссовки с гарантией подлинности. Выкупаем от 1 пары — без минимального веса',
     img: '/mp/poizon.png',
     color: '#1a1a2e',
@@ -37,6 +42,7 @@ const MARKETPLACES = [
   },
   {
     name: 'Tmall',
+    slug: 'tmall',
     description: 'Брендовые товары и официальные магазины Китая (天猫)',
     img: '/mp/tmall.jpg',
     color: '#ffffff',
@@ -45,6 +51,7 @@ const MARKETPLACES = [
   },
   {
     name: 'Goofish',
+    slug: null,
     description: 'Б/у товары и раритеты по выгодным ценам',
     img: '/mp/gofish.webp',
     color: '#d97706',
@@ -96,29 +103,48 @@ export default function Marketplaces() {
         </div>
 
         <div className="mp__grid">
-          {MARKETPLACES.map((mp) => (
-            <div key={mp.name} className="tp-card tp-card--hover mp__card">
-              <div className="mp__logo" style={{ background: mp.color, boxShadow: `0 10px 24px -6px ${mp.color}60` }}>
-                <Image
-                  src={mp.img}
-                  alt={mp.name}
-                  width={64}
-                  height={64}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </div>
+          {MARKETPLACES.map((mp) => {
+            const cardContent = (
+              <>
+                <div className="mp__logo" style={{ background: mp.color, boxShadow: `0 10px 24px -6px ${mp.color}60` }}>
+                  <Image
+                    src={mp.img}
+                    alt={mp.name}
+                    width={64}
+                    height={64}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
 
-              <span
-                className="mp__tag"
-                style={{ background: mp.tagColor + '15', color: mp.tagColor }}
+                <span
+                  className="mp__tag"
+                  style={{ background: mp.tagColor + '15', color: mp.tagColor }}
+                >
+                  {mp.tag}
+                </span>
+
+                <h3 className="mp__name">{mp.name}</h3>
+                <p className="mp__desc">{mp.description}</p>
+                {mp.slug && <span className="mp__more">Подробнее →</span>}
+              </>
+            );
+
+            return mp.slug ? (
+              <Link
+                key={mp.name}
+                href={`/${mp.slug}`}
+                className="tp-card tp-card--hover mp__card mp__card--link"
+                data-ym-goal="marketplace_card_click"
+                data-ym-params={`{"slug":"${mp.slug}","place":"homepage"}`}
               >
-                {mp.tag}
-              </span>
-
-              <h3 className="mp__name">{mp.name}</h3>
-              <p className="mp__desc">{mp.description}</p>
-            </div>
-          ))}
+                {cardContent}
+              </Link>
+            ) : (
+              <div key={mp.name} className="tp-card tp-card--hover mp__card">
+                {cardContent}
+              </div>
+            );
+          })}
         </div>
 
         <div className="tp-card tp-card--glass mp__cta">
@@ -176,7 +202,18 @@ export default function Marketplaces() {
           font-size: 13.5px;
           color: var(--text-muted);
           line-height: 1.55;
-          margin: 0;
+          margin: 0 0 12px;
+        }
+        .mp__more {
+          display: inline-block;
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--green-dark);
+        }
+        .mp__card--link {
+          text-decoration: none;
+          color: inherit;
+          display: block;
         }
 
         .mp__cta {

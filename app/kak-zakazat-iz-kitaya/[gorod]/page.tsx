@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { CITIES, getCityBySlug } from '@/lib/cities';
+import { articles } from '@/lib/blog';
 
 type Params = { gorod: string };
 
@@ -16,15 +17,20 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { gorod } = await params;
   const city = getCityBySlug(gorod);
   if (!city) return {};
+  // Уникальное описание из локального текста города — чтобы Google не считал
+  // страницы городов дубликатами. Берём первое предложение localText.
+  const firstSentence = city.localText ? city.localText.split('. ')[0].trim() + '.' : '';
+  const description = firstSentence
+    ? `${firstSentence} Срок — ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа). Выкуп с Taobao, Poizon, 1688 без комиссии.`
+    : `Пошаговая инструкция как заказать товары из Китая ${city.nameIn}. Доставка с Taobao, Poizon, Pinduoduo, 1688 ${city.nameIn} — ${city.deliveryDays}. Выкуп, проверка, страховка.`;
   return {
-    title: `Как заказать из Китая ${city.nameIn} — доставка с Taobao, Poizon, 1688 | TaoPost`,
-    description: `Пошаговая инструкция как заказать товары из Китая ${city.nameIn}. Доставка с Taobao, Poizon, Pinduoduo, 1688 ${city.nameIn} — ${city.deliveryDays}. Выкуп, проверка, страховка.`,
-    keywords: `как заказать из китая ${city.name.toLowerCase()}, доставка из китая ${city.nameIn.toLowerCase()}, taobao ${city.name.toLowerCase()}, poizon ${city.name.toLowerCase()}, карго ${city.name.toLowerCase()}, выкуп товаров китай ${city.name.toLowerCase()}`,
+    title: `Доставка из Китая ${city.nameIn} — Taobao, Poizon, 1688 | TaoPost`,
+    description,
     alternates: {
       canonical: `https://taopost.ru/kak-zakazat-iz-kitaya/${city.slug}`,
     },
     openGraph: {
-      title: `Как заказать из Китая ${city.nameIn} — TaoPost`,
+      title: `Доставка из Китая ${city.nameIn} — TaoPost`,
       description: `Доставка ${city.nameIn} за ${city.deliveryDays}. Выкуп с Taobao, Poizon, 1688, Pinduoduo.`,
       url: `https://taopost.ru/kak-zakazat-iz-kitaya/${city.slug}`,
     },
@@ -35,6 +41,7 @@ const GUIDES = [
   {
     id: 1,
     platform: 'Taobao',
+    slug: 'taobao' as string | null,
     color: '#ff4400',
     logo: '/mp/taobao.svg',
     logoBg: '#ff4400',
@@ -45,6 +52,7 @@ const GUIDES = [
   {
     id: 2,
     platform: 'Poizon',
+    slug: 'poizon' as string | null,
     color: '#1a1a2e',
     logo: '/mp/poizon.png',
     logoBg: '#1a1a2e',
@@ -55,6 +63,7 @@ const GUIDES = [
   {
     id: 3,
     platform: 'Pinduoduo',
+    slug: 'pinduoduo' as string | null,
     color: '#e4003a',
     logo: '/mp/pinduoduo.jpg',
     logoBg: '#e4003a',
@@ -65,6 +74,7 @@ const GUIDES = [
   {
     id: 4,
     platform: '1688',
+    slug: '1688' as string | null,
     color: '#ff6600',
     logo: '/mp/1688.png',
     logoBg: '#ff6600',
@@ -75,6 +85,7 @@ const GUIDES = [
   {
     id: 5,
     platform: 'Tmall',
+    slug: 'tmall' as string | null,
     color: '#ff0036',
     logo: '/mp/tmall.jpg',
     logoBg: '#ffffff',
@@ -85,6 +96,7 @@ const GUIDES = [
   {
     id: 6,
     platform: 'Goofish',
+    slug: null as string | null,
     color: '#d97706',
     logo: '/mp/gofish.webp',
     logoBg: '#d97706',
@@ -100,6 +112,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
   if (!city) notFound();
 
   const otherCities = CITIES.filter((c) => c.slug !== city.slug).slice(0, 12);
+  const featuredArticles = articles.slice(0, 4);
 
   const cityFaq = [
     {
@@ -388,66 +401,97 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
-              {GUIDES.map((guide) => (
-                <article key={guide.id} style={{
+              {GUIDES.map((guide) => {
+                const inner = (
+                  <>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                      <div style={{
+                        width: '44px', height: '44px',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        background: guide.logoBg,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0,
+                        border: '1px solid rgba(0,0,0,0.06)',
+                      }}>
+                        <Image
+                          src={guide.logo}
+                          alt={guide.platform}
+                          width={44}
+                          height={44}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
+                      <span style={{
+                        background: guide.color + '15',
+                        color: guide.color,
+                        fontWeight: 800, fontSize: '13px',
+                        padding: '4px 12px', borderRadius: '50px',
+                        border: `1px solid ${guide.color}30`,
+                      }}>{guide.platform}</span>
+                    </div>
+
+                    <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
+                      {guide.title}
+                    </h3>
+                    <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
+                      {guide.description}
+                    </p>
+
+                    <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
+                      {guide.steps.map((step, i) => (
+                        <li key={i} style={{
+                          display: 'flex', gap: '12px', alignItems: 'flex-start',
+                          marginBottom: '10px', fontSize: '14px', color: '#374151',
+                        }}>
+                          <span style={{
+                            minWidth: '24px', height: '24px',
+                            background: guide.color,
+                            color: 'white', borderRadius: '50%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: '12px', fontWeight: 800, flexShrink: 0,
+                          }}>{i + 1}</span>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+
+                    {guide.slug && (
+                      <div style={{
+                        marginTop: '20px', paddingTop: '16px',
+                        borderTop: '1px solid #E5E7EB',
+                        fontSize: '14px', fontWeight: 700, color: guide.color,
+                      }}>
+                        Подробный гайд →
+                      </div>
+                    )}
+                  </>
+                );
+
+                const cardStyle: React.CSSProperties = {
                   background: '#F9FAFB',
                   borderRadius: '20px',
                   padding: '32px',
                   border: '1px solid #F3F4F6',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <div style={{
-                      width: '44px', height: '44px',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      background: guide.logoBg,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0,
-                      border: '1px solid rgba(0,0,0,0.06)',
-                    }}>
-                      <Image
-                        src={guide.logo}
-                        alt={guide.platform}
-                        width={44}
-                        height={44}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    </div>
-                    <span style={{
-                      background: guide.color + '15',
-                      color: guide.color,
-                      fontWeight: 800, fontSize: '13px',
-                      padding: '4px 12px', borderRadius: '50px',
-                      border: `1px solid ${guide.color}30`,
-                    }}>{guide.platform}</span>
-                  </div>
+                  display: 'block',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                };
 
-                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                    {guide.title}
-                  </h3>
-                  <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
-                    {guide.description}
-                  </p>
-
-                  <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                    {guide.steps.map((step, i) => (
-                      <li key={i} style={{
-                        display: 'flex', gap: '12px', alignItems: 'flex-start',
-                        marginBottom: '10px', fontSize: '14px', color: '#374151',
-                      }}>
-                        <span style={{
-                          minWidth: '24px', height: '24px',
-                          background: guide.color,
-                          color: 'white', borderRadius: '50%',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: '12px', fontWeight: 800, flexShrink: 0,
-                        }}>{i + 1}</span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
-                </article>
-              ))}
+                return guide.slug ? (
+                  <Link
+                    key={guide.id}
+                    href={`/${guide.slug}`}
+                    data-ym-goal="marketplace_card_click"
+                    data-ym-params={`{"slug":"${guide.slug}","place":"city_${city.slug}"}`}
+                    style={cardStyle}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <article key={guide.id} style={cardStyle}>{inner}</article>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -486,8 +530,58 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
           </div>
         </section>
 
-        {/* Other cities */}
+        {/* Useful articles */}
         <section style={{ padding: '60px 24px', background: '#fff' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            <h2 style={{
+              fontSize: 'clamp(22px, 3vw, 30px)',
+              fontWeight: 900, color: '#111827',
+              textAlign: 'center', marginBottom: '8px',
+            }}>
+              Полезные статьи перед заказом
+            </h2>
+            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '15px', marginBottom: '32px' }}>
+              Что почитать перед первой покупкой в Китае
+            </p>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+              gap: '14px',
+            }}>
+              {featuredArticles.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/blog/${a.slug}`}
+                  data-ym-goal="blog_card_click"
+                  data-ym-params={`{"slug":"${a.slug}","place":"city_${city.slug}"}`}
+                  style={{
+                    display: 'block',
+                    padding: '18px 20px',
+                    background: '#F9FAFB',
+                    borderRadius: '12px',
+                    textDecoration: 'none',
+                    border: '1px solid #F3F4F6',
+                  }}
+                >
+                  <span style={{
+                    display: 'inline-block', marginBottom: '8px',
+                    background: a.categoryColor + '18', color: a.categoryColor,
+                    fontWeight: 700, fontSize: '11px',
+                    padding: '2px 8px', borderRadius: '50px',
+                  }}>
+                    {a.category}
+                  </span>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', lineHeight: 1.4 }}>
+                    {a.title}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Other cities */}
+        <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
           <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
             <h2 style={{
               fontSize: 'clamp(22px, 3vw, 30px)',

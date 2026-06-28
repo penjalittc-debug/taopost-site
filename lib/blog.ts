@@ -5,6 +5,7 @@ export interface Article {
   category: string;
   categoryColor: string;
   date: string;
+  isoDate: string;
   readTime: string;
   keywords: string;
   content: string;
@@ -19,6 +20,7 @@ export const articles: Article[] = [
     category: 'Тренды',
     categoryColor: '#ec4899',
     date: '13 мая 2026',
+    isoDate: '2026-05-13',
     readTime: '10 мин',
     keywords: 'мода шанхай 2026, что носят в китае весной 2026, шанхайский стиль, тренды китайская мода, заказать модную одежду с taobao, тренды весна 2026',
     image: '/blog/shanghai-fashion-spring-2026.jpg',
@@ -112,6 +114,7 @@ export const articles: Article[] = [
     category: 'Гайды',
     categoryColor: '#005C43',
     date: '10 апреля 2026',
+    isoDate: '2026-04-10',
     readTime: '7 мин',
     keywords: 'размерная сетка китайской одежды, размеры китайской одежды таблица, как выбрать размер на taobao, китайский размер в российский, размерная сетка обувь китай',
     content: `
@@ -213,6 +216,7 @@ export const articles: Article[] = [
     category: 'Таможня',
     categoryColor: '#f59e0b',
     date: '8 апреля 2026',
+    isoDate: '2026-04-08',
     readTime: '5 мин',
     keywords: 'нормы беспошлинного ввоза 2026, таможенный лимит посылки из китая, пошлина на посылки из китая, беспошлинный ввоз россия 2026',
     content: `
@@ -283,6 +287,7 @@ export const articles: Article[] = [
     category: 'Гайды',
     categoryColor: '#005C43',
     date: '5 апреля 2026',
+    isoDate: '2026-04-05',
     readTime: '4 мин',
     keywords: 'как найти товар на taobao по фото, поиск по картинке taobao, taobao поиск по изображению, найти товар на тао по фото',
     content: `
@@ -349,6 +354,7 @@ export const articles: Article[] = [
     category: 'Таможня',
     categoryColor: '#f59e0b',
     date: '2 апреля 2026',
+    isoDate: '2026-04-02',
     readTime: '6 мин',
     keywords: 'что нельзя везти из китая в россию, запрещенные товары из китая, таможня китай россия запрещено, что нельзя заказывать с taobao',
     content: `
@@ -431,6 +437,7 @@ export const articles: Article[] = [
     category: 'Сравнения',
     categoryColor: '#8b5cf6',
     date: '28 марта 2026',
+    isoDate: '2026-03-28',
     readTime: '6 мин',
     keywords: 'taobao vs pinduoduo, taobao или pinduoduo что лучше, где дешевле taobao pinduoduo, pinduoduo отзывы качество',
     content: `
@@ -506,6 +513,7 @@ export const articles: Article[] = [
     category: 'Инструкции',
     categoryColor: '#005C43',
     date: '2 июня 2026',
+    isoDate: '2026-06-02',
     readTime: '11 мин',
     keywords: 'как заказать с poizon, poizon как заказать в россию, poizon доставка в россию, dewu как заказать, 得物 как заказать, poizon посредник россия, выкуп с poizon, кроссовки с poizon оригинал',
     content: `
@@ -608,6 +616,7 @@ export const articles: Article[] = [
     category: 'Опт',
     categoryColor: '#ff6600',
     date: '1 июня 2026',
+    isoDate: '2026-06-01',
     readTime: '13 мин',
     keywords: 'как заказать с 1688, 1688 опт россия, 1688 минимальный заказ, оптовые закупки в китае, 1688 как пользоваться, заказ с alibaba 1688, поставщики 1688',
     content: `

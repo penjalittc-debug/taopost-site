@@ -16,9 +16,12 @@ export const REVIEWS: Review[] = [
   { name: 'Артём С.', city: 'Краснодар', text: 'Удобный личный кабинет, всё понятно. Посылка пришла раньше срока. Спасибо команде TaoPost!', rating: 5, date: 'январь 2026', isoDate: '2026-01-12' },
 ];
 
+// reviewCount привязан к числу реальных отзывов в разметке —
+// иначе Google снимает rich-результаты за расхождение Schema с видимым контентом.
+// Добавляйте новые отзывы в массив REVIEWS выше, и счётчик обновится сам.
 export const AGGREGATE_RATING = {
   ratingValue: 4.9,
-  reviewCount: 1247,
+  reviewCount: REVIEWS.length,
   bestRating: 5,
   worstRating: 1,
 };

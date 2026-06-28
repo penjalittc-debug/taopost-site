@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next';
 import { articles } from '@/lib/blog';
 import { CITIES } from '@/lib/cities';
+import { MARKETPLACES } from '@/lib/marketplaces';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogArticles: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `https://taopost.ru/blog/${article.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(article.isoDate),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
@@ -17,6 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  const marketplacePages: MetadataRoute.Sitemap = MARKETPLACES.map((m) => ({
+    url: `https://taopost.ru/${m.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }));
+
   return [
     {
       url: 'https://taopost.ru',
@@ -24,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    ...marketplacePages,
     {
       url: 'https://taopost.ru/kak-zakazat-iz-kitaya',
       lastModified: new Date(),
