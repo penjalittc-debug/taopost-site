@@ -106,6 +106,76 @@ export default function Loyalty() {
             Начать копить →
           </a>
         </div>
+
+        {/* Referral */}
+        <div style={{
+          marginTop: '24px',
+          background: 'linear-gradient(135deg, #FFF7E8 0%, #FFE9E5 100%)',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid #FDE68A',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '24px',
+          flexWrap: 'wrap',
+        }}>
+          <div style={{ fontSize: '52px', lineHeight: 1 }}>🎁</div>
+          <div style={{ flex: 1, minWidth: '260px' }}>
+            <div style={{
+              display: 'inline-block',
+              background: '#fff',
+              color: '#D97706',
+              fontSize: '12px',
+              fontWeight: 800,
+              padding: '4px 12px',
+              borderRadius: '50px',
+              marginBottom: '12px',
+              border: '1px solid #FDE68A',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+            }}>
+              Реферальная программа
+            </div>
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: 800,
+              color: '#111827',
+              marginBottom: '8px',
+              letterSpacing: '-0.3px',
+            }}>
+              Приведи друга — оба получите +1 кг бесплатной доставки
+            </h3>
+            <p style={{
+              fontSize: '15px',
+              color: '#374151',
+              lineHeight: 1.65,
+              margin: 0,
+            }}>
+              Получите персональный промокод у менеджера. Друг применяет его при первом заказе — оба получаете
+              бонус +1 кг бесплатной доставки на следующую отправку. Можно приглашать неограниченно.
+            </p>
+          </div>
+          <a
+            href="https://t.me/taopostsupport?start=referral"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ym-goal="referral_click"
+            data-ym-params='{"place":"loyalty"}'
+            style={{
+              padding: '14px 28px',
+              background: '#FF5A47',
+              color: '#fff',
+              borderRadius: '50px',
+              textDecoration: 'none',
+              fontWeight: 800,
+              fontSize: '15px',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 8px 20px -6px rgba(255,90,71,0.5)',
+            }}
+          >
+            Получить промокод →
+          </a>
+        </div>
       </div>
 
       <style>{`
