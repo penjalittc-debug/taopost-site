@@ -6,9 +6,12 @@ import { Marketplace, MARKETPLACES } from '@/lib/marketplaces';
 import { CITIES } from '@/lib/cities';
 import { articles } from '@/lib/blog';
 
-type Props = { mp: Marketplace };
+type Props = {
+  mp: Marketplace;
+  calculator?: React.ReactNode;
+};
 
-export default function MarketplaceLanding({ mp }: Props) {
+export default function MarketplaceLanding({ mp, calculator }: Props) {
   const popularCities = CITIES.filter((c) =>
     ['moskva', 'sankt-peterburg', 'ekaterinburg', 'novosibirsk', 'kazan', 'krasnodar', 'rostov-na-donu', 'nizhniy-novgorod'].includes(c.slug),
   );
@@ -59,11 +62,35 @@ export default function MarketplaceLanding({ mp }: Props) {
     },
   };
 
+  const howToLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `Как заказать с ${mp.name}`,
+    description: `Пошаговая инструкция: как выкупить и доставить товары с ${mp.name} (${mp.chineseName}) в Россию через TaoPost.`,
+    image: `https://taopost.ru/${mp.slug}/opengraph-image`,
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'RUB',
+      value: '350',
+    },
+    totalTime: 'P25D',
+    supply: [{ '@type': 'HowToSupply', name: `Ссылка на товар на ${mp.name}` }],
+    tool: [{ '@type': 'HowToTool', name: 'Telegram (@taopostsupport)' }],
+    step: mp.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.title,
+      text: s.text,
+      url: `https://taopost.ru/${mp.slug}#step-${i + 1}`,
+    })),
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
       <Header />
       <main>
 
@@ -343,6 +370,8 @@ export default function MarketplaceLanding({ mp }: Props) {
             </div>
           </div>
         </section>
+
+        {calculator}
 
         {/* CTA mid */}
         <section style={{

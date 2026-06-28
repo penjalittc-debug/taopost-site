@@ -18,6 +18,7 @@ import FadeIn from '@/components/FadeIn';
 import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
+import TgVsUs from '@/components/TgVsUs';
 import { FAQS } from '@/lib/faq';
 
 const jsonLd = {
@@ -228,6 +229,7 @@ export default function Home() {
         <HeroV3 />
         <FadeIn><About /></FadeIn>
         <FadeIn><Marketplaces /></FadeIn>
+        <FadeIn delay={50}><TgVsUs /></FadeIn>
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><Calculator /></FadeIn>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import MarketplaceLanding from '@/components/MarketplaceLanding';
+import Wholesale1688Calc from '@/components/Wholesale1688Calc';
 import { getMarketplaceBySlug } from '@/lib/marketplaces';
 
 const mp = getMarketplaceBySlug('1688')!;
@@ -27,5 +28,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page1688() {
-  return <MarketplaceLanding mp={mp} />;
+  return (
+    <>
+      <MarketplaceLanding mp={mp} calculator={<Wholesale1688Calc />} />
+    </>
+  );
 }
