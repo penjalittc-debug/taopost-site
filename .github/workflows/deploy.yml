@@ -1,8 +1,12 @@
 name: Deploy to Selectel
 
+# Триггер на push отключён — secrets ещё не настроены.
+# Запуск через GitHub UI: Actions → Deploy to Selectel → Run workflow.
+# Чтобы вернуть автодеплой — раскомментируй блок push и добавь 4 secrets:
+# SSH_HOST, SSH_USER, SSH_KEY, DEPLOY_PATH (см. docs/deploy.md).
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   workflow_dispatch:
 
 concurrency:
