@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   },
   verification: {
     yandex: "3645f89ced68555a",
+    google: "VFHewv95jRMQ5VGbuT82s-ODtkXKbS8b2Nz9VZ3LIZI",
   },
   openGraph: {
     title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688",
