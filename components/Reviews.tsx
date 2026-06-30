@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Star, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, ArrowRight, Star, Quote, PlayCircle, ImageIcon } from 'lucide-react';
 import { REVIEWS } from '@/lib/reviews';
 
 function Stars({ count }: { count: number }) {
@@ -64,6 +65,44 @@ export default function Reviews() {
               <Quote size={28} strokeWidth={2.3} className="rev__quote" />
               <Stars count={review.rating} />
               <p className="rev__text">{review.text}</p>
+
+              {(review.screenshot || review.video) && (
+                <div className="rev__media">
+                  {review.video ? (
+                    <a
+                      href={review.video}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rev__mediaBtn"
+                      aria-label="Видео-отзыв"
+                    >
+                      <PlayCircle size={18} strokeWidth={2.2} />
+                      Видео-отзыв
+                    </a>
+                  ) : null}
+                  {review.screenshot ? (
+                    <a
+                      href={review.screenshot}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rev__mediaThumb"
+                      aria-label="Скриншот переписки / фото посылки"
+                    >
+                      <Image
+                        src={review.screenshot}
+                        alt={`Скриншот отзыва от ${review.name}`}
+                        width={120}
+                        height={120}
+                        sizes="120px"
+                      />
+                      <span className="rev__mediaThumbIcon">
+                        <ImageIcon size={14} strokeWidth={2.5} />
+                      </span>
+                    </a>
+                  ) : null}
+                </div>
+              )}
+
               <div className="rev__foot">
                 <div>
                   <div className="rev__name">{review.name}</div>
@@ -130,7 +169,56 @@ export default function Reviews() {
           font-size: 15px;
           color: #374151;
           line-height: 1.65;
-          margin: 14px 0 22px;
+          margin: 14px 0 18px;
+        }
+
+        .rev__media {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          margin-bottom: 18px;
+          flex-wrap: wrap;
+        }
+        .rev__mediaBtn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 12px;
+          border-radius: 10px;
+          background: rgba(255, 90, 71, 0.10);
+          color: var(--coral);
+          font-size: 12.5px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: background .2s;
+        }
+        .rev__mediaBtn:hover { background: rgba(255, 90, 71, 0.18); }
+        .rev__mediaThumb {
+          position: relative;
+          display: block;
+          width: 56px;
+          height: 56px;
+          border-radius: 10px;
+          overflow: hidden;
+          border: 1px solid #F3F4F6;
+        }
+        .rev__mediaThumb :global(img) {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .rev__mediaThumbIcon {
+          position: absolute;
+          bottom: 4px;
+          right: 4px;
+          width: 20px;
+          height: 20px;
+          border-radius: 6px;
+          background: rgba(10,15,28,0.78);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .rev__foot {
           display: flex;

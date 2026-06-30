@@ -18,6 +18,7 @@ import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
+import ExitIntent from '@/components/ExitIntent';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -226,6 +227,7 @@ export default function Home() {
       </main>
       <Footer />
       <TelegramFloat />
+      <ExitIntent />
     </>
   );
 }
