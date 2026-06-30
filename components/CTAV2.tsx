@@ -1,5 +1,5 @@
 'use client';
-import { Send, MessageCircle, Clock } from 'lucide-react';
+import { Send, UserPlus, Clock } from 'lucide-react';
 
 export default function CTAV2() {
   return (
@@ -30,26 +30,26 @@ export default function CTAV2() {
 
             <div className="ctav2__buttons">
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://app.taopost.ru"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--primary"
-                data-ym-goal="telegram_click"
+                data-ym-goal="cabinet_click"
                 data-ym-params='{"place":"cta_bottom"}'
               >
-                <Send size={18} strokeWidth={2.5} />
-                Написать в Telegram
+                <UserPlus size={18} strokeWidth={2.5} />
+                Оформить в личном кабинете
               </a>
               <a
-                href="https://t.me/taopostsupport"
+                href="https://t.me/taopostsupport?start=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--ghost"
-                data-ym-goal="channel_click"
+                data-ym-goal="telegram_click"
                 data-ym-params='{"place":"cta_bottom"}'
               >
-                <MessageCircle size={18} strokeWidth={2.3} />
-                Наш канал
+                <Send size={18} strokeWidth={2.3} />
+                Написать в Telegram
               </a>
             </div>
 

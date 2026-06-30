@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award, Phone, FileCheck2, Shirt, Footprints } from 'lucide-react';
+import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award, UserPlus, FileCheck2, Shirt, Footprints } from 'lucide-react';
 
 type Segment = {
   id: 'clothing' | 'sneakers' | 'wholesale';
@@ -107,8 +107,8 @@ export default function HeroV3() {
             </span>
 
             <h1 className="hero3__title">
-              Товары из Китая<br />
-              <span className="hero3__titleAccent">дешевле до&nbsp;60%</span>
+              Доставка и выкуп товаров из Китая —<br />
+              <span className="hero3__titleAccent">экономия до&nbsp;60%</span>
             </h1>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
@@ -137,31 +137,32 @@ export default function HeroV3() {
 
             <div className="hero3__ctas">
               <a
-                href={`/${seg.mpSlug}`}
-                className="hero3__btn hero3__btn--primary"
-                data-ym-goal="hero_segment_cta_click"
-                data-ym-params={`{"segment":"${seg.id}","slug":"${seg.mpSlug}"}`}
-              >
-                <Send size={18} strokeWidth={2.5} />
-                {seg.ctaLabel} →
-              </a>
-              <a
-                href="tel:+79772767778"
-                className="hero3__btn hero3__btn--ghost"
-                data-ym-goal="phone_click"
-                data-ym-params='{"place":"hero"}'
-              >
-                <Phone size={18} strokeWidth={2.5} />
-                Позвонить
-              </a>
-              <a
                 href="#calculator"
-                className="hero3__btn hero3__btn--link"
+                className="hero3__btn hero3__btn--primary"
                 data-ym-goal="scroll_to_calculator"
                 data-ym-params='{"place":"hero"}'
               >
-                <CalcIcon size={16} strokeWidth={2.5} />
+                <CalcIcon size={18} strokeWidth={2.5} />
                 Рассчитать стоимость
+              </a>
+              <a
+                href="https://app.taopost.ru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero3__btn hero3__btn--ghost"
+                data-ym-goal="cabinet_click"
+                data-ym-params='{"place":"hero"}'
+              >
+                <UserPlus size={18} strokeWidth={2.5} />
+                Оформить в личном кабинете
+              </a>
+              <a
+                href={`/${seg.mpSlug}`}
+                className="hero3__btn hero3__btn--link"
+                data-ym-goal="hero_segment_cta_click"
+                data-ym-params={`{"segment":"${seg.id}","slug":"${seg.mpSlug}"}`}
+              >
+                {seg.ctaLabel} →
               </a>
             </div>
 
