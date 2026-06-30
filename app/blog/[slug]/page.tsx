@@ -23,7 +23,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${article.title} | Блог TaoPost`,
     description: article.description,
-    keywords: article.keywords,
     alternates: {
       canonical: `https://taopost.ru/blog/${article.slug}`,
     },

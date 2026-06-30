@@ -7,7 +7,6 @@ const mp = getMarketplaceBySlug('tmall')!;
 export const metadata: Metadata = {
   title: mp.titleSeo,
   description: mp.descriptionSeo,
-  keywords: 'доставка tmall, выкуп tmall, tmall global, заказ с tmall, посредник tmall, tmall 天猫',
   alternates: { canonical: `https://taopost.ru/${mp.slug}` },
   openGraph: {
     title: mp.titleSeo,

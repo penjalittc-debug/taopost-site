@@ -7,7 +7,6 @@ const mp = getMarketplaceBySlug('poizon')!;
 export const metadata: Metadata = {
   title: mp.titleSeo,
   description: mp.descriptionSeo,
-  keywords: 'доставка poizon, выкуп poizon, dewu доставка, кроссовки из китая, заказ кроссовок poizon, poizon 得物',
   alternates: { canonical: `https://taopost.ru/${mp.slug}` },
   openGraph: {
     title: mp.titleSeo,

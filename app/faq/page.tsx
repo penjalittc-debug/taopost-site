@@ -10,8 +10,6 @@ export const metadata: Metadata = {
   title: 'Частые вопросы (FAQ) — TaoPost доставка из Китая',
   description:
     'Ответы на популярные вопросы о доставке из Китая в Россию: сроки, стоимость, оплата, таможня, страховка, выкуп с Taobao, Poizon, 1688, Pinduoduo.',
-  keywords:
-    'faq taopost, вопросы и ответы доставка из китая, сроки доставки китай, сколько стоит карго, как оплатить таобао',
   alternates: { canonical: 'https://taopost.ru/faq' },
   openGraph: {
     title: 'Частые вопросы о доставке из Китая — TaoPost',

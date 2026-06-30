@@ -3,6 +3,7 @@ import { REVIEWS, AGGREGATE_RATING } from '@/lib/reviews';
 import HeroV3 from '@/components/HeroV3';
 import About from '@/components/About';
 import PriceComparison from '@/components/PriceComparison';
+import { PRODUCTS } from '@/lib/products';
 import Marketplaces from '@/components/Marketplaces';
 import HowItWorks from '@/components/HowItWorks';
 import Calculator from '@/components/Calculator';
@@ -19,6 +20,7 @@ import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
 import ExitIntent from '@/components/ExitIntent';
+import StickyMobileCTA from '@/components/StickyMobileCTA';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -158,6 +160,64 @@ const websiteJsonLd = {
   }
 };
 
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://taopost.ru/#warehouse",
+  "name": "TaoPost — склад в Гуанчжоу",
+  "parentOrganization": { "@id": "https://taopost.ru/#organization" },
+  "url": "https://taopost.ru",
+  "image": "https://taopost.ru/og-image.png",
+  "telephone": "+86 185 2070 7778",
+  "priceRange": "350–2700 RUB/кг",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "广东省佛山市南海区里水镇流潮社区水口大道西3号",
+    "addressLocality": "Фошань",
+    "addressRegion": "Гуандун",
+    "addressCountry": "CN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 23.1853,
+    "longitude": 113.0908
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "19:00"
+    }
+  ]
+};
+
+const priceComparisonJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Сравнение цен: Китай vs Россия",
+  "itemListElement": PRODUCTS.map((p, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "item": {
+      "@type": "Product",
+      "name": p.name,
+      "category": p.category,
+      "image": `https://taopost.ru${p.img}`,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "RUB",
+        "price": p.priceCN,
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": p.marketplace
+        }
+      }
+    }
+  }))
+};
+
 // Плавающая кнопка Telegram
 function TelegramFloat() {
   return (
@@ -206,6 +266,14 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(priceComparisonJsonLd) }}
+      />
       <Header />
       <main>
         <HeroV3 />
@@ -227,6 +295,7 @@ export default function Home() {
       </main>
       <Footer />
       <TelegramFloat />
+      <StickyMobileCTA />
       <ExitIntent />
     </>
   );
