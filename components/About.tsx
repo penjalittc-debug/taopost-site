@@ -1,12 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { CalendarDays, Globe2, Package, Warehouse } from 'lucide-react';
+import { Package, Warehouse } from 'lucide-react';
 
 const STATS = [
-  { value: '6+', label: 'лет на рынке', Icon: CalendarDays },
   { value: '200 000+', label: 'посылок доставлено', Icon: Package },
   { value: 'Гуанчжоу', label: 'собственный склад в Китае', Icon: Warehouse },
-  { value: '85+', label: 'городов России', Icon: Globe2 },
 ];
 
 export default function About() {
@@ -49,10 +47,6 @@ export default function About() {
           <div className="abt__textBlock">
             <h3 className="abt__h3">Почему нам доверяют</h3>
             <ul className="abt__list">
-              <li>
-                <strong>Официальная доставка.</strong> Соблюдаем нормы таможенного
-                и налогового законодательства РФ. Никаких серых схем.
-              </li>
               <li>
                 <strong>Собственный склад в Гуанчжоу.</strong> Принимаем товар у
                 продавца, делаем фото и проверку перед отправкой.
@@ -382,8 +376,10 @@ export default function About() {
 
         .abt__stats {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 16px;
+          max-width: 720px;
+          margin: 0 auto;
         }
         .abt__stat {
           background: linear-gradient(160deg, #f0fdf9 0%, #ffffff 100%);

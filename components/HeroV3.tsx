@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Award, Phone, FileCheck2, Shirt, Footprints } from 'lucide-react';
+import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints } from 'lucide-react';
 
 type Segment = {
   id: 'clothing' | 'sneakers' | 'wholesale';
@@ -83,7 +83,6 @@ const TRUST = [
 
 const STATS = [
   { Icon: Boxes, value: '200 000+', label: 'Посылок доставлено', accent: '#005C43' },
-  { Icon: Award, value: '6+ лет', label: 'На рынке КНР → РФ', accent: '#FF5A47' },
   { Icon: Star, value: '4.9 / 5', label: 'Рейтинг клиентов', accent: '#F59E0B' },
 ];
 
@@ -522,8 +521,11 @@ export default function HeroV3() {
         .hero3__stats {
           margin-top: 80px;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 16px;
+          max-width: 720px;
+          margin-left: auto;
+          margin-right: auto;
           padding: 28px;
           background: rgba(255,255,255,0.6);
           border: 1px solid rgba(10,15,28,0.06);

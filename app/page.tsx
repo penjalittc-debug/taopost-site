@@ -8,7 +8,6 @@ import HowItWorks from '@/components/HowItWorks';
 import Calculator from '@/components/Calculator';
 import Tariffs from '@/components/Tariffs';
 import Loyalty from '@/components/Loyalty';
-import Features from '@/components/Features';
 import WarehouseGallery from '@/components/WarehouseGallery';
 import Reviews from '@/components/Reviews';
 import FAQ from '@/components/FAQ';
@@ -237,7 +236,6 @@ export default function Home() {
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
         <FadeIn><About /></FadeIn>
-        <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><Cities /></FadeIn>
         <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><FAQ /></FadeIn>
