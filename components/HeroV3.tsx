@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Send, Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints } from 'lucide-react';
+import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
 
 type Segment = {
   id: 'clothing' | 'sneakers' | 'wholesale';
@@ -81,6 +81,9 @@ const TRUST = [
   { Icon: Sparkles, text: 'Страховка груза' },
 ];
 
+const PHONE_NUMBER = '+7 977 276 77 78';
+const PHONE_HREF = 'tel:+79772767778';
+
 const STATS = [
   { Icon: Boxes, value: '200 000+', label: 'Посылок доставлено', accent: '#005C43' },
   { Icon: Star, value: '4.9 / 5', label: 'Рейтинг клиентов', accent: '#F59E0B' },
@@ -106,8 +109,8 @@ export default function HeroV3() {
             </span>
 
             <h1 className="hero3__title">
-              Товары из Китая<br />
-              <span className="hero3__titleAccent">дешевле до&nbsp;60%</span>
+              Доставка и выкуп товаров из Китая —<br />
+              <span className="hero3__titleAccent">экономия до&nbsp;60%</span>
             </h1>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
@@ -136,35 +139,37 @@ export default function HeroV3() {
 
             <div className="hero3__ctas">
               <a
-                href={`/${seg.mpSlug}`}
+                href="https://app.taopost.ru"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero3__btn hero3__btn--primary"
-                data-ym-goal="hero_segment_cta_click"
-                data-ym-params={`{"segment":"${seg.id}","slug":"${seg.mpSlug}"}`}
+                data-ym-goal="cabinet_click"
+                data-ym-params={`{"place":"hero","segment":"${seg.id}"}`}
               >
-                <Send size={18} strokeWidth={2.5} />
-                {seg.ctaLabel} →
-              </a>
-              <a
-                href="tel:+79772767778"
-                className="hero3__btn hero3__btn--ghost"
-                data-ym-goal="phone_click"
-                data-ym-params='{"place":"hero"}'
-              >
-                <Phone size={18} strokeWidth={2.5} />
-                Позвонить
+                <User size={18} strokeWidth={2.5} />
+                Оформить в личном кабинете
               </a>
               <a
                 href="#calculator"
-                className="hero3__btn hero3__btn--link"
+                className="hero3__btn hero3__btn--ghost"
                 data-ym-goal="scroll_to_calculator"
                 data-ym-params='{"place":"hero"}'
               >
-                <CalcIcon size={16} strokeWidth={2.5} />
+                <CalcIcon size={18} strokeWidth={2.5} />
                 Рассчитать стоимость
               </a>
             </div>
 
             <div className="hero3__trust">
+              <a
+                href={PHONE_HREF}
+                className="hero3__trustItem hero3__trustItem--link"
+                data-ym-goal="phone_click"
+                data-ym-params='{"place":"hero"}'
+              >
+                <Phone size={16} strokeWidth={2.5} />
+                {PHONE_NUMBER}
+              </a>
               {TRUST.map(({ Icon, text }) => (
                 <span key={text} className="hero3__trustItem">
                   <Icon size={16} strokeWidth={2.2} />
@@ -417,6 +422,11 @@ export default function HeroV3() {
           font-size: 13.5px; color: #4B5563; font-weight: 500;
         }
         .hero3__trustItem :global(svg) { color: #005C43; }
+        .hero3__trustItem--link {
+          color: #0A0F1C; font-weight: 700; text-decoration: none;
+          transition: color .15s ease;
+        }
+        .hero3__trustItem--link:hover { color: #005C43; }
 
         .hero3__visual {
           position: relative;
