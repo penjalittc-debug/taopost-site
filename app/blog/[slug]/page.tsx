@@ -292,30 +292,48 @@ export default async function ArticlePage({ params }: Props) {
               Наши менеджеры помогут с выбором товара, расчётом стоимости и оформлением заказа
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://t.me/taopostsupport?start=site"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/#calculator"
+                data-ym-goal="article_cta_calc"
+                data-ym-params={`{"slug":"${article.slug}"}`}
                 style={{
-                  padding: '16px 36px',
+                  padding: '16px 30px',
                   background: '#fff', color: '#005C43',
                   fontWeight: 800, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                 }}
               >
-                Написать в Telegram →
-              </a>
-              <a
-                href="tel:+79772767778"
+                Рассчитать стоимость →
+              </Link>
+              <Link
+                href="/#marketplaces"
+                data-ym-goal="article_cta_marketplaces"
+                data-ym-params={`{"slug":"${article.slug}"}`}
                 style={{
-                  padding: '16px 36px',
+                  padding: '16px 30px',
                   background: 'rgba(255,255,255,0.15)',
                   color: '#fff', fontWeight: 700, fontSize: '16px',
                   borderRadius: '50px', textDecoration: 'none',
                   border: '2px solid rgba(255,255,255,0.3)',
                 }}
               >
-                +7 977 276 77 78
+                Все маркетплейсы
+              </Link>
+              <a
+                href="https://t.me/taopostsupport?start=site"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-ym-goal="telegram_click"
+                data-ym-params={`{"place":"article_${article.slug}"}`}
+                style={{
+                  padding: '16px 30px',
+                  background: 'rgba(255,255,255,0.15)',
+                  color: '#fff', fontWeight: 700, fontSize: '16px',
+                  borderRadius: '50px', textDecoration: 'none',
+                  border: '2px solid rgba(255,255,255,0.3)',
+                }}
+              >
+                Написать в Telegram
               </a>
             </div>
           </div>

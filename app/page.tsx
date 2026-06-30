@@ -10,7 +10,7 @@ import Tariffs from '@/components/Tariffs';
 import Loyalty from '@/components/Loyalty';
 import WarehouseGallery from '@/components/WarehouseGallery';
 import Reviews from '@/components/Reviews';
-import FAQ from '@/components/FAQ';
+import FAQTeaser from '@/components/FAQTeaser';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
@@ -19,7 +19,7 @@ import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
 import B2B from '@/components/B2B';
-import { FAQS } from '@/lib/faq';
+import { PRODUCTS } from '@/lib/products';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -159,18 +159,26 @@ const websiteJsonLd = {
   }
 };
 
-const faqJsonLd = {
+// Product/Offer JSON-LD по позициям из блока «Китай vs Россия».
+// Цены priceCN — это розница в Китае после нашей логистики (примерные ориентиры).
+const productsJsonLd = PRODUCTS.map((p) => ({
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": FAQS.map((item) => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer,
-    },
-  })),
-};
+  "@type": "Product",
+  "name": p.name,
+  "category": p.category,
+  "image": `https://taopost.ru${p.img}`,
+  "brand": { "@type": "Brand", "name": p.name.split(' ')[0] },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://taopost.ru/#prices",
+    "priceCurrency": "RUB",
+    "price": p.priceCN,
+    "availability": "https://schema.org/InStock",
+    "seller": { "@id": "https://taopost.ru/#organization" },
+    "itemCondition": "https://schema.org/NewCondition",
+    "areaServed": "RU",
+  },
+}));
 
 // Плавающая кнопка Telegram
 function TelegramFloat() {
@@ -220,10 +228,13 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      {productsJsonLd.map((p, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(p) }}
+        />
+      ))}
       <Header />
       <main>
         <HeroV3 />
@@ -240,7 +251,7 @@ export default function Home() {
         <FadeIn delay={50}><B2B /></FadeIn>
         <FadeIn delay={50}><Cities /></FadeIn>
         <FadeIn delay={50}><LeadForm /></FadeIn>
-        <FadeIn delay={50}><FAQ /></FadeIn>
+        <FadeIn delay={50}><FAQTeaser /></FadeIn>
         <FadeIn delay={50}><BlogPreview /></FadeIn>
         <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>
