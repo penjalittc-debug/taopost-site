@@ -227,21 +227,21 @@ export default function Home() {
       <Header />
       <main>
         <HeroV3 />
-        <FadeIn><About /></FadeIn>
-        <FadeIn><Marketplaces /></FadeIn>
-        <FadeIn delay={50}><TgVsUs /></FadeIn>
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><Calculator /></FadeIn>
-        <FadeIn delay={50}><LeadForm /></FadeIn>
+        <FadeIn delay={50}><Marketplaces /></FadeIn>
+        <FadeIn delay={50}><TgVsUs /></FadeIn>
         <FadeIn delay={50}><Tariffs /></FadeIn>
         <FadeIn delay={50}><Loyalty /></FadeIn>
-        <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
+        <FadeIn><About /></FadeIn>
+        <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><Cities /></FadeIn>
-        <FadeIn delay={50}><BlogPreview /></FadeIn>
+        <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><FAQ /></FadeIn>
+        <FadeIn delay={50}><BlogPreview /></FadeIn>
         <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>
       <Footer />
