@@ -53,7 +53,7 @@ export default function Tariffs() {
               <div className="tp-icon-tile tp-icon-tile--coral"><Truck size={20} strokeWidth={2.3} /></div>
               <div>
                 <h3 className="tar__title">Автодоставка</h3>
-                <p className="tar__sub">Выгодная цена · Минимальный вес 5 кг</p>
+                <p className="tar__sub">Выгодная цена · Срок 15–25 дней</p>
               </div>
             </div>
             <div className="tar__rows">
@@ -76,7 +76,7 @@ export default function Tariffs() {
               <div className="tp-icon-tile tp-icon-tile--green"><Plane size={20} strokeWidth={2.3} /></div>
               <div>
                 <h3 className="tar__title">Авиадоставка</h3>
-                <p className="tar__sub">Экспресс за 3–5 дней · Минимальный вес 5 кг</p>
+                <p className="tar__sub">Экспресс за 3–5 дней</p>
               </div>
             </div>
             <div className="tar__rows">
@@ -129,7 +129,7 @@ export default function Tariffs() {
 
         <div className="tar__notice">
           <Info size={16} strokeWidth={2.3} />
-          Минимум с Taobao и Pinduoduo — 5 кг. С Poizon выкупаем от 1 пары кроссовок. Стоимость рассчитывается по большему из фактического и объёмного веса.
+          Стоимость рассчитывается по большему из фактического и объёмного веса.
           Товары, запрещённые к ввозу в РФ, не принимаем.
         </div>
       </div>

@@ -1,5 +1,5 @@
 'use client';
-import { ShieldCheck, ShoppingCart, MapPin, Zap, Package, Camera, Users, TrendingUp, type LucideIcon } from 'lucide-react';
+import { ShoppingCart, MapPin, Zap, Package, Camera, Users, TrendingUp, type LucideIcon } from 'lucide-react';
 
 type Feature = {
   Icon: LucideIcon;
@@ -9,12 +9,6 @@ type Feature = {
 };
 
 const FEATURES: Feature[] = [
-  {
-    Icon: ShieldCheck,
-    title: 'Официальная доставка',
-    description: 'Соблюдаем все нормы таможенного и налогового законодательства РФ. Никаких сюрпризов на таможне.',
-    tone: 'green',
-  },
   {
     Icon: ShoppingCart,
     title: 'Выкуп товаров',
@@ -48,7 +42,7 @@ const FEATURES: Feature[] = [
   {
     Icon: Users,
     title: 'Совместный выкуп',
-    description: 'Не хватает до минимальных 5 кг? Объединяем вас с другими заказчиками — платите только за свой вес.',
+    description: 'Если ваша посылка маленькая — объединим вас с другими заказчиками, чтобы вы платили только за свой вес.',
     tone: 'coral',
   },
   {
