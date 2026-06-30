@@ -9,6 +9,7 @@ import Loyalty from '@/components/Loyalty';
 export const metadata: Metadata = {
   title: 'Тарифы доставки из Китая — авто 350 ₽/кг, авиа 2 700 ₽/кг | TaoPost',
   description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней от 350 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости, страховка, программа лояльности.',
+  keywords: 'тарифы доставки из китая, стоимость карго из китая, цена за кг китай россия, тарифы taopost, доставка china цена',
   alternates: { canonical: 'https://taopost.ru/tarify' },
   openGraph: {
     title: 'Тарифы доставки из Китая в Россию | TaoPost',

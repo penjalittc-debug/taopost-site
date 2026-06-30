@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
   { label: 'Тарифы', href: '/tarify' },
   { label: 'Гарантии', href: '/garantii' },
-  { label: 'Частые вопросы', href: '/faq' },
   { label: 'Контакты', href: '/kontakty' },
   { label: 'Как заказать из Китая', href: '/kak-zakazat-iz-kitaya', Icon: BookOpen },
   { label: 'Блог', href: '/blog', Icon: BookOpen },

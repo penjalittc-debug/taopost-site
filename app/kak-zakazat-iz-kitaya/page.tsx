@@ -8,6 +8,7 @@ import { CITIES } from '@/lib/cities';
 export const metadata: Metadata = {
   title: `Как заказать из Китая — Инструкции по Taobao, Poizon, 1688 | TaoPost`,
   description: `Пошаговые инструкции как заказать товары из Китая через TaoPost. Гайды по Taobao, Poizon, Pinduoduo, 1688. Сроки и тарифы для ${CITIES.length} городов России.`,
+  keywords: 'как заказать с taobao, как купить с poizon, инструкция заказ из китая, обучение карго',
   alternates: {
     canonical: 'https://taopost.ru/kak-zakazat-iz-kitaya',
   },

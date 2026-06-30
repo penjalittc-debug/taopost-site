@@ -8,6 +8,7 @@ const mp = getMarketplaceBySlug('1688')!;
 export const metadata: Metadata = {
   title: mp.titleSeo,
   description: mp.descriptionSeo,
+  keywords: 'опт с 1688, 1688 доставка, alibaba b2b, опт из китая, поставщики 1688, выкуп с 1688',
   alternates: { canonical: `https://taopost.ru/${mp.slug}` },
   openGraph: {
     title: mp.titleSeo,

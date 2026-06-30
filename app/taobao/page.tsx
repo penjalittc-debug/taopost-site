@@ -7,6 +7,7 @@ const mp = getMarketplaceBySlug('taobao')!;
 export const metadata: Metadata = {
   title: mp.titleSeo,
   description: mp.descriptionSeo,
+  keywords: 'доставка taobao, выкуп таобао, заказ с taobao, посредник taobao, taobao доставка в россию, taobao 淘宝',
   alternates: { canonical: `https://taopost.ru/${mp.slug}` },
   openGraph: {
     title: mp.titleSeo,

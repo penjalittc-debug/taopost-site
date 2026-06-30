@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock, Package, Footprints, UserPlus } from 'lucide-react';
+import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock, Package, Footprints } from 'lucide-react';
 
 type Transport = 'auto' | 'air';
 
@@ -299,41 +299,23 @@ export default function Calculator() {
                 </div>
               )}
 
-              <div className="calc__ctas">
-                <a
-                  href="https://app.taopost.ru"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tp-btn tp-btn--primary tp-btn--lg calc__cta"
-                  data-ym-goal="cabinet_click"
-                  data-ym-params={JSON.stringify({
-                    place: 'calculator',
-                    transport,
-                    weight: Number(calc.chargeable.toFixed(2)),
-                    total: Math.round(calc.total),
-                  })}
-                >
-                  <UserPlus size={18} strokeWidth={2.5} />
-                  Оформить в личном кабинете
-                </a>
-                <a
-                  href={tgUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`tp-btn tp-btn--ghost tp-btn--lg calc__cta${!hasResult ? ' calc__cta--muted' : ''}`}
-                  data-ym-goal={hasResult ? 'calc_submit' : 'telegram_click'}
-                  data-ym-params={JSON.stringify({
-                    place: 'calculator',
-                    transport,
-                    weight: Number(calc.chargeable.toFixed(2)),
-                    total: Math.round(calc.total),
-                    hasResult,
-                  })}
-                >
-                  <Send size={18} strokeWidth={2.5} />
-                  {hasResult ? 'Уточнить у менеджера' : 'Написать в Telegram'}
-                </a>
-              </div>
+              <a
+                href={tgUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`tp-btn tp-btn--primary tp-btn--lg calc__cta${!hasResult ? ' calc__cta--muted' : ''}`}
+                data-ym-goal={hasResult ? 'calc_submit' : 'telegram_click'}
+                data-ym-params={JSON.stringify({
+                  place: 'calculator',
+                  transport,
+                  weight: Number(calc.chargeable.toFixed(2)),
+                  total: Math.round(calc.total),
+                  hasResult,
+                })}
+              >
+                <Send size={18} strokeWidth={2.5} />
+                {hasResult ? 'Оформить заявку' : 'Уточнить у менеджера'}
+              </a>
 
               <div className="calc__note">
                 Доставка по РФ от Москвы (СДЭК, Boxberry, курьер) оплачивается отдельно — рассчитаем при оформлении.
@@ -639,20 +621,13 @@ export default function Calculator() {
           background: var(--coral);
         }
 
-        .calc__ctas {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-        }
         .calc__cta {
           width: 100%;
           justify-content: center;
         }
         .calc__cta--muted {
-          opacity: 0.85;
-        }
-        @media (max-width: 560px) {
-          .calc__ctas { grid-template-columns: 1fr; }
+          background: var(--ink);
+          box-shadow: none;
         }
 
         .calc__note {
