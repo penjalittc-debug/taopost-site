@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Star, Quote } from 'lucide-react';
-import { REVIEWS } from '@/lib/reviews';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
+import { ArrowLeft, ArrowRight, Star, Quote, ImageIcon, Play, X } from 'lucide-react';
+import { REVIEWS, type Review } from '@/lib/reviews';
 
 function Stars({ count }: { count: number }) {
   return (
@@ -24,14 +25,26 @@ function Stars({ count }: { count: number }) {
 
 export default function Reviews() {
   const [current, setCurrent] = useState(0);
+  const [zoom, setZoom] = useState<Review | null>(null);
   const visible = 3;
   const total = REVIEWS.length;
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total);
   const next = () => setCurrent((c) => (c + 1) % total);
 
+  const closeZoom = useCallback(() => setZoom(null), []);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeZoom();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [zoom, closeZoom]);
+
   const getVisible = () => {
-    const items = [];
+    const items: Review[] = [];
     for (let i = 0; i < visible; i++) {
       items.push(REVIEWS[(current + i) % total]);
     }
@@ -60,10 +73,35 @@ export default function Reviews() {
 
         <div className="rev__grid">
           {getVisible().map((review, i) => (
-            <div key={i} className="tp-card rev__card">
+            <div key={`${current}-${i}`} className="tp-card rev__card">
               <Quote size={28} strokeWidth={2.3} className="rev__quote" />
               <Stars count={review.rating} />
               <p className="rev__text">{review.text}</p>
+              {(review.photo || review.video) && (
+                <button
+                  type="button"
+                  className="rev__media"
+                  onClick={() => setZoom(review)}
+                  aria-label={review.video ? 'Открыть видео-отзыв' : 'Открыть фото к отзыву'}
+                  data-ym-goal="review_media_open"
+                  data-ym-params={`{"type":"${review.video ? 'video' : 'photo'}"}`}
+                >
+                  {review.photo && (
+                    <Image
+                      src={review.photo}
+                      alt=""
+                      width={120}
+                      height={84}
+                      className="rev__mediaImg"
+                    />
+                  )}
+                  <span className="rev__mediaIcon">
+                    {review.video
+                      ? <Play size={14} strokeWidth={2.5} />
+                      : <ImageIcon size={14} strokeWidth={2.5} />}
+                  </span>
+                </button>
+              )}
               <div className="rev__foot">
                 <div>
                   <div className="rev__name">{review.name}</div>
@@ -106,6 +144,47 @@ export default function Reviews() {
         </div>
       </div>
 
+      {zoom && (
+        <div
+          className="rev__lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Медиа отзыва: ${zoom.name}, ${zoom.city}`}
+          onClick={closeZoom}
+        >
+          <button
+            type="button"
+            className="rev__lightboxClose"
+            onClick={closeZoom}
+            aria-label="Закрыть"
+          >
+            <X size={22} strokeWidth={2.4} />
+          </button>
+          <div className="rev__lightboxInner" onClick={(e) => e.stopPropagation()}>
+            {zoom.video ? (
+              <video
+                src={zoom.video}
+                controls
+                autoPlay
+                playsInline
+                className="rev__lightboxMedia"
+              />
+            ) : zoom.photo ? (
+              <Image
+                src={zoom.photo}
+                alt={`Фото к отзыву ${zoom.name}, ${zoom.city}`}
+                width={800}
+                height={560}
+                className="rev__lightboxMedia"
+              />
+            ) : null}
+            <div className="rev__lightboxCaption">
+              <strong>{zoom.name}</strong> · {zoom.city} · {zoom.date}
+            </div>
+          </div>
+        </div>
+      )}
+
       <style jsx>{`
         .rev__grid {
           display: grid;
@@ -130,8 +209,51 @@ export default function Reviews() {
           font-size: 15px;
           color: #374151;
           line-height: 1.65;
-          margin: 14px 0 22px;
+          margin: 14px 0 14px;
         }
+
+        .rev__media {
+          position: relative;
+          align-self: flex-start;
+          display: inline-block;
+          margin: 0 0 14px;
+          padding: 0;
+          border: 1px solid #E5E7EB;
+          border-radius: 12px;
+          background: #F9FAFB;
+          cursor: pointer;
+          overflow: hidden;
+          line-height: 0;
+          transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+          font-family: inherit;
+        }
+        .rev__media:hover {
+          transform: translateY(-2px);
+          border-color: var(--green, #005C43);
+          box-shadow: 0 10px 22px -12px rgba(10,15,28,0.18);
+        }
+        .rev__mediaImg {
+          display: block;
+          width: 120px;
+          height: 84px;
+          object-fit: cover;
+          border-radius: 12px;
+        }
+        .rev__mediaIcon {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: rgba(10,15,28,0.78);
+          color: #fff;
+          backdrop-filter: blur(6px);
+        }
+
         .rev__foot {
           display: flex;
           justify-content: space-between;
@@ -188,6 +310,9 @@ export default function Reviews() {
           display: flex;
           gap: 8px;
           align-items: center;
+          flex-wrap: wrap;
+          max-width: 260px;
+          justify-content: center;
         }
         .rev__dot {
           width: 8px;
@@ -203,6 +328,64 @@ export default function Reviews() {
           width: 28px;
           background: var(--green);
         }
+
+        .rev__lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          background: rgba(10,15,28,0.78);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          backdrop-filter: blur(6px);
+        }
+        .rev__lightboxInner {
+          position: relative;
+          background: #fff;
+          border-radius: 16px;
+          overflow: hidden;
+          max-width: min(840px, 100%);
+          max-height: 86vh;
+          display: flex;
+          flex-direction: column;
+        }
+        .rev__lightboxMedia {
+          display: block;
+          width: 100%;
+          height: auto;
+          max-height: 70vh;
+          object-fit: contain;
+          background: #0A0F1C;
+        }
+        .rev__lightboxCaption {
+          padding: 14px 18px;
+          font-size: 13px;
+          color: #4B5563;
+          background: #F9FAFB;
+        }
+        .rev__lightboxCaption strong {
+          color: var(--ink, #0A0F1C);
+          font-weight: 700;
+        }
+        .rev__lightboxClose {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(255,255,255,0.92);
+          color: #0A0F1C;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+          font-family: inherit;
+        }
+        .rev__lightboxClose:hover { background: #fff; }
 
         @media (max-width: 960px) {
           .rev__grid { grid-template-columns: repeat(2, 1fr); }

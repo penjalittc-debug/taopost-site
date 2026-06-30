@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import MetrikaTracker from "@/components/MetrikaTracker";
+import ExitIntent from "@/components/ExitIntent";
 
 const rubik = Rubik({
   subsets: ["latin", "cyrillic"],
@@ -90,6 +91,7 @@ export default function RootLayout({
         </noscript>
         <MetrikaTracker />
         {children}
+        <ExitIntent />
       </body>
     </html>
   );

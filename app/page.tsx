@@ -18,6 +18,7 @@ import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
+import B2B from '@/components/B2B';
 import { FAQS } from '@/lib/faq';
 
 const jsonLd = {
@@ -236,6 +237,7 @@ export default function Home() {
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
         <FadeIn><About /></FadeIn>
+        <FadeIn delay={50}><B2B /></FadeIn>
         <FadeIn delay={50}><Cities /></FadeIn>
         <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><FAQ /></FadeIn>

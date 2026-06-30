@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
   { label: 'Тарифы', href: '/tarify' },
   { label: 'Маркетплейсы', href: '/#marketplaces' },
+  { label: 'Для бизнеса', href: '/business' },
   { label: 'Гарантии', href: '/garantii' },
   { label: 'Блог', href: '/blog' },
   { label: 'Контакты', href: '/kontakty' },
