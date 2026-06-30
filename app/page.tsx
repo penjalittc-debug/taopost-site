@@ -11,7 +11,6 @@ import Loyalty from '@/components/Loyalty';
 import Features from '@/components/Features';
 import WarehouseGallery from '@/components/WarehouseGallery';
 import Reviews from '@/components/Reviews';
-import FAQ from '@/components/FAQ';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
@@ -19,7 +18,6 @@ import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
-import { FAQS } from '@/lib/faq';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -159,19 +157,6 @@ const websiteJsonLd = {
   }
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": FAQS.map((item) => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer,
-    },
-  })),
-};
-
 // Плавающая кнопка Telegram
 function TelegramFloat() {
   return (
@@ -220,28 +205,23 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
       <Header />
       <main>
         <HeroV3 />
-        <FadeIn><About /></FadeIn>
-        <FadeIn><Marketplaces /></FadeIn>
-        <FadeIn delay={50}><TgVsUs /></FadeIn>
-        <FadeIn delay={50}><PriceComparison /></FadeIn>
+        <FadeIn><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><Calculator /></FadeIn>
-        <FadeIn delay={50}><LeadForm /></FadeIn>
+        <FadeIn delay={50}><Marketplaces /></FadeIn>
+        <FadeIn delay={50}><TgVsUs /></FadeIn>
         <FadeIn delay={50}><Tariffs /></FadeIn>
         <FadeIn delay={50}><Loyalty /></FadeIn>
-        <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
+        <FadeIn delay={50}><About /></FadeIn>
+        <FadeIn delay={50}><Features /></FadeIn>
         <FadeIn delay={50}><Cities /></FadeIn>
+        <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><BlogPreview /></FadeIn>
-        <FadeIn delay={50}><FAQ /></FadeIn>
         <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>
       <Footer />
