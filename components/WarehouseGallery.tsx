@@ -1,24 +1,42 @@
 'use client';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Camera, Play } from 'lucide-react';
 
 type Slide =
   | { type: 'image'; src: string; caption: string }
-  | { type: 'video'; src: string; caption: string };
+  | { type: 'video'; src: string; poster: string; caption: string };
 
 const SLIDES: Slide[] = [
   { type: 'image', src: '/warehouse/photo-1.jpg', caption: 'Сортировка посылок на складе в Гуанчжоу' },
   { type: 'image', src: '/warehouse/photo-2.jpg', caption: 'Приёмка и сканирование посылок' },
-  { type: 'video', src: '/warehouse/video-1.mp4', caption: 'Как проходит обработка груза' },
+  { type: 'video', src: '/warehouse/video-1.mp4', poster: '/warehouse/video-1-poster.jpg', caption: 'Как проходит обработка груза' },
   { type: 'image', src: '/warehouse/photo-3.jpg', caption: 'Подготовка к отправке в Россию' },
   { type: 'image', src: '/warehouse/photo-4.jpg', caption: 'Загрузка фуры до границы' },
-  { type: 'video', src: '/warehouse/video-2.mp4', caption: 'Сканирование и взвешивание на конвейере' },
+  { type: 'video', src: '/warehouse/video-2.mp4', poster: '/warehouse/video-2-poster.jpg', caption: 'Сканирование и взвешивание на конвейере' },
   { type: 'image', src: '/warehouse/photo-5.jpg', caption: 'Конвейер и контроль каждой посылки' },
 ];
 
 export default function WarehouseGallery() {
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Видео не грузим заранее (4+ МБ на мобайле): показываем poster, а сам файл
+  // подгружаем и запускаем только когда карточка реально попадает во вьюпорт.
+  const videoRef = useCallback((el: HTMLVideoElement | null) => {
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (el.preload !== 'auto') el.preload = 'auto';
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+  }, []);
 
   const scroll = (dir: 'left' | 'right') => {
     if (!trackRef.current) return;
@@ -96,12 +114,13 @@ export default function WarehouseGallery() {
             ) : (
               <>
                 <video
+                  ref={videoRef}
                   src={slide.src}
+                  poster={slide.poster}
                   muted
                   loop
                   playsInline
-                  autoPlay
-                  preload="metadata"
+                  preload="none"
                   className="wg__video"
                 />
                 <div className="wg__videoBadge">
