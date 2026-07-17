@@ -14,7 +14,7 @@ export default function LeadForm() {
   const [website, setWebsite] = useState(''); // honeypot — должно остаться пустым
   const [status, setStatus] = useState<Status>('idle');
 
-  const canSend = toCity.trim().length > 1 && phone.trim().length > 4;
+  const canSend = toCity.trim().length > 1 && phone.replace(/\D/g, '').length >= 10;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

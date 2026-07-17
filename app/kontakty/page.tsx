@@ -8,7 +8,6 @@ import { Phone, Mail, Send, MessageCircle, MapPin, Clock, Building2 } from 'luci
 export const metadata: Metadata = {
   title: 'Контакты TaoPost — телефон, Telegram, email, склад в Китае',
   description: 'Связаться с TaoPost: +7 977 276 77 78, Telegram @taopostsupport, info@taopost.ru. Склад в Гуанчжоу — 广州亚世名进出口有限公司. Поддержка 9:00-22:00 МСК.',
-  keywords: 'taopost контакты, taopost телефон, taopost telegram, taopost email, taopost склад китай гуанчжоу',
   alternates: { canonical: 'https://taopost.ru/kontakty' },
   openGraph: {
     title: 'Контакты TaoPost',

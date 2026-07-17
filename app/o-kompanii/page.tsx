@@ -10,7 +10,6 @@ import WarehouseGallery from '@/components/WarehouseGallery';
 export const metadata: Metadata = {
   title: 'О компании TaoPost — официальная карго-доставка из Китая',
   description: 'TaoPost — китайское юр.лицо с бизнес-лицензией КНР. Свой склад в Гуанчжоу, 200 000+ посылок с 2019 года. Команда на двух языках, легальные операции.',
-  keywords: 'taopost о компании, официальная карго компания, доставка из китая компания, юр лицо китай, бизнес лицензия кнр',
   alternates: { canonical: 'https://taopost.ru/o-kompanii' },
   openGraph: {
     title: 'О компании TaoPost — карго из Китая с китайской лицензией',

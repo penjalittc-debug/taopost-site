@@ -3,6 +3,41 @@ import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
+// ── Простой in-memory rate-limit по IP ──────────────────────────────────────
+// Защита канала лидов от ботов/спама и выжигания квоты Resend.
+// Достаточно для одного PM2-инстанса (fork). В cluster-режиме лимит действует
+// per-worker — при масштабировании вынести в Redis/Upstash.
+const RL_WINDOW_MS = 60_000; // окно
+const RL_MAX = 5;            // запросов на IP за окно
+const rlHits = new Map<string, number[]>();
+
+function clientIp(req: NextRequest): string {
+  const xff = req.headers.get('x-forwarded-for');
+  if (xff) return xff.split(',')[0].trim();
+  return req.headers.get('x-real-ip')?.trim() || 'unknown';
+}
+
+function rateLimited(req: NextRequest): boolean {
+  const ip = clientIp(req);
+  const now = Date.now();
+  const recent = (rlHits.get(ip) || []).filter((t) => now - t < RL_WINDOW_MS);
+  recent.push(now);
+  rlHits.set(ip, recent);
+  // не даём Map расти бесконечно
+  if (rlHits.size > 5000) {
+    for (const [k, v] of rlHits) {
+      if (v.every((t) => now - t >= RL_WINDOW_MS)) rlHits.delete(k);
+    }
+  }
+  return recent.length > RL_MAX;
+}
+
+// Валидный телефон: 10–15 цифр (E.164-совместимо), допускаем + и разделители.
+function isValidPhone(raw: string): boolean {
+  const digits = raw.replace(/\D/g, '');
+  return digits.length >= 10 && digits.length <= 15;
+}
+
 type Payload = {
   fromCity?: string;
   toCity?: string;
@@ -31,6 +66,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  if (rateLimited(req)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   if (data.b2b) {
     return handleB2B(data);
   }
@@ -45,6 +84,11 @@ export async function POST(req: NextRequest) {
   // Обязательны только город получения и телефон — минимум трения для лида.
   if (!toCity || !phone) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+  }
+
+  // Отсекаем мусорные лиды с невалидным телефоном.
+  if (!isValidPhone(phone)) {
+    return NextResponse.json({ error: 'Invalid phone' }, { status: 400 });
   }
 
   const apiKey = process.env.RESEND_API_KEY;

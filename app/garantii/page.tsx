@@ -7,7 +7,6 @@ import { ShieldCheck, Camera, Package, RefreshCcw, FileCheck2, AlertCircle, Wall
 export const metadata: Metadata = {
   title: 'Гарантии TaoPost — страховка, проверка качества, возврат при браке',
   description: 'Конкретные гарантии TaoPost: страховка груза 2%, фото каждой посылки на складе, возврат при браке, отслеживание на всём маршруте. Что покрывается и что нет.',
-  keywords: 'гарантии taopost, страховка карго из китая, возврат брак китай, проверка качества доставка китай',
   alternates: { canonical: 'https://taopost.ru/garantii' },
   openGraph: {
     title: 'Гарантии TaoPost — что мы обещаем и за что отвечаем',

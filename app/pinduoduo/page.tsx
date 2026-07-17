@@ -7,7 +7,6 @@ const mp = getMarketplaceBySlug('pinduoduo')!;
 export const metadata: Metadata = {
   title: mp.titleSeo,
   description: mp.descriptionSeo,
-  keywords: 'доставка pinduoduo, выкуп pinduoduo, заказ с pinduoduo, посредник pinduoduo, pinduoduo 拼多多',
   alternates: { canonical: `https://taopost.ru/${mp.slug}` },
   openGraph: {
     title: mp.titleSeo,

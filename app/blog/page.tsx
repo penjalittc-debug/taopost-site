@@ -8,7 +8,6 @@ import { articles } from '@/lib/blog';
 export const metadata: Metadata = {
   title: 'Блог TaoPost — Гайды и советы по доставке из Китая',
   description: 'Полезные статьи о доставке из Китая: размерные сетки, таможенные нормы, инструкции по Taobao и Pinduoduo, сравнения маркетплейсов.',
-  keywords: 'блог доставка из китая, гайды taobao, советы заказ из китая, таможня китай россия',
   alternates: {
     canonical: 'https://taopost.ru/blog',
   },
