@@ -1,5 +1,4 @@
 import Header from '@/components/Header';
-import { REVIEWS, AGGREGATE_RATING } from '@/lib/reviews';
 import HeroV3 from '@/components/HeroV3';
 import About from '@/components/About';
 import PriceComparison from '@/components/PriceComparison';
@@ -75,26 +74,11 @@ const jsonLd = {
   ],
   "sameAs": [
     "https://t.me/taopostsupport"
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": AGGREGATE_RATING.ratingValue,
-    "reviewCount": AGGREGATE_RATING.reviewCount,
-    "bestRating": AGGREGATE_RATING.bestRating,
-    "worstRating": AGGREGATE_RATING.worstRating
-  },
-  "review": REVIEWS.map((r) => ({
-    "@type": "Review",
-    "author": { "@type": "Person", "name": r.name },
-    "datePublished": r.isoDate,
-    "reviewBody": r.text,
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": r.rating,
-      "bestRating": 5,
-      "worstRating": 1
-    }
-  }))
+  ]
+  // Review/AggregateRating намеренно НЕ размечаем: текущие отзывы — демо/заглушки
+  // (placeholder-фото, обобщённые имена). Self-serving разметку отзывов Google
+  // считает поводом для ручных санкций. Вернуть, когда появятся реальные,
+  // верифицируемые отзывы (тогда — с настоящими датами и подтверждаемым рейтингом).
 };
 
 const serviceJsonLd = {
