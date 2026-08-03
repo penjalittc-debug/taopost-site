@@ -1,0 +1,406 @@
+/* Цвета маркетплейсов пробрасываем через --mp-color / --mp-bg. */
+
+/* ==== Hero ==== */
+.hero {
+  background: linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%);
+  padding: 120px 24px 80px;
+  text-align: center;
+}
+.heroInner { max-width: 880px; margin: 0 auto; }
+.crumbs {
+  font-size: 13px;
+  color: #9CA3AF;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.crumbs a { color: #9CA3AF; text-decoration: none; }
+.crumbCurrent { color: #374151; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f7f3;
+  color: #005C43;
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  border: 1px solid #c6ede4;
+}
+.h1 {
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 900;
+  color: #111827;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.h1Accent { color: #005C43; }
+.lede {
+  font-size: 18px;
+  color: #6B7280;
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto 32px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 640px;
+  margin: 0 auto 36px;
+}
+.statCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 12px;
+  border: 1px solid #E5E7EB;
+}
+.statValue {
+  font-size: 22px;
+  font-weight: 900;
+  color: #005C43;
+  margin-bottom: 4px;
+}
+.statLabel { font-size: 12px; color: #6B7280; font-weight: 600; }
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #005C43, #004232);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 92, 67, 0.35);
+}
+
+/* ==== Local ==== */
+.local { padding: 70px 24px; background: #fff; }
+.localInner { max-width: 820px; margin: 0 auto; }
+.regionBadge {
+  display: inline-block;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+}
+.localH2 {
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 900;
+  color: #111827;
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+.localText {
+  font-size: 17px;
+  color: #374151;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+/* ==== Steps ==== */
+.steps { padding: 80px 24px; background: #fff; }
+.stepsInner { max-width: 1000px; margin: 0 auto; }
+.h2Big {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 900;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.sectionLede {
+  text-align: center;
+  color: #6B7280;
+  font-size: 17px;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.step {
+  background: #F9FAFB;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #F3F4F6;
+}
+.stepN {
+  width: 36px;
+  height: 36px;
+  background: #005C43;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+.stepT {
+  font-size: 17px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 6px;
+}
+.stepD { font-size: 14px; color: #6B7280; line-height: 1.6; }
+
+/* ==== Delivery info ==== */
+.delivery { padding: 60px 24px; background: #F9FAFB; }
+.deliveryInner { max-width: 900px; margin: 0 auto; }
+.deliveryCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid #E5E7EB;
+}
+.deliveryH2 {
+  font-size: 24px;
+  font-weight: 900;
+  color: #111827;
+  margin-bottom: 24px;
+}
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.infoLabel {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.infoValue { font-size: 17px; font-weight: 800; color: #111827; }
+.infoFull { grid-column: 1 / -1; }
+.infoValueSm { font-size: 15px; color: #111827; line-height: 1.6; }
+
+/* ==== Guides ==== */
+.guides { padding: 80px 24px; background: #fff; }
+.guidesInner { max-width: 1200px; margin: 0 auto; }
+.guidesLede {
+  text-align: center;
+  color: #6B7280;
+  font-size: 17px;
+  margin-bottom: 56px;
+}
+.guidesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: #F9FAFB;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid #F3F4F6;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--mp-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.logo img { width: 100%; height: 100%; object-fit: cover; }
+.tag {
+  background: color-mix(in srgb, var(--mp-color) 12%, transparent);
+  color: var(--mp-color);
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px solid color-mix(in srgb, var(--mp-color) 25%, transparent);
+}
+.cardTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+.cardDesc {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.cardSteps {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.cardStep {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #374151;
+}
+.stepBadge {
+  min-width: 24px;
+  height: 24px;
+  background: var(--mp-color);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.more {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #E5E7EB;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mp-color);
+}
+
+/* ==== FAQ ==== */
+.faq { padding: 80px 24px; background: #F9FAFB; }
+.faqInner { max-width: 820px; margin: 0 auto; }
+.faqH2 {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 900;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.faqItem {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  border: 1px solid #E5E7EB;
+  cursor: pointer;
+}
+.faqSummary {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  list-style: none;
+  cursor: pointer;
+}
+.faqAnswer {
+  font-size: 15px;
+  color: #6B7280;
+  line-height: 1.7;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* ==== Articles ==== */
+.articles { padding: 60px 24px; background: #fff; }
+.articlesInner { max-width: 1000px; margin: 0 auto; }
+.articlesH2 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.articlesLede {
+  text-align: center;
+  color: #6B7280;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.article {
+  display: block;
+  padding: 18px 20px;
+  background: #F9FAFB;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid #F3F4F6;
+}
+.articleCat {
+  display: inline-block;
+  margin-bottom: 8px;
+  background: color-mix(in srgb, var(--cat-color) 14%, transparent);
+  color: var(--cat-color);
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 50px;
+}
+.articleTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.4;
+}
+
+/* ==== Other cities ==== */
+.otherCities { padding: 60px 24px; background: #F9FAFB; }
+.otherInner { max-width: 1000px; margin: 0 auto; }
+.otherH2 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.otherGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.otherLink {
+  padding: 12px 16px;
+  background: #F9FAFB;
+  border-radius: 10px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid #F3F4F6;
+  text-align: center;
+}
+
+/* ==== Media ==== */
+@media (max-width: 768px) {
+  .stepsGrid { grid-template-columns: 1fr 1fr; }
+  .statsGrid { grid-template-columns: 1fr; max-width: 320px; }
+}
+@media (max-width: 600px) {
+  .infoGrid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .stepsGrid { grid-template-columns: 1fr; }
+}

@@ -3,7 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
+import PageCta from '@/components/PageCta';
 import { CITIES } from '@/lib/cities';
+import s from './guide.module.css';
 
 export const metadata: Metadata = {
   title: `Как заказать из Китая — Инструкции по Taobao, Poizon, 1688 | TaoPost`,
@@ -37,7 +40,19 @@ const breadcrumbLd = {
   ],
 };
 
-const GUIDES = [
+type Guide = {
+  id: number;
+  platform: string;
+  slug: string | null;
+  color: string;
+  logo: string;
+  logoBg: string;
+  title: string;
+  description: string;
+  steps: string[];
+};
+
+const GUIDES: Guide[] = [
   {
     id: 1,
     platform: 'Taobao',
@@ -96,7 +111,7 @@ const GUIDES = [
   {
     id: 6,
     platform: 'Goofish',
-    slug: null as string | null,
+    slug: null,
     color: '#d97706',
     logo: '/mp/gofish.webp',
     logoBg: '#d97706',
@@ -113,331 +128,145 @@ const MATERIALS = [
   { emoji: '🔍', title: 'Как найти товар на Taobao по фото', desc: 'Гайд по поиску по картинке: приложение, расширения, лайфхаки', href: '/blog/kak-nayti-tovar-na-taobao-po-foto' },
 ];
 
+function GuideCard({ guide }: { guide: Guide }) {
+  const vars = { ['--gd-color' as string]: guide.color, ['--gd-bg' as string]: guide.logoBg } as React.CSSProperties;
+  const inner = (
+    <>
+      <div className={s.cardHead}>
+        <div className={s.logoBox}>
+          <Image src={guide.logo} alt={guide.platform} width={44} height={44} />
+        </div>
+        <span className={s.platformBadge}>{guide.platform}</span>
+      </div>
+      <h3 className={s.cardTitle}>{guide.title}</h3>
+      <p className={s.cardDesc}>{guide.description}</p>
+      <ol className={s.stepsList}>
+        {guide.steps.map((step, i) => (
+          <li key={i} className={s.stepItem}>
+            <span className={s.stepNum}>{i + 1}</span>
+            {step}
+          </li>
+        ))}
+      </ol>
+      {guide.slug && <div className={s.cardMore}>Узнать больше →</div>}
+    </>
+  );
+
+  return guide.slug ? (
+    <Link
+      href={`/${guide.slug}`}
+      data-ym-goal="marketplace_card_click"
+      data-ym-params={`{"slug":"${guide.slug}","place":"guide_index"}`}
+      className={s.card}
+      style={vars}
+    >
+      {inner}
+    </Link>
+  ) : (
+    <article className={s.card} style={vars}>{inner}</article>
+  );
+}
+
 export default function GuidePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <Header />
       <main>
-
-        {/* Hero */}
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 80px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
-              padding: '6px 16px', fontSize: '13px', fontWeight: 700,
-              marginBottom: '24px', border: '1px solid #c6ede4',
-            }}>
-              📚 Обучающие материалы
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(32px, 5vw, 54px)',
-              fontWeight: 900,
-              color: '#111827',
-              lineHeight: 1.15,
-              marginBottom: '20px',
-              letterSpacing: '-1px',
-            }}>
-              Как заказать товары<br />
-              <span style={{ color: '#005C43' }}>из Китая</span>
-            </h1>
-            <p style={{
-              fontSize: '18px',
-              color: '#6B7280',
-              lineHeight: 1.7,
-              maxWidth: '560px',
-              margin: '0 auto 40px',
-            }}>
+        <PageHero
+          currentCrumb="Как заказать из Китая"
+          pill="📚 Обучающие материалы"
+          title={<>Как заказать товары<br /><span className={s.titleAccent}>из Китая</span></>}
+          lede={
+            <>
               Видео-инструкции, пошаговые гайды и полезные материалы для тех,
               кто заказывает из Китая впервые и для опытных покупателей
-            </p>
-            <a
-              href="https://t.me/taopostsupport?start=site"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '16px 36px',
-                background: 'linear-gradient(135deg, #005C43, #004232)',
-                color: 'white', fontWeight: 800, fontSize: '16px',
-                borderRadius: '50px', textDecoration: 'none',
-                boxShadow: '0 8px 24px rgba(0, 92, 67,0.35)',
-              }}
-            >
-              Начать первый заказ →
-            </a>
-          </div>
-        </section>
+              <br />
+              <a
+                href="https://t.me/taopostsupport?start=site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s.heroCta}
+              >
+                Начать первый заказ →
+              </a>
+            </>
+          }
+        />
 
-        {/* Guides by platform */}
-        <section style={{ padding: '80px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '12px',
-            }}>
-              Инструкции по маркетплейсам
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '56px' }}>
-              Пошаговые гайды как заказать с каждого китайского маркетплейса
-            </p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
-              {GUIDES.map((guide) => {
-                const inner = (
-                  <>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                      <div style={{
-                        width: '44px', height: '44px',
-                        borderRadius: '12px',
-                        overflow: 'hidden',
-                        background: guide.logoBg,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        flexShrink: 0,
-                        border: '1px solid rgba(0,0,0,0.06)',
-                      }}>
-                        <Image
-                          src={guide.logo}
-                          alt={guide.platform}
-                          width={44}
-                          height={44}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                      </div>
-                      <span style={{
-                        background: guide.color + '15',
-                        color: guide.color,
-                        fontWeight: 800, fontSize: '13px',
-                        padding: '4px 12px', borderRadius: '50px',
-                        border: `1px solid ${guide.color}30`,
-                      }}>{guide.platform}</span>
-                    </div>
-
-                    <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                      {guide.title}
-                    </h3>
-                    <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
-                      {guide.description}
-                    </p>
-
-                    <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                      {guide.steps.map((step, i) => (
-                        <li key={i} style={{
-                          display: 'flex', gap: '12px', alignItems: 'flex-start',
-                          marginBottom: '10px', fontSize: '14px', color: '#374151',
-                        }}>
-                          <span style={{
-                            minWidth: '24px', height: '24px',
-                            background: guide.color,
-                            color: 'white', borderRadius: '50%',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '12px', fontWeight: 800, flexShrink: 0,
-                          }}>{i + 1}</span>
-                          {step}
-                        </li>
-                      ))}
-                    </ol>
-
-                    {guide.slug && (
-                      <div style={{
-                        marginTop: '20px',
-                        paddingTop: '16px',
-                        borderTop: '1px solid #E5E7EB',
-                        fontSize: '14px', fontWeight: 700, color: guide.color,
-                      }}>
-                        Узнать больше →
-                      </div>
-                    )}
-                  </>
-                );
-
-                const cardStyle: React.CSSProperties = {
-                  background: '#F9FAFB',
-                  borderRadius: '20px',
-                  padding: '32px',
-                  border: '1px solid #F3F4F6',
-                  display: 'block',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                };
-
-                return guide.slug ? (
-                  <Link
-                    key={guide.id}
-                    href={`/${guide.slug}`}
-                    data-ym-goal="marketplace_card_click"
-                    data-ym-params={`{"slug":"${guide.slug}","place":"guide_index"}`}
-                    style={cardStyle}
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <article key={guide.id} style={cardStyle}>{inner}</article>
-                );
-              })}
+        <section className={s.guides}>
+          <div className={s.guidesInner}>
+            <h2 className={s.h2Big}>Инструкции по маркетплейсам</h2>
+            <p className={s.lede}>Пошаговые гайды как заказать с каждого китайского маркетплейса</p>
+            <div className={s.grid}>
+              {GUIDES.map((guide) => (
+                <GuideCard key={guide.id} guide={guide} />
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Materials */}
-        <section style={{ padding: '80px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '12px',
-            }}>
-              Полезные материалы
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '48px' }}>
-              Всё что нужно знать о доставке из Китая в Россию
-            </p>
-
-            <div className="materials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+        <section className={s.materials}>
+          <div className={s.materialsInner}>
+            <h2 className={s.h2Big}>Полезные материалы</h2>
+            <p className={`${s.lede} ${s.ledeWide}`}>Всё что нужно знать о доставке из Китая в Россию</p>
+            <div className={s.materialsGrid}>
               {MATERIALS.map((mat, i) => (
-                <Link
-                  key={i}
-                  href={mat.href}
-                  style={{
-                    background: '#fff',
-                    borderRadius: '16px',
-                    padding: '28px 24px',
-                    border: '1px solid #E5E7EB',
-                    textDecoration: 'none',
-                    display: 'block',
-                    transition: 'box-shadow 0.2s, transform 0.2s',
-                  }}
-                  className="material-card"
-                >
-                  <div style={{ fontSize: '36px', marginBottom: '12px' }}>{mat.emoji}</div>
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                    {mat.title}
-                  </h3>
-                  <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.6, marginBottom: '16px' }}>
-                    {mat.desc}
-                  </p>
-                  <div style={{
-                    fontSize: '13px', fontWeight: 700, color: '#005C43',
-                    display: 'flex', alignItems: 'center', gap: '4px',
-                  }}>
-                    Читать →
-                  </div>
+                <Link key={i} href={mat.href} className={s.material}>
+                  <div className={s.matEmoji}>{mat.emoji}</div>
+                  <h3 className={s.matTitle}>{mat.title}</h3>
+                  <p className={s.matDesc}>{mat.desc}</p>
+                  <div className={s.matMore}>Читать →</div>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Cities */}
-        <section style={{ padding: '80px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '12px',
-            }}>
-              Доставка из Китая по городам России
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '40px', maxWidth: '620px', margin: '0 auto 40px' }}>
-              Сроки, цены и пункты выдачи для вашего города
-            </p>
-            <div className="cities-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-              gap: '12px',
-            }}>
+        <section className={s.cities}>
+          <div className={s.citiesInner}>
+            <h2 className={s.h2Big}>Доставка из Китая по городам России</h2>
+            <p className={s.citiesLede}>Сроки, цены и пункты выдачи для вашего города</p>
+            <div className={s.citiesGrid}>
               {CITIES.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/kak-zakazat-iz-kitaya/${c.slug}`}
                   data-ym-goal="city_card_click"
                   data-ym-params={JSON.stringify({ slug: c.slug, place: 'cities_index' })}
-                  style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    padding: '14px 18px',
-                    background: '#F9FAFB',
-                    borderRadius: '12px',
-                    color: '#111827',
-                    fontSize: '15px',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    border: '1px solid #F3F4F6',
-                  }}
+                  className={s.cityCard}
                 >
                   <span>{c.name}</span>
-                  <span style={{ color: '#005C43', fontSize: '13px', fontWeight: 700 }}>→</span>
+                  <span className={s.cityArrow}>→</span>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Готовы сделать первый заказ?
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '17px', marginBottom: '36px', lineHeight: 1.6 }}>
-              Наши менеджеры помогут с любым вопросом — от выбора товара до получения посылки
-            </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://t.me/taopostsupport?start=site"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: '16px 36px',
-                  background: '#fff', color: '#005C43',
-                  fontWeight: 800, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                }}
-              >
-                Начать заказ →
-              </a>
-              <a
-                href="https://t.me/taopostsupport"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: '16px 36px',
-                  background: 'rgba(255,255,255,0.15)',
-                  color: '#fff', fontWeight: 700, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                }}
-              >
-                Написать в Telegram
-              </a>
-            </div>
-          </div>
-        </section>
-
+        <PageCta
+          title="Готовы сделать первый заказ?"
+          lede="Наши менеджеры помогут с любым вопросом — от выбора товара до получения посылки"
+          actions={[
+            {
+              label: 'Начать заказ →',
+              href: 'https://t.me/taopostsupport?start=site',
+              external: true,
+              ymGoal: 'telegram_click',
+              ymParams: '{"place":"guide_index_cta"}',
+            },
+            {
+              label: 'Написать в Telegram',
+              href: 'https://t.me/taopostsupport',
+              variant: 'ghost',
+              external: true,
+              ymGoal: 'channel_click',
+              ymParams: '{"place":"guide_index_cta"}',
+            },
+          ]}
+        />
       </main>
       <Footer />
-
-      <style>{`
-        .material-card:hover {
-          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-          transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-          .materials-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 480px) {
-          .materials-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </>
   );
 }

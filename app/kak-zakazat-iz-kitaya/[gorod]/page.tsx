@@ -4,8 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageCta from '@/components/PageCta';
 import { CITIES, getCityBySlug } from '@/lib/cities';
 import { articles } from '@/lib/blog';
+import s from './city.module.css';
 
 type Params = { gorod: string };
 
@@ -189,72 +191,38 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
       <main>
 
         {/* Hero */}
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 80px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-            <nav aria-label="breadcrumb" style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px', display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
+        <section className={s.hero}>
+          <div className={s.heroInner}>
+            <nav aria-label="breadcrumb" className={s.crumbs}>
+              <Link href="/">Главная</Link>
               <span>›</span>
-              <Link href="/kak-zakazat-iz-kitaya" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Как заказать из Китая</Link>
+              <Link href="/kak-zakazat-iz-kitaya">Как заказать из Китая</Link>
               <span>›</span>
-              <span style={{ color: '#374151' }}>{city.nameIn}</span>
+              <span className={s.crumbCurrent}>{city.nameIn}</span>
             </nav>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
-              padding: '6px 16px', fontSize: '13px', fontWeight: 700,
-              marginBottom: '24px', border: '1px solid #c6ede4',
-            }}>
-              📦 Доставка {city.nameIn}
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(30px, 5vw, 52px)',
-              fontWeight: 900,
-              color: '#111827',
-              lineHeight: 1.15,
-              marginBottom: '20px',
-              letterSpacing: '-1px',
-            }}>
+            <div className={s.pill}>📦 Доставка {city.nameIn}</div>
+            <h1 className={s.h1}>
               Как заказать из Китая<br />
-              <span style={{ color: '#005C43' }}>{city.nameIn}</span>
+              <span className={s.h1Accent}>{city.nameIn}</span>
             </h1>
-            <p style={{
-              fontSize: '18px',
-              color: '#6B7280',
-              lineHeight: 1.7,
-              maxWidth: '620px',
-              margin: '0 auto 32px',
-            }}>
+            <p className={s.lede}>
               Выкуп и доставка товаров с Taobao, Poizon, 1688, Pinduoduo {city.nameIn} —
               срок {city.deliveryDays} (авто) или {city.deliveryDaysAvia} (авиа).
               Полное сопровождение, страховка и проверка качества.
             </p>
 
-            {/* Quick stats */}
-            <div className="city-stats" style={{
-              display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px',
-              maxWidth: '640px', margin: '0 auto 36px',
-            }}>
-              <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
-                  {city.deliveryDays}
-                </div>
-                <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Авто-доставка</div>
+            <div className={s.statsGrid}>
+              <div className={s.statCard}>
+                <div className={s.statValue}>{city.deliveryDays}</div>
+                <div className={s.statLabel}>Авто-доставка</div>
               </div>
-              <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
-                  350 ₽/кг
-                </div>
-                <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Цена за кг</div>
+              <div className={s.statCard}>
+                <div className={s.statValue}>350 ₽/кг</div>
+                <div className={s.statLabel}>Цена за кг</div>
               </div>
-              <div style={{ background: '#fff', borderRadius: '14px', padding: '18px 12px', border: '1px solid #E5E7EB' }}>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#005C43', marginBottom: '4px' }}>
-                  0%
-                </div>
-                <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Комиссия выкупа</div>
+              <div className={s.statCard}>
+                <div className={s.statValue}>0%</div>
+                <div className={s.statLabel}>Комиссия выкупа</div>
               </div>
             </div>
 
@@ -262,14 +230,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               href="https://t.me/taopostsupport?start=site"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '16px 36px',
-                background: 'linear-gradient(135deg, #005C43, #004232)',
-                color: 'white', fontWeight: 800, fontSize: '16px',
-                borderRadius: '50px', textDecoration: 'none',
-                boxShadow: '0 8px 24px rgba(0, 92, 67,0.35)',
-              }}
+              className={s.heroCta}
             >
               Заказать {city.nameIn} →
             </a>
@@ -278,72 +239,34 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
 
         {/* Local context block — uniqueness for SEO */}
         {city.localText && (
-          <section style={{ padding: '70px 24px', background: '#fff' }}>
-            <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-              {city.region && (
-                <div style={{
-                  display: 'inline-block',
-                  background: '#f3f4f6', color: '#374151',
-                  fontSize: '12px', fontWeight: 700,
-                  padding: '4px 12px', borderRadius: '50px',
-                  marginBottom: '16px',
-                }}>
-                  {city.region}
-                </div>
-              )}
-              <h2 style={{
-                fontSize: 'clamp(22px, 3.5vw, 32px)',
-                fontWeight: 900, color: '#111827',
-                marginBottom: '20px', lineHeight: 1.25,
-              }}>
-                Доставка из Китая {city.nameIn} — особенности города
-              </h2>
-              <p style={{
-                fontSize: '17px', color: '#374151',
-                lineHeight: 1.8, marginBottom: 0,
-              }}>
-                {city.localText}
-              </p>
+          <section className={s.local}>
+            <div className={s.localInner}>
+              {city.region && <div className={s.regionBadge}>{city.region}</div>}
+              <h2 className={s.localH2}>Доставка из Китая {city.nameIn} — особенности города</h2>
+              <p className={s.localText}>{city.localText}</p>
             </div>
           </section>
         )}
 
         {/* How it works in this city */}
-        <section style={{ padding: '80px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '12px',
-            }}>
-              Как работает доставка {city.nameIn}
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '48px', maxWidth: '640px', margin: '0 auto 48px' }}>
+        <section className={s.steps}>
+          <div className={s.stepsInner}>
+            <h2 className={s.h2Big}>Как работает доставка {city.nameIn}</h2>
+            <p className={s.sectionLede}>
               4 простых шага — от заказа в Китае до получения {city.nameLocative}
             </p>
 
-            <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+            <div className={s.stepsGrid}>
               {[
                 { n: 1, t: 'Заказ', d: 'Отправляете ссылки на товары в личном кабинете или менеджеру' },
                 { n: 2, t: 'Выкуп', d: 'Мы выкупаем товар у продавца в Китае без комиссии за выкуп' },
                 { n: 3, t: 'Склад', d: 'Товар приходит на наш склад в Гуанчжоу — проверка, фото, упаковка' },
                 { n: 4, t: 'Доставка', d: `Отправка ${city.nameIn} — авто (${city.deliveryDays}) или авиа (${city.deliveryDaysAvia})` },
-              ].map((s) => (
-                <div key={s.n} style={{
-                  background: '#F9FAFB', borderRadius: '16px', padding: '24px',
-                  border: '1px solid #F3F4F6',
-                }}>
-                  <div style={{
-                    width: '36px', height: '36px',
-                    background: '#005C43', color: 'white',
-                    borderRadius: '50%', display: 'flex',
-                    alignItems: 'center', justifyContent: 'center',
-                    fontWeight: 900, marginBottom: '12px',
-                  }}>{s.n}</div>
-                  <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
-                    {s.t}
-                  </h3>
-                  <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6 }}>{s.d}</p>
+              ].map((st) => (
+                <div key={st.n} className={s.step}>
+                  <div className={s.stepN}>{st.n}</div>
+                  <h3 className={s.stepT}>{st.t}</h3>
+                  <p className={s.stepD}>{st.d}</p>
                 </div>
               ))}
             </div>
@@ -351,35 +274,30 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
         </section>
 
         {/* Delivery info card */}
-        <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <div style={{
-              background: '#fff', borderRadius: '20px', padding: '40px',
-              border: '1px solid #E5E7EB',
-            }}>
-              <h2 style={{ fontSize: '24px', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>
-                Доставка {city.nameIn} — условия
-              </h2>
-              <div className="info-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <section className={s.delivery}>
+          <div className={s.deliveryInner}>
+            <div className={s.deliveryCard}>
+              <h2 className={s.deliveryH2}>Доставка {city.nameIn} — условия</h2>
+              <div className={s.infoGrid}>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Срок (авто)</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>{city.deliveryDays}</div>
+                  <div className={s.infoLabel}>Срок (авто)</div>
+                  <div className={s.infoValue}>{city.deliveryDays}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Срок (авиа)</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>{city.deliveryDaysAvia}</div>
+                  <div className={s.infoLabel}>Срок (авиа)</div>
+                  <div className={s.infoValue}>{city.deliveryDaysAvia}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Тариф авто</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 350 ₽/кг</div>
+                  <div className={s.infoLabel}>Тариф авто</div>
+                  <div className={s.infoValue}>от 350 ₽/кг</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Тариф авиа</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827' }}>от 2 700 ₽/кг</div>
+                  <div className={s.infoLabel}>Тариф авиа</div>
+                  <div className={s.infoValue}>от 2 700 ₽/кг</div>
                 </div>
-                <div style={{ gridColumn: '1 / -1' }}>
-                  <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>Получение {city.nameLocative}</div>
-                  <div style={{ fontSize: '15px', color: '#111827', lineHeight: 1.6 }}>{city.pvz}</div>
+                <div className={s.infoFull}>
+                  <div className={s.infoLabel}>Получение {city.nameLocative}</div>
+                  <div className={s.infoValueSm}>{city.pvz}</div>
                 </div>
               </div>
             </div>
@@ -387,96 +305,38 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
         </section>
 
         {/* Guides by platform */}
-        <section style={{ padding: '80px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '12px',
-            }}>
-              Откуда заказывать {city.nameIn}
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '17px', marginBottom: '56px' }}>
-              Поддерживаем все популярные китайские маркетплейсы
-            </p>
+        <section className={s.guides}>
+          <div className={s.guidesInner}>
+            <h2 className={s.h2Big}>Откуда заказывать {city.nameIn}</h2>
+            <p className={s.guidesLede}>Поддерживаем все популярные китайские маркетплейсы</p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
+            <div className={s.guidesGrid}>
               {GUIDES.map((guide) => {
+                const vars = { '--mp-color': guide.color, '--mp-bg': guide.logoBg } as React.CSSProperties;
                 const inner = (
                   <>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                      <div style={{
-                        width: '44px', height: '44px',
-                        borderRadius: '12px',
-                        overflow: 'hidden',
-                        background: guide.logoBg,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        flexShrink: 0,
-                        border: '1px solid rgba(0,0,0,0.06)',
-                      }}>
-                        <Image
-                          src={guide.logo}
-                          alt={guide.platform}
-                          width={44}
-                          height={44}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
+                    <div className={s.cardHead}>
+                      <div className={s.logo}>
+                        <Image src={guide.logo} alt={guide.platform} width={44} height={44} />
                       </div>
-                      <span style={{
-                        background: guide.color + '15',
-                        color: guide.color,
-                        fontWeight: 800, fontSize: '13px',
-                        padding: '4px 12px', borderRadius: '50px',
-                        border: `1px solid ${guide.color}30`,
-                      }}>{guide.platform}</span>
+                      <span className={s.tag}>{guide.platform}</span>
                     </div>
 
-                    <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                      {guide.title}
-                    </h3>
-                    <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '20px' }}>
-                      {guide.description}
-                    </p>
+                    <h3 className={s.cardTitle}>{guide.title}</h3>
+                    <p className={s.cardDesc}>{guide.description}</p>
 
-                    <ol style={{ paddingLeft: '0', margin: 0, listStyle: 'none' }}>
+                    <ol className={s.cardSteps}>
                       {guide.steps.map((step, i) => (
-                        <li key={i} style={{
-                          display: 'flex', gap: '12px', alignItems: 'flex-start',
-                          marginBottom: '10px', fontSize: '14px', color: '#374151',
-                        }}>
-                          <span style={{
-                            minWidth: '24px', height: '24px',
-                            background: guide.color,
-                            color: 'white', borderRadius: '50%',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '12px', fontWeight: 800, flexShrink: 0,
-                          }}>{i + 1}</span>
+                        <li key={i} className={s.cardStep}>
+                          <span className={s.stepBadge}>{i + 1}</span>
                           {step}
                         </li>
                       ))}
                     </ol>
 
-                    {guide.slug && (
-                      <div style={{
-                        marginTop: '20px', paddingTop: '16px',
-                        borderTop: '1px solid #E5E7EB',
-                        fontSize: '14px', fontWeight: 700, color: guide.color,
-                      }}>
-                        Подробный гайд →
-                      </div>
-                    )}
+                    {guide.slug && <div className={s.more}>Подробный гайд →</div>}
                   </>
                 );
-
-                const cardStyle: React.CSSProperties = {
-                  background: '#F9FAFB',
-                  borderRadius: '20px',
-                  padding: '32px',
-                  border: '1px solid #F3F4F6',
-                  display: 'block',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                };
 
                 return guide.slug ? (
                   <Link
@@ -484,12 +344,13 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                     href={`/${guide.slug}`}
                     data-ym-goal="marketplace_card_click"
                     data-ym-params={`{"slug":"${guide.slug}","place":"city_${city.slug}"}`}
-                    style={cardStyle}
+                    className={s.card}
+                    style={vars}
                   >
                     {inner}
                   </Link>
                 ) : (
-                  <article key={guide.id} style={cardStyle}>{inner}</article>
+                  <article key={guide.id} className={s.card} style={vars}>{inner}</article>
                 );
               })}
             </div>
@@ -497,83 +358,36 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
         </section>
 
         {/* FAQ */}
-        <section style={{ padding: '80px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 40px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '40px',
-            }}>
-              Частые вопросы о доставке {city.nameIn}
-            </h2>
+        <section className={s.faq}>
+          <div className={s.faqInner}>
+            <h2 className={s.faqH2}>Частые вопросы о доставке {city.nameIn}</h2>
 
             {cityFaq.map((item, i) => (
-              <details key={i} style={{
-                background: '#fff', borderRadius: '14px',
-                padding: '20px 24px', marginBottom: '12px',
-                border: '1px solid #E5E7EB', cursor: 'pointer',
-              }}>
-                <summary style={{
-                  fontSize: '16px', fontWeight: 700, color: '#111827',
-                  listStyle: 'none', cursor: 'pointer',
-                }}>
-                  {item.q}
-                </summary>
-                <p style={{
-                  fontSize: '15px', color: '#6B7280', lineHeight: 1.7,
-                  marginTop: '12px', marginBottom: 0,
-                }}>
-                  {item.a}
-                </p>
+              <details key={i} className={s.faqItem}>
+                <summary className={s.faqSummary}>{item.q}</summary>
+                <p className={s.faqAnswer}>{item.a}</p>
               </details>
             ))}
           </div>
         </section>
 
         {/* Useful articles */}
-        <section style={{ padding: '60px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(22px, 3vw, 30px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '8px',
-            }}>
-              Полезные статьи перед заказом
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '15px', marginBottom: '32px' }}>
-              Что почитать перед первой покупкой в Китае
-            </p>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-              gap: '14px',
-            }}>
+        <section className={s.articles}>
+          <div className={s.articlesInner}>
+            <h2 className={s.articlesH2}>Полезные статьи перед заказом</h2>
+            <p className={s.articlesLede}>Что почитать перед первой покупкой в Китае</p>
+            <div className={s.articlesGrid}>
               {featuredArticles.map((a) => (
                 <Link
                   key={a.slug}
                   href={`/blog/${a.slug}`}
                   data-ym-goal="blog_card_click"
                   data-ym-params={`{"slug":"${a.slug}","place":"city_${city.slug}"}`}
-                  style={{
-                    display: 'block',
-                    padding: '18px 20px',
-                    background: '#F9FAFB',
-                    borderRadius: '12px',
-                    textDecoration: 'none',
-                    border: '1px solid #F3F4F6',
-                  }}
+                  className={s.article}
+                  style={{ '--cat-color': a.categoryColor } as React.CSSProperties}
                 >
-                  <span style={{
-                    display: 'inline-block', marginBottom: '8px',
-                    background: a.categoryColor + '18', color: a.categoryColor,
-                    fontWeight: 700, fontSize: '11px',
-                    padding: '2px 8px', borderRadius: '50px',
-                  }}>
-                    {a.category}
-                  </span>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', lineHeight: 1.4 }}>
-                    {a.title}
-                  </div>
+                  <span className={s.articleCat}>{a.category}</span>
+                  <div className={s.articleTitle}>{a.title}</div>
                 </Link>
               ))}
             </div>
@@ -581,36 +395,12 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
         </section>
 
         {/* Other cities */}
-        <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(22px, 3vw, 30px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '32px',
-            }}>
-              Доставка из Китая в другие города
-            </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-              gap: '8px',
-            }}>
+        <section className={s.otherCities}>
+          <div className={s.otherInner}>
+            <h2 className={s.otherH2}>Доставка из Китая в другие города</h2>
+            <div className={s.otherGrid}>
               {otherCities.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/kak-zakazat-iz-kitaya/${c.slug}`}
-                  style={{
-                    padding: '12px 16px',
-                    background: '#F9FAFB',
-                    borderRadius: '10px',
-                    color: '#374151',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    border: '1px solid #F3F4F6',
-                    textAlign: 'center',
-                  }}
-                >
+                <Link key={c.slug} href={`/kak-zakazat-iz-kitaya/${c.slug}`} className={s.otherLink}>
                   {c.name}
                 </Link>
               ))}
@@ -618,66 +408,17 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Заказать из Китая {city.nameIn}
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '17px', marginBottom: '36px', lineHeight: 1.6 }}>
-              Менеджер ответит за 5 минут — поможет с выбором товара, оформлением и доставкой
-            </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://t.me/taopostsupport?start=site"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: '16px 36px',
-                  background: '#fff', color: '#005C43',
-                  fontWeight: 800, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                }}
-              >
-                Начать заказ →
-              </a>
-              <a
-                href="https://t.me/taopostsupport"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: '16px 36px',
-                  background: 'rgba(255,255,255,0.15)',
-                  color: '#fff', fontWeight: 700, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                }}
-              >
-                Telegram канал
-              </a>
-            </div>
-          </div>
-        </section>
+        <PageCta
+          title={`Заказать из Китая ${city.nameIn}`}
+          lede="Менеджер ответит за 5 минут — поможет с выбором товара, оформлением и доставкой"
+          actions={[
+            { label: 'Начать заказ →', href: 'https://t.me/taopostsupport?start=site', variant: 'primary', external: true },
+            { label: 'Telegram канал', href: 'https://t.me/taopostsupport', variant: 'ghost', external: true },
+          ]}
+        />
 
       </main>
       <Footer />
-
-      <style>{`
-        @media (max-width: 768px) {
-          .steps-grid { grid-template-columns: 1fr 1fr !important; }
-          .city-stats { grid-template-columns: 1fr !important; max-width: 320px !important; }
-        }
-        @media (max-width: 600px) {
-          .info-grid { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 480px) {
-          .steps-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </>
   );
 }
