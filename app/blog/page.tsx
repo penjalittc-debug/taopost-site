@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { articles } from '@/lib/blog';
+import s from './blog.module.css';
 
 export const metadata: Metadata = {
   title: 'Блог TaoPost — Гайды и советы по доставке из Китая',
@@ -33,80 +34,29 @@ export default function BlogPage() {
     <>
       <Header />
       <main>
-        {/* Hero */}
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 80px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
-              padding: '6px 16px', fontSize: '13px', fontWeight: 700,
-              marginBottom: '24px', border: '1px solid #c6ede4',
-            }}>
-              📖 Полезные материалы
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(32px, 5vw, 54px)',
-              fontWeight: 900,
-              color: '#111827',
-              lineHeight: 1.15,
-              marginBottom: '20px',
-              letterSpacing: '-1px',
-            }}>
-              Блог Tao<span style={{ color: '#005C43' }}>Post</span>
+        <section className={s.hero}>
+          <div className={s.heroInner}>
+            <div className={s.pill}>📖 Полезные материалы</div>
+            <h1 className={s.h1}>
+              Блог Tao<span className={s.h1Accent}>Post</span>
             </h1>
-            <p style={{
-              fontSize: '18px',
-              color: '#6B7280',
-              lineHeight: 1.7,
-              maxWidth: '560px',
-              margin: '0 auto',
-            }}>
+            <p className={s.lede}>
               Гайды, инструкции и советы — всё что нужно знать о доставке товаров из Китая в Россию
             </p>
           </div>
         </section>
 
-        {/* Articles grid */}
-        <section style={{ padding: '80px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '28px',
-            }}
-            className="blog-grid"
-            >
+        <section className={s.grid}>
+          <div className={s.gridInner}>
+            <div className={s.gridList}>
               {articles.map((article) => (
-                <Link
-                  key={article.slug}
-                  href={`/blog/${article.slug}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <article style={{
-                    background: '#F9FAFB',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    border: '1px solid #F3F4F6',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'box-shadow 0.2s, transform 0.2s',
-                    cursor: 'pointer',
-                  }}
-                  className="blog-card"
+                <Link key={article.slug} href={`/blog/${article.slug}`} className={s.cardLink}>
+                  <article
+                    className={s.card}
+                    style={{ ['--cat-color' as string]: article.categoryColor }}
                   >
-                    {/* Cover image */}
                     {article.image && (
-                      <div style={{
-                        position: 'relative',
-                        width: '100%',
-                        aspectRatio: '16 / 9',
-                        background: '#E5E7EB',
-                      }}>
+                      <div className={s.cover}>
                         <Image
                           src={article.image}
                           alt={article.title}
@@ -117,66 +67,21 @@ export default function BlogPage() {
                       </div>
                     )}
 
-                    <div style={{
-                      padding: '32px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      flex: 1,
-                    }}>
-                    {/* Category */}
-                    <div style={{ marginBottom: '16px' }}>
-                      <span style={{
-                        background: article.categoryColor + '18',
-                        color: article.categoryColor,
-                        fontWeight: 700, fontSize: '12px',
-                        padding: '4px 12px', borderRadius: '50px',
-                        border: `1px solid ${article.categoryColor}30`,
-                      }}>
-                        {article.category}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h2 style={{
-                      fontSize: '19px',
-                      fontWeight: 800,
-                      color: '#111827',
-                      lineHeight: 1.35,
-                      marginBottom: '12px',
-                      flex: 1,
-                    }}>
-                      {article.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p style={{
-                      fontSize: '14px',
-                      color: '#6B7280',
-                      lineHeight: 1.65,
-                      marginBottom: '24px',
-                    }}>
-                      {article.description}
-                    </p>
-
-                    {/* Footer */}
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingTop: '16px',
-                      borderTop: '1px solid #E5E7EB',
-                    }}>
-                      <div style={{ fontSize: '12px', color: '#9CA3AF' }}>
-                        {article.date} · {article.readTime} чтения
+                    <div className={s.body}>
+                      <div className={s.category}>
+                        <span className={s.categoryBadge}>{article.category}</span>
                       </div>
-                      <span style={{
-                        fontSize: '13px',
-                        fontWeight: 700,
-                        color: '#005C43',
-                      }}>
-                        Читать →
-                      </span>
-                    </div>
+
+                      <h2 className={s.cardH2}>{article.title}</h2>
+
+                      <p className={s.cardText}>{article.description}</p>
+
+                      <div className={s.cardFoot}>
+                        <div className={s.cardMeta}>
+                          {article.date} · {article.readTime} чтения
+                        </div>
+                        <span className={s.cardMore}>Читать →</span>
+                      </div>
                     </div>
                   </article>
                 </Link>
@@ -185,48 +90,24 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Готовы сделать заказ?
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '17px', marginBottom: '36px', lineHeight: 1.6 }}>
+        <section className={s.ctaSection}>
+          <div className={s.ctaInner}>
+            <h2 className={s.ctaH2}>Готовы сделать заказ?</h2>
+            <p className={s.ctaLede}>
               Менеджеры TaoPost помогут с любым вопросом и оформят доставку из Китая
             </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="https://t.me/taopostsupport?start=site"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: '16px 36px',
-                  background: '#fff', color: '#005C43',
-                  fontWeight: 800, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                }}
-              >
-                Написать в Telegram →
-              </a>
-            </div>
+            <a
+              href="https://t.me/taopostsupport?start=site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={s.ctaLink}
+            >
+              Написать в Telegram →
+            </a>
           </div>
         </section>
       </main>
       <Footer />
-
-      <style>{`
-        .blog-card:hover {
-          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-          transform: translateY(-2px);
-        }
-        @media (max-width: 600px) {
-          .blog-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </>
   );
 }

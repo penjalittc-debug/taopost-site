@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { articles, getArticleBySlug } from '@/lib/blog';
 import { CITIES } from '@/lib/cities';
+import s from '../blog.module.css';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -89,77 +90,43 @@ export default async function ArticlePage({ params }: Props) {
     ],
   };
 
+  const catVar = { ['--cat-color' as string]: article.categoryColor } as React.CSSProperties;
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <Header />
       <main>
-        {/* Hero */}
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 100%)',
-          padding: '120px 24px 60px',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            {/* Breadcrumbs */}
-            <nav style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '24px', display: 'flex', gap: '6px', alignItems: 'center' }}>
-              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
+        <section className={s.articleHero}>
+          <div className={s.articleHeroInner}>
+            <nav className={s.crumbs}>
+              <Link href="/">Главная</Link>
               <span>→</span>
-              <Link href="/blog" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Блог</Link>
+              <Link href="/blog">Блог</Link>
               <span>→</span>
-              <span style={{ color: '#374151' }}>{article.category}</span>
+              <span className={s.crumbCurrent}>{article.category}</span>
             </nav>
 
-            {/* Category badge */}
-            <div style={{ marginBottom: '20px' }}>
-              <span style={{
-                background: article.categoryColor + '18',
-                color: article.categoryColor,
-                fontWeight: 700, fontSize: '13px',
-                padding: '5px 14px', borderRadius: '50px',
-                border: `1px solid ${article.categoryColor}30`,
-              }}>
+            <div className={s.articleCategory}>
+              <span className={s.articleCategoryBadge} style={catVar}>
                 {article.category}
               </span>
             </div>
 
-            {/* Title */}
-            <h1 style={{
-              fontSize: 'clamp(28px, 4.5vw, 48px)',
-              fontWeight: 900,
-              color: '#111827',
-              lineHeight: 1.2,
-              marginBottom: '20px',
-              letterSpacing: '-0.5px',
-            }}>
-              {article.title}
-            </h1>
+            <h1 className={s.articleH1}>{article.title}</h1>
 
-            {/* Meta */}
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '14px', color: '#6B7280' }}>
-                📅 {article.date}
-              </span>
-              <span style={{ fontSize: '14px', color: '#6B7280' }}>
-                ⏱ {article.readTime} чтения
-              </span>
-              <span style={{ fontSize: '14px', color: '#6B7280' }}>
-                ✍️ TaoPost
-              </span>
+            <div className={s.articleMeta}>
+              <span>📅 {article.date}</span>
+              <span>⏱ {article.readTime} чтения</span>
+              <span>✍️ TaoPost</span>
             </div>
           </div>
         </section>
 
-        {/* Cover image */}
         {article.image && (
-          <section style={{ padding: '0 24px' }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <section className={s.coverSection}>
+            <div className={s.coverInner}>
               <Image
                 src={article.image}
                 alt={article.title}
@@ -167,73 +134,40 @@ export default async function ArticlePage({ params }: Props) {
                 height={900}
                 priority
                 sizes="(max-width: 900px) 100vw, 900px"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '20px',
-                  display: 'block',
-                  marginTop: '20px',
-                }}
+                className={s.coverImage}
               />
             </div>
           </section>
         )}
 
-        {/* Article content */}
-        <section style={{ padding: '60px 24px 80px' }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <section className={s.content}>
+          <div className={s.contentInner}>
             <div
-              className="article-content"
+              className={s.articleContent}
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
 
-            {/* Divider */}
-            <div style={{ height: '1px', background: '#E5E7EB', margin: '60px 0 40px' }} />
+            <div className={s.divider} />
 
-            {/* Back link */}
-            <Link href="/blog" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              fontSize: '14px', fontWeight: 700, color: '#005C43',
-              textDecoration: 'none',
-            }}>
-              ← Все статьи
-            </Link>
+            <Link href="/blog" className={s.backLink}>← Все статьи</Link>
           </div>
         </section>
 
-        {/* Related articles */}
         {otherArticles.length > 0 && (
-          <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
-            <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>
-                Читайте также
-              </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+          <section className={s.related}>
+            <div className={s.relatedInner}>
+              <h2 className={s.relatedH2}>Читайте также</h2>
+              <div className={s.relatedGrid}>
                 {otherArticles.map((a) => (
                   <Link
                     key={a.slug}
                     href={`/blog/${a.slug}`}
-                    style={{
-                      display: 'block', padding: '24px',
-                      background: '#fff', borderRadius: '14px',
-                      border: '1px solid #E5E7EB',
-                      textDecoration: 'none',
-                    }}
+                    className={s.relatedCard}
+                    style={{ ['--cat-color' as string]: a.categoryColor } as React.CSSProperties}
                   >
-                    <span style={{
-                      display: 'inline-block', marginBottom: '12px',
-                      background: a.categoryColor + '18', color: a.categoryColor,
-                      fontWeight: 700, fontSize: '11px',
-                      padding: '3px 10px', borderRadius: '50px',
-                    }}>
-                      {a.category}
-                    </span>
-                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#111827', lineHeight: 1.4, marginBottom: '8px' }}>
-                      {a.title}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#6B7280' }}>
-                      {a.readTime} чтения
-                    </div>
+                    <span className={s.relatedBadge}>{a.category}</span>
+                    <div className={s.relatedTitle}>{a.title}</div>
+                    <div className={s.relatedTime}>{a.readTime} чтения</div>
                   </Link>
                 ))}
               </div>
@@ -241,66 +175,39 @@ export default async function ArticlePage({ params }: Props) {
           </section>
         )}
 
-        {/* Cities cross-link */}
-        <section style={{ padding: '60px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 900, color: '#111827', marginBottom: '8px' }}>
-              Доставка в популярные города
-            </h2>
-            <p style={{ fontSize: '15px', color: '#6B7280', marginBottom: '24px' }}>
-              Сроки и тарифы для вашего города
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '10px' }}>
+        <section className={s.crossCities}>
+          <div className={s.crossCitiesInner}>
+            <h2 className={s.crossH2}>Доставка в популярные города</h2>
+            <p className={s.crossLede}>Сроки и тарифы для вашего города</p>
+            <div className={s.crossGrid}>
               {popularCities.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/kak-zakazat-iz-kitaya/${c.slug}`}
                   data-ym-goal="city_card_click"
                   data-ym-params={`{"slug":"${c.slug}","place":"article_${article.slug}"}`}
-                  style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    padding: '14px 18px',
-                    background: '#F9FAFB',
-                    borderRadius: '10px',
-                    color: '#111827',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    textDecoration: 'none',
-                    border: '1px solid #F3F4F6',
-                  }}
+                  className={s.crossCard}
                 >
                   <span>Доставка {c.nameIn}</span>
-                  <span style={{ color: '#005C43', fontSize: '13px' }}>→</span>
+                  <span className={s.crossArrow}>→</span>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Заказать доставку из Китая
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '17px', marginBottom: '36px', lineHeight: 1.6 }}>
+        <section className={s.articleCta}>
+          <div className={s.articleCtaInner}>
+            <h2 className={s.articleCtaH2}>Заказать доставку из Китая</h2>
+            <p className={s.articleCtaLede}>
               Наши менеджеры помогут с выбором товара, расчётом стоимости и оформлением заказа
             </p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className={s.articleCtaRow}>
               <Link
                 href="/#calculator"
                 data-ym-goal="article_cta_calc"
                 data-ym-params={`{"slug":"${article.slug}"}`}
-                style={{
-                  padding: '16px 30px',
-                  background: '#fff', color: '#005C43',
-                  fontWeight: 800, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                }}
+                className={s.articleCtaPrimary}
               >
                 Рассчитать стоимость →
               </Link>
@@ -308,13 +215,7 @@ export default async function ArticlePage({ params }: Props) {
                 href="/#marketplaces"
                 data-ym-goal="article_cta_marketplaces"
                 data-ym-params={`{"slug":"${article.slug}"}`}
-                style={{
-                  padding: '16px 30px',
-                  background: 'rgba(255,255,255,0.15)',
-                  color: '#fff', fontWeight: 700, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                }}
+                className={s.articleCtaGhost}
               >
                 Все маркетплейсы
               </Link>
@@ -324,13 +225,7 @@ export default async function ArticlePage({ params }: Props) {
                 rel="noopener noreferrer"
                 data-ym-goal="telegram_click"
                 data-ym-params={`{"place":"article_${article.slug}"}`}
-                style={{
-                  padding: '16px 30px',
-                  background: 'rgba(255,255,255,0.15)',
-                  color: '#fff', fontWeight: 700, fontSize: '16px',
-                  borderRadius: '50px', textDecoration: 'none',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                }}
+                className={s.articleCtaGhost}
               >
                 Написать в Telegram
               </a>
@@ -339,75 +234,6 @@ export default async function ArticlePage({ params }: Props) {
         </section>
       </main>
       <Footer />
-
-      <style>{`
-        .article-content h2 {
-          font-size: clamp(20px, 3vw, 26px);
-          font-weight: 700;
-          color: #111827;
-          margin: 40px 0 16px;
-          line-height: 1.3;
-        }
-        .article-content h3 {
-          font-size: 18px;
-          font-weight: 700;
-          color: #111827;
-          margin: 28px 0 12px;
-        }
-        .article-content p {
-          font-size: 16px;
-          color: #374151;
-          line-height: 1.8;
-          margin-bottom: 16px;
-        }
-        .article-content ul, .article-content ol {
-          padding-left: 24px;
-          margin-bottom: 20px;
-        }
-        .article-content li {
-          font-size: 16px;
-          color: #374151;
-          line-height: 1.8;
-          margin-bottom: 8px;
-        }
-        .article-content strong {
-          color: #111827;
-          font-weight: 700;
-        }
-        .article-content em {
-          color: #6B7280;
-          font-style: italic;
-        }
-        .article-content table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 24px 0 32px;
-          font-size: 14px;
-          overflow-x: auto;
-          display: block;
-        }
-        .article-content table thead tr {
-          background: #005C43;
-          color: white;
-        }
-        .article-content table th {
-          padding: 12px 16px;
-          text-align: left;
-          font-weight: 700;
-          white-space: nowrap;
-        }
-        .article-content table td {
-          padding: 11px 16px;
-          border-bottom: 1px solid #E5E7EB;
-          color: #374151;
-        }
-        .article-content table tbody tr:nth-child(even) {
-          background: #F9FAFB;
-        }
-        .article-content table tbody tr:hover {
-          background: #e8f7f3;
-        }
-      `}</style>
     </>
   );
 }
