@@ -186,11 +186,28 @@ export default function Footer() {
 
         <div className="ftr__divider" />
 
+        <div className="ftr__reqs">
+          <div className="ftr__reqsTitle">Реквизиты</div>
+          <div className="ftr__reqsBody">
+            <div>
+              ООО «АЗИЗОВ ГРУПП» · ИНН 9721235929 · ОГРН 1247700473921
+            </div>
+            <div>
+              109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15
+            </div>
+            <div>
+              Партнёр в КНР (выкуп/склад): Guangzhou Yashiming Import &amp; Export Co., Ltd.
+              (广州亚世名进出口有限公司), рег. код КНР 91440100MAEGJX2C1Y
+            </div>
+          </div>
+        </div>
+
         <div className="ftr__bottom">
           <div className="ftr__copy">© {year} TaoPost. Все права защищены.</div>
           <div className="ftr__legal">
             <a href="/privacy" className="ftr__legalLink">Политика конфиденциальности</a>
             <a href="/terms" className="ftr__legalLink">Пользовательское соглашение</a>
+            <a href="/oferta" className="ftr__legalLink">Договор-оферта</a>
           </div>
         </div>
       </div>
@@ -483,6 +500,30 @@ export default function Footer() {
           height: 1px;
           background: rgba(255,255,255,0.08);
           margin-bottom: 24px;
+        }
+
+        .ftr__reqs {
+          margin-bottom: 20px;
+          padding: 14px 16px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 12px;
+        }
+        .ftr__reqsTitle {
+          font-size: 11px;
+          font-weight: 700;
+          color: #9CA3AF;
+          text-transform: uppercase;
+          letter-spacing: 0.6px;
+          margin-bottom: 8px;
+        }
+        .ftr__reqsBody {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          font-size: 12.5px;
+          color: #D1D5DB;
+          line-height: 1.55;
         }
 
         .ftr__bottom {

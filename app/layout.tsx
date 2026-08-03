@@ -5,6 +5,7 @@ import "./globals.css";
 import MetrikaTracker from "@/components/MetrikaTracker";
 import ExitIntent from "@/components/ExitIntent";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import CookieNotice from "@/components/CookieNotice";
 
 const rubik = Rubik({
   subsets: ["latin", "cyrillic"],
@@ -84,6 +85,7 @@ export default function RootLayout({
         {children}
         <StickyMobileCTA />
         <ExitIntent />
+        <CookieNotice />
       </body>
     </html>
   );

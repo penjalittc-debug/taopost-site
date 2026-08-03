@@ -12,9 +12,13 @@ export default function LeadForm() {
   const [transport, setTransport] = useState<Transport>('auto');
   const [weight, setWeight] = useState('');
   const [website, setWebsite] = useState(''); // honeypot — должно остаться пустым
+  const [consent, setConsent] = useState(false); // 152-ФЗ: явное согласие на обработку ПДн
   const [status, setStatus] = useState<Status>('idle');
 
-  const canSend = toCity.trim().length > 1 && phone.replace(/\D/g, '').length >= 10;
+  const canSend =
+    toCity.trim().length > 1 &&
+    phone.replace(/\D/g, '').length >= 10 &&
+    consent;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -143,11 +147,24 @@ export default function LeadForm() {
                 aria-hidden="true"
               />
 
+              <label className="lf__consent">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                />
+                <span>
+                  Даю согласие на обработку персональных данных согласно{' '}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer">политике конфиденциальности</a>
+                  {' '}и принимаю условия{' '}
+                  <a href="/oferta" target="_blank" rel="noopener noreferrer">договора-оферты</a>.
+                </span>
+              </label>
+
               <button
                 type="submit"
                 disabled={!canSend || status === 'sending'}
                 className="lf__submit"
-                data-ym-goal="lead_form_submit"
               >
                 <Send size={18} strokeWidth={2.5} />
                 {status === 'sending' ? 'Отправляем…' : 'Получить расчёт'}
@@ -160,11 +177,6 @@ export default function LeadForm() {
                   или позвоните <a href="tel:+79772767778">+7 977 276 77 78</a>.
                 </p>
               )}
-
-              <p className="lf__note">
-                Нажимая кнопку, вы соглашаетесь с{' '}
-                <a href="/privacy">политикой конфиденциальности</a>.
-              </p>
             </form>
           )}
         </div>
@@ -254,8 +266,25 @@ export default function LeadForm() {
           font-size: 13.5px; color: #b91c1c; line-height: 1.5; margin: 0;
         }
         .lf__err a { color: #005C43; font-weight: 600; }
-        .lf__note { font-size: 12px; color: #9CA3AF; line-height: 1.5; margin: 0; text-align: center; }
-        .lf__note a { color: #6B7280; }
+
+        .lf__consent {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 12.5px;
+          color: #4B5563;
+          line-height: 1.55;
+          cursor: pointer;
+        }
+        .lf__consent input {
+          margin-top: 3px;
+          width: 16px;
+          height: 16px;
+          accent-color: #005C43;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+        .lf__consent a { color: #005C43; text-decoration: underline; font-weight: 600; }
 
         .lf__success { text-align: center; padding: 12px 4px; }
         .lf__successIcon {

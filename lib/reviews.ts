@@ -5,8 +5,10 @@ export type Review = {
   rating: number;
   date: string;
   isoDate: string;
-  photo?: string; // путь к скриншоту/фото товара (TODO: заменить заглушки на реальные)
-  video?: string; // ссылка на короткое видео, если есть
+  // Подключать только реально верифицированные фото/видео от клиентов (с их согласия).
+  // Плейсхолдеры больше не используем — Google/Яндекс могут расценить как фейковые отзывы.
+  photo?: string;
+  video?: string;
 };
 
 export const REVIEWS: Review[] = [
@@ -17,7 +19,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'март 2026',
     isoDate: '2026-03-15',
-    photo: '/reviews/placeholder.svg',
   },
   {
     name: 'Дмитрий К.',
@@ -26,7 +27,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'март 2026',
     isoDate: '2026-03-08',
-    photo: '/reviews/placeholder.svg',
   },
   {
     name: 'Сабина Р.',
@@ -35,7 +35,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'февраль 2026',
     isoDate: '2026-02-20',
-    photo: '/reviews/placeholder.svg',
   },
   {
     name: 'Иван Т.',
@@ -52,7 +51,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'январь 2026',
     isoDate: '2026-01-22',
-    photo: '/reviews/placeholder.svg',
   },
   {
     name: 'Артём С.',
@@ -70,7 +68,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'декабрь 2025',
     isoDate: '2025-12-18',
-    photo: '/reviews/placeholder.svg',
   },
   {
     name: 'Олег П.',
@@ -87,7 +84,6 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: 'ноябрь 2025',
     isoDate: '2025-11-24',
-    photo: '/reviews/placeholder.svg',
     // TODO: добавить реальное видео-отзыв в поле video
   },
   {

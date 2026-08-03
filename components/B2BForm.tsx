@@ -13,12 +13,14 @@ export default function B2BForm() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [website, setWebsite] = useState(''); // honeypot
+  const [consent, setConsent] = useState(false); // 152-ФЗ: явное согласие на обработку ПДн
   const [status, setStatus] = useState<Status>('idle');
 
   const canSend =
     company.trim().length > 1 &&
     phone.trim().length > 4 &&
-    volume.trim().length > 0;
+    volume.trim().length > 0 &&
+    consent;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -145,11 +147,24 @@ export default function B2BForm() {
             aria-hidden="true"
           />
 
+          <label className="b2bf__consent">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+            />
+            <span>
+              Даю согласие на обработку персональных данных согласно{' '}
+              <a href="/privacy" target="_blank" rel="noopener noreferrer">политике конфиденциальности</a>
+              {' '}и принимаю условия{' '}
+              <a href="/oferta" target="_blank" rel="noopener noreferrer">договора-оферты</a>.
+            </span>
+          </label>
+
           <button
             type="submit"
             disabled={!canSend || status === 'sending'}
             className="b2bf__submit"
-            data-ym-goal="b2b_form_submit"
           >
             <Send size={18} strokeWidth={2.5} />
             {status === 'sending' ? 'Отправляем…' : 'Запросить расчёт'}
@@ -162,11 +177,6 @@ export default function B2BForm() {
               или на <a href="mailto:info@taopost.ru">info@taopost.ru</a>.
             </p>
           )}
-
-          <p className="b2bf__note">
-            Нажимая кнопку, вы соглашаетесь с{' '}
-            <a href="/privacy">политикой конфиденциальности</a>.
-          </p>
         </form>
       )}
 
@@ -265,14 +275,24 @@ export default function B2BForm() {
           margin: 0;
         }
         .b2bf__err a { color: #005C43; font-weight: 600; }
-        .b2bf__note {
-          font-size: 12px;
-          color: #9CA3AF;
-          line-height: 1.5;
-          margin: 0;
-          text-align: center;
+        .b2bf__consent {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 12.5px;
+          color: #4B5563;
+          line-height: 1.55;
+          cursor: pointer;
         }
-        .b2bf__note a { color: #6B7280; }
+        .b2bf__consent input {
+          margin-top: 3px;
+          width: 16px;
+          height: 16px;
+          accent-color: #005C43;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
+        .b2bf__consent a { color: #005C43; text-decoration: underline; font-weight: 600; }
         .b2bf__success { text-align: center; padding: 12px 4px; }
         .b2bf__successIcon {
           display: inline-flex;

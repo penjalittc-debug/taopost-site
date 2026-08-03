@@ -1,18 +1,35 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Calculator as CalcIcon, Send } from 'lucide-react';
+import { Calculator as CalcIcon, Send, X } from 'lucide-react';
 
 const SHOW_AFTER_PX = 600;
+const DISMISS_KEY = 'taopost.sticky_cta_dismissed';
 
 export default function StickyMobileCTA() {
   const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem(DISMISS_KEY)) {
+        setDismissed(true);
+        return;
+      }
+    } catch { /* приватный режим — просто продолжаем */ }
     const onScroll = () => setVisible(window.scrollY > SHOW_AFTER_PX);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  function dismiss() {
+    try {
+      sessionStorage.setItem(DISMISS_KEY, '1');
+    } catch { /* ignore */ }
+    setDismissed(true);
+  }
+
+  if (dismissed) return null;
 
   return (
     <div className={`smc${visible ? ' smc--visible' : ''}`} aria-hidden={!visible}>
@@ -35,6 +52,15 @@ export default function StickyMobileCTA() {
         <Send size={18} strokeWidth={2.5} />
         Telegram
       </a>
+      <button
+        type="button"
+        onClick={dismiss}
+        className="smc__close"
+        aria-label="Скрыть панель"
+        data-ym-goal="sticky_dismiss"
+      >
+        <X size={16} strokeWidth={2.5} />
+      </button>
 
       <style jsx>{`
         .smc {
@@ -54,6 +80,10 @@ export default function StickyMobileCTA() {
           transform: translateY(140%);
           transition: transform .25s ease, opacity .25s ease;
           opacity: 0;
+          align-items: center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .smc { transition: none; }
         }
         .smc--visible {
           transform: translateY(0);
@@ -82,6 +112,21 @@ export default function StickyMobileCTA() {
           color: #fff;
           box-shadow: 0 8px 18px -8px rgba(0,136,204,0.55), inset 0 -2px 0 rgba(0,0,0,0.12);
         }
+        .smc__close {
+          width: 36px;
+          height: 36px;
+          flex-shrink: 0;
+          border: 1px solid rgba(10,15,28,0.10);
+          background: #fff;
+          color: #6B7280;
+          border-radius: 12px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: inherit;
+        }
+        .smc__close:hover { color: #0A0F1C; background: #F3F4F6; }
 
         @media (max-width: 767px) {
           .smc { display: flex; }

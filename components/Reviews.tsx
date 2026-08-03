@@ -60,14 +60,14 @@ export default function Reviews() {
         <div className="tp-section__head">
           <span className="tp-eyebrow">
             <span className="tp-eyebrow__dot" />
-            Отзывы
+            Примеры отзывов
           </span>
           <h2 className="tp-h2">
-            Нам доверяют клиенты<br />
-            <span className="tp-gradient-text">по всей России</span>
+            Что рассказывают клиенты<br />
+            <span className="tp-gradient-text">о работе с TaoPost</span>
           </h2>
           <p className="tp-lede">
-            Более 200 000 доставленных посылок за всё время работы — отзывы наших клиентов
+            Собрали типичные истории наших клиентов из разных городов России — по одобрению для публикации. Полный поток отзывов ведём в Telegram-канале.
           </p>
         </div>
 
