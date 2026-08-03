@@ -17,6 +17,7 @@ import Cities from '@/components/Cities';
 import BlogPreview from '@/components/BlogPreview';
 import LeadForm from '@/components/LeadForm';
 import TgVsUs from '@/components/TgVsUs';
+import CargoChecklist from '@/components/CargoChecklist';
 import B2B from '@/components/B2B';
 import { PRODUCTS } from '@/lib/products';
 
@@ -236,6 +237,7 @@ export default function Home() {
         <FadeIn delay={50}><Calculator /></FadeIn>
         <FadeIn delay={50}><Marketplaces /></FadeIn>
         <FadeIn delay={50}><TgVsUs /></FadeIn>
+        <FadeIn delay={50}><CargoChecklist /></FadeIn>
         <FadeIn delay={50}><Tariffs /></FadeIn>
         <FadeIn delay={50}><Loyalty /></FadeIn>
         <FadeIn delay={50}><WarehouseGallery /></FadeIn>
