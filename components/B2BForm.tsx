@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Send, CheckCircle2, Building2, Phone, Boxes, Tag } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
+import { collectTraffic } from '@/lib/traffic';
 
 type Status = 'idle' | 'sending' | 'ok' | 'error';
 
@@ -39,6 +40,7 @@ export default function B2BForm() {
           category,
           description,
           website,
+          traffic: collectTraffic(),
         }),
       });
       if (!res.ok) throw new Error('bad status');
@@ -217,7 +219,7 @@ export default function B2BForm() {
           color: #374151;
         }
         .b2bf__label :global(svg) { color: #6B7280; }
-        .b2bf__opt { font-weight: 500; color: #9CA3AF; }
+        .b2bf__opt { font-weight: 500; color: #6B7280; }
         .b2bf__input {
           width: 100%;
           padding: 14px 16px;

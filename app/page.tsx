@@ -150,9 +150,11 @@ const websiteJsonLd = {
   }
 };
 
-// Product/Offer JSON-LD по позициям из блока «Китай vs Россия».
-// Цены priceCN — это розница в Китае после нашей логистики (примерные ориентиры).
-const productsJsonLd = PRODUCTS.map((p) => ({
+// Product/Offer JSON-LD по 3 репрезентативным позициям, по одной на каждый маркетплейс/категорию.
+// Раньше рендерили все 6 — Google/Яндекс не улучшают ранжирование от «полного каталога»,
+// а вес HTML главной рос. Оставляем самые узнаваемые бренды.
+const PRODUCT_JSONLD_PICKS = ['Nike Air Force 1', 'Carhartt WIP Куртка', 'Samsung Galaxy Fit 3'];
+const productsJsonLd = PRODUCTS.filter((p) => PRODUCT_JSONLD_PICKS.includes(p.name)).map((p) => ({
   "@context": "https://schema.org",
   "@type": "Product",
   "name": p.name,

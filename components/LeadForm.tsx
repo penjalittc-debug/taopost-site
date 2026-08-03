@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Send, CheckCircle2, Phone, MapPin, Truck, Plane } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
+import { collectTraffic } from '@/lib/traffic';
 
 type Transport = 'auto' | 'air';
 type Status = 'idle' | 'sending' | 'ok' | 'error';
@@ -28,7 +29,7 @@ export default function LeadForm() {
       const res = await fetch('/api/calculator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ toCity, phone, transport, weight, website }),
+        body: JSON.stringify({ toCity, phone, transport, weight, website, traffic: collectTraffic() }),
       });
       if (!res.ok) throw new Error('bad status');
       setStatus('ok');
@@ -230,7 +231,7 @@ export default function LeadForm() {
           font-size: 13px; font-weight: 700; color: #374151;
         }
         .lf__label :global(svg) { color: #6B7280; }
-        .lf__opt { font-weight: 500; color: #9CA3AF; }
+        .lf__opt { font-weight: 500; color: #6B7280; }
         .lf__input {
           width: 100%; padding: 14px 16px; border-radius: 12px;
           border: 2px solid #E5E7EB; font-size: 15px; outline: none;

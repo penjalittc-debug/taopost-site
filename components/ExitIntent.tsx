@@ -77,6 +77,40 @@ export default function ExitIntent() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open, close]);
 
+  // Focus-trap: пока модалка открыта, Tab не должен уводить фокус за её пределы.
+  useEffect(() => {
+    if (!open) return;
+    const root = document.querySelector<HTMLElement>('.ei__card');
+    if (!root) return;
+    const selector = 'button, a[href], input, textarea, select, [tabindex]:not([tabindex="-1"])';
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const nodes = root.querySelectorAll<HTMLElement>(selector);
+      const focusable = Array.from(nodes).filter((n) => !n.hasAttribute('disabled') && n.getAttribute('aria-hidden') !== 'true');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', trap);
+    // При открытии переносим фокус внутрь модалки
+    const t = window.setTimeout(() => {
+      const nodes = root.querySelectorAll<HTMLElement>(selector);
+      nodes[0]?.focus();
+    }, 40);
+    return () => {
+      window.clearTimeout(t);
+      document.removeEventListener('keydown', trap);
+    };
+  }, [open]);
+
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!reason || sent) return;
@@ -235,6 +269,10 @@ export default function ExitIntent() {
           from { opacity: 0; transform: translateY(10px) scale(.97); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .ei { animation: none; }
+          .ei__card { animation: none; }
+        }
         .ei__close {
           position: absolute;
           top: 14px; right: 14px;
@@ -371,8 +409,8 @@ export default function ExitIntent() {
         .ei__submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .ei__note {
-          font-size: 11.5px;
-          color: #9CA3AF;
+          font-size: 12px;
+          color: #6B7280;
           text-align: center;
           margin: 0;
         }

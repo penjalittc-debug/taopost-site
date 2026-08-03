@@ -38,6 +38,19 @@ function isValidPhone(raw: string): boolean {
   return digits.length >= 10 && digits.length <= 15;
 }
 
+type Traffic = {
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+  yclid?: string;
+  gclid?: string;
+  fbclid?: string;
+  referrer?: string;
+  landing?: string;
+};
+
 type Payload = {
   fromCity?: string;
   toCity?: string;
@@ -46,6 +59,7 @@ type Payload = {
   volume?: string;
   phone?: string;
   website?: string;
+  traffic?: Traffic;
   // B2B-поля
   b2b?: boolean;
   company?: string;
@@ -53,6 +67,46 @@ type Payload = {
   category?: string;
   description?: string;
 };
+
+function esc(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+const TRAFFIC_LABELS: Array<[keyof Traffic, string]> = [
+  ['utmSource', 'utm_source'],
+  ['utmMedium', 'utm_medium'],
+  ['utmCampaign', 'utm_campaign'],
+  ['utmContent', 'utm_content'],
+  ['utmTerm', 'utm_term'],
+  ['yclid', 'yclid'],
+  ['gclid', 'gclid'],
+  ['fbclid', 'fbclid'],
+  ['referrer', 'referrer'],
+  ['landing', 'landing'],
+];
+
+function formatTrafficText(t?: Traffic): string {
+  if (!t) return '';
+  const lines = TRAFFIC_LABELS
+    .map(([k, label]) => (t[k] ? `${label}: ${t[k]}` : null))
+    .filter(Boolean);
+  if (!lines.length) return '';
+  return ['', '── Источник ──', ...lines].join('\n');
+}
+
+function formatTrafficHtml(t?: Traffic): string {
+  if (!t) return '';
+  const rows = TRAFFIC_LABELS
+    .map(([k, label]) => t[k]
+      ? `<tr><td style="padding:8px 26px;color:#9CA3AF;font-size:11px;text-transform:uppercase;letter-spacing:0.4px">${esc(label)}</td>
+             <td style="padding:8px 26px;font-size:13px;color:#374151">${esc(String(t[k]))}</td></tr>`
+      : null)
+    .filter(Boolean);
+  if (!rows.length) return '';
+  return `
+    <tr><td colspan="2" style="padding:14px 26px 4px;color:#6b7280;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;border-top:1px solid #f3f4f6">Источник</td></tr>
+    ${rows.join('\n')}`;
+}
 
 export async function POST(req: NextRequest) {
   let data: Payload;
@@ -71,7 +125,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (data.b2b) {
-    return handleB2B(data);
+    return handleB2B(data, data.traffic);
   }
 
   const fromCity = (data.fromCity || '').trim().slice(0, 80) || 'Китай (маркетплейсы)';
@@ -112,10 +166,8 @@ export async function POST(req: NextRequest) {
     `Телефон: ${phone}`,
     '',
     `Получено: ${submittedAt} МСК`,
+    formatTrafficText(data.traffic),
   ].filter(Boolean).join('\n');
-
-  const esc = (s: string) =>
-    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   const html = `<!doctype html>
 <html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;padding:24px;margin:0;color:#0f172a">
@@ -136,6 +188,7 @@ export async function POST(req: NextRequest) {
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(volume)} м³</td></tr>` : ''}
         <tr><td style="padding:14px 26px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Телефон</td>
             <td style="padding:14px 26px;font-weight:700;font-size:16px;color:#005C43"><a href="tel:${esc(phone)}" style="color:#005C43;text-decoration:none">${esc(phone)}</a></td></tr>
+        ${formatTrafficHtml(data.traffic)}
       </tbody>
     </table>
     <div style="padding:14px 26px;background:#f9fafb;color:#6b7280;font-size:12px">Получено: ${esc(submittedAt)} МСК · taopost.ru</div>
@@ -162,7 +215,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true });
 }
 
-async function handleB2B(data: Payload) {
+async function handleB2B(data: Payload, traffic?: Traffic) {
   const company = (data.company || '').trim().slice(0, 120);
   const contact = (data.contact || '').trim().slice(0, 80);
   const phone = (data.phone || '').trim().slice(0, 60);
@@ -194,10 +247,8 @@ async function handleB2B(data: Payload) {
     description ? `Описание: ${description}` : null,
     '',
     `Получено: ${submittedAt} МСК`,
+    formatTrafficText(traffic),
   ].filter(Boolean).join('\n');
-
-  const esc = (s: string) =>
-    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
   const html = `<!doctype html>
 <html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;padding:24px;margin:0;color:#0f172a">
@@ -220,6 +271,7 @@ async function handleB2B(data: Payload) {
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(category)}</td></tr>` : ''}
         ${description ? `<tr><td style="padding:14px 26px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px;vertical-align:top">Задача</td>
             <td style="padding:14px 26px;line-height:1.55;white-space:pre-wrap">${esc(description)}</td></tr>` : ''}
+        ${formatTrafficHtml(traffic)}
       </tbody>
     </table>
     <div style="padding:14px 26px;background:#f9fafb;color:#6b7280;font-size:12px">Получено: ${esc(submittedAt)} МСК · taopost.ru/business</div>
