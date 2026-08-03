@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import About from '@/components/About';
 import Reviews from '@/components/Reviews';
 import WarehouseGallery from '@/components/WarehouseGallery';
+import PageHero from '@/components/PageHero';
+import PageCta from '@/components/PageCta';
+import s from './o-kompanii.module.css';
 
 export const metadata: Metadata = {
   title: 'О компании TaoPost — официальная карго-доставка из Китая',
@@ -85,76 +87,25 @@ export default function OKompaniiPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageLd) }} />
       <Header />
       <main>
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 60px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <nav aria-label="breadcrumb" style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px', display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
-              <span>›</span>
-              <span style={{ color: '#374151' }}>О компании</span>
-            </nav>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
-              padding: '6px 16px', fontSize: '13px', fontWeight: 700,
-              marginBottom: '24px', border: '1px solid #c6ede4',
-            }}>
-              🇨🇳 Юр.лицо в КНР · Лицензия 营业执照
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(32px, 5vw, 54px)',
-              fontWeight: 900, color: '#111827',
-              lineHeight: 1.15, marginBottom: '20px', letterSpacing: '-1px',
-            }}>
-              О компании <span style={{ color: '#005C43' }}>TaoPost</span>
-            </h1>
-            <p style={{
-              fontSize: '18px', color: '#6B7280',
-              lineHeight: 1.7, maxWidth: '620px', margin: '0 auto',
-            }}>
-              Официальная карго-компания с китайской бизнес-лицензией, собственным складом в Гуанчжоу
-              и командой на двух языках. Доставляем товары из Китая в Россию с 2019 года.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          currentCrumb="О компании"
+          pill="🇨🇳 Юр.лицо в КНР · Лицензия 营业执照"
+          title={<>О компании <span style={{ color: '#005C43' }}>TaoPost</span></>}
+          lede="Официальная карго-компания с китайской бизнес-лицензией, собственным складом в Гуанчжоу и командой на двух языках. Доставляем товары из Китая в Россию с 2019 года."
+        />
 
         <About />
 
-        {/* Timeline */}
-        <section style={{ padding: '70px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 36px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '40px',
-            }}>
-              Как мы росли
-            </h2>
-            <div style={{ position: 'relative', paddingLeft: '40px' }}>
-              <div style={{
-                position: 'absolute', left: '12px', top: '12px', bottom: '12px',
-                width: '2px', background: 'linear-gradient(180deg, #005C43, #FF5A47)',
-              }} />
+        <section className={s.timeline}>
+          <div className={s.timelineInner}>
+            <h2 className={s.timelineH2}>Как мы росли</h2>
+            <div className={s.timelineList}>
               {TIMELINE.map((item, i) => (
-                <div key={i} style={{ position: 'relative', paddingBottom: '32px' }}>
-                  <span style={{
-                    position: 'absolute', left: '-34px', top: '4px',
-                    width: '14px', height: '14px', borderRadius: '50%',
-                    background: '#005C43', border: '3px solid #fff',
-                    boxShadow: '0 0 0 2px #005C43',
-                  }} />
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#005C43', marginBottom: '4px' }}>
-                    {item.year}
-                  </div>
-                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '6px' }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ fontSize: '15px', color: '#4B5563', lineHeight: 1.7, margin: 0 }}>
-                    {item.text}
-                  </p>
+                <div key={i} className={s.timelineItem}>
+                  <span className={s.timelineDot} />
+                  <div className={s.timelineYear}>{item.year}</div>
+                  <h3 className={s.timelineTitle}>{item.title}</h3>
+                  <p className={s.timelineText}>{item.text}</p>
                 </div>
               ))}
             </div>
@@ -164,37 +115,19 @@ export default function OKompaniiPage() {
         <WarehouseGallery />
         <Reviews />
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Начать работу
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '17px', marginBottom: '32px', lineHeight: 1.6 }}>
-              Напишите менеджеру — расскажем больше, ответим на вопросы и поможем оформить первую отправку
-            </p>
-            <a
-              href="https://t.me/taopostsupport?start=site"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-ym-goal="telegram_click"
-              data-ym-params='{"place":"o_kompanii_cta"}'
-              style={{
-                padding: '16px 36px',
-                background: '#fff', color: '#005C43',
-                fontWeight: 800, fontSize: '16px',
-                borderRadius: '50px', textDecoration: 'none',
-                display: 'inline-block',
-              }}
-            >
-              Написать в Telegram →
-            </a>
-          </div>
-        </section>
+        <PageCta
+          title="Начать работу"
+          lede="Напишите менеджеру — расскажем больше, ответим на вопросы и поможем оформить первую отправку"
+          actions={[
+            {
+              label: 'Написать в Telegram →',
+              href: 'https://t.me/taopostsupport?start=site',
+              external: true,
+              ymGoal: 'telegram_click',
+              ymParams: '{"place":"o_kompanii_cta"}',
+            },
+          ]}
+        />
       </main>
       <Footer />
     </>

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import LeadForm from '@/components/LeadForm';
+import PageHero from '@/components/PageHero';
 import { Phone, Mail, Send, MessageCircle, MapPin, Clock, Building2 } from 'lucide-react';
+import s from './kontakty.module.css';
 
 export const metadata: Metadata = {
   title: 'Контакты TaoPost — телефон, Telegram, email, склад в Китае',
@@ -95,42 +96,15 @@ export default function KontaktyPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
       <Header />
       <main>
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 60px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <nav aria-label="breadcrumb" style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px', display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
-              <span>›</span>
-              <span style={{ color: '#374151' }}>Контакты</span>
-            </nav>
-            <h1 style={{
-              fontSize: 'clamp(32px, 5vw, 54px)',
-              fontWeight: 900, color: '#111827',
-              lineHeight: 1.15, marginBottom: '20px', letterSpacing: '-1px',
-            }}>
-              Контакты <span style={{ color: '#005C43' }}>TaoPost</span>
-            </h1>
-            <p style={{
-              fontSize: '18px', color: '#6B7280',
-              lineHeight: 1.7, maxWidth: '600px', margin: '0 auto',
-            }}>
-              Напишите менеджеру — ответим в среднем за 5 минут, ежедневно с 9:00 до 22:00 МСК.
-              Telegram, телефон, email и форма заявки ниже.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          currentCrumb="Контакты"
+          title={<>Контакты <span style={{ color: '#005C43' }}>TaoPost</span></>}
+          lede="Напишите менеджеру — ответим в среднем за 5 минут, ежедневно с 9:00 до 22:00 МСК. Telegram, телефон, email и форма заявки ниже."
+        />
 
-        {/* Channels */}
-        <section style={{ padding: '70px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '20px',
-            }}>
+        <section className={s.channels}>
+          <div className={s.channelsInner}>
+            <div className={s.channelsGrid}>
               {CHANNELS.map((c, i) => {
                 const Icon = c.Icon;
                 return (
@@ -140,37 +114,14 @@ export default function KontaktyPage() {
                     {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     data-ym-goal={c.goal}
                     data-ym-params='{"place":"kontakty_page"}'
-                    style={{
-                      display: 'block',
-                      padding: '28px',
-                      background: '#F9FAFB',
-                      borderRadius: '20px',
-                      border: '1px solid #F3F4F6',
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      transition: 'border-color .15s, transform .15s',
-                    }}
-                    className="contact-card"
+                    className={s.channelCard}
                   >
-                    <div style={{
-                      width: '48px', height: '48px',
-                      background: '#e8f7f3',
-                      color: '#005C43',
-                      borderRadius: '12px',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      marginBottom: '16px',
-                    }}>
+                    <div className={s.channelIcon}>
                       <Icon size={22} strokeWidth={2.2} />
                     </div>
-                    <div style={{ fontSize: '13px', color: '#6B7280', fontWeight: 600, marginBottom: '4px' }}>
-                      {c.title}
-                    </div>
-                    <div style={{ fontSize: '17px', fontWeight: 800, color: '#111827', marginBottom: '8px' }}>
-                      {c.value}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.5 }}>
-                      {c.note}
-                    </div>
+                    <div className={s.channelTitle}>{c.title}</div>
+                    <div className={s.channelValue}>{c.value}</div>
+                    <div className={s.channelNote}>{c.note}</div>
                   </a>
                 );
               })}
@@ -178,75 +129,65 @@ export default function KontaktyPage() {
           </div>
         </section>
 
-        {/* Hours and warehouse */}
-        <section style={{ padding: '60px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
-            <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', border: '1px solid #F3F4F6' }}>
-              <div style={{
-                width: '48px', height: '48px',
-                background: '#FFEEEC', color: '#FF5A47',
-                borderRadius: '12px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '16px',
-              }}>
+        <section className={s.info}>
+          <div className={s.infoGrid}>
+            <div className={s.infoCard}>
+              <div
+                className={s.infoIcon}
+                style={{ ['--ch-bg' as string]: '#FFEEEC', ['--ch-color' as string]: '#FF5A47' } as React.CSSProperties}
+              >
                 <Clock size={22} strokeWidth={2.2} />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '12px' }}>Часы работы</h3>
-              <div style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7 }}>
+              <h3 className={s.infoTitle}>Часы работы</h3>
+              <div className={s.infoBody}>
                 <strong>Поддержка в Telegram:</strong> ежедневно 9:00-22:00 МСК<br />
                 <strong>Телефон:</strong> пн-пт 10:00-19:00 МСК<br />
                 <strong>Склад в Китае:</strong> пн-сб 9:00-18:00 (UTC+8)
               </div>
             </div>
 
-            <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', border: '1px solid #F3F4F6' }}>
-              <div style={{
-                width: '48px', height: '48px',
-                background: '#FFF7E8', color: '#F59E0B',
-                borderRadius: '12px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '16px',
-              }}>
+            <div className={s.infoCard}>
+              <div
+                className={s.infoIcon}
+                style={{ ['--ch-bg' as string]: '#FFF7E8', ['--ch-color' as string]: '#F59E0B' } as React.CSSProperties}
+              >
                 <MapPin size={22} strokeWidth={2.2} />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '12px' }}>Склад в Гуанчжоу 🇨🇳</h3>
-              <div style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7 }}>
+              <h3 className={s.infoTitle}>Склад в Гуанчжоу 🇨🇳</h3>
+              <div className={s.infoBody}>
                 广州市荔湾区站前路90号<br />
-                <span style={{ color: '#6B7280', fontSize: '14px' }}>Гуанчжоу, район Ливань, ул. Чжаньцянь, 90</span>
-                <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px dashed #E5E7EB' }}>
+                <span className={s.infoSubtle}>Гуанчжоу, район Ливань, ул. Чжаньцянь, 90</span>
+                <div className={s.infoDivider}>
                   {CHINA_CONTACTS.map((cc, i) => (
-                    <div key={i} style={{ fontSize: '14px', marginBottom: '6px' }}>
+                    <div key={i} className={s.infoContactRow}>
                       <span style={{ color: '#6B7280' }}>{cc.label}: </span>
-                      <a href={cc.href} style={{ color: '#005C43', fontWeight: 700, textDecoration: 'none' }}>{cc.value}</a>
+                      <a href={cc.href}>{cc.value}</a>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', border: '1px solid #F3F4F6' }}>
-              <div style={{
-                width: '48px', height: '48px',
-                background: '#e8f7f3', color: '#005C43',
-                borderRadius: '12px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '16px',
-              }}>
+            <div className={s.infoCard}>
+              <div
+                className={s.infoIcon}
+                style={{ ['--ch-bg' as string]: '#e8f7f3', ['--ch-color' as string]: '#005C43' } as React.CSSProperties}
+              >
                 <Building2 size={22} strokeWidth={2.2} />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '12px' }}>Юр.лицо в КНР</h3>
-              <div style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7 }}>
+              <h3 className={s.infoTitle}>Юр.лицо в КНР</h3>
+              <div className={s.infoBody}>
                 <strong>广州亚世名进出口有限公司</strong><br />
-                <span style={{ color: '#6B7280', fontSize: '13px' }}>Guangzhou Yashiming Import &amp; Export Co., Ltd.</span>
-                <div style={{ marginTop: '12px', fontSize: '13px', color: '#6B7280' }}>
+                <span className={s.infoTiny}>Guangzhou Yashiming Import &amp; Export Co., Ltd.</span>
+                <div style={{ marginTop: 12 }} className={s.infoTiny}>
                   Регистрационный код:<br />
-                  <span style={{ fontFamily: 'monospace', color: '#111827', fontWeight: 700 }}>91440100MAEGJX2C1Y</span>
+                  <span className={s.infoMono}>91440100MAEGJX2C1Y</span>
                 </div>
                 <a
                   href="https://www.gsxt.gov.cn/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: 'inline-block', marginTop: '12px', fontSize: '13px', fontWeight: 700, color: '#005C43', textDecoration: 'none' }}
+                  className={s.infoLinkRow}
                 >
                   Проверить в реестре КНР →
                 </a>
@@ -256,13 +197,6 @@ export default function KontaktyPage() {
         </section>
 
         <LeadForm />
-
-        <style>{`
-          .contact-card:hover {
-            border-color: #005C43 !important;
-            transform: translateY(-2px);
-          }
-        `}</style>
       </main>
       <Footer />
     </>

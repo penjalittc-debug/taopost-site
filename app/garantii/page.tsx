@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
+import PageCta from '@/components/PageCta';
 import { ShieldCheck, Camera, Package, RefreshCcw, FileCheck2, AlertCircle, Wallet, Clock } from 'lucide-react';
+import s from './garantii.module.css';
 
 export const metadata: Metadata = {
   title: 'Гарантии TaoPost — страховка, проверка качества, возврат при браке',
@@ -108,173 +110,79 @@ export default function GarantiiPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <Header />
       <main>
-        <section style={{
-          background: 'linear-gradient(160deg, #f0fdf9 0%, #ffffff 60%, #fff5f5 100%)',
-          padding: '120px 24px 60px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <nav aria-label="breadcrumb" style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '20px', display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-              <Link href="/" style={{ color: '#9CA3AF', textDecoration: 'none' }}>Главная</Link>
-              <span>›</span>
-              <span style={{ color: '#374151' }}>Гарантии</span>
-            </nav>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: '#e8f7f3', color: '#005C43', borderRadius: '50px',
-              padding: '6px 16px', fontSize: '13px', fontWeight: 700,
-              marginBottom: '24px', border: '1px solid #c6ede4',
-            }}>
-              🛡 Что мы обещаем
-            </div>
-            <h1 style={{
-              fontSize: 'clamp(32px, 5vw, 54px)',
-              fontWeight: 900, color: '#111827',
-              lineHeight: 1.15, marginBottom: '20px', letterSpacing: '-1px',
-            }}>
-              Гарантии <span style={{ color: '#005C43' }}>TaoPost</span>
-            </h1>
-            <p style={{
-              fontSize: '18px', color: '#6B7280',
-              lineHeight: 1.7, maxWidth: '620px', margin: '0 auto',
-            }}>
-              Конкретные обязательства — со сроками, обстоятельствами и компенсацией.
-              Без размытых формулировок и юридического тумана.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          currentCrumb="Гарантии"
+          pill="🛡 Что мы обещаем"
+          title={<>Гарантии <span style={{ color: '#005C43' }}>TaoPost</span></>}
+          lede="Конкретные обязательства — со сроками, обстоятельствами и компенсацией. Без размытых формулировок и юридического тумана."
+        />
 
-        {/* Guarantees grid */}
-        <section style={{ padding: '60px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+        <section className={s.grid}>
+          <div className={s.gridInner}>
             {GUARANTEES.map((g, i) => {
               const Icon = g.Icon;
+              const vars = { ['--gt-color' as string]: g.color, ['--gt-bg' as string]: g.bg } as React.CSSProperties;
               return (
-                <div key={i} style={{
-                  background: '#F9FAFB',
-                  borderRadius: '20px',
-                  padding: '28px',
-                  border: '1px solid #F3F4F6',
-                }}>
-                  <div style={{
-                    width: '52px', height: '52px',
-                    background: g.bg, color: g.color,
-                    borderRadius: '14px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginBottom: '18px',
-                  }}>
+                <div key={i} className={s.card}>
+                  <div className={s.cardIcon} style={vars}>
                     <Icon size={24} strokeWidth={2.2} />
                   </div>
-                  <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '10px' }}>
-                    {g.title}
-                  </h2>
-                  <p style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7, marginBottom: '12px' }}>
-                    {g.text}
-                  </p>
-                  <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.6, margin: 0 }}>
-                    {g.detail}
-                  </p>
+                  <h2 className={s.cardTitle}>{g.title}</h2>
+                  <p className={s.cardText}>{g.text}</p>
+                  <p className={s.cardDetail}>{g.detail}</p>
                 </div>
               );
             })}
           </div>
         </section>
 
-        {/* How to claim */}
-        <section style={{ padding: '70px 24px', background: '#F9FAFB' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 36px)',
-              fontWeight: 900, color: '#111827',
-              textAlign: 'center', marginBottom: '16px',
-            }}>
-              Как воспользоваться гарантией
-            </h2>
-            <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '16px', marginBottom: '40px' }}>
-              Простой процесс — 4 шага, без бюрократии
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}>
-              {STEPS.map((s) => (
-                <div key={s.n} style={{
-                  background: '#fff',
-                  borderRadius: '16px',
-                  padding: '24px',
-                  border: '1px solid #F3F4F6',
-                }}>
-                  <div style={{
-                    width: '36px', height: '36px',
-                    background: '#005C43', color: 'white',
-                    borderRadius: '50%', display: 'flex',
-                    alignItems: 'center', justifyContent: 'center',
-                    fontWeight: 900, marginBottom: '14px',
-                  }}>{s.n}</div>
-                  <p style={{ fontSize: '15px', color: '#111827', lineHeight: 1.6, margin: 0 }}>{s.text}</p>
+        <section className={s.claim}>
+          <div className={s.claimInner}>
+            <h2 className={s.claimH2}>Как воспользоваться гарантией</h2>
+            <p className={s.claimLede}>Простой процесс — 4 шага, без бюрократии</p>
+            <div className={s.claimGrid}>
+              {STEPS.map((step) => (
+                <div key={step.n} className={s.claimCard}>
+                  <div className={s.claimNum}>{step.n}</div>
+                  <p className={s.claimText}>{step.text}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Not covered */}
-        <section style={{ padding: '60px 24px', background: '#fff' }}>
-          <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-            <div style={{
-              background: '#FFF7E8',
-              borderRadius: '20px',
-              padding: '32px',
-              border: '1px solid #FCD34D',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                <AlertCircle size={28} strokeWidth={2.2} style={{ color: '#D97706' }} />
-                <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#111827', margin: 0 }}>
-                  Что НЕ покрывается
-                </h2>
+        <section className={s.notCovered}>
+          <div className={s.notCoveredInner}>
+            <div className={s.notCoveredBox}>
+              <div className={s.notCoveredHead}>
+                <AlertCircle size={28} strokeWidth={2.2} className={s.notCoveredIcon} />
+                <h2 className={s.notCoveredH2}>Что НЕ покрывается</h2>
               </div>
-              <p style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7, marginBottom: '16px' }}>
+              <p className={s.notCoveredIntro}>
                 Чтобы избежать недоразумений — честно говорим, чего не везём и за что не отвечаем:
               </p>
-              <ul style={{ paddingLeft: '20px', margin: 0 }}>
+              <ul className={s.notCoveredList}>
                 {NOT_COVERED.map((item, i) => (
-                  <li key={i} style={{ fontSize: '15px', color: '#374151', lineHeight: 1.7, marginBottom: '8px' }}>
-                    {item}
-                  </li>
+                  <li key={i}>{item}</li>
                 ))}
               </ul>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{
-          padding: '80px 24px',
-          background: 'linear-gradient(135deg, #005C43 0%, #004232 100%)',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 900, color: '#fff', marginBottom: '16px' }}>
-              Остались вопросы по гарантиям?
-            </h2>
-            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '17px', marginBottom: '32px', lineHeight: 1.6 }}>
-              Менеджер ответит на любой вопрос — что покрывается, как оформить случай, какие сроки
-            </p>
-            <a
-              href="https://t.me/taopostsupport?start=site"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-ym-goal="telegram_click"
-              data-ym-params='{"place":"garantii_cta"}'
-              style={{
-                padding: '16px 36px',
-                background: '#fff', color: '#005C43',
-                fontWeight: 800, fontSize: '16px',
-                borderRadius: '50px', textDecoration: 'none',
-                display: 'inline-block',
-              }}
-            >
-              Написать в Telegram →
-            </a>
-          </div>
-        </section>
+        <PageCta
+          title="Остались вопросы по гарантиям?"
+          lede="Менеджер ответит на любой вопрос — что покрывается, как оформить случай, какие сроки"
+          actions={[
+            {
+              label: 'Написать в Telegram →',
+              href: 'https://t.me/taopostsupport?start=site',
+              external: true,
+              ymGoal: 'telegram_click',
+              ymParams: '{"place":"garantii_cta"}',
+            },
+          ]}
+        />
       </main>
       <Footer />
     </>

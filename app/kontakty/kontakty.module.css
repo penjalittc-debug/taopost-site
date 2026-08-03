@@ -1,0 +1,132 @@
+/* Цвет иконок канала передаётся через --ch-color/--ch-bg. */
+
+.channels {
+  padding: 70px 24px;
+  background: #fff;
+}
+.channelsInner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.channelsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.channelCard {
+  display: block;
+  padding: 28px;
+  background: #F9FAFB;
+  border-radius: 20px;
+  border: 1px solid #F3F4F6;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .15s, transform .15s;
+}
+.channelCard:hover {
+  border-color: #005C43;
+  transform: translateY(-2px);
+}
+.channelIcon {
+  width: 48px;
+  height: 48px;
+  background: #e8f7f3;
+  color: #005C43;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.channelTitle {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.channelValue {
+  font-size: 17px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+.channelNote {
+  font-size: 13px;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+.info {
+  padding: 60px 24px;
+  background: #F9FAFB;
+}
+.infoGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.infoCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid #F3F4F6;
+}
+.infoIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: var(--ch-bg);
+  color: var(--ch-color);
+}
+.infoTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 12px;
+}
+.infoBody {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+}
+.infoBody a {
+  color: #005C43;
+  font-weight: 700;
+  text-decoration: none;
+}
+.infoSubtle {
+  color: #6B7280;
+  font-size: 14px;
+}
+.infoTiny {
+  color: #6B7280;
+  font-size: 13px;
+}
+.infoDivider {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #E5E7EB;
+}
+.infoContactRow {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.infoMono {
+  font-family: monospace;
+  color: #111827;
+  font-weight: 700;
+}
+.infoLinkRow {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #005C43;
+  text-decoration: none;
+}
