@@ -32,7 +32,7 @@ const jsonLd = {
   "image": "https://taopost.ru/og-image.png",
   "description": "Карго доставка товаров из Китая в Россию. Выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688, Goofish. Бренд работает с 2019 года; в 2025 году зарегистрировано официальное юр.лицо в КНР с бизнес-лицензией.",
   "telephone": "+7 977 276 77 78",
-  "email": "info@taopost.ru",
+  "email": "support@taopost.ru",
   // Год основания бренда/начала операционной деятельности (см. Timeline на /o-kompanii).
   // Дата регистрации китайского юрлица (2025-04-09) вынесена в отдельное поле identifier ниже.
   "foundingDate": "2019",

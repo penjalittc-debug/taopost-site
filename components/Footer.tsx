@@ -107,12 +107,8 @@ export default function Footer() {
                 </a>
               </div>
               <div className="ftr__contact">
-                <div className="ftr__contactLabel">Email — сотрудничество</div>
-                <a href="mailto:info@taopost.ru" className="ftr__contactValue">info@taopost.ru</a>
-              </div>
-              <div className="ftr__contact">
-                <div className="ftr__contactLabel">Email — обращения и жалобы</div>
-                <a href="mailto:help@taopost.ru" className="ftr__contactValue">help@taopost.ru</a>
+                <div className="ftr__contactLabel">Email — сотрудничество, обращения и жалобы</div>
+                <a href="mailto:support@taopost.ru" className="ftr__contactValue">support@taopost.ru</a>
               </div>
 
               <div className="ftr__warehouse">
@@ -193,7 +189,7 @@ export default function Footer() {
               ИП Гасанова А. Р. · ИНН 772300526747 · ОГРНИП 324774600431591
             </div>
             <div>
-              127282, г. Москва, ул. Широкая, д. 3, к. 2, кв. 160
+              109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15
             </div>
             <div>
               Партнёр в КНР (выкуп/склад): Guangzhou Yashiming Import &amp; Export Co., Ltd.

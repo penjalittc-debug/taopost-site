@@ -103,7 +103,7 @@ export default function OfertaPage() {
 
       <Section title="7. Возвраты и претензии">
         <p>Претензии по качеству и комплектности принимаются на email
-          <a href="mailto:help@taopost.ru"> help@taopost.ru</a> в течение
+          <a href="mailto:support@taopost.ru"> support@taopost.ru</a> в течение
           14 календарных дней с даты получения посылки Заказчиком. К обращению прилагаются фото/видео товара
           и упаковки. Возврат товара китайскому продавцу осуществляется по правилам последнего;
           Исполнитель содействует в организации возврата, но не гарантирует его.</p>
@@ -126,8 +126,8 @@ export default function OfertaPage() {
           <li><strong>Сокращённое наименование:</strong> ИП Гасанова А. Р.</li>
           <li><strong>ИНН:</strong> 772300526747</li>
           <li><strong>ОГРНИП:</strong> 324774600431591</li>
-          <li><strong>Адрес регистрации:</strong> 127282, г. Москва, ул. Широкая, д. 3, к. 2, кв. 160</li>
-          <li><strong>Email:</strong> <a href="mailto:info@taopost.ru">info@taopost.ru</a></li>
+          <li><strong>Адрес для корреспонденции:</strong> 109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15</li>
+          <li><strong>Email:</strong> <a href="mailto:support@taopost.ru">support@taopost.ru</a></li>
           <li><strong>Партнёр в КНР (выкуп/склад):</strong> Guangzhou Yashiming Import &amp; Export Co., Ltd. (广州亚世名进出口有限公司), рег. код КНР 91440100MAEGJX2C1Y</li>
         </ul>
       </Section>

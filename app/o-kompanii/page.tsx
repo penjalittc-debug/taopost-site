@@ -54,7 +54,7 @@ const organizationLd = {
   image: 'https://taopost.ru/og-image.png',
   description: 'Карго доставка из Китая в Россию. Бренд работает с 2019 года; юр.лицо в КНР зарегистрировано в апреле 2025 года. Представитель в РФ — ИП Гасанова А. Р.',
   telephone: '+7 977 276 77 78',
-  email: 'info@taopost.ru',
+  email: 'support@taopost.ru',
   foundingDate: '2019',
   taxID: '91440100MAEGJX2C1Y',
   identifier: [

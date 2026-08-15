@@ -114,8 +114,7 @@ export default function TermsPage() {
       <Section title="10. Контакты">
         <p>По вопросам, связанным с оказанием услуг, обращайтесь:</p>
         <ul>
-          <li>Email: <a href="mailto:info@taopost.ru">info@taopost.ru</a></li>
-          <li>Email (обращения и жалобы): <a href="mailto:help@taopost.ru">help@taopost.ru</a></li>
+          <li>Email (в том числе обращения и жалобы): <a href="mailto:support@taopost.ru">support@taopost.ru</a></li>
           <li>Telegram: <a href="https://t.me/taopostsupport">@taopostsupport</a></li>
         </ul>
       </Section>
@@ -131,8 +130,8 @@ export default function TermsPage() {
           <li><strong>Сокращённое наименование:</strong> ИП Гасанова А. Р.</li>
           <li><strong>ИНН:</strong> 772300526747</li>
           <li><strong>ОГРНИП:</strong> 324774600431591</li>
-          <li><strong>Адрес регистрации:</strong> 127282, г. Москва, ул. Широкая, д. 3, к. 2, кв. 160</li>
-          <li><strong>Email:</strong> <a href="mailto:info@taopost.ru">info@taopost.ru</a></li>
+          <li><strong>Адрес для корреспонденции:</strong> 109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15</li>
+          <li><strong>Email:</strong> <a href="mailto:support@taopost.ru">support@taopost.ru</a></li>
         </ul>
         <p><strong>Партнёр по логистике в КНР:</strong></p>
         <ul>

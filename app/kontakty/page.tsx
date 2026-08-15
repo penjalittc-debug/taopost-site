@@ -8,7 +8,7 @@ import s from './kontakty.module.css';
 
 export const metadata: Metadata = {
   title: 'Контакты TaoPost — телефон, Telegram, email, склад в Китае',
-  description: 'Связаться с TaoPost: +7 977 276 77 78, Telegram @taopostsupport, info@taopost.ru. Склад в Гуанчжоу — 广州亚世名进出口有限公司. Поддержка 9:00-22:00 МСК.',
+  description: 'Связаться с TaoPost: +7 977 276 77 78, Telegram @taopostsupport, support@taopost.ru. Склад в Гуанчжоу — 广州亚世名进出口有限公司. Поддержка 9:00-22:00 МСК.',
   alternates: { canonical: 'https://taopost.ru/kontakty' },
   openGraph: {
     title: 'Контакты TaoPost',
@@ -38,7 +38,7 @@ const orgLd = {
   legalName: 'Guangzhou Yashiming Import & Export Co., Ltd. (广州亚世名进出口有限公司)',
   url: 'https://taopost.ru',
   telephone: '+7 977 276 77 78',
-  email: 'info@taopost.ru',
+  email: 'support@taopost.ru',
   taxID: '91440100MAEGJX2C1Y',
   address: {
     '@type': 'PostalAddress',
@@ -79,8 +79,7 @@ type Channel = {
 const CHANNELS: Channel[] = [
   { Icon: Send, title: 'Telegram (главный)', value: '@taopostsupport', href: 'https://t.me/taopostsupport?start=site', note: 'Ответ в среднем за 5 минут · 9:00-22:00 МСК', goal: 'telegram_click', external: true },
   { Icon: Phone, title: 'Телефон', value: '+7 977 276 77 78', href: 'tel:+79772767778', note: 'Звонки в рабочее время', goal: 'phone_click' },
-  { Icon: Mail, title: 'Email · сотрудничество', value: 'info@taopost.ru', href: 'mailto:info@taopost.ru', note: 'Для партнёров и бизнеса', goal: 'email_click' },
-  { Icon: Mail, title: 'Email · жалобы и спорные вопросы', value: 'help@taopost.ru', href: 'mailto:help@taopost.ru', note: 'Для срочных обращений по заказам', goal: 'email_click' },
+  { Icon: Mail, title: 'Email', value: 'support@taopost.ru', href: 'mailto:support@taopost.ru', note: 'Сотрудничество, обращения и спорные вопросы', goal: 'email_click' },
   { Icon: MessageCircle, title: 'Telegram-канал', value: '@taopost', href: 'https://t.me/taopostsupport', note: 'Новости, акции, выгрузка склада', goal: 'channel_click', external: true },
 ];
 

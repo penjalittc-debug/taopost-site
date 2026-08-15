@@ -196,12 +196,12 @@ export async function POST(req: NextRequest) {
 </body></html>`;
 
   const from = process.env.RESEND_FROM || 'TaoPost <onboarding@resend.dev>';
-  const to = process.env.RESEND_TO || 'info@taopost.ru';
+  const to = process.env.RESEND_TO || 'support@taopost.ru';
 
   const { error } = await resend.emails.send({
     from,
     to,
-    replyTo: 'info@taopost.ru',
+    replyTo: 'support@taopost.ru',
     subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
     text,
     html,
@@ -279,12 +279,12 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
 </body></html>`;
 
   const from = process.env.RESEND_FROM || 'TaoPost <onboarding@resend.dev>';
-  const to = process.env.RESEND_TO || 'info@taopost.ru';
+  const to = process.env.RESEND_TO || 'support@taopost.ru';
 
   const { error } = await resend.emails.send({
     from,
     to,
-    replyTo: 'info@taopost.ru',
+    replyTo: 'support@taopost.ru',
     subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
     text,
     html,
