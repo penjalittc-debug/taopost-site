@@ -190,10 +190,10 @@ export default function Footer() {
           <div className="ftr__reqsTitle">Реквизиты</div>
           <div className="ftr__reqsBody">
             <div>
-              ООО «АЗИЗОВ ГРУПП» · ИНН 9721235929 · ОГРН 1247700473921
+              ИП Гасанова А. Р. · ИНН 772300526747 · ОГРНИП 324774600431591
             </div>
             <div>
-              109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15
+              127282, г. Москва, ул. Широкая, д. 3, к. 2, кв. 160
             </div>
             <div>
               Партнёр в КНР (выкуп/склад): Guangzhou Yashiming Import &amp; Export Co., Ltd.
