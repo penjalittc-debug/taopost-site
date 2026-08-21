@@ -6,7 +6,7 @@ import { Calculator as CalcIcon, TrendingUp, AlertTriangle } from 'lucide-react'
 const DEFAULT_CNY_RATE = 13;
 const COMMISSION_PERCENT = 3;
 const INSURANCE_PERCENT = 2;
-const AUTO_RATE_RUB_KG = 350;
+const AUTO_RATE_RUB_KG = 450;
 const AIR_RATE_RUB_KG = 2700;
 
 function rub(value: number): string {
@@ -154,7 +154,7 @@ export default function Wholesale1688Calc() {
                       transition: 'all .15s',
                     }}
                   >
-                    Авто · 350 ₽/кг
+                    Авто · 450 ₽/кг
                   </button>
                   <button
                     type="button"

@@ -2,8 +2,8 @@
 import { Truck, Plane, Shield, Package, ShoppingCart, Camera, Boxes, Send, Info, Lightbulb, type LucideIcon } from 'lucide-react';
 
 const AUTO_ROWS = [
-  { route: 'Иу → Москва', time: '15–20 дней', price: 'от 350 ₽/кг', note: 'Автодоставка' },
-  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: 'от 350 ₽/кг', note: 'Автодоставка' },
+  { route: 'Иу → Москва', time: '15–20 дней', price: '450 ₽/кг', note: 'Автодоставка' },
+  { route: 'Гуанчжоу → Москва', time: '18–25 дней', price: '450 ₽/кг', note: 'Автодоставка' },
   { route: 'Цзиси → Уссурийск', time: 'Скоро', price: 'Скоро', note: 'Новый маршрут' },
 ];
 
