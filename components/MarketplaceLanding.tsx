@@ -156,7 +156,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                   </div>
                   <div className={s.factRow}>
                     <span className={s.factKey}>Комиссия выкупа</span>
-                    <span className={`${s.factVal} ${s.factValAccent}`}>0%</span>
+                    <span className={`${s.factVal} ${s.factValAccent}`}>5% · мин. 1 000 ₽</span>
                   </div>
                 </div>
               </div>
