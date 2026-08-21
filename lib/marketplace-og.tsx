@@ -73,7 +73,7 @@ export function marketplaceOgImage(mp: Marketplace) {
             color: '#374151',
             fontWeight: 600,
           }}>
-            <div style={{ display: 'flex' }}>от 350 ₽/кг</div>
+            <div style={{ display: 'flex' }}>450 ₽/кг</div>
             <div style={{ display: 'flex', color: '#9CA3AF' }}>·</div>
             <div style={{ display: 'flex' }}>15-25 дней</div>
             <div style={{ display: 'flex', color: '#9CA3AF' }}>·</div>

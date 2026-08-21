@@ -4,7 +4,7 @@ import { Send, Truck, Plane, Ruler, Coins, Sparkles, Clock, Package, Footprints,
 
 type Transport = 'auto' | 'air';
 
-const RATES: Record<Transport, number> = { auto: 350, air: 2700 };
+const RATES: Record<Transport, number> = { auto: 450, air: 2700 };
 const TERMS: Record<Transport, string> = { auto: '15–25 дней', air: '3–5 дней' };
 const INSURANCE_RATE = 0.02;
 const VOL_DIVISOR = 6000;
@@ -127,7 +127,7 @@ export default function Calculator() {
               <div className="calc__label">Способ доставки</div>
               <div className="calc__transport">
                 {([
-                  { key: 'auto' as const, Icon: Truck, title: 'Автодоставка', meta: 'от 350 ₽/кг · 15–25 дней' },
+                  { key: 'auto' as const, Icon: Truck, title: 'Автодоставка', meta: '450 ₽/кг · 15–25 дней' },
                   { key: 'air' as const, Icon: Plane, title: 'Авиадоставка', meta: 'от 2 700 ₽/кг · 3–5 дней' },
                 ]).map(({ key, Icon, title, meta }) => {
                   const active = transport === key;
