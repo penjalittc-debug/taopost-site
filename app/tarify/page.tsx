@@ -9,12 +9,12 @@ import PageCta from '@/components/PageCta';
 import s from './tarify.module.css';
 
 export const metadata: Metadata = {
-  title: 'Тарифы TaoPost — авто от 350 ₽/кг, авиа от 2 700 ₽/кг',
-  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней от 350 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости, страховка, программа лояльности.',
+  title: 'Тарифы TaoPost — авто 450 ₽/кг, авиа от 2 700 ₽/кг',
+  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости, страховка, программа лояльности.',
   alternates: { canonical: 'https://taopost.ru/tarify' },
   openGraph: {
     title: 'Тарифы доставки из Китая в Россию | TaoPost',
-    description: 'Авто 15-25 дней от 350 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости и программа кешбэка.',
+    description: 'Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости и программа кешбэка.',
     url: 'https://taopost.ru/tarify',
     siteName: 'TaoPost',
     locale: 'ru_RU',
@@ -80,11 +80,11 @@ const serviceLd = {
   offers: {
     '@type': 'AggregateOffer',
     priceCurrency: 'RUB',
-    lowPrice: '350',
+    lowPrice: '450',
     highPrice: '2700',
     offerCount: 2,
     offers: [
-      { '@type': 'Offer', name: 'Автодоставка', price: '350', priceCurrency: 'RUB' },
+      { '@type': 'Offer', name: 'Автодоставка', price: '450', priceCurrency: 'RUB' },
       { '@type': 'Offer', name: 'Авиадоставка', price: '2700', priceCurrency: 'RUB' },
     ],
   },
@@ -102,7 +102,7 @@ export default function TarifyPage() {
           currentCrumb="Тарифы"
           pill="💰 Прозрачные тарифы"
           title={<>Тарифы доставки<br /><span style={{ color: '#005C43' }}>из Китая в Россию</span></>}
-          lede="Авто от 350 ₽/кг (15-25 дней) или авиа от 2 700 ₽/кг (3-5 дней). Без комиссии за выкуп с маркетплейсов. Калькулятор и программа лояльности ниже."
+          lede="Авто 450 ₽/кг (15-25 дней) или авиа от 2 700 ₽/кг (3-5 дней). Без комиссии за выкуп с маркетплейсов. Калькулятор и программа лояльности ниже."
         />
 
         <Tariffs />

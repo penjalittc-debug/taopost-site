@@ -102,18 +102,18 @@ const serviceJsonLd = {
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "RUB",
-    "lowPrice": "350",
+    "lowPrice": "450",
     "highPrice": "2700",
     "offerCount": 2,
     "offers": [
       {
         "@type": "Offer",
         "name": "Автодоставка из Китая",
-        "price": "350",
+        "price": "450",
         "priceCurrency": "RUB",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "350",
+          "price": "450",
           "priceCurrency": "RUB",
           "unitCode": "KGM",
           "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "KGM" }

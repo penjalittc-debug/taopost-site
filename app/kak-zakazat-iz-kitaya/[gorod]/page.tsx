@@ -123,7 +123,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
     },
     {
       q: `Сколько стоит доставка из Китая ${city.nameIn}?`,
-      a: `Авто-тариф — от 350 ₽/кг. Авиа — от 2 700 ₽/кг. Минимум с Taobao и Pinduoduo — 5 кг. С Poizon выкупаем от 1 пары кроссовок. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
+      a: `Авто-тариф — 450 ₽/кг. Авиа — от 2 700 ₽/кг. Минимум с Taobao и Pinduoduo — 5 кг. С Poizon выкупаем от 1 пары кроссовок. Стоимость доставки до пункта выдачи ${city.nameLocative} рассчитывается отдельно (СДЭК/Boxberry).`,
     },
     {
       q: `Как получить посылку ${city.nameLocative}?`,
@@ -176,7 +176,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
     areaServed: { '@type': 'City', name: city.name },
     description: `Карго доставка товаров из Китая ${city.nameIn} с Taobao, Poizon, Pinduoduo, 1688. Срок ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа).`,
     offers: [
-      { '@type': 'Offer', name: 'Автодоставка', price: '350', priceCurrency: 'RUB', priceSpecification: { '@type': 'UnitPriceSpecification', price: '350', priceCurrency: 'RUB', unitCode: 'KGM' } },
+      { '@type': 'Offer', name: 'Автодоставка', price: '450', priceCurrency: 'RUB', priceSpecification: { '@type': 'UnitPriceSpecification', price: '450', priceCurrency: 'RUB', unitCode: 'KGM' } },
       { '@type': 'Offer', name: 'Авиадоставка', price: '2700', priceCurrency: 'RUB', priceSpecification: { '@type': 'UnitPriceSpecification', price: '2700', priceCurrency: 'RUB', unitCode: 'KGM' } },
     ],
     url: `https://taopost.ru/kak-zakazat-iz-kitaya/${city.slug}`,
@@ -217,7 +217,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 <div className={s.statLabel}>Авто-доставка</div>
               </div>
               <div className={s.statCard}>
-                <div className={s.statValue}>350 ₽/кг</div>
+                <div className={s.statValue}>450 ₽/кг</div>
                 <div className={s.statLabel}>Цена за кг</div>
               </div>
               <div className={s.statCard}>
@@ -289,7 +289,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
                 </div>
                 <div>
                   <div className={s.infoLabel}>Тариф авто</div>
-                  <div className={s.infoValue}>от 350 ₽/кг</div>
+                  <div className={s.infoValue}>450 ₽/кг</div>
                 </div>
                 <div>
                   <div className={s.infoLabel}>Тариф авиа</div>

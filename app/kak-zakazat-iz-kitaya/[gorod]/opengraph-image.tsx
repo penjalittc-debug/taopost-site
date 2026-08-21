@@ -85,7 +85,7 @@ export default async function Image({ params }: Props) {
           }}>
             <div style={{ display: 'flex' }}>Авто {days}</div>
             <div style={{ display: 'flex' }}>·</div>
-            <div style={{ display: 'flex' }}>от 350 ₽/кг</div>
+            <div style={{ display: 'flex' }}>450 ₽/кг</div>
             <div style={{ display: 'flex' }}>·</div>
             <div style={{ display: 'flex' }}>Taobao · Poizon · 1688</div>
           </div>
