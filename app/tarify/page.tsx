@@ -2,19 +2,19 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Tariffs from '@/components/Tariffs';
+import CargoChecklist from '@/components/CargoChecklist';
 import Calculator from '@/components/Calculator';
-import Loyalty from '@/components/Loyalty';
 import PageHero from '@/components/PageHero';
 import PageCta from '@/components/PageCta';
 import s from './tarify.module.css';
 
 export const metadata: Metadata = {
   title: 'Тарифы TaoPost — авто 450 ₽/кг, авиа от 2 700 ₽/кг',
-  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости, страховка, программа лояльности.',
+  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости, страховка, честный единый тариф.',
   alternates: { canonical: 'https://taopost.ru/tarify' },
   openGraph: {
     title: 'Тарифы доставки из Китая в Россию | TaoPost',
-    description: 'Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости и программа кешбэка.',
+    description: 'Авто 15-25 дней 450 ₽/кг, авиа 3-5 дней от 2 700 ₽/кг. Калькулятор стоимости и прозрачные условия.',
     url: 'https://taopost.ru/tarify',
     siteName: 'TaoPost',
     locale: 'ru_RU',
@@ -42,7 +42,7 @@ const TARIFFS_FAQ = [
   },
   {
     q: 'Есть ли скидки на большие заказы?',
-    a: 'Да, действует программа лояльности с кешбэком и сниженными тарифами для постоянных клиентов. Чем больше отправок — тем ниже стоимость килограмма. Подробности в разделе "Программа лояльности" ниже.',
+    a: 'Тариф единый — 450 ₽/кг при любом весе и объёме, без порогов. Для оптовых партий с 1688 условия считаем индивидуально — напишите менеджеру.',
   },
   {
     q: 'Есть ли скрытые комиссии?',
@@ -102,12 +102,12 @@ export default function TarifyPage() {
           currentCrumb="Тарифы"
           pill="💰 Прозрачные тарифы"
           title={<>Тарифы доставки<br /><span style={{ color: '#005C43' }}>из Китая в Россию</span></>}
-          lede="Авто 450 ₽/кг (15-25 дней) или авиа от 2 700 ₽/кг (3-5 дней). Калькулятор и программа лояльности ниже."
+          lede="Авто 450 ₽/кг (15-25 дней) или авиа от 2 700 ₽/кг (3-5 дней). Калькулятор ниже."
         />
 
         <Tariffs />
+        <CargoChecklist />
         <Calculator />
-        <Loyalty />
 
         <section className={s.faqSection}>
           <div className={s.faqInner}>

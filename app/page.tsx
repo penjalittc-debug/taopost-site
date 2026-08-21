@@ -1,24 +1,14 @@
 import Header from '@/components/Header';
 import HeroV3 from '@/components/HeroV3';
-import About from '@/components/About';
 import PriceComparison from '@/components/PriceComparison';
 import Marketplaces from '@/components/Marketplaces';
 import HowItWorks from '@/components/HowItWorks';
 import Calculator from '@/components/Calculator';
-import Tariffs from '@/components/Tariffs';
-import Loyalty from '@/components/Loyalty';
-import WarehouseGallery from '@/components/WarehouseGallery';
 import Reviews from '@/components/Reviews';
 import FAQTeaser from '@/components/FAQTeaser';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
-import Cities from '@/components/Cities';
-import BlogPreview from '@/components/BlogPreview';
-import LeadForm from '@/components/LeadForm';
-import TgVsUs from '@/components/TgVsUs';
-import CargoChecklist from '@/components/CargoChecklist';
-import B2B from '@/components/B2B';
 import { PRODUCTS } from '@/lib/products';
 
 const jsonLd = {
@@ -231,23 +221,17 @@ export default function Home() {
       ))}
       <Header />
       <main>
+        {/* Главная = 8 блоков (реш. владельца 21.08.2026): понять цену →
+            написать в Telegram. Остальное — на своих страницах: тарифы и
+            чек-лист на /tarify, B2B на /business, о компании и склад на
+            /o-kompanii, города и блог — в футере. */}
         <HeroV3 />
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><Calculator /></FadeIn>
         <FadeIn delay={50}><Marketplaces /></FadeIn>
-        <FadeIn delay={50}><TgVsUs /></FadeIn>
-        <FadeIn delay={50}><CargoChecklist /></FadeIn>
-        <FadeIn delay={50}><Tariffs /></FadeIn>
-        <FadeIn delay={50}><Loyalty /></FadeIn>
-        <FadeIn delay={50}><WarehouseGallery /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
-        <FadeIn><About /></FadeIn>
-        <FadeIn delay={50}><B2B /></FadeIn>
-        <FadeIn delay={50}><Cities /></FadeIn>
-        <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><FAQTeaser /></FadeIn>
-        <FadeIn delay={50}><BlogPreview /></FadeIn>
         <FadeIn delay={50}><CTAV2 /></FadeIn>
       </main>
       <Footer />
