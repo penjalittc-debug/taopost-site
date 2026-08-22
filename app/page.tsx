@@ -3,7 +3,7 @@ import HeroV3 from '@/components/HeroV3';
 import PriceComparison from '@/components/PriceComparison';
 import Marketplaces from '@/components/Marketplaces';
 import HowItWorks from '@/components/HowItWorks';
-import Calculator from '@/components/Calculator';
+import ParcelCalculator from '@/components/ParcelCalculator';
 import Reviews from '@/components/Reviews';
 import FAQTeaser from '@/components/FAQTeaser';
 import CTAV2 from '@/components/CTAV2';
@@ -228,7 +228,7 @@ export default function Home() {
         <HeroV3 />
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
-        <FadeIn delay={50}><Calculator /></FadeIn>
+        <FadeIn delay={50}><ParcelCalculator /></FadeIn>
         <FadeIn delay={50}><Marketplaces /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
         <FadeIn delay={50}><FAQTeaser /></FadeIn>

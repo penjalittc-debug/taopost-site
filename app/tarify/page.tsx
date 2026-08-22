@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Tariffs from '@/components/Tariffs';
 import CargoChecklist from '@/components/CargoChecklist';
-import Calculator from '@/components/Calculator';
+import ParcelCalculator from '@/components/ParcelCalculator';
 import PageHero from '@/components/PageHero';
 import PageCta from '@/components/PageCta';
 import s from './tarify.module.css';
@@ -107,7 +107,7 @@ export default function TarifyPage() {
 
         <Tariffs />
         <CargoChecklist />
-        <Calculator />
+        <ParcelCalculator />
 
         <section className={s.faqSection}>
           <div className={s.faqInner}>
