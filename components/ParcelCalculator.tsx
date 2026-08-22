@@ -71,6 +71,7 @@ export default function ParcelCalculator() {
   const cargoRub = billable * RATE_RUB;
   const weightG = Math.round(weightKg * 1000);
   const hasWeight = weightG >= 100;
+  const isMoscow = !!city && (city.code === 44 || city.city.trim().toLowerCase() === 'москва');
 
   // Тарифы СДЭК + Почты на смену города/веса/габаритов, с дебаунсом.
   useEffect(() => {
@@ -228,11 +229,12 @@ export default function ParcelCalculator() {
             {hasWeight && (
               <div className="pc__cargo">
                 <div className="pc__cargoRow">
-                  <span>Доставка из Китая (Москва)</span>
+                  <span>Доставка из Китая</span>
                   <b>{fmtRub(cargoRub)}</b>
                 </div>
                 <div className="pc__cargoSub">
-                  К оплате {String(billable).replace('.', ',')} кг × {RATE_RUB} ₽/кг · срок{' '}
+                  До распределительного центра в РФ · к оплате{' '}
+                  {String(billable).replace('.', ',')} кг × {RATE_RUB} ₽/кг · срок{' '}
                   {CARGO_DAYS_MIN}–{CARGO_DAYS_MAX} дней · упаковка включена
                 </div>
               </div>
@@ -248,21 +250,25 @@ export default function ParcelCalculator() {
                 <div className="pc__hint">Укажите размер или вес посылки — покажем стоимость.</div>
               )}
               {hasWeight && !city && (
-                <div className="pc__hint">Выберите город — сравним СДЭК, Почту и самовывоз.</div>
+                <div className="pc__hint">Выберите город — покажем стоимость получения.</div>
               )}
               {error && !loading && <div className="pc__err">{error}</div>}
 
-              {hasWeight && (
+              {hasWeight && city && (
                 <div className="pc__cards">
-                  <CarrierCard
-                    icon={<Warehouse size={16} strokeWidth={2.3} />}
-                    name="Самовывоз Москва"
-                    note="со склада TaoPost, ТЯК «Москва»"
-                    rfCost={0}
-                    total={cargoRub}
-                    dateTo={etaDate(0)}
-                    free
-                  />
+                  {/* Самовывоз — только для Москвы: клиентам из регионов не
+                      показываем, что груз идёт через Москву (реш. 22.08.2026). */}
+                  {isMoscow && (
+                    <CarrierCard
+                      icon={<Warehouse size={16} strokeWidth={2.3} />}
+                      name="Самовывоз"
+                      note="со склада TaoPost, ТЯК «Москва»"
+                      rfCost={0}
+                      total={cargoRub}
+                      dateTo={etaDate(0)}
+                      free
+                    />
+                  )}
                   {loading && (
                     <div className="pc__cardLoading">
                       <Loader2 size={16} className="pc__spin" /> Считаем СДЭК и Почту…
