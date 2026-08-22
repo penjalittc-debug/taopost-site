@@ -71,7 +71,7 @@ const jsonLd = {
     "Доставка с 1688"
   ],
   "sameAs": [
-    "https://t.me/taopostsupport"
+    "https://t.me/Taopostchat_official"
   ]
   // Review/AggregateRating намеренно НЕ размечаем: текущие отзывы — демо/заглушки
   // (placeholder-фото, обобщённые имена). Self-serving разметку отзывов Google
@@ -168,10 +168,10 @@ const productsJsonLd = PRODUCTS.filter((p) => PRODUCT_JSONLD_PICKS.includes(p.na
 function TelegramFloat() {
   return (
     <a
-      href="https://t.me/taopostsupport?start=site"
+      href="https://t.me/Taopostchat_official"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Написать менеджеру в Telegram"
+      aria-label="Написать в Telegram-чат TaoPost"
       data-ym-goal="telegram_click"
       data-ym-params='{"place":"float"}'
       style={{

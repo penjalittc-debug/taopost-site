@@ -77,7 +77,7 @@ export default function Calculator() {
       itemPrice ? `💰 Стоимость товара: ${formatRub(parseFloat(itemPrice.replace(/\s/g, '').replace(',', '.')) || 0)} ₽` : null,
       hasResult ? `📊 Предварительный расчёт: ≈ ${formatRub(calc.total)} ₽` : null,
     ].filter(Boolean).join('\n');
-    return `https://t.me/taopostsupport?text=${encodeURIComponent(lines)}`;
+    return `https://t.me/Taopostchat_official?text=${encodeURIComponent(lines)}`;
   }, [transport, mode, selectedBox, customWeight, customL, customW, customH, itemPrice, calc.total, hasResult]);
 
   return (

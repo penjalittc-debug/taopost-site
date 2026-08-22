@@ -114,7 +114,7 @@ export default function Tariffs() {
               ))}
             </div>
             <a
-              href="https://t.me/taopostsupport?start=site"
+              href="https://t.me/Taopostchat_official"
               target="_blank"
               rel="noopener noreferrer"
               className="tp-btn tp-btn--primary tar__cta"

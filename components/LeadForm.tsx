@@ -68,7 +68,7 @@ export default function LeadForm() {
               <h3>Заявка принята!</h3>
               <p>Менеджер свяжется с вами в ближайшее время. Если удобнее — можно написать нам в&nbsp;Telegram прямо сейчас.</p>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="lf__tg"
@@ -174,7 +174,7 @@ export default function LeadForm() {
               {status === 'error' && (
                 <p className="lf__err">
                   Не удалось отправить. Напишите нам в{' '}
-                  <a href="https://t.me/taopostsupport?start=site" target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
+                  <a href="https://t.me/Taopostchat_official" target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
                   или позвоните <a href="tel:+79772767778">+7 977 276 77 78</a>.
                 </p>
               )}

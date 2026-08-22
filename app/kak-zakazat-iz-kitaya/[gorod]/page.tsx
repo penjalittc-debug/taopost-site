@@ -227,7 +227,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             </div>
 
             <a
-              href="https://t.me/taopostsupport?start=site"
+              href="https://t.me/Taopostchat_official"
               target="_blank"
               rel="noopener noreferrer"
               className={s.heroCta}
@@ -412,8 +412,8 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
           title={`Заказать из Китая ${city.nameIn}`}
           lede="Менеджер ответит за 5 минут — поможет с выбором товара, оформлением и доставкой"
           actions={[
-            { label: 'Начать заказ →', href: 'https://t.me/taopostsupport?start=site', variant: 'primary', external: true },
-            { label: 'Telegram канал', href: 'https://t.me/taopostsupport', variant: 'ghost', external: true },
+            { label: 'Начать заказ →', href: 'https://t.me/Taopostchat_official', variant: 'primary', external: true },
+            { label: 'Telegram канал', href: 'https://t.me/Taopostchat_official', variant: 'ghost', external: true },
           ]}
         />
 

@@ -167,7 +167,7 @@ export default function ExitIntent() {
                 : 'Учтём ваш ответ — это поможет нам сделать сервис понятнее.'}
             </p>
             <a
-              href="https://t.me/taopostsupport?start=exit"
+              href="https://t.me/Taopostchat_official?start=exit"
               target="_blank"
               rel="noopener noreferrer"
               className="ei__tg"

@@ -175,7 +175,7 @@ export default function B2BForm() {
           {status === 'error' && (
             <p className="b2bf__err">
               Не удалось отправить. Напишите нам в{' '}
-              <a href="https://t.me/taopostsupport?start=b2b" target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
+              <a href="https://t.me/Taopostchat_official?start=b2b" target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
               или на <a href="mailto:support@taopost.ru">support@taopost.ru</a>.
             </p>
           )}

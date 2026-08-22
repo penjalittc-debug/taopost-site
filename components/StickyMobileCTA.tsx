@@ -42,7 +42,7 @@ export default function StickyMobileCTA() {
         Рассчитать
       </a>
       <a
-        href="https://t.me/taopostsupport?start=site"
+        href="https://t.me/Taopostchat_official"
         target="_blank"
         rel="noopener noreferrer"
         className="smc__btn smc__btn--tg"

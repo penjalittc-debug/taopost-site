@@ -97,7 +97,7 @@ export default function BlogPage() {
               Менеджеры TaoPost помогут с любым вопросом и оформят доставку из Китая
             </p>
             <a
-              href="https://t.me/taopostsupport?start=site"
+              href="https://t.me/Taopostchat_official"
               target="_blank"
               rel="noopener noreferrer"
               className={s.ctaLink}

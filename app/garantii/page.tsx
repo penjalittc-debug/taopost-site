@@ -176,7 +176,7 @@ export default function GarantiiPage() {
           actions={[
             {
               label: 'Написать в Telegram →',
-              href: 'https://t.me/taopostsupport?start=site',
+              href: 'https://t.me/Taopostchat_official',
               external: true,
               ymGoal: 'telegram_click',
               ymParams: '{"place":"garantii_cta"}',

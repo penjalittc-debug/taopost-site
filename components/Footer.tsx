@@ -40,7 +40,7 @@ export default function Footer() {
             </p>
             <div className="ftr__socials">
               <a
-                href="https://t.me/taopostsupport"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ftr__socBtn ftr__socBtn--tg"
@@ -51,7 +51,7 @@ export default function Footer() {
                 <Send size={18} strokeWidth={2.3} />
               </a>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ftr__socBtn ftr__socBtn--msg"
@@ -96,14 +96,14 @@ export default function Footer() {
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Telegram (менеджер)</div>
                 <a
-                  href="https://t.me/taopostsupport"
+                  href="https://t.me/Taopostchat_official"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ftr__contactValue ftr__contactValue--accent"
                   data-ym-goal="telegram_click"
                   data-ym-params='{"place":"footer_contacts"}'
                 >
-                  @taopostsupport
+                  @Taopostchat_official
                 </a>
               </div>
               <div className="ftr__contact">

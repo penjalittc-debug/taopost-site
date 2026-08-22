@@ -76,7 +76,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
     },
     totalTime: 'P25D',
     supply: [{ '@type': 'HowToSupply', name: `Ссылка на товар на ${mp.name}` }],
-    tool: [{ '@type': 'HowToTool', name: 'Telegram (@taopostsupport)' }],
+    tool: [{ '@type': 'HowToTool', name: 'Telegram (@Taopostchat_official)' }],
     step: mp.steps.map((step, i) => ({
       '@type': 'HowToStep',
       position: i + 1,
@@ -119,7 +119,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
 
                 <div className={s.ctaRow}>
                   <a
-                    href="https://t.me/taopostsupport?start=site"
+                    href="https://t.me/Taopostchat_official"
                     target="_blank"
                     rel="noopener noreferrer"
                     data-ym-goal="telegram_click"
@@ -233,7 +233,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
             </p>
             <div className={s.ctaMidRow}>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-ym-goal="telegram_click"
@@ -333,7 +333,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
             </p>
             <div className={s.ctaFinalRow}>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-ym-goal="telegram_click"

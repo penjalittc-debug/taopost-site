@@ -75,7 +75,7 @@ export default function PriceComparison() {
         <div className="pc__cta">
           <p className="pc__ctaText">Хотите узнать цену конкретного товара?</p>
           <a
-            href="https://t.me/taopostsupport?start=site"
+            href="https://t.me/Taopostchat_official"
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary"

@@ -152,7 +152,7 @@ export default function Marketplaces() {
             Не нашли нужный маркетплейс? Мы работаем и с другими площадками — напишите нам
           </p>
           <a
-            href="https://t.me/taopostsupport?start=site"
+            href="https://t.me/Taopostchat_official"
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary"

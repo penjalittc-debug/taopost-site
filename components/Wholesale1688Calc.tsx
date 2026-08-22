@@ -273,7 +273,7 @@ export default function Wholesale1688Calc() {
             </div>
 
             <a
-              href="https://t.me/taopostsupport?start=site"
+              href="https://t.me/Taopostchat_official"
               target="_blank"
               rel="noopener noreferrer"
               data-ym-goal="telegram_click"

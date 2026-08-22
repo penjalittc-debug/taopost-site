@@ -115,7 +115,7 @@ export default function TermsPage() {
         <p>По вопросам, связанным с оказанием услуг, обращайтесь:</p>
         <ul>
           <li>Email (в том числе обращения и жалобы): <a href="mailto:support@taopost.ru">support@taopost.ru</a></li>
-          <li>Telegram: <a href="https://t.me/taopostsupport">@taopostsupport</a></li>
+          <li>Telegram: <a href="https://t.me/Taopostchat_official">@Taopostchat_official</a></li>
         </ul>
       </Section>
 

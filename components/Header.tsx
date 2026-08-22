@@ -56,7 +56,7 @@ export default function Header() {
           </a>
 
           <a
-            href="https://t.me/taopostsupport?start=site"
+            href="https://t.me/Taopostchat_official"
             target="_blank"
             rel="noopener noreferrer"
             className="hdr__cta"
@@ -105,7 +105,7 @@ export default function Header() {
             Личный кабинет
           </a>
           <a
-            href="https://t.me/taopostsupport?start=site"
+            href="https://t.me/Taopostchat_official"
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--primary hdr__mobileCta"

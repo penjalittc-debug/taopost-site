@@ -95,7 +95,7 @@ export default function Loyalty() {
               Уровень считается по общему весу за месяц. Пример: в январе вы отправили 35 кг → в феврале у вас «Золото» и кешбэк 50 баллов с каждого кг. Накопленные баллы автоматически предложат списать при оплате следующей доставки в личном кабинете.
             </div>
           </div>
-          <a href="https://t.me/taopostsupport?start=site" target="_blank" rel="noopener noreferrer"
+          <a href="https://t.me/Taopostchat_official" target="_blank" rel="noopener noreferrer"
             data-ym-goal="telegram_click"
             data-ym-params='{"place":"loyalty"}'
             style={{
@@ -156,7 +156,7 @@ export default function Loyalty() {
             </p>
           </div>
           <a
-            href="https://t.me/taopostsupport?start=referral"
+            href="https://t.me/Taopostchat_official?start=referral"
             target="_blank"
             rel="noopener noreferrer"
             data-ym-goal="referral_click"

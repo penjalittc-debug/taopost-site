@@ -220,7 +220,7 @@ export default async function ArticlePage({ params }: Props) {
                 Все маркетплейсы
               </Link>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-ym-goal="telegram_click"

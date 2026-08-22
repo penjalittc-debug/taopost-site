@@ -41,7 +41,7 @@ export default function CTAV2() {
                 Оформить в личном кабинете
               </a>
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--ghost"
@@ -52,7 +52,7 @@ export default function CTAV2() {
                 Написать в Telegram
               </a>
               <a
-                href="https://t.me/taopostsupport"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--ghost"

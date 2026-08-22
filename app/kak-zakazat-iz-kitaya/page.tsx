@@ -183,7 +183,7 @@ export default function GuidePage() {
               кто заказывает из Китая впервые и для опытных покупателей
               <br />
               <a
-                href="https://t.me/taopostsupport?start=site"
+                href="https://t.me/Taopostchat_official"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={s.heroCta}
@@ -250,14 +250,14 @@ export default function GuidePage() {
           actions={[
             {
               label: 'Начать заказ →',
-              href: 'https://t.me/taopostsupport?start=site',
+              href: 'https://t.me/Taopostchat_official',
               external: true,
               ymGoal: 'telegram_click',
               ymParams: '{"place":"guide_index_cta"}',
             },
             {
               label: 'Написать в Telegram',
-              href: 'https://t.me/taopostsupport',
+              href: 'https://t.me/Taopostchat_official',
               variant: 'ghost',
               external: true,
               ymGoal: 'channel_click',
