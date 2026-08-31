@@ -71,11 +71,16 @@ export default function ParcelCalculator() {
   const cargoRub = billable * RATE_RUB;
   const weightG = Math.round(weightKg * 1000);
   const hasWeight = weightG >= 100;
+  // Потолок стороны — 99 см (реш. владельца 01.09.2026). Крупногабарит
+  // СДЭК-калькулятор считает по минимальному тарифу и цена врёт в меньшую
+  // сторону. Больше 99 см — индивидуальный расчёт через менеджера.
+  const MAX_SIDE_CM = 99;
+  const oversize = manual && [dims.l, dims.w, dims.h].some((v) => (v ?? 0) > MAX_SIDE_CM);
   const isMoscow = !!city && (city.code === 44 || city.city.trim().toLowerCase() === 'москва');
 
   // Тарифы СДЭК + Почты на смену города/веса/габаритов, с дебаунсом.
   useEffect(() => {
-    if (!city || weightG < 100) { setRates(null); return; }
+    if (!city || weightG < 100 || oversize) { setRates(null); return; }
     let cancelled = false;
     setLoading(true); setError(null);
     const params = new URLSearchParams({ to: String(city.code), weightG: String(weightG) });
@@ -95,7 +100,7 @@ export default function ParcelCalculator() {
     }, 350);
     return () => { cancelled = true; clearTimeout(timer); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city, weightG, dims.l, dims.w, dims.h]);
+  }, [city, weightG, dims.l, dims.w, dims.h, oversize]);
 
   const ymParams = JSON.stringify({
     place: 'calculator',
@@ -226,7 +231,22 @@ export default function ParcelCalculator() {
               <CityInput city={city} onSelect={setCity} />
             </div>
 
-            {hasWeight && (
+            {oversize && (
+              <div className="pc__oversize">
+                📏 Сторона больше {MAX_SIDE_CM} см — это крупногабарит,
+                автоматический расчёт для него не работает. Стоимость посчитает
+                менеджер индивидуально — напишите нам в Telegram.
+                <a
+                  href="https://t.me/Taopostchat_official?start=oversize"
+                  target="_blank" rel="noopener noreferrer"
+                  className="pc__oversizeBtn"
+                >
+                  Написать в Telegram
+                </a>
+              </div>
+            )}
+
+            {hasWeight && !oversize && (
               <div className="pc__cargo">
                 <div className="pc__cargoRow">
                   <span>Доставка из Китая</span>
@@ -249,12 +269,15 @@ export default function ParcelCalculator() {
               {!hasWeight && (
                 <div className="pc__hint">Укажите размер или вес посылки — покажем стоимость.</div>
               )}
-              {hasWeight && !city && (
+              {hasWeight && !oversize && !city && (
                 <div className="pc__hint">Выберите город — покажем стоимость получения.</div>
+              )}
+              {oversize && (
+                <div className="pc__hint">Крупногабарит — индивидуальный расчёт, напишите менеджеру.</div>
               )}
               {error && !loading && <div className="pc__err">{error}</div>}
 
-              {hasWeight && city && (
+              {hasWeight && !oversize && city && (
                 <div className="pc__cards">
                   {/* Самовывоз — только для Москвы: клиентам из регионов не
                       показываем, что груз идёт через Москву (реш. 22.08.2026). */}
@@ -496,6 +519,16 @@ export default function ParcelCalculator() {
           border-radius: 10px;
           padding: 8px 12px;
           margin-bottom: 10px;
+        }
+        .pc__oversize {
+          background: #FFF7ED; border: 1px solid #FDBA74; color: #9A3412;
+          border-radius: 14px; padding: 14px 16px; font-size: 14px;
+          line-height: 1.5; font-weight: 600;
+        }
+        .pc__oversizeBtn {
+          display: inline-block; margin-top: 10px; text-decoration: none;
+          background: #EA580C; color: #fff; border-radius: 10px;
+          padding: 9px 16px; font-size: 13.5px; font-weight: 800;
         }
         .pc__cards {
           display: grid;
