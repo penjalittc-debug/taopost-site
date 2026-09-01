@@ -285,7 +285,7 @@ export default function ParcelCalculator() {
                     <CarrierCard
                       icon={<Warehouse size={16} strokeWidth={2.3} />}
                       name="Самовывоз"
-                      note="со склада TaoPost, ТЯК «Москва»"
+                      note="со склада TaoPost, 2-я Институтская, 6с12А"
                       rfCost={0}
                       total={cargoRub}
                       dateTo={etaDate(0)}
