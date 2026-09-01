@@ -42,24 +42,33 @@ chmod 600 ~/.ssh/authorized_keys
 ssh -i ~/.ssh/taopost_deploy <user>@<host>
 ```
 
-### 4. Добавить secrets в GitHub
+### 4. Добавить secret в GitHub
 
-Идёшь в репозиторий → **Settings** → **Secrets and variables** → **Actions**
-→ **New repository secret**. Добавляешь 4 секрета:
+Нужен **один** секрет — приватный ключ. Адрес сервера, пользователь и путь
+секретами не являются и с 01.09.2026 лежат дефолтами прямо в `deploy.yml`
+(`155.212.182.80`, `root`, `/var/www/taopost-site`).
 
-| Имя | Что положить | Пример |
-|---|---|---|
-| `SSH_HOST` | IP или домен сервера Selectel | `185.243.218.42` или `taopost.ru` |
-| `SSH_USER` | Имя пользователя на сервере | `root` или `deploy` |
-| `SSH_KEY` | Содержимое **приватного** ключа `~/.ssh/taopost_deploy` (целиком, с `-----BEGIN OPENSSH PRIVATE KEY-----` до `-----END OPENSSH PRIVATE KEY-----`) | — |
-| `DEPLOY_PATH` | Абсолютный путь к проекту на сервере | `/var/www/taopost-site` или `/home/deploy/taopost-site` |
+```bash
+gh secret set SSH_KEY -R penjalittc-debug/taopost-site < ~/.ssh/taopost_deploy
+```
 
-И опционально (если не дефолт):
+Или руками: репозиторий → **Settings** → **Secrets and variables** → **Actions**
+→ **New repository secret**, имя `SSH_KEY`, значение — содержимое приватного
+ключа целиком, от `-----BEGIN OPENSSH PRIVATE KEY-----` до
+`-----END OPENSSH PRIVATE KEY-----`.
+
+Остальные секреты нужны, только если что-то отличается от дефолта:
 
 | Имя | Когда нужен | Пример |
 |---|---|---|
+| `SSH_HOST` | Сервер переехал | `185.243.218.42` |
+| `SSH_USER` | Деплой не под root | `deploy` |
+| `DEPLOY_PATH` | Проект лежит не в `/var/www/taopost-site` | `/home/deploy/taopost-site` |
 | `SSH_PORT` | Если SSH висит не на 22 | `2222` |
-| `RELOAD_CMD` | Если используется не `pm2 reload all` | `systemctl restart taopost` или `sudo systemctl restart taopost.service` |
+| `RELOAD_CMD` | Если перезапуск не `pm2 reload taopost-site` | `systemctl restart taopost` |
+
+⚠️ `RELOAD_CMD` не ставь в `pm2 reload all`: на этом сервере рядом крутится
+`taopost-app` (личный кабинет), и деплой сайта ронял бы его на пару секунд.
 
 ### 5. Запустить деплой
 
@@ -77,8 +86,12 @@ git fetch origin main
 git reset --hard origin/main          # жёсткий ресет — чистая выкатка
 npm ci --no-audit --no-fund           # установка из package-lock
 npm run build                         # сборка Next.js
-$RELOAD_CMD                           # pm2 reload all (по умолчанию)
+$RELOAD_CMD                           # pm2 reload taopost-site (по умолчанию)
 ```
+
+Пока `SSH_KEY` не задан, шаг деплоя пропускается: push проходит с
+предупреждением в логе, ручной запуск падает — чтобы «нажал кнопку, ничего
+не задеплоилось» не выглядело как успешный прогон.
 
 ## Безопасность
 
