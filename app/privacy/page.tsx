@@ -102,7 +102,7 @@ export default function PrivacyPage() {
           <li><strong>Компания:</strong> 广州亚世名进出口有限公司 (Guangzhou Yashiming Import &amp; Export Co., Ltd.)</li>
           <li><strong>Регистрационный код (КНР):</strong> 91440100MAEGJX2C1Y</li>
           <li><strong>Юридический адрес:</strong> Гуанчжоу, район Ливань, ул. Чжаньцянь, 90</li>
-          <li><strong>Адрес склада:</strong> 广东省佛山市南海区里水镇流潮社区水口大道西3号 · 905百货旁 (Гуанчжоу / Фошань, КНР)</li>
+          <li><strong>Адрес склада:</strong> 广东省佛山南海区里水镇白塔村工业大道36号前排一楼 阿里 (Фошань, пров. Гуандун, КНР)</li>
         </ul>
         <p>Реестровая информация о партнёре в КНР доступна для проверки на сайте <a href="https://www.gsxt.gov.cn/" target="_blank" rel="noopener noreferrer">gsxt.gov.cn</a>.</p>
       </Section>
