@@ -83,9 +83,11 @@ const CHANNELS: Channel[] = [
   { Icon: MessageCircle, title: 'Telegram-канал', value: '@taopost', href: 'https://t.me/taopost', note: 'Новости, акции, выгрузка склада', goal: 'channel_click', external: true },
 ];
 
+// 01.09.2026: приёмка переехала на номер офиса. 183 0200 4584 выведен из
+// оборота (в ЛК его больше нет — src/lib/warehouse.ts), отдельная строка
+// «для курьеров» стала бы дублем офисного номера, поэтому убрана.
 const CHINA_CONTACTS = [
-  { label: 'Офис в Китае', value: '+86 185 2070 7778', href: 'tel:+8618520707778' },
-  { label: 'Для курьеров (приёмка)', value: '+86 183 0200 4584', href: 'tel:+8618302004584' },
+  { label: 'Офис и приёмка в Китае', value: '+86 185 2070 7778', href: 'tel:+8618520707778' },
 ];
 
 export default function KontaktyPage() {

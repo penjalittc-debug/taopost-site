@@ -128,14 +128,12 @@ export default function Footer() {
                   广东省佛山市南海区里水镇流潮社区水口大道西3号 · 905百货旁<br />
                   <span>志洋国际货运 · Открыть на карте →</span>
                 </a>
+                {/* 01.09.2026: приёмка переехала на номер офиса, 183 0200 4584
+                    выведен из оборота — вторая строка стала дублем и убрана. */}
                 <div className="ftr__warehousePhones">
                   <a href="tel:+8618520707778" className="ftr__warehousePhone">
-                    <span className="ftr__warehousePhoneLabel">Телефон офиса (Китай)</span>
+                    <span className="ftr__warehousePhoneLabel">Телефон офиса и приёмки (Китай)</span>
                     <span className="ftr__warehousePhoneValue">+86 185 2070 7778</span>
-                  </a>
-                  <a href="tel:+8618302004584" className="ftr__warehousePhone">
-                    <span className="ftr__warehousePhoneLabel">Для курьеров (Китай)</span>
-                    <span className="ftr__warehousePhoneValue">+86 183 0200 4584</span>
                   </a>
                 </div>
               </div>
