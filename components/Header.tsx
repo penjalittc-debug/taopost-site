@@ -44,7 +44,7 @@ export default function Header() {
 
         <div className="hdr__actions">
           <a
-            href="https://app.taopost.ru"
+            href="https://app.taopost.ru/?src=site"
             target="_blank"
             rel="noopener noreferrer"
             className="hdr__login"
@@ -93,7 +93,7 @@ export default function Header() {
             </a>
           ))}
           <a
-            href="https://app.taopost.ru"
+            href="https://app.taopost.ru/?src=site"
             target="_blank"
             rel="noopener noreferrer"
             className="tp-btn tp-btn--ghost hdr__mobileLogin"

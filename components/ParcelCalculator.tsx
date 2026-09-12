@@ -334,7 +334,7 @@ export default function ParcelCalculator() {
 
               <div className="pc__ctaRow">
                 <a
-                  href="https://app.taopost.ru"
+                  href="https://app.taopost.ru/?src=site"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="tp-btn tp-btn--primary tp-btn--lg pc__cta"

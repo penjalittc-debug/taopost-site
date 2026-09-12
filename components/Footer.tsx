@@ -147,7 +147,7 @@ export default function Footer() {
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Личный кабинет</div>
                 <a
-                  href="https://app.taopost.ru"
+                  href="https://app.taopost.ru/?src=site"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ftr__contactValue ftr__contactValue--accent"

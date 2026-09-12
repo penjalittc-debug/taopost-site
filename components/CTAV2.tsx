@@ -30,7 +30,7 @@ export default function CTAV2() {
 
             <div className="ctav2__buttons">
               <a
-                href="https://app.taopost.ru"
+                href="https://app.taopost.ru/?src=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ctav2__btn ctav2__btn--primary"

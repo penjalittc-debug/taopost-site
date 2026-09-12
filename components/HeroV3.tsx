@@ -139,7 +139,7 @@ export default function HeroV3() {
 
             <div className="hero3__ctas">
               <a
-                href="https://app.taopost.ru"
+                href="https://app.taopost.ru/?src=site"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero3__btn hero3__btn--primary"

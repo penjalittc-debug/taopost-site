@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import MetrikaTracker from "@/components/MetrikaTracker";
+import AppLinkSource from "@/components/AppLinkSource";
 import ExitIntent from "@/components/ExitIntent";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import CookieNotice from "@/components/CookieNotice";
@@ -82,6 +83,9 @@ export default function RootLayout({
           </div>
         </noscript>
         <MetrikaTracker />
+        {/* Пробрасывает канал, с которого человек пришёл на сайт, в ссылки на
+            приложение — иначе в регистрациях все сливаются в «сайт». */}
+        <AppLinkSource />
         {children}
         <StickyMobileCTA />
         <ExitIntent />
