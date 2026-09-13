@@ -9,7 +9,7 @@ Disallow: /api/
 User-agent: Yandex
 Allow: /
 Disallow: /api/
-Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&_openstat&fbclid&from&ref /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&_openstat&fbclid&from&ref&src /
 
 Host: https://taopost.ru
 Sitemap: https://taopost.ru/sitemap.xml
