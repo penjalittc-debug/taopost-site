@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Package, Warehouse } from 'lucide-react';
 
 const STATS = [
-  { value: '200 000+', label: 'посылок доставлено', Icon: Package },
+  { value: '200 000+', label: 'посылок с 2019 года', Icon: Package },
   { value: 'Гуанчжоу', label: 'собственный склад в Китае', Icon: Warehouse },
 ];
 
