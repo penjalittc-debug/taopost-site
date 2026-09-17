@@ -4,6 +4,7 @@ import PriceComparison from '@/components/PriceComparison';
 import Marketplaces from '@/components/Marketplaces';
 import HowItWorks from '@/components/HowItWorks';
 import ParcelCalculator from '@/components/ParcelCalculator';
+import LeadForm from '@/components/LeadForm';
 import Reviews from '@/components/Reviews';
 import FAQTeaser from '@/components/FAQTeaser';
 import CTAV2 from '@/components/CTAV2';
@@ -229,6 +230,13 @@ export default function Home() {
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><ParcelCalculator /></FadeIn>
+        {/* Форма сразу после калькулятора: человек только что увидел цену —
+            это пик готовности действовать. До 18.09.2026 на главной не было
+            ни одной формы, все 11 кнопок вели в Telegram, и посетитель, не
+            написавший в чат первым, терялся без следа. Разбор конкурента
+            (org/08-growth/13-website-comparison.md) показал, что это главная
+            дыра перед платным трафиком. */}
+        <FadeIn delay={50}><LeadForm /></FadeIn>
         <FadeIn delay={50}><Marketplaces /></FadeIn>
         <FadeIn delay={50}><Reviews /></FadeIn>
         <FadeIn delay={50}><FAQTeaser /></FadeIn>

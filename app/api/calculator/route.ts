@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { deliverLead } from '@/lib/leadNotify';
 
 export const runtime = 'nodejs';
 
@@ -146,12 +147,6 @@ export async function POST(req: NextRequest) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('[calculator] RESEND_API_KEY not set');
-    return NextResponse.json({ error: 'Email service not configured' }, { status: 500 });
-  }
-
-  const resend = new Resend(apiKey);
   const transportLabel = transport === 'auto' ? 'Автодоставка' : 'Авиадоставка';
   const submittedAt = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
 
@@ -198,18 +193,45 @@ export async function POST(req: NextRequest) {
   const from = process.env.RESEND_FROM || 'TaoPost <onboarding@resend.dev>';
   const to = process.env.RESEND_TO || 'support@taopost.ru';
 
-  const { error } = await resend.emails.send({
-    from,
-    to,
-    replyTo: 'support@taopost.ru',
-    subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
-    text,
-    html,
+  const tgText = [
+    '🚚 <b>Новая заявка с сайта</b>',
+    '',
+    `<b>Куда:</b> ${esc(toCity)}`,
+    `<b>Транспорт:</b> ${transportLabel}`,
+    `<b>Вес:</b> ${esc(weight)} кг`,
+    volume ? `<b>Объём:</b> ${esc(volume)} м³` : null,
+    `<b>Телефон:</b> <a href="tel:${esc(phone)}">${esc(phone)}</a>`,
+    '',
+    `<i>${esc(submittedAt)} МСК · taopost.ru</i>`,
+    formatTrafficText(data.traffic) ? `<code>${esc(formatTrafficText(data.traffic))}</code>` : null,
+  ].filter(Boolean).join('\n');
+
+  const result = await deliverLead({
+    telegramText: tgText,
+    plainText: text,
+    sendEmail: apiKey
+      ? async () => {
+          const { error } = await new Resend(apiKey).emails.send({
+            from,
+            to,
+            replyTo: 'support@taopost.ru',
+            subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
+            text,
+            html,
+          });
+          if (error) {
+            console.error('[calculator] Resend error:', error);
+            return false;
+          }
+          return true;
+        }
+      : undefined,
   });
 
-  if (error) {
-    console.error('[calculator] Resend error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 502 });
+  if (!result.ok) {
+    // Ни один канал не принял и файл не записался — только тогда честно говорим клиенту об ошибке.
+    console.error('[calculator] lead delivery failed entirely', result.failed);
+    return NextResponse.json({ error: 'Failed to deliver lead' }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });
@@ -228,12 +250,6 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('[calculator/b2b] RESEND_API_KEY not set');
-    return NextResponse.json({ error: 'Email service not configured' }, { status: 500 });
-  }
-
-  const resend = new Resend(apiKey);
   const submittedAt = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
 
   const text = [
@@ -281,18 +297,44 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   const from = process.env.RESEND_FROM || 'TaoPost <onboarding@resend.dev>';
   const to = process.env.RESEND_TO || 'support@taopost.ru';
 
-  const { error } = await resend.emails.send({
-    from,
-    to,
-    replyTo: 'support@taopost.ru',
-    subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
-    text,
-    html,
+  const tgText = [
+    '🏭 <b>Новая B2B-заявка (опт)</b>',
+    '',
+    `<b>Компания:</b> ${esc(company)}`,
+    contact ? `<b>Контактное лицо:</b> ${esc(contact)}` : null,
+    `<b>Контакт:</b> ${esc(phone)}`,
+    `<b>Объём:</b> ${esc(volume)}`,
+    category ? `<b>Категория:</b> ${esc(category)}` : null,
+    description ? `<b>Задача:</b> ${esc(description)}` : null,
+    '',
+    `<i>${esc(submittedAt)} МСК · taopost.ru/business</i>`,
+  ].filter(Boolean).join('\n');
+
+  const result = await deliverLead({
+    telegramText: tgText,
+    plainText: text,
+    sendEmail: apiKey
+      ? async () => {
+          const { error } = await new Resend(apiKey).emails.send({
+            from,
+            to,
+            replyTo: 'support@taopost.ru',
+            subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
+            text,
+            html,
+          });
+          if (error) {
+            console.error('[calculator/b2b] Resend error:', error);
+            return false;
+          }
+          return true;
+        }
+      : undefined,
   });
 
-  if (error) {
-    console.error('[calculator/b2b] Resend error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 502 });
+  if (!result.ok) {
+    console.error('[calculator/b2b] lead delivery failed entirely', result.failed);
+    return NextResponse.json({ error: 'Failed to deliver lead' }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });
