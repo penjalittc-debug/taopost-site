@@ -207,8 +207,10 @@ export async function POST(req: NextRequest) {
   ].filter(Boolean).join('\n');
 
   const result = await deliverLead({
+    subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
     telegramText: tgText,
     plainText: text,
+    html,
     sendEmail: apiKey
       ? async () => {
           const { error } = await new Resend(apiKey).emails.send({
@@ -311,8 +313,10 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   ].filter(Boolean).join('\n');
 
   const result = await deliverLead({
+    subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
     telegramText: tgText,
     plainText: text,
+    html,
     sendEmail: apiKey
       ? async () => {
           const { error } = await new Resend(apiKey).emails.send({
