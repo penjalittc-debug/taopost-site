@@ -218,7 +218,7 @@ export default function Wholesale1688Calc() {
                 lineHeight: 1.5,
               }}>
                 <AlertTriangle size={16} strokeWidth={2.5} style={{ flexShrink: 0, marginTop: 1 }} />
-                <span>Партия меньше 5 кг — минимума для отправки. Увеличьте количество или ищите более тяжёлые товары.</span>
+                <span>Партия лёгкая: доставка считается минимум за 1 кг (450 ₽). Для опта это обычно невыгодно — увеличьте количество.</span>
               </div>
             )}
 

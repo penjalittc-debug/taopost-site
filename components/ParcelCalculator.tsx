@@ -15,16 +15,19 @@ const API_BASE = 'https://app.taopost.ru/api/public/calc';
 
 // ── Тарифное ядро: копия констант src/lib/tariff.ts приложения ──
 // Единый тариф 450 ₽/кг (21.08.2026), вес округляется вверх до 0,5 кг,
-// объёмный вес НЕ применяется, упаковка включена.
+// минимум — 1 кг (17.09.2026), объёмный вес НЕ применяется, упаковка включена.
 const RATE_RUB = 450;
 const WEIGHT_STEP_KG = 0.5;
+// Ниже килограмма счёт не опускается: посылка на 300 г стоит как килограмм.
+const MIN_BILLABLE_KG = 1;
 const CARGO_DAYS_MIN = 20;
 const CARGO_DAYS_MAX = 25;
 
 function billableKg(actual: number): number {
   if (!actual || actual <= 0 || !Number.isFinite(actual)) return 0;
   const precise = Math.round(actual * 1000) / 1000;
-  return Math.ceil(precise / WEIGHT_STEP_KG) * WEIGHT_STEP_KG;
+  const stepped = Math.ceil(precise / WEIGHT_STEP_KG) * WEIGHT_STEP_KG;
+  return Math.max(MIN_BILLABLE_KG, stepped);
 }
 
 // Стандартные коробки СДЭК — те же пресеты, что в приложении.
@@ -132,8 +135,8 @@ export default function ParcelCalculator() {
                 <Package size={18} strokeWidth={2.5} />
               </span>
               <span>
-                <strong>Taobao</strong> и <strong>Pinduoduo</strong>
-                <span className="tp-min-policy__val"> — от 5 кг</span>
+                <strong>Любой вес</strong> — порога нет
+                <span className="tp-min-policy__val"> — минимум 450 ₽ (1 кг)</span>
               </span>
             </div>
             <div className="tp-min-policy__sep" />

@@ -14,6 +14,8 @@ type Segment = {
   cardBadge: string;
   CardBadgeIcon: typeof Truck;
   priceFrom: string;
+  /** Ставка единая — без «от» перед ценой (авто: 450 ₽/кг на любой вес). */
+  priceFixed?: boolean;
   priceUnit: string;
   route: { from: string; to: string };
   cardFoot: string;
@@ -33,9 +35,10 @@ const SEGMENTS: Segment[] = [
     cardBadge: 'Гуанчжоу',
     CardBadgeIcon: Truck,
     priceFrom: '450',
+    priceFixed: true,
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
-    cardFoot: '15–25 дней · от 5 кг · с отслеживанием',
+    cardFoot: '15–25 дней · от 1 кг · с отслеживанием',
     ctaLabel: 'Заказать с Taobao',
   },
   {
@@ -67,6 +70,7 @@ const SEGMENTS: Segment[] = [
     cardBadge: 'Иу/Гуанчжоу',
     CardBadgeIcon: Truck,
     priceFrom: '450',
+    priceFixed: true,
     priceUnit: '₽/кг',
     route: { from: 'Иу', to: 'Москва' },
     cardFoot: '15–25 дней · от 50 шт · фото-отчёт',
@@ -189,7 +193,7 @@ export default function HeroV3() {
                 </span>
               </div>
               <div className="hero3__price">
-                <span className="hero3__priceFrom">от</span>
+                {!seg.priceFixed && <span className="hero3__priceFrom">от</span>}
                 <span className="hero3__priceValue">{seg.priceFrom}</span>
                 <span className="hero3__priceCur">{seg.priceUnit}</span>
               </div>

@@ -85,8 +85,8 @@ export default function Marketplaces() {
                 <Package size={18} strokeWidth={2.5} />
               </span>
               <span>
-                <strong>Taobao</strong> и <strong>Pinduoduo</strong>
-                <span className="tp-min-policy__val"> — от 5 кг</span>
+                <strong>Любой вес</strong> — порога нет
+                <span className="tp-min-policy__val"> — минимум 450 ₽ (1 кг)</span>
               </span>
             </div>
             <div className="tp-min-policy__sep" />

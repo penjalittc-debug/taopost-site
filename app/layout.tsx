@@ -15,7 +15,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 450 ₽/кг",
+  title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 — 450 ₽/кг",
   description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто 450 ₽/кг, авиа от 2 700 ₽/кг. Москва, СПб и вся РФ за 15–25 дней.",
   metadataBase: new URL("https://taopost.ru"),
   alternates: {
