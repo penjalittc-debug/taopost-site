@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { Send, MessageCircle, BookOpen } from 'lucide-react';
+import { SERVICES } from '@/lib/services';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
@@ -81,6 +82,21 @@ export default function Footer() {
               {MARKETPLACE_LINKS.map((link) => (
                 <a key={link.href} href={link.href} className="ftr__link">
                   {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Услуги — добавлены 18.09.2026 вместе со страницами /kargo-dostavka,
+              /aviadostavka, /vykup-tovarov, /sbornye-gruzy. Без ссылок из футера
+              новые страницы остались бы без внутреннего веса и индексировались
+              бы плохо. */}
+          <div>
+            <h4 className="ftr__colTitle">Услуги</h4>
+            <div className="ftr__links">
+              {SERVICES.map((s) => (
+                <a key={s.slug} href={`/${s.slug}`} className="ftr__link">
+                  {s.name}
                 </a>
               ))}
             </div>

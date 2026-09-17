@@ -1,0 +1,223 @@
+/* Стили страницы услуги. Палитра та же, что в MarketplaceLanding:
+   #111827 — заголовки, #4B5563/#6B7280 — текст, #005C43 — акцент бренда. */
+
+.h2 {
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  margin: 0 0 28px;
+}
+
+/* ── Вводные абзацы ─────────────────────────────────────────────── */
+.intro {
+  padding: 56px 24px 8px;
+}
+.introInner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.introP {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #4B5563;
+  margin: 0 0 18px;
+}
+
+/* ── Что вы получаете ───────────────────────────────────────────── */
+.highlights {
+  padding: 56px 24px;
+}
+.hlInner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hlGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.hlCard {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  padding: 26px 24px;
+}
+.hlEmoji {
+  font-size: 30px;
+  line-height: 1;
+  display: block;
+  margin-bottom: 14px;
+}
+.hlTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+.hlText {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #6B7280;
+  margin: 0;
+}
+
+/* ── Как это работает ───────────────────────────────────────────── */
+.steps {
+  padding: 56px 24px;
+  background: #F9FAFB;
+}
+.stepsInner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.stepsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  counter-reset: step;
+}
+.step {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.stepNum {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #005C43;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.stepTitle {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #111827;
+  margin: 4px 0 6px;
+  line-height: 1.35;
+}
+.stepText {
+  font-size: 15px;
+  line-height: 1.68;
+  color: #6B7280;
+  margin: 0;
+}
+
+/* ── Цены ───────────────────────────────────────────────────────── */
+.price {
+  padding: 56px 24px;
+}
+.priceInner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.priceTable {
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+}
+.priceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'label value' 'note note';
+  gap: 4px 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid #F3F4F6;
+}
+.priceRow:last-child {
+  border-bottom: none;
+}
+.priceLabel {
+  grid-area: label;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #111827;
+}
+.priceValue {
+  grid-area: value;
+  font-size: 16px;
+  font-weight: 700;
+  color: #005C43;
+  white-space: nowrap;
+}
+.priceNote {
+  grid-area: note;
+  font-size: 13.5px;
+  color: #9CA3AF;
+  line-height: 1.5;
+}
+.priceFoot {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.65;
+  margin: 18px 2px 0;
+}
+
+/* ── FAQ ────────────────────────────────────────────────────────── */
+.faq {
+  padding: 56px 24px 72px;
+  background: #F9FAFB;
+}
+.faqInner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faqItem {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+.faqQ {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  cursor: pointer;
+  line-height: 1.45;
+  list-style: none;
+}
+.faqQ::-webkit-details-marker {
+  display: none;
+}
+.faqQ::after {
+  content: '+';
+  float: right;
+  color: #005C43;
+  font-size: 20px;
+  line-height: 1;
+  margin-left: 12px;
+}
+.faqItem[open] .faqQ::after {
+  content: '−';
+}
+.faqA {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #6B7280;
+  margin: 12px 0 0;
+}
+
+@media (max-width: 720px) {
+  .intro { padding: 40px 18px 4px; }
+  .highlights, .steps, .price { padding: 44px 18px; }
+  .faq { padding: 44px 18px 60px; }
+  .priceRow { padding: 16px 18px; }
+  .hlCard { padding: 22px 20px; }
+}

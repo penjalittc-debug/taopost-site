@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { articles } from '@/lib/blog';
 import { CITIES } from '@/lib/cities';
 import { MARKETPLACES } from '@/lib/marketplaces';
+import { SERVICES } from '@/lib/services';
 
 // Одна общая дата последнего контентного обновления. Обновлять вручную при
 // заметных правках макета/контента — тогда Google/Яндекс получают правдивый
@@ -30,6 +31,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Страницы услуг (карго, авиа, выкуп, сборный груз) — добавлены 18.09.2026:
+  // закрывают коммерческие запросы, которых не было ни на одной странице.
+  const servicePages: MetadataRoute.Sitemap = SERVICES.map((s) => ({
+    url: `https://taopost.ru/${s.slug}`,
+    lastModified: new Date('2026-09-18'),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
   return [
     {
       url: 'https://taopost.ru',
@@ -38,6 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...marketplacePages,
+    ...servicePages,
     {
       url: 'https://taopost.ru/tarify',
       lastModified: CONTENT_UPDATED,
