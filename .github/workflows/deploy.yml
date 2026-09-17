@@ -49,15 +49,51 @@ jobs:
       - name: Deploy via SSH
         if: steps.gate.outputs.ok == '1'
         uses: appleboy/ssh-action@v1.0.3
+        # Переменные почты приходят из GitHub Secrets и доставляются на сервер
+        # самим деплоем. Это сделано 18.09.2026, потому что порт 22 сервера
+        # закрыт для наших IP (у владельца и у консультанта — timeout), а из
+        # GitHub Actions SSH проходит. Значения передаются через envs, а не
+        # подставляются в текст скрипта, чтобы пароль не попал в лог сборки.
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          LEAD_EMAIL_TO: ${{ secrets.LEAD_EMAIL_TO }}
         with:
           host: ${{ secrets.SSH_HOST || '155.212.182.80' }}
           username: ${{ secrets.SSH_USER || 'root' }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT || 22 }}
           command_timeout: 10m
+          envs: SMTP_HOST,SMTP_PORT,SMTP_USER,SMTP_PASS,SMTP_FROM,SMTP_SECURE,LEAD_EMAIL_TO
           script: |
             set -e
             cd ${{ secrets.DEPLOY_PATH || '/var/www/taopost-site' }}
+            echo "=== Env ==="
+            # Обновляем только те ключи, что пришли из секретов; остальные
+            # строки .env не трогаем. Значение пишем через переменную, не через
+            # sed, — пароль может содержать символы, ломающие выражение.
+            upsert_env() {
+              local key="$1"
+              local val="$2"
+              [ -z "$val" ] && return 0
+              touch .env
+              grep -v "^${key}=" .env > .env.tmp 2>/dev/null || true
+              printf '%s=%s\n' "$key" "$val" >> .env.tmp
+              mv .env.tmp .env
+              echo "  $key — обновлён"
+            }
+            upsert_env SMTP_HOST "$SMTP_HOST"
+            upsert_env SMTP_PORT "$SMTP_PORT"
+            upsert_env SMTP_USER "$SMTP_USER"
+            upsert_env SMTP_PASS "$SMTP_PASS"
+            upsert_env SMTP_FROM "$SMTP_FROM"
+            upsert_env SMTP_SECURE "$SMTP_SECURE"
+            upsert_env LEAD_EMAIL_TO "$LEAD_EMAIL_TO"
+            chmod 600 .env || true
             echo "=== Pull ==="
             git fetch origin main
             git reset --hard origin/main
