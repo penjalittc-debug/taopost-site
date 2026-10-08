@@ -158,8 +158,9 @@ export default function B2BForm() {
             <span>
               Даю согласие на обработку персональных данных согласно{' '}
               <a href="/privacy" target="_blank" rel="noopener noreferrer">политике конфиденциальности</a>
-              {' '}и принимаю условия{' '}
-              <a href="/oferta" target="_blank" rel="noopener noreferrer">договора-оферты</a>.
+              {' '}и принимаю условия оферт{' '}
+              <a href="/oferta-vykup" target="_blank" rel="noopener noreferrer">на выкуп</a> и{' '}
+              <a href="/oferta" target="_blank" rel="noopener noreferrer">на доставку</a>.
             </span>
           </label>
 
