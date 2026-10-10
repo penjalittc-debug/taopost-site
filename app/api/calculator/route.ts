@@ -61,6 +61,9 @@ type Payload = {
   phone?: string;
   website?: string;
   traffic?: Traffic;
+  // Где клиент хочет получить ответ и его ник (форма LeadForm, с 10.10.2026)
+  contactVia?: 'telegram' | 'call';
+  tg?: string;
   // B2B-поля
   b2b?: boolean;
   company?: string;
@@ -68,6 +71,16 @@ type Payload = {
   category?: string;
   description?: string;
 };
+
+// Куда LeadForm отправляет клиента писать после заявки — см. LEAD_TG_USERNAME там.
+const LEAD_TG_USERNAME = 'taopostsupport';
+
+/** Ник в Telegram из «@nick», «nick» или ссылки t.me/nick; иначе — как ввели (бывает, пишут номер). */
+function normalizeTg(raw?: string): { nick: string | null; text: string } {
+  const text = (raw || '').trim().slice(0, 64);
+  const m = text.match(/^(?:https?:\/\/)?(?:t\.me\/|@)?([A-Za-z][A-Za-z0-9_]{3,31})$/);
+  return { nick: m ? m[1] : null, text };
+}
 
 function esc(s: string) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -135,6 +148,14 @@ export async function POST(req: NextRequest) {
   const weight = (data.weight || '').trim().slice(0, 20) || 'не указан';
   const volume = (data.volume || '').trim().slice(0, 20);
   const phone = (data.phone || '').trim().slice(0, 40);
+  // Старые формы и ExitIntent поле не шлют — тогда строку «Ответ» не показываем.
+  const contactVia = data.contactVia === 'telegram' || data.contactVia === 'call' ? data.contactVia : null;
+  const tg = normalizeTg(data.tg);
+  const tgShown = tg.nick ? `@${tg.nick}` : tg.text;
+  const viaLabel = contactVia === 'telegram' ? 'в Telegram' : contactVia === 'call' ? 'звонком' : '';
+  const viaHint = contactVia === 'telegram'
+    ? `клиенту предложено написать в @${LEAD_TG_USERNAME} — сначала проверьте личку, звонить не нужно`
+    : '';
 
   // Обязательны только город получения и телефон — минимум трения для лида.
   if (!toCity || !phone) {
@@ -159,6 +180,8 @@ export async function POST(req: NextRequest) {
     `Вес: ${weight} кг`,
     volume ? `Объём: ${volume} м³` : null,
     `Телефон: ${phone}`,
+    viaLabel ? `Ответ: ${viaLabel}${viaHint ? ` (${viaHint})` : ''}` : null,
+    tgShown ? `Telegram: ${tgShown}` : null,
     '',
     `Получено: ${submittedAt} МСК`,
     formatTrafficText(data.traffic),
@@ -183,6 +206,10 @@ export async function POST(req: NextRequest) {
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(volume)} м³</td></tr>` : ''}
         <tr><td style="padding:14px 26px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Телефон</td>
             <td style="padding:14px 26px;font-weight:700;font-size:16px;color:#005C43"><a href="tel:${esc(phone)}" style="color:#005C43;text-decoration:none">${esc(phone)}</a></td></tr>
+        ${viaLabel ? `<tr><td style="padding:14px 26px;border-top:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px;vertical-align:top">Ответ</td>
+            <td style="padding:14px 26px;border-top:1px solid #f3f4f6;font-weight:600">${viaLabel}${viaHint ? `<div style="font-weight:400;font-size:13px;color:#6b7280;margin-top:4px">${esc(viaHint)}</div>` : ''}</td></tr>` : ''}
+        ${tgShown ? `<tr><td style="padding:14px 26px;border-top:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Telegram</td>
+            <td style="padding:14px 26px;border-top:1px solid #f3f4f6;font-weight:700;font-size:16px">${tg.nick ? `<a href="https://t.me/${esc(tg.nick)}" style="color:#0088cc;text-decoration:none">@${esc(tg.nick)}</a>` : esc(tgShown)}</td></tr>` : ''}
         ${formatTrafficHtml(data.traffic)}
       </tbody>
     </table>
@@ -201,13 +228,17 @@ export async function POST(req: NextRequest) {
     `<b>Вес:</b> ${esc(weight)} кг`,
     volume ? `<b>Объём:</b> ${esc(volume)} м³` : null,
     `<b>Телефон:</b> <a href="tel:${esc(phone)}">${esc(phone)}</a>`,
+    viaLabel ? `<b>Ответ:</b> ${viaLabel}${viaHint ? ` — <i>${esc(viaHint)}</i>` : ''}` : null,
+    tgShown ? `<b>Telegram:</b> ${esc(tgShown)}` : null,
     '',
     `<i>${esc(submittedAt)} МСК · taopost.ru</i>`,
     formatTrafficText(data.traffic) ? `<code>${esc(formatTrafficText(data.traffic))}</code>` : null,
   ].filter(Boolean).join('\n');
 
+  const subjectVia = contactVia === 'telegram' ? ' · ответ в Telegram' : contactVia === 'call' ? ' · перезвонить' : '';
+
   const result = await deliverLead({
-    subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
+    subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}${subjectVia}`,
     telegramText: tgText,
     plainText: text,
     html,
@@ -217,7 +248,7 @@ export async function POST(req: NextRequest) {
             from,
             to,
             replyTo: 'support@taopost.ru',
-            subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}`,
+            subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}${subjectVia}`,
             text,
             html,
           });

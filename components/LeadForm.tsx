@@ -1,17 +1,38 @@
 'use client';
 import { useState } from 'react';
-import { Send, CheckCircle2, Phone, MapPin, Truck, Plane } from 'lucide-react';
+import { Send, CheckCircle2, Phone, MapPin, Truck, Plane, AtSign } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
 import { collectTraffic } from '@/lib/traffic';
 
 type Transport = 'auto' | 'air';
+type ContactVia = 'telegram' | 'call';
 type Status = 'idle' | 'sending' | 'ok' | 'error';
+
+// Куда ведёт кнопка после заявки — личка менеджера, к которой через
+// Telegram Business подключена Лиза. Звонить каждому команда не успевает,
+// а Лиза отвечает сразу и круглосуточно. Но Telegram не даёт Business-боту
+// писать первым: он отвечает только тем, кто написал сам. Поэтому ник в форме
+// — запасной вариант для менеджера, а главное — чтобы клиент написал первым.
+const LEAD_TG_USERNAME = 'taopostsupport';
+
+/** Сообщение, которое клиент отправит одной кнопкой: Лизе хватит его, чтобы сразу посчитать. */
+function leadMessage(city: string, transport: Transport, weight: string): string {
+  const parts = [`доставка в ${city.trim()}`, transport === 'air' ? 'авиа' : 'авто'];
+  if (weight.trim()) parts.push(`примерно ${weight.trim()} кг`);
+  return `Здравствуйте! Заявка с сайта taopost.ru: ${parts.join(', ')}. Подскажите, сколько будет стоить?`;
+}
+
+function tgLink(text: string): string {
+  return `https://t.me/${LEAD_TG_USERNAME}?text=${encodeURIComponent(text)}`;
+}
 
 export default function LeadForm() {
   const [toCity, setToCity] = useState('');
   const [phone, setPhone] = useState('');
   const [transport, setTransport] = useState<Transport>('auto');
   const [weight, setWeight] = useState('');
+  const [contactVia, setContactVia] = useState<ContactVia>('telegram');
+  const [tg, setTg] = useState('');
   const [website, setWebsite] = useState(''); // honeypot — должно остаться пустым
   const [consent, setConsent] = useState(false); // 152-ФЗ: явное согласие на обработку ПДн
   const [status, setStatus] = useState<Status>('idle');
@@ -29,11 +50,15 @@ export default function LeadForm() {
       const res = await fetch('/api/calculator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ toCity, phone, transport, weight, website, traffic: collectTraffic() }),
+        body: JSON.stringify({
+          toCity, phone, transport, weight, website, contactVia,
+          tg: contactVia === 'telegram' ? tg : '',
+          traffic: collectTraffic(),
+        }),
       });
       if (!res.ok) throw new Error('bad status');
       setStatus('ok');
-      ymReachGoal('lead_form_submit', { transport });
+      ymReachGoal('lead_form_submit', { transport, contactVia });
     } catch {
       setStatus('error');
     }
@@ -45,14 +70,15 @@ export default function LeadForm() {
         <div className="lf__copy">
           <span className="lf__eyebrow">
             <span className="lf__dot" />
-            Заявка без Telegram
+            Отвечаем в Telegram круглосуточно
           </span>
           <h2 className="lf__title">
-            Оставьте заявку — <span className="lf__accent">перезвоним за 5 минут</span>
+            Оставьте заявку — <span className="lf__accent">пришлём расчёт в Telegram</span>
           </h2>
           <p className="lf__lede">
-            Не пользуетесь Telegram? Оставьте город и телефон — менеджер сам свяжется,
-            рассчитает стоимость и поможет оформить первый заказ. Ежедневно с 9:00 до 22:00 МСК.
+            Укажите город и телефон — посчитаем стоимость и поможем оформить первый заказ.
+            Быстрее всего в Telegram: отвечаем за пару минут в любое время. Нет Telegram —
+            перезвоним с 9:00 до 22:00 МСК.
           </p>
           <ul className="lf__benefits">
             <li><CheckCircle2 size={18} strokeWidth={2.4} /> Без предоплаты и обязательств</li>
@@ -65,18 +91,37 @@ export default function LeadForm() {
           {status === 'ok' ? (
             <div className="lf__success">
               <span className="lf__successIcon"><CheckCircle2 size={40} strokeWidth={2.2} /></span>
-              <h3>Заявка принята!</h3>
-              <p>Менеджер свяжется с вами в ближайшее время. Если удобнее — можно написать нам в&nbsp;Telegram прямо сейчас.</p>
+              {contactVia === 'telegram' ? (
+                <>
+                  <h3>Заявка принята — остался один шаг</h3>
+                  <p>
+                    Откройте Telegram и отправьте сообщение — текст уже набран. Ответим
+                    с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3>Заявка принята!</h3>
+                  <p>
+                    Перезвоним с 9:00 до 22:00 МСК. Если удобнее — напишите в&nbsp;Telegram,
+                    там ответим быстрее.
+                  </p>
+                </>
+              )}
               <a
-                href="https://t.me/Taopostchat_official"
+                href={tgLink(leadMessage(toCity, transport, weight))}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="lf__tg"
+                className={`lf__tg${contactVia === 'telegram' ? ' lf__tg--main' : ''}`}
                 data-ym-goal="telegram_click"
                 data-ym-params='{"place":"lead_form_success"}'
               >
-                <Send size={16} strokeWidth={2.5} /> Написать в Telegram
+                <Send size={18} strokeWidth={2.5} />
+                {contactVia === 'telegram' ? 'Получить расчёт в Telegram' : 'Написать в Telegram'}
               </a>
+              {contactVia === 'telegram' && (
+                <p className="lf__successNote">Нет Telegram? Ничего страшного — перезвоним с 9:00 до 22:00 МСК.</p>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="lf__form" noValidate>
@@ -104,6 +149,44 @@ export default function LeadForm() {
                   inputMode="tel"
                 />
               </label>
+
+              <div className="lf__field">
+                <span className="lf__label">Где удобнее получить ответ</span>
+                <div className="lf__transport">
+                  <button
+                    type="button"
+                    onClick={() => setContactVia('telegram')}
+                    className={`lf__transportBtn${contactVia === 'telegram' ? ' lf__transportBtn--active' : ''}`}
+                  >
+                    <Send size={16} strokeWidth={2.3} /> Telegram
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setContactVia('call')}
+                    className={`lf__transportBtn${contactVia === 'call' ? ' lf__transportBtn--active' : ''}`}
+                  >
+                    <Phone size={16} strokeWidth={2.3} /> Звонок
+                  </button>
+                </div>
+              </div>
+
+              {contactVia === 'telegram' && (
+                <label className="lf__field">
+                  <span className="lf__label">
+                    <AtSign size={14} strokeWidth={2.4} /> Ник в Telegram <span className="lf__opt">— необязательно</span>
+                  </span>
+                  <input
+                    type="text"
+                    value={tg}
+                    onChange={(e) => setTg(e.target.value.replace(/\s/g, '').slice(0, 64))}
+                    placeholder="@username"
+                    className="lf__input"
+                    autoComplete="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                  />
+                </label>
+              )}
 
               <div className="lf__field">
                 <span className="lf__label">Способ доставки</span>
@@ -175,7 +258,7 @@ export default function LeadForm() {
               {status === 'error' && (
                 <p className="lf__err">
                   Не удалось отправить. Напишите нам в{' '}
-                  <a href="https://t.me/Taopostchat_official" target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
+                  <a href={tgLink(leadMessage(toCity, transport, weight))} target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
                   или позвоните <a href="tel:+79772767778">+7 977 276 77 78</a>.
                 </p>
               )}
@@ -297,10 +380,15 @@ export default function LeadForm() {
         .lf__success h3 { font-size: 22px; font-weight: 700; color: #0A0F1C; margin: 0 0 10px; }
         .lf__success p { font-size: 15px; color: #4B5563; line-height: 1.65; margin: 0 0 20px; }
         .lf__tg {
-          display: inline-flex; align-items: center; gap: 8px;
+          display: inline-flex; align-items: center; justify-content: center; gap: 8px;
           padding: 13px 24px; border-radius: 12px; background: #0088cc; color: #fff;
           font-weight: 700; font-size: 15px; text-decoration: none;
         }
+        .lf__tg--main {
+          width: 100%; box-sizing: border-box; padding: 16px 14px; border-radius: 14px; font-size: 16px; white-space: nowrap;
+          box-shadow: 0 12px 30px -10px rgba(0,136,204,0.55);
+        }
+        .lf__successNote { font-size: 13.5px !important; color: #6B7280 !important; margin: 14px 0 0 !important; }
 
         @media (max-width: 880px) {
           .lf { padding: 64px 18px; }
