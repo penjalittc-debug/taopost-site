@@ -89,7 +89,7 @@ const serviceJsonLd = {
   "provider": { "@id": "https://taopost.ru/#organization" },
   "areaServed": { "@type": "Country", "name": "Россия" },
   "url": "https://taopost.ru",
-  "description": "Выкуп и доставка товаров с Taobao, Poizon, Pinduoduo, 1688, Tmall, Goofish. Авто 15-25 дней, авиа 3-5 дней. Собственный склад в Гуанчжоу, страховка груза, проверка качества.",
+  "description": "Выкуп и доставка товаров с Taobao, Poizon, Pinduoduo, 1688, Tmall, Goofish. Авто 15-25 дней, авиа 3-5 дней. Собственный склад в Гуанчжоу, гарантия сохранности, проверка качества.",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "RUB",

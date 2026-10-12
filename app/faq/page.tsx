@@ -9,12 +9,12 @@ import { FAQS } from '@/lib/faq';
 export const metadata: Metadata = {
   title: 'Частые вопросы (FAQ) — TaoPost доставка из Китая',
   description:
-    'Ответы на популярные вопросы о доставке из Китая в Россию: сроки, стоимость, оплата, таможня, страховка, выкуп с Taobao, Poizon, 1688, Pinduoduo.',
+    'Ответы на популярные вопросы о доставке из Китая в Россию: сроки, стоимость, оплата, таможня, гарантия сохранности, выкуп с Taobao, Poizon, 1688, Pinduoduo.',
   alternates: { canonical: 'https://taopost.ru/faq' },
   openGraph: {
     title: 'Частые вопросы о доставке из Китая — TaoPost',
     description:
-      'Сроки, цены, таможня, страховка, оплата и выкуп — всё, что нужно знать перед первым заказом.',
+      'Сроки, цены, таможня, гарантия сохранности, оплата и выкуп — всё, что нужно знать перед первым заказом.',
     url: 'https://taopost.ru/faq',
     siteName: 'TaoPost',
     locale: 'ru_RU',

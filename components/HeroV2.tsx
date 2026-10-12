@@ -10,7 +10,7 @@ const STATS = [
 const TRUST_BADGES = [
   { icon: '✅', text: 'Без предоплаты' },
   { icon: '📦', text: 'Отслеживание в реальном времени' },
-  { icon: '🛡️', text: 'Страховка товара' },
+  { icon: '🛡️', text: 'Гарантия сохранности' },
 ];
 
 export default function HeroV2() {

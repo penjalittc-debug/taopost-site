@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const firstSentence = city.localText ? city.localText.split('. ')[0].trim() + '.' : '';
   const description = firstSentence
     ? `${firstSentence} Срок — ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа). Выкуп с Taobao, Poizon, 1688 — комиссия 10% (мин. 500 ₽).`
-    : `Пошаговая инструкция как заказать товары из Китая ${city.nameIn}. Доставка с Taobao, Poizon, Pinduoduo, 1688 ${city.nameIn} — ${city.deliveryDays}. Выкуп, проверка, страховка.`;
+    : `Пошаговая инструкция как заказать товары из Китая ${city.nameIn}. Доставка с Taobao, Poizon, Pinduoduo, 1688 ${city.nameIn} — ${city.deliveryDays}. Выкуп, проверка, гарантия сохранности.`;
   return {
     title: `Доставка из Китая ${city.nameIn} — Taobao, Poizon, 1688 | TaoPost`,
     description,
@@ -135,7 +135,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
     },
     {
       q: 'Что если товар придёт бракованным?',
-      a: 'Мы делаем фото каждой посылки на складе в Китае перед отправкой. Если вы заметите брак до отправки — вернём продавцу и вернём вам деньги. Также есть страховка груза.',
+      a: 'Мы делаем фото каждой посылки на складе в Китае перед отправкой. Если вы заметите брак до отправки — вернём продавцу и вернём вам деньги. Также можно подключить гарантию сохранности на случай потери или повреждения в пути.',
     },
     {
       q: `Можно ли заказать опт ${city.nameIn} с 1688?`,
@@ -208,7 +208,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             <p className={s.lede}>
               Выкуп и доставка товаров с Taobao, Poizon, 1688, Pinduoduo {city.nameIn} —
               срок {city.deliveryDays} (авто) или {city.deliveryDaysAvia} (авиа).
-              Полное сопровождение, страховка и проверка качества.
+              Полное сопровождение, гарантия сохранности и проверка качества.
             </p>
 
             <div className={s.statsGrid}>

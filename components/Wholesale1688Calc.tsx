@@ -5,7 +5,10 @@ import { Calculator as CalcIcon, TrendingUp, AlertTriangle } from 'lucide-react'
 
 const DEFAULT_CNY_RATE = 13;
 const COMMISSION_PERCENT = 3;
-const INSURANCE_PERCENT = 2;
+// Гарантия сохранности (12.10.2026): одежда/мелочи 5 %, минимум 200 ₽ за отправку.
+// Для хрупкого и электроники ставка выше (10/20 %) — здесь базовая.
+const GUARANTEE_PERCENT = 5;
+const GUARANTEE_MIN_RUB = 200;
 const AUTO_RATE_RUB_KG = 450;
 const AIR_RATE_RUB_KG = 2700;
 
@@ -31,7 +34,7 @@ export default function Wholesale1688Calc() {
     const purchaseCNY = pricePerUnitCNY * quantity;
     const purchaseRUB = purchaseCNY * cnyRate;
     const commissionRUB = purchaseRUB * (COMMISSION_PERCENT / 100);
-    const insuranceRUB = purchaseRUB * (INSURANCE_PERCENT / 100);
+    const insuranceRUB = Math.max(purchaseRUB * (GUARANTEE_PERCENT / 100), GUARANTEE_MIN_RUB);
     const totalWeight = weightPerUnitKg * quantity;
     const tariff = transport === 'auto' ? AUTO_RATE_RUB_KG : AIR_RATE_RUB_KG;
     const deliveryRUB = totalWeight * tariff;
@@ -84,7 +87,7 @@ export default function Wholesale1688Calc() {
             maxWidth: '620px', margin: '0 auto', lineHeight: 1.6,
           }}>
             Прикиньте маржу до того, как делать заказ. Введите 4 параметра — увидите полную смету
-            с закупкой, доставкой, комиссией выкупа и страховкой.
+            с закупкой, доставкой, комиссией выкупа и гарантией сохранности.
           </p>
         </div>
 
@@ -224,7 +227,7 @@ export default function Wholesale1688Calc() {
 
             <Row label="Закупка партии" value={rub(calc.purchaseRUB)} muted />
             <Row label={`Комиссия выкупа ${COMMISSION_PERCENT}%`} value={rub(calc.commissionRUB)} muted />
-            <Row label={`Страховка ${INSURANCE_PERCENT}%`} value={rub(calc.insuranceRUB)} muted />
+            <Row label={`Гарантия сохранности ${GUARANTEE_PERCENT}% (по желанию)`} value={rub(calc.insuranceRUB)} muted />
             <Row label={`Доставка (${calc.totalWeight.toFixed(1)} кг)`} value={rub(calc.deliveryRUB)} muted />
 
             <div style={{

@@ -82,7 +82,7 @@ const TRUST = [
   { Icon: FileCheck2, text: 'Лицензия КНР' },
   { Icon: ShieldCheck, text: 'Без предоплаты' },
   { Icon: Package, text: 'Отслеживание' },
-  { Icon: Sparkles, text: 'Страховка груза' },
+  { Icon: Sparkles, text: 'Гарантия сохранности' },
 ];
 
 const PHONE_NUMBER = '+7 977 276 77 78';
