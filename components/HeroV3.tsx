@@ -85,8 +85,8 @@ const TRUST = [
   { Icon: Sparkles, text: 'Гарантия сохранности' },
 ];
 
-const PHONE_NUMBER = '+7 977 276 77 78';
-const PHONE_HREF = 'tel:+79772767778';
+const PHONE_NUMBER = '+7 977 696-77-78';
+const PHONE_HREF = 'tel:+79776967778';
 
 const STATS = [
   { Icon: Boxes, value: '200 000+', label: 'Посылок с 2019 года', accent: '#005C43' },

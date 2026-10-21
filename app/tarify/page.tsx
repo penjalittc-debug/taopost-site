@@ -133,8 +133,8 @@ export default function TarifyPage() {
               ymParams: '{"place":"tarify_cta"}',
             },
             {
-              label: '+7 977 276 77 78',
-              href: 'tel:+79772767778',
+              label: '+7 977 696-77-78',
+              href: 'tel:+79776967778',
               variant: 'ghost',
               ymGoal: 'phone_click',
               ymParams: '{"place":"tarify_cta"}',

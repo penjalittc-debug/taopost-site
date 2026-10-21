@@ -107,7 +107,7 @@ export default function Footer() {
             <div className="ftr__contacts">
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Телефон</div>
-                <a href="tel:+79772767778" className="ftr__contactValue" data-ym-goal="phone_click" data-ym-params='{"place":"footer"}'>+7 977 276 77 78</a>
+                <a href="tel:+79776967778" className="ftr__contactValue" data-ym-goal="phone_click" data-ym-params='{"place":"footer"}'>+7 977 696-77-78</a>
               </div>
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Telegram (менеджер)</div>

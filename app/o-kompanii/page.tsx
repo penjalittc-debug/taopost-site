@@ -53,7 +53,7 @@ const organizationLd = {
   logo: 'https://taopost.ru/logo.png',
   image: 'https://taopost.ru/og-image.png',
   description: 'Карго доставка из Китая в Россию. Бренд работает с 2019 года; юр.лицо в КНР зарегистрировано в апреле 2025 года, через него оказываются выкуп и доставка.',
-  telephone: '+7 977 276 77 78',
+  telephone: '+7 977 696-77-78',
   email: 'support@taopost.ru',
   foundingDate: '2019',
   taxID: '91440100MAEGJX2C1Y',

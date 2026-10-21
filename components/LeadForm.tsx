@@ -259,7 +259,7 @@ export default function LeadForm() {
                 <p className="lf__err">
                   Не удалось отправить. Напишите нам в{' '}
                   <a href={tgLink(leadMessage(toCity, transport, weight))} target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
-                  или позвоните <a href="tel:+79772767778">+7 977 276 77 78</a>.
+                  или позвоните <a href="tel:+79776967778">+7 977 696-77-78</a>.
                 </p>
               )}
             </form>

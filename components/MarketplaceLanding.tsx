@@ -49,7 +49,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
       '@type': 'Organization',
       name: 'TaoPost',
       url: 'https://taopost.ru',
-      telephone: '+7 977 276 77 78',
+      telephone: '+7 977 696-77-78',
     },
     areaServed: { '@type': 'Country', name: 'Россия' },
     description: mp.descriptionSeo,
@@ -129,7 +129,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                     Заказать с {mp.name} →
                   </a>
                   <a
-                    href="tel:+79772767778"
+                    href="tel:+79776967778"
                     data-ym-goal="phone_click"
                     data-ym-params={`{"place":"marketplace_${mp.slug}_hero"}`}
                     className={s.ctaGhost}
@@ -343,7 +343,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                 Начать заказ →
               </a>
               <a
-                href="tel:+79772767778"
+                href="tel:+79776967778"
                 data-ym-goal="phone_click"
                 data-ym-params={`{"place":"marketplace_${mp.slug}_final"}`}
                 className={s.ctaFinalGhost}

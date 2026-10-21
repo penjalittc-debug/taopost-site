@@ -171,7 +171,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
       '@type': 'Organization',
       name: 'TaoPost',
       url: 'https://taopost.ru',
-      telephone: '+7 977 276 77 78',
+      telephone: '+7 977 696-77-78',
     },
     areaServed: { '@type': 'City', name: city.name },
     description: `Карго доставка товаров из Китая ${city.nameIn} с Taobao, Poizon, Pinduoduo, 1688. Срок ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа).`,
