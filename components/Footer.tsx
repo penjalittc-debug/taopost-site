@@ -206,14 +206,11 @@ export default function Footer() {
           <div className="ftr__reqsTitle">Реквизиты</div>
           <div className="ftr__reqsBody">
             <div>
-              Выкуп товаров в КНР: Guangzhou Yashiming Import &amp; Export Co., Ltd.
+              Выкуп и доставка: Guangzhou Yashiming Import &amp; Export Co., Ltd.
               (广州亚世名进出口有限公司), рег. код КНР 91440100MAEGJX2C1Y
             </div>
             <div>
-              Доставка в РФ: ИП Гасанова А. Р. · ИНН 772300526747 · ОГРНИП 324774600431591
-            </div>
-            <div>
-              109428, г. Москва, ул. 2-я Институтская, д. 6, стр. 15
+              Гуанчжоу, район Ливань, ул. Чжаньцянь, 90
             </div>
           </div>
         </div>
@@ -225,6 +222,7 @@ export default function Footer() {
             <a href="/terms" className="ftr__legalLink">Пользовательское соглашение</a>
             <a href="/oferta-vykup" className="ftr__legalLink">Оферта на выкуп</a>
             <a href="/oferta" className="ftr__legalLink">Оферта на доставку</a>
+            <a href="/vozvrat" className="ftr__legalLink">Политика возврата</a>
           </div>
         </div>
       </div>

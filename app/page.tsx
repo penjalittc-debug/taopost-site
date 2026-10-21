@@ -29,9 +29,7 @@ const jsonLd = {
   "foundingDate": "2019",
   "taxID": "91440100MAEGJX2C1Y",
   "identifier": [
-    { "@type": "PropertyValue", "name": "CN Unified Social Credit Code", "value": "91440100MAEGJX2C1Y" },
-    { "@type": "PropertyValue", "name": "RU Legal Entity INN", "value": "772300526747" },
-    { "@type": "PropertyValue", "name": "RU Legal Entity OGRNIP", "value": "324774600431591" }
+    { "@type": "PropertyValue", "name": "CN Unified Social Credit Code", "value": "91440100MAEGJX2C1Y" }
   ],
   "iso6523Code": "0199:91440100MAEGJX2C1Y",
   "contactPoint": [

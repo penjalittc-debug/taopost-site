@@ -2,7 +2,7 @@ import Link from 'next/link';
 import LegalLayout, { LegalSection as Section } from '@/components/LegalLayout';
 
 // Агентский договор на выкуп — сторона договора Guangzhou Yashiming (08.10.2026).
-// Доставка в РФ остаётся у ИП Гасановой по /oferta. Копия текста — в приложении
+// С 21.10.2026 доставка (/oferta) — тоже Yashiming, ИП убран. Копия текста — в приложении
 // (app.taopost.ru/buyout-offer, src/app/buyout-offer/page.tsx): править обе.
 export const metadata = {
   title: 'Договор-оферта на выкуп товаров — TaoPost',
@@ -21,7 +21,7 @@ export const metadata = {
 
 export default function OfertaVykupPage() {
   return (
-    <LegalLayout title="Договор-оферта на выкуп товаров" date="Действует с 8 октября 2026 года" wide>
+    <LegalLayout title="Договор-оферта на выкуп товаров" date="Действует с 21 октября 2026 года" wide>
       <Section title="1. Общие положения">
         <p>
           Настоящий документ является публичной офертой (далее — «Оферта») компании
@@ -38,8 +38,7 @@ export default function OfertaVykupPage() {
         </p>
         <p>
           Доставка товаров из КНР в Российскую Федерацию в предмет настоящей Оферты не входит
-          и оказывается по отдельному <Link href="/oferta">договору-оферте на доставку</Link> (исполнитель —
-          ИП Гасанова А. Р.).
+          и оказывается Агентом по отдельному <Link href="/oferta">договору-оферте на доставку</Link>.
         </p>
       </Section>
 
@@ -112,6 +111,7 @@ export default function OfertaVykupPage() {
           <li>Денежные средства возвращаются тем же способом, которым была произведена оплата, либо на баланс
             Заказчика в приложении — по его выбору, в сроки, установленные законодательством РФ
             о защите прав потребителей.</li>
+          <li>Подробный порядок, сроки и способы возврата — в <Link href="/vozvrat">Политике возврата</Link>.</li>
         </ul>
       </Section>
 
