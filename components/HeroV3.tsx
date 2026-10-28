@@ -48,14 +48,14 @@ const SEGMENTS: Segment[] = [
     mp: 'Poizon',
     mpSlug: 'poizon',
     mpColor: '#1a1a2e',
-    subtitle: 'Оригинальные кроссовки и брендовая одежда с Poizon (得物). С проверкой подлинности, от 1 пары, авиа за 3-5 дней.',
+    subtitle: 'Оригинальные кроссовки и брендовая одежда с Poizon (得物). С проверкой подлинности, от 1 пары, авиа за 5-7 дней.',
     cardTag: 'Авиа · Poizon',
     cardBadge: 'От 1 пары',
     CardBadgeIcon: Plane,
     priceFrom: '2 700',
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
-    cardFoot: '3–5 дней авиа · от 1 пары · аутентификация',
+    cardFoot: '5–7 дней авиа · от 1 пары · аутентификация',
     ctaLabel: 'Заказать с Poizon',
   },
   {
@@ -221,7 +221,7 @@ export default function HeroV3() {
               </div>
               <div>
                 <div className="hero3__aviaTitle">Авиа от 2 700 ₽/кг</div>
-                <div className="hero3__aviaSub">3–5 дней</div>
+                <div className="hero3__aviaSub">5–7 дней</div>
               </div>
             </div>
 
