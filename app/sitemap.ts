@@ -80,6 +80,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: 'https://taopost.ru/prilozhenie',
+      lastModified: new Date('2026-11-01'),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
       url: 'https://taopost.ru/faq',
       lastModified: CONTENT_UPDATED,
       changeFrequency: 'monthly',

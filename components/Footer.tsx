@@ -173,6 +173,13 @@ export default function Footer() {
                   app.taopost.ru — оформить заказ онлайн
                 </a>
               </div>
+
+              <div className="ftr__contact">
+                <div className="ftr__contactLabel">Мобильное приложение</div>
+                <a href="/prilozhenie" className="ftr__contactValue">
+                  Официальное приложение TaoPost — iPhone и Android
+                </a>
+              </div>
             </div>
           </div>
 
@@ -223,6 +230,7 @@ export default function Footer() {
             <a href="/oferta-vykup" className="ftr__legalLink">Оферта на выкуп</a>
             <a href="/oferta" className="ftr__legalLink">Оферта на доставку</a>
             <a href="/vozvrat" className="ftr__legalLink">Политика возврата</a>
+            <a href="/prilozhenie" className="ftr__legalLink">Мобильное приложение</a>
           </div>
         </div>
       </div>
