@@ -1,90 +1,279 @@
-/* Страница /kargo-dostavka (опт и карго, 04.11.2026) и калькулятор CargoCalc.
-   Палитра как у ServiceLanding: #111827 заголовки, #4B5563 текст, #005C43 бренд. */
+/* Страница /kargo-dostavka (опт и карго, v2 04.11.2026) и CargoCalc / TariffTabs.
+   Палитра: #062A20 → #005C43 тёмный бренд, #1B9E7E акцент, #FF5A47 CTA,
+   #111827 заголовки, #4B5563 текст. Все анимации выключаются при
+   prefers-reduced-motion (внизу файла). */
 
-.section { padding: 56px 24px; }
-.muted { background: #F9FAFB; }
-.inner { max-width: 1000px; margin: 0 auto; }
-.formWrap { max-width: 720px; margin: 0 auto; }
-.sub { font-size: 15.5px; line-height: 1.65; color: #4B5563; margin: -12px 0 24px; }
-.h3 { font-size: 20px; font-weight: 700; color: #111827; margin: 36px 0 16px; }
-
-/* ── Кнопки под hero ─────────────────────────────────────────── */
-.heroCta {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0 24px 8px;
-  margin-top: -16px;
+.section { padding: 72px 24px; }
+.muted { background: #F6FAF8; }
+.inner { max-width: 1120px; margin: 0 auto; }
+.sub { font-size: 15.5px; line-height: 1.65; color: #4B5563; margin: -14px 0 28px; max-width: 760px; }
+.h3 { font-size: 20px; font-weight: 700; color: #111827; margin: 44px 0 16px; }
+.kicker {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #1B9E7E;
+  margin-bottom: 10px;
 }
-.btnPrimary, .btnGhost {
+.kickerLight {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #7FE0C4;
+  margin-bottom: 10px;
+}
+
+/* ── Кнопки ──────────────────────────────────────────────────── */
+.btnPrimary, .btnGhost, .btnLight {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 15px 26px;
   border-radius: 14px;
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 .btnPrimary {
   background: #FF5A47;
   color: #fff;
-  box-shadow: 0 12px 30px -10px rgba(255,90,71,0.55);
+  box-shadow: 0 14px 34px -12px rgba(255,90,71,0.7);
 }
-.btnGhost {
-  background: #fff;
-  color: #005C43;
-  border: 2px solid #005C43;
+.btnPrimary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px rgba(255,90,71,0.8); }
+.btnLight {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.35);
+}
+.btnLight:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+.btnGhost { background: #fff; color: #005C43; border: 2px solid #005C43; }
+.btnGhost:hover { background: #EEF8F4; }
+
+/* ── Hero ────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(140deg, #04211A 0%, #063B2D 45%, #005C43 100%);
+  color: #fff;
+  padding: 132px 24px 84px;
+}
+.hero::before {
+  /* сетка-«карта», медленно плывёт */
+  content: '';
+  position: absolute;
+  inset: -40px;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 30% 40%, #000 30%, transparent 75%);
+  animation: gridDrift 24s linear infinite;
+}
+.heroGlow {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  right: -160px;
+  top: -200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(27,158,126,0.55), transparent 65%);
+  filter: blur(10px);
+  animation: glow 9s ease-in-out infinite alternate;
+}
+.heroGrid {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.heroText { animation: rise .7s ease both; }
+.heroCalc { animation: rise .7s .15s ease both; }
+.crumbs { display: flex; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 18px; }
+.crumbs a { color: rgba(255,255,255,0.55); text-decoration: none; }
+.heroPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7FE0C4;
+  box-shadow: 0 0 0 0 rgba(127,224,196,0.7);
+  animation: pulse 1.8s ease-out infinite;
+}
+.heroTitle {
+  font-size: clamp(32px, 4.6vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -1.4px;
+  font-weight: 800;
+  margin: 0 0 22px;
+}
+.heroAccent {
+  display: block;
+  background: linear-gradient(90deg, #7FE0C4, #FFD27A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.heroPoints { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 10px; }
+.heroPoints li { display: flex; gap: 10px; align-items: flex-start; font-size: 16.5px; line-height: 1.5; color: rgba(255,255,255,0.88); }
+.heroPoints svg { color: #7FE0C4; flex-shrink: 0; margin-top: 3px; }
+.heroBtns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* маршрут Гуанчжоу → Москва */
+.route {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 36px;
+  max-width: 520px;
+}
+.routePoint { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 76px; }
+.routePoint b { font-size: 14px; }
+.routePoint small { font-size: 12px; color: rgba(255,255,255,0.6); }
+.routeDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #7FE0C4;
+  box-shadow: 0 0 0 0 rgba(127,224,196,0.6);
+  animation: pulse 2s ease-out infinite;
+}
+.routeDotEnd { background: #FFD27A; animation-delay: 1s; }
+.routeLine {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  margin-bottom: 34px;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.45) 50%, transparent 50%);
+  background-size: 12px 2px;
+  animation: dash 1.2s linear infinite;
+}
+.routeTruck {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #FF5A47;
+  color: #fff;
+  box-shadow: 0 8px 18px -6px rgba(255,90,71,0.8);
+  animation: drive 6s ease-in-out infinite;
 }
 
-/* ── Тарифы ──────────────────────────────────────────────────── */
-.tariffs {
+/* ── Цифры ───────────────────────────────────────────────────── */
+.stats { padding: 0 24px; margin-top: -36px; position: relative; z-index: 2; }
+.statsGrid {
+  max-width: 1120px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-  align-items: start;
+  grid-template-columns: repeat(4, 1fr);
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 24px 60px -28px rgba(4,33,26,0.35);
+  border: 1px solid #E5EFEA;
 }
-.tariff {
+.stat { padding: 26px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EEF2F0; }
+.stat:last-child { border-right: none; }
+.stat b { font-size: clamp(26px, 3vw, 36px); font-weight: 800; color: #005C43; letter-spacing: -0.8px; }
+.stat > span { font-size: 14px; color: #4B5563; line-height: 1.4; }
+
+/* ── Способы работы ──────────────────────────────────────────── */
+.ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.way {
+  position: relative;
   background: #fff;
   border: 1px solid #E5E7EB;
-  border-radius: 16px;
-  overflow: hidden;
-}
-.tariffHead {
+  border-radius: 20px;
+  padding: 28px 26px 24px;
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 20px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
-  cursor: pointer;
-  list-style: none;
+  flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.tariffHead::-webkit-details-marker { display: none; }
-.tariffFrom { color: #005C43; white-space: nowrap; }
-.table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.table th {
-  text-align: left;
-  padding: 8px 20px;
-  font-size: 12px;
-  color: #6B7280;
-  text-transform: uppercase;
-  letter-spacing: .4px;
-  border-top: 1px solid #F3F4F6;
-}
-.table td { padding: 8px 20px; border-top: 1px solid #F3F4F6; color: #374151; }
-.table td:last-child { font-weight: 700; color: #111827; text-align: right; }
-.table th:last-child { text-align: right; }
-
-.packGrid {
+.way:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -28px rgba(0,92,67,0.45); border-color: #B9E3D5; }
+.wayIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
-  margin-bottom: 28px;
+  place-items: center;
+  background: linear-gradient(135deg, #E3F6EF, #C6EDE0);
+  color: #005C43;
+  margin-bottom: 18px;
 }
+.wayTitle { font-size: 19px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+.wayText { font-size: 15px; line-height: 1.6; color: #4B5563; margin: 0 0 18px; flex: 1; }
+.wayTag { align-self: flex-start; font-size: 13px; font-weight: 700; color: #005C43; background: #EEF8F4; padding: 6px 12px; border-radius: 999px; }
+
+/* ── Тарифы вкладками ────────────────────────────────────────── */
+.tabs { background: #fff; border: 1px solid #E5E7EB; border-radius: 22px; overflow: hidden; }
+.tabList { display: flex; gap: 6px; padding: 10px; background: #F3F7F5; overflow-x: auto; scrollbar-width: none; }
+.tabList::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #4B5563;
+  cursor: pointer;
+  transition: background .18s, color .18s;
+}
+.tab:hover { color: #005C43; }
+.tabActive { background: #005C43; color: #fff; }
+.tabActive:hover { color: #fff; }
+.tabPanel { padding: 22px 26px 26px; animation: fadeUp .35s ease both; }
+.tabMeta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14px; color: #6B7280; margin-bottom: 16px; }
+.tabMeta b { color: #005C43; font-size: 16px; }
+.bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.bar {
+  display: grid;
+  grid-template-columns: 150px 1fr 92px;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  animation: fadeUp .4s ease both;
+}
+.barLabel { color: #374151; }
+.barTrack { height: 12px; border-radius: 6px; background: #EEF2F0; overflow: hidden; display: flex; align-items: center; }
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #1B9E7E, #005C43);
+  transform-origin: left;
+  animation: grow .6s cubic-bezier(.2,.7,.2,1) both;
+}
+.barM3 { font-size: 12px; color: #6B7280; padding-left: 4px; white-space: nowrap; }
+.barTrack:has(.barM3) { background: transparent; height: auto; }
+.barValue { text-align: right; font-weight: 800; color: #111827; white-space: nowrap; }
+
+.packGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-bottom: 26px; }
 .packItem {
   display: flex;
   justify-content: space-between;
@@ -98,27 +287,132 @@
 }
 .packItem b { color: #111827; }
 
+/* ── Карго или документы ─────────────────────────────────────── */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.compareCol {
+  border-radius: 22px;
+  padding: 30px 28px;
+  background: #F6FAF8;
+  border: 1px solid #DDEDE6;
+  transition: transform .2s ease;
+}
+.compareCol:hover { transform: translateY(-4px); }
+.compareColDark { background: linear-gradient(150deg, #063B2D, #005C43); color: #fff; border-color: transparent; }
+.compareHead { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; margin-bottom: 18px; color: inherit; }
+.compareCol:not(.compareColDark) .compareHead { color: #111827; }
+.compareCol ul { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 12px; }
+.compareCol li { display: flex; gap: 10px; font-size: 15.5px; line-height: 1.5; }
+.compareCol:not(.compareColDark) li { color: #374151; }
+.compareCol li svg { flex-shrink: 0; margin-top: 3px; color: #1B9E7E; }
+.compareColDark li svg { color: #7FE0C4; }
+.compareFoot { font-size: 14px; margin: 0; opacity: .75; }
+
+/* ── Шаги ────────────────────────────────────────────────────── */
+.timeline {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1B9E7E, #005C43);
+  transform-origin: left;
+  animation: grow 1.4s .2s ease both;
+}
+.tlStep { position: relative; text-align: center; animation: fadeUp .5s ease both; }
+.tlNum {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  background: #005C43;
+  box-shadow: 0 0 0 6px #F6FAF8, 0 10px 22px -8px rgba(0,92,67,0.6);
+}
+.tlTitle { font-size: 16.5px; font-weight: 700; color: #111827; margin: 0 0 6px; }
+.tlText { font-size: 14px; line-height: 1.55; color: #4B5563; margin: 0; }
+
+/* ── Что возим ───────────────────────────────────────────────── */
+.goods { padding: 44px 0 20px; }
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marqueeTrack { display: flex; gap: 12px; width: max-content; animation: marquee 38s linear infinite; }
+.marquee:hover .marqueeTrack { animation-play-state: paused; }
+.goodsChip {
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #EEF8F4;
+  border: 1px solid #CFEBDF;
+  color: #005C43;
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.notCarried {
+  max-width: 1120px;
+  margin: 18px auto 0;
+  padding: 0 24px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #6B7280;
+}
+.notCarried svg { color: #FF5A47; flex-shrink: 0; margin-top: 2px; }
+
+/* ── Заявка ──────────────────────────────────────────────────── */
+.formSection {
+  padding: 80px 24px;
+  background: linear-gradient(140deg, #04211A 0%, #063B2D 50%, #005C43 100%);
+}
+.formGrid {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+}
+.formAside { color: #fff; }
+.formTitle { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -1px; margin: 0 0 14px; }
+.formLede { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.6; margin: 0 0 18px; }
+.formList { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 12px; }
+.formList li { display: flex; gap: 10px; font-size: 16px; }
+.formList svg { color: #7FE0C4; flex-shrink: 0; margin-top: 2px; }
+
 /* ── Калькулятор ─────────────────────────────────────────────── */
 .calc {
   background: #fff;
-  border: 1px solid rgba(10,15,28,0.06);
+  color: #111827;
   border-radius: 24px;
-  padding: 32px;
-  box-shadow: 0 24px 60px -24px rgba(10,15,28,0.18);
+  padding: 28px;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,0.55);
 }
-.calcHead { display: flex; align-items: center; gap: 10px; color: #005C43; margin-bottom: 22px; }
-.calcTitle { font-size: 21px; font-weight: 700; color: #111827; margin: 0; }
-.calcGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-.calcGrid > :nth-child(-n+2) { grid-column: span 1; }
-.field { display: flex; flex-direction: column; gap: 7px; }
-.label { font-size: 13px; font-weight: 700; color: #374151; }
+.calcHead { display: flex; align-items: center; gap: 10px; color: #005C43; margin-bottom: 18px; }
+.calcTitle { font-size: 20px; font-weight: 800; color: #111827; margin: 0; }
+.calcGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.label { font-size: 12.5px; font-weight: 700; color: #374151; }
 .input {
   width: 100%;
-  padding: 13px 15px;
+  padding: 12px 14px;
   border-radius: 12px;
   border: 2px solid #E5E7EB;
   font-size: 15px;
@@ -127,26 +421,18 @@
   background: #fff;
   box-sizing: border-box;
   outline: none;
+  transition: border-color .15s, box-shadow .15s;
 }
 .input:focus { border-color: #005C43; box-shadow: 0 0 0 4px rgba(0,92,67,0.12); }
-
-.result { margin-top: 24px; border-top: 1px solid #F3F4F6; padding-top: 18px; }
-.resRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding: 8px 0;
-  font-size: 15px;
-  color: #374151;
-}
+.result { margin-top: 18px; border-top: 1px solid #F3F4F6; padding-top: 12px; }
+.resRow { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 6px 0; font-size: 14.5px; color: #374151; }
 .resRow b { color: #111827; white-space: nowrap; }
-.resHint { color: #6B7280; font-size: 13.5px; }
-.resTotal { border-top: 1px dashed #E5E7EB; margin-top: 6px; padding-top: 14px; font-size: 17px; font-weight: 700; }
-.resTotal b { color: #005C43; font-size: 22px; }
-.resNote { font-size: 13.5px; line-height: 1.6; color: #6B7280; margin: 12px 0 0; }
+.resHint { color: #6B7280; font-size: 13px; }
+.resTotal { border-top: 1px dashed #E5E7EB; margin-top: 6px; padding-top: 12px; font-size: 16px; font-weight: 700; }
+.resTotal b { color: #005C43; font-size: 26px; letter-spacing: -0.5px; animation: pop .35s ease; }
+.resNote { font-size: 12.5px; line-height: 1.55; color: #6B7280; margin: 10px 0 0; }
 .calcBtn {
-  margin-top: 18px;
+  margin-top: 14px;
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -155,13 +441,16 @@
   padding: 15px 24px;
   border: none;
   border-radius: 14px;
-  background: #005C43;
+  background: #FF5A47;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
+  box-shadow: 0 14px 30px -12px rgba(255,90,71,0.7);
+  transition: transform .18s ease;
 }
+.calcBtn:hover { transform: translateY(-2px); }
 
 /* ── Розница и SEO-текст ─────────────────────────────────────── */
 .retail {
@@ -170,17 +459,58 @@
   justify-content: space-between;
   gap: 24px;
   background: #EEF8F4;
-  border-radius: 20px;
-  padding: 28px 32px;
+  border-radius: 22px;
+  padding: 30px 34px;
 }
-.retailTitle { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+.retailTitle { font-size: 22px; font-weight: 800; color: #111827; margin: 0 0 8px; }
 .retailText { font-size: 15.5px; line-height: 1.65; color: #4B5563; margin: 0; }
 .seo p { font-size: 16px; line-height: 1.75; color: #4B5563; margin: 0 0 16px; max-width: 820px; }
 
-@media (max-width: 720px) {
-  .calc { padding: 22px; }
-  .calcGrid { grid-template-columns: 1fr; }
+/* ── Анимации ────────────────────────────────────────────────── */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes pop { 0% { transform: scale(.92); opacity: .4; } 100% { transform: none; opacity: 1; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(127,224,196,0.6); } 100% { box-shadow: 0 0 0 12px rgba(127,224,196,0); } }
+@keyframes dash { to { background-position: 24px 0; } }
+@keyframes drive {
+  0% { left: 0; }
+  45%, 55% { left: calc(100% - 32px); }
+  100% { left: 0; }
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes gridDrift { to { transform: translate(44px, 44px); } }
+@keyframes glow { from { transform: translate(0, 0) scale(1); opacity: .8; } to { transform: translate(-60px, 40px) scale(1.12); opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before, .heroGlow, .pulseDot, .routeDot, .routeLine, .routeTruck,
+  .marqueeTrack, .heroText, .heroCalc, .tabPanel, .bar, .barFill, .tlStep,
+  .timeline::before, .resTotal b { animation: none !important; }
+}
+
+/* ── Адаптив ─────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .heroGrid { grid-template-columns: 1fr; gap: 36px; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(-n+2) { border-bottom: 1px solid #EEF2F0; }
+  .ways { grid-template-columns: 1fr; }
+  .compare { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; gap: 0; }
+  .timeline::before { top: 0; bottom: 0; left: 24px; right: auto; width: 3px; height: auto; transform-origin: top; animation: none; }
+  .tlStep { display: grid; grid-template-columns: 50px 1fr; column-gap: 16px; text-align: left; padding-bottom: 22px; }
+  .tlNum { margin: 0; grid-row: span 2; }
+  .tlTitle { align-self: end; }
+  .formGrid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 600px) {
+  .section { padding: 56px 20px; }
+  .hero { padding: 96px 20px 64px; }
+  .calc { padding: 20px; }
+  .calcGrid { grid-template-columns: 1fr 1fr; }
+  .calcGrid > :nth-child(-n+2) { grid-column: span 2; }
+  .bar { grid-template-columns: 110px 1fr 76px; gap: 10px; font-size: 13px; }
   .retail { flex-direction: column; align-items: flex-start; padding: 24px; }
-  .resRow { font-size: 14px; }
-  .tariffs { grid-template-columns: 1fr; }
+  .heroBtns a { flex: 1; }
+  .routePoint { min-width: 64px; }
 }

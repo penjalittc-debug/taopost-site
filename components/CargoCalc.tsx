@@ -124,7 +124,7 @@ export default function CargoCalc() {
           </div>
           <div className={`${s.resRow} ${s.resTotal}`}>
             <span>Итого до Москвы{perKg ? <span className={s.resHint}> ≈ {perKg.toLocaleString('ru-RU', { maximumFractionDigits: 2 })} $/кг</span> : null}</span>
-            <b>{usd(quote.totalUsd)}</b>
+            <b key={quote.totalUsd}>{usd(quote.totalUsd)}</b>
           </div>
           <p className={s.resNote}>
             Предварительный расчёт. Оплата в рублях по курсу ЦБ + {USD_MARKUP_RUB} ₽ за $ на день оплаты.

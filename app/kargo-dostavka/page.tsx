@@ -1,31 +1,34 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Check, Truck, ShoppingCart, Search, FileText, Package, MessageCircle, X } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PageHero from '@/components/PageHero';
 import FadeIn from '@/components/FadeIn';
 import B2BForm from '@/components/B2BForm';
 import CargoCalc from '@/components/CargoCalc';
+import CountUp from '@/components/CountUp';
+import TariffTabs from '@/components/TariffTabs';
+import WarehouseGallery from '@/components/WarehouseGallery';
 import {
-  BUYER_TARIFFS,
   BUYER_PACKAGING,
   MIN_USD_PER_KG,
   OPT_MIN_GOODS_RUB,
   USD_MARKUP_RUB,
-  bandLabel,
 } from '@/lib/cargoTariffs';
 import sl from '@/components/ServiceLanding.module.css';
 import s from '@/components/CargoOpt.module.css';
 
-// ── /kargo-dostavka — опт и карго (переделана 04.11.2026) ──────────────────
-// Раньше страница продавала розницу 450 ₽/кг. По Wordstat (08.09–07.10.2026)
-// «карго из китая» — 9 522 запроса/мес, «доставка грузов из китая» — 4 171,
-// «товары из китая оптом» — 3 272: это спрос оптовиков и селлеров, поэтому
-// страница теперь про опт по сетке в $, а розница — одним блоком со ссылкой.
-// Решения владельца и риски — org/08-growth/20-opt-cargo-launch.md (репо taopost).
+// ── /kargo-dostavka — опт и карго (04.11.2026, v2 после разбора топ-5) ──────
+// Wordstat 08.09–07.10.2026: «карго из китая» 9 522/мес, «доставка грузов из
+// китая» 4 171, «товары из китая оптом» 3 272. Структура собрана по пяти
+// сайтам из выдачи (1kargo, Aurora, ChinaSpace, Глобал-Альянс, China Star):
+// расчёт в первом экране, цена-якорь, карго против документов, способы работы,
+// факты вместо лозунгов. Разбор — org/08-growth/21-kargo-competitors-top5.md
+// (репо taopost). Все цифры — решения владельца или уже опубликованы на сайте.
 
 const MIN_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
 const MIN_GOODS = OPT_MIN_GOODS_RUB.toLocaleString('ru-RU');
+const TG = 'https://t.me/taopostsupport?start=opt';
 
 const TITLE = `Карго из Китая в Россию оптом — от ${MIN_RATE} $/кг, свой склад | TaoPost`;
 const DESCRIPTION =
@@ -46,22 +49,62 @@ export const metadata: Metadata = {
   },
 };
 
-const CONDITIONS = [
-  { emoji: '⚖️', title: `От ${MIN_RATE} $ за кг`, text: 'Ставка зависит от плотности груза: чем плотнее, тем дешевле килограмм. Лёгкий объёмный груз — по кубу.' },
-  { emoji: '📦', title: `Опт от ${MIN_GOODS} ₽`, text: 'Оптовые ставки действуют, когда сумма товара в закупке от 50 000 ₽. Можно собрать её из разных поставщиков.' },
-  { emoji: '🏭', title: 'Выкуп и поиск поставщика', text: 'Выкупаем на 1688, Taobao, Pinduoduo, ищем фабрику по фото. Комиссия 3–8 % от суммы — чем больше закупка, тем ниже.' },
-  { emoji: '📄', title: 'Документы', text: 'Договор, инвойс, упаковочный лист, помощь с сертификацией и маркировкой для Wildberries и Ozon.' },
-  { emoji: '🔍', title: 'Свой склад в Гуанчжоу', text: 'Принимаем, пересчитываем, фотографируем и проверяем товар. Брак возвращаем продавцу, пока груз в Китае.' },
-  { emoji: '🚚', title: 'До Москвы 15–20 дней', text: 'Рейсы два раза в неделю. Из Москвы — самовывоз, СДЭК или любая транспортная компания по России.' },
+const HERO_POINTS = [
+  'Ставка по плотности груза — платите меньше за плотный груз',
+  'Выкуп с 1688, Taobao, Pinduoduo и поиск фабрики',
+  'Документы и маркировка для Wildberries и Ozon',
 ];
+
+const WAYS = [
+  {
+    Icon: Truck,
+    title: 'У меня есть поставщик',
+    text: 'Даём адрес склада в Гуанчжоу. Поставщик отгружает туда, мы принимаем, пересчитываем, фотографируем и везём.',
+    tag: 'Только доставка',
+  },
+  {
+    Icon: ShoppingCart,
+    title: 'Выкупите за меня',
+    text: 'Присылаете ссылки с 1688, Taobao или Pinduoduo. Договариваемся с продавцом, платим в юанях, контролируем отгрузку.',
+    tag: 'Комиссия 3–8 %',
+  },
+  {
+    Icon: Search,
+    title: 'Найдите фабрику',
+    text: 'Ищем производителя по фото или образцу, сравниваем цены, заказываем образцы перед партией.',
+    tag: 'Под ваш товар',
+  },
+];
+
+const COMPARE = {
+  cargo: [
+    'Платите за кг по ставке, пошлины уже внутри',
+    'Таможней занимается перевозчик, не вы',
+    'Подходит для физлиц, ИП на УСН и тестовых партий',
+    'Можно смешанный груз от разных поставщиков',
+  ],
+  docs: [
+    'Договор, инвойс, упаковочный лист',
+    'Помощь с сертификатом или декларацией соответствия',
+    'Маркировка и упаковка под требования WB и Ozon',
+    'Полностью «белый» ввоз с декларацией на товары — отдельный расчёт',
+  ],
+};
 
 const STEPS = [
   { title: 'Заявка', text: 'Пишете, что и сколько везёте. Менеджер считает доставку, выкуп и документы.' },
-  { title: 'Выкуп или отгрузка', text: 'Выкупаем товар у поставщика или он сам отправляет груз на наш склад в Гуанчжоу.' },
-  { title: 'Приёмка и проверка', text: 'Пересчитываем, фотографируем, проверяем брак. Упаковываем и маркируем под маркетплейс, если нужно.' },
-  { title: 'Рейс в Москву', text: 'Груз уходит ближайшим рейсом. Статус видно в личном кабинете.' },
-  { title: 'Выдача', text: `Забираете в Москве или отправляем по России. Оплата доставки — в рублях по курсу ЦБ + ${USD_MARKUP_RUB} ₽ за $.` },
+  { title: 'Выкуп или отгрузка', text: 'Выкупаем у поставщика или он сам отправляет груз на наш склад в Гуанчжоу.' },
+  { title: 'Приёмка и проверка', text: 'Пересчитываем, фотографируем, проверяем брак. Упаковываем и маркируем.' },
+  { title: 'Рейс в Москву', text: 'Ближайшим из двух рейсов в неделю. Статус — в личном кабинете.' },
+  { title: 'Выдача', text: `Самовывоз в Москве или отправка по России. Оплата в рублях по курсу ЦБ + ${USD_MARKUP_RUB} ₽ за $.` },
 ];
+
+const GOODS = [
+  'Одежда', 'Обувь', 'Сумки', 'Аксессуары', 'Электроника', 'Товары для дома', 'Мебель', 'Текстиль',
+  'Игрушки', 'Спорттовары', 'Автозапчасти', 'Канцелярия', 'Инструменты', 'Посуда', 'Мототехника',
+];
+
+const NOT_CARRIED = 'Не возим: оружие, лекарства и БАДы, опасные грузы, часть жидкостей и аэрозолей, бренды-подделки в коммерческих объёмах.';
 
 const FAQ = [
   {
@@ -81,6 +124,10 @@ const FAQ = [
     a: 'Комиссия 3–8 % от суммы закупки: чем больше закупка, тем ниже процент. Точную ступень менеджер назовёт по вашему заказу. В комиссию входят переговоры с поставщиком, оплата в юанях и контроль отгрузки.',
   },
   {
+    q: 'Чем карго отличается от белой доставки?',
+    a: 'При карго вы платите фиксированную ставку за кг, а оформлением занимается перевозчик. При белой доставке груз оформляется с декларацией на товары, пошлинами и НДС, и вы получаете полный пакет закрывающих документов. Белая нужна, если вы принимаете НДС к вычету или везёте товар с обязательной маркировкой.',
+  },
+  {
     q: 'Можно ли с документами для Wildberries и Ozon?',
     a: 'Да. Подготовим договор, инвойс, упаковочный лист, поможем с сертификатами и декларацией соответствия, промаркируем товар под маркетплейс. Если нужен полностью «белый» ввоз с декларацией на товары, менеджер посчитает его отдельно.',
   },
@@ -91,10 +138,6 @@ const FAQ = [
   {
     q: 'Сколько идёт груз?',
     a: 'До Москвы 15–20 дней авто, до регионов ещё 2–7 дней транспортной компанией. Срочное — авиа за 5–7 дней.',
-  },
-  {
-    q: 'Что нельзя везти карго?',
-    a: 'Товары, запрещённые к ввозу в РФ: оружие, лекарства, часть жидкостей и аэрозолей, бренды-подделки в коммерческих объёмах. Перед отправкой уточните у менеджера — подскажем по вашему товару.',
   },
 ];
 
@@ -117,9 +160,6 @@ const faqJsonLd = {
   })),
 };
 
-const rate = (usd: number, perM3?: boolean) =>
-  `${usd.toLocaleString('ru-RU')} $/${perM3 ? 'м³' : 'кг'}`;
-
 export default function KargoPage() {
   return (
     <>
@@ -127,33 +167,78 @@ export default function KargoPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Header />
       <main>
-        <PageHero
-          currentCrumb="Карго доставка"
-          pill="📦 Опт и карго"
-          title={
-            <>
-              Карго доставка из Китая в Россию{' — '}
-              <span style={{ color: '#005C43' }}>оптом от {MIN_RATE} $/кг</span>
-            </>
-          }
-          lede={`Для селлеров Wildberries и Ozon, магазинов и закупщиков. Свой склад в Гуанчжоу, ставка по плотности груза, выкуп с 1688 и документы. Опт — от ${MIN_GOODS} ₽ закупки.`}
-        />
+        {/* ── Первый экран: оффер слева, калькулятор справа ─────────── */}
+        <section className={s.hero}>
+          <div className={s.heroGlow} aria-hidden="true" />
+          <div className={s.heroGrid}>
+            <div className={s.heroText}>
+              <nav aria-label="breadcrumb" className={s.crumbs}>
+                <Link href="/">Главная</Link>
+                <span>›</span>
+                <span>Карго доставка</span>
+              </nav>
+              <span className={s.heroPill}><span className={s.pulseDot} /> Опт и карго · от {MIN_GOODS} ₽ закупки</span>
+              <h1 className={s.heroTitle}>
+                Карго доставка из Китая в Россию <span className={s.heroAccent}>оптом от {MIN_RATE} $/кг</span>
+              </h1>
+              <ul className={s.heroPoints}>
+                {HERO_POINTS.map((p) => (
+                  <li key={p}><Check size={18} strokeWidth={3} /> {p}</li>
+                ))}
+              </ul>
+              <div className={s.heroBtns}>
+                <a href="#opt-form" className={s.btnPrimary}>Получить расчёт</a>
+                <a href={TG} target="_blank" rel="noopener noreferrer" className={s.btnLight}>
+                  <MessageCircle size={18} strokeWidth={2.4} /> Написать в Telegram
+                </a>
+              </div>
 
-        <div className={s.heroCta}>
-          <a href="#opt-form" className={s.btnPrimary}>Оставить заявку на опт</a>
-          <a href="#calc" className={s.btnGhost}>Посчитать доставку</a>
-        </div>
+              <div className={s.route} aria-label="Маршрут Гуанчжоу — Москва">
+                <div className={s.routePoint}>
+                  <span className={s.routeDot} />
+                  <b>Гуанчжоу</b>
+                  <small>наш склад</small>
+                </div>
+                <div className={s.routeLine}>
+                  <span className={s.routeTruck}><Truck size={18} strokeWidth={2.4} /></span>
+                </div>
+                <div className={s.routePoint}>
+                  <span className={`${s.routeDot} ${s.routeDotEnd}`} />
+                  <b>Москва</b>
+                  <small>15–20 дней</small>
+                </div>
+              </div>
+            </div>
 
+            <div id="calc" className={s.heroCalc}>
+              <CargoCalc />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Цифры ────────────────────────────────────────────────── */}
+        <section className={s.stats}>
+          <div className={s.statsGrid}>
+            <div className={s.stat}><b><CountUp to={200000} suffix="+" /></b><span>посылок доставили с 2019 года</span></div>
+            <div className={s.stat}><b><CountUp to={2} /></b><span>рейса в неделю из Гуанчжоу</span></div>
+            <div className={s.stat}><b>15–20</b><span>дней до Москвы авто</span></div>
+            <div className={s.stat}><b><CountUp to={MIN_USD_PER_KG} decimals={1} suffix=" $" /></b><span>минимальная ставка за кг</span></div>
+          </div>
+        </section>
+
+        {/* ── Способы работы ───────────────────────────────────────── */}
         <FadeIn delay={50}>
-          <section className={sl.highlights}>
-            <div className={sl.hlInner}>
-              <h2 className={sl.h2}>Условия опта</h2>
-              <div className={sl.hlGrid}>
-                {CONDITIONS.map((c) => (
-                  <article key={c.title} className={sl.hlCard}>
-                    <span className={sl.hlEmoji} aria-hidden="true">{c.emoji}</span>
-                    <h3 className={sl.hlTitle}>{c.title}</h3>
-                    <p className={sl.hlText}>{c.text}</p>
+          <section className={s.section}>
+            <div className={s.inner}>
+              <span className={s.kicker}>Как работаем</span>
+              <h2 className={sl.h2}>Три способа привезти товар из Китая</h2>
+              <div className={s.ways}>
+                {WAYS.map(({ Icon, title, text, tag }) => (
+                  <article key={title} className={s.way}>
+                    <span className={s.wayIcon}><Icon size={24} strokeWidth={2.2} /></span>
+                    <h3 className={s.wayTitle}>{title}</h3>
+                    <p className={s.wayText}>{text}</p>
+                    <span className={s.wayTag}>{tag}</span>
                   </article>
                 ))}
               </div>
@@ -161,52 +246,17 @@ export default function KargoPage() {
           </section>
         </FadeIn>
 
-        <section id="calc" className={s.section}>
-          <div className={s.inner}>
-            <h2 className={sl.h2}>Сколько стоит карго из Китая</h2>
-            <p className={s.sub}>
-              Введите вес и объём — посчитаем доставку до Москвы. Расчёт можно сразу отправить менеджеру.
-            </p>
-            <CargoCalc />
-          </div>
-        </section>
-
+        {/* ── Тарифы ───────────────────────────────────────────────── */}
         <FadeIn delay={50}>
           <section className={`${s.section} ${s.muted}`}>
             <div className={s.inner}>
-              <h2 className={sl.h2}>Тарифы на карго доставку</h2>
+              <span className={s.kicker}>Тарифы</span>
+              <h2 className={sl.h2}>Сколько стоит карго из Китая</h2>
               <p className={s.sub}>
-                Ставки до Москвы, $. Для тарифов по плотности: вес груза ÷ объём = кг/м³.
+                Ставки до Москвы в $. Плотность = вес ÷ объём. Чем плотнее груз, тем дешевле килограмм.
                 Оплата в рублях по курсу ЦБ + {USD_MARKUP_RUB} ₽ за $.
               </p>
-              <div className={s.tariffs}>
-                {BUYER_TARIFFS.map((t, i) => (
-                  <details key={t.id} className={s.tariff} open={i < 2}>
-                    <summary className={s.tariffHead}>
-                      <span>{t.name}</span>
-                      <span className={s.tariffFrom}>
-                        от {rate(Math.min(...t.bands.filter((b) => !b.perM3).map((b) => b.usd)))}
-                      </span>
-                    </summary>
-                    <table className={s.table}>
-                      <thead>
-                        <tr>
-                          <th>{t.kind === 'density' ? 'Плотность' : 'Вес груза'}</th>
-                          <th>Ставка</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {t.bands.map((b) => (
-                          <tr key={`${b.from}-${b.to}`}>
-                            <td>{bandLabel(b, t.kind)}</td>
-                            <td>{rate(b.usd, b.perM3)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </details>
-                ))}
-              </div>
+              <TariffTabs />
 
               <h3 className={s.h3}>Упаковка и разгрузка</h3>
               <div className={s.packGrid}>
@@ -218,25 +268,46 @@ export default function KargoPage() {
                 ))}
               </div>
               <p className={s.sub}>
-                Упаковка — за место. Разгрузка на складе — от 4,30 $ (0,03 м³) до 22 $ (1,5 м³).
-                Фотоотчёт бесплатно.
+                Упаковка — за место. Разгрузка на складе — от 4,30 $ (0,03 м³) до 22 $ (1,5 м³). Фотоотчёт бесплатно.
               </p>
             </div>
           </section>
         </FadeIn>
 
+        {/* ── Карго или с документами ──────────────────────────────── */}
         <FadeIn delay={50}>
-          <section className={sl.steps}>
-            <div className={sl.stepsInner}>
+          <section className={s.section}>
+            <div className={s.inner}>
+              <span className={s.kicker}>Документы</span>
+              <h2 className={sl.h2}>Карго или с документами — что выбрать</h2>
+              <div className={s.compare}>
+                <div className={s.compareCol}>
+                  <div className={s.compareHead}><Package size={22} strokeWidth={2.3} /> Карго</div>
+                  <ul>{COMPARE.cargo.map((t) => <li key={t}><Check size={16} strokeWidth={3} /> {t}</li>)}</ul>
+                  <p className={s.compareFoot}>Быстро и дешевле. Для селлеров, магазинов, тестовых партий.</p>
+                </div>
+                <div className={`${s.compareCol} ${s.compareColDark}`}>
+                  <div className={s.compareHead}><FileText size={22} strokeWidth={2.3} /> С документами</div>
+                  <ul>{COMPARE.docs.map((t) => <li key={t}><Check size={16} strokeWidth={3} /> {t}</li>)}</ul>
+                  <p className={s.compareFoot}>Для продажи на маркетплейсах и компаний, которым нужны бумаги.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </FadeIn>
+
+        {/* ── Шаги ─────────────────────────────────────────────────── */}
+        <FadeIn delay={50}>
+          <section className={`${s.section} ${s.muted}`}>
+            <div className={s.inner}>
+              <span className={s.kicker}>Этапы</span>
               <h2 className={sl.h2}>Как работает карго TaoPost</h2>
-              <ol className={sl.stepsList}>
+              <ol className={s.timeline}>
                 {STEPS.map((step, i) => (
-                  <li key={step.title} className={sl.step}>
-                    <span className={sl.stepNum}>{i + 1}</span>
-                    <div>
-                      <h3 className={sl.stepTitle}>{step.title}</h3>
-                      <p className={sl.stepText}>{step.text}</p>
-                    </div>
+                  <li key={step.title} className={s.tlStep} style={{ animationDelay: `${i * 120}ms` }}>
+                    <span className={s.tlNum}>{i + 1}</span>
+                    <h3 className={s.tlTitle}>{step.title}</h3>
+                    <p className={s.tlText}>{step.text}</p>
                   </li>
                 ))}
               </ol>
@@ -244,12 +315,42 @@ export default function KargoPage() {
           </section>
         </FadeIn>
 
-        <section id="opt-form" className={s.section}>
-          <div className={s.formWrap}>
+        {/* ── Что возим ────────────────────────────────────────────── */}
+        <section className={s.goods} aria-label="Что возим">
+          <div className={s.marquee}>
+            <div className={s.marqueeTrack}>
+              {[...GOODS, ...GOODS].map((g, i) => (
+                <span key={`${g}-${i}`} className={s.goodsChip} aria-hidden={i >= GOODS.length}>{g}</span>
+              ))}
+            </div>
+          </div>
+          <p className={s.notCarried}><X size={15} strokeWidth={3} /> {NOT_CARRIED}</p>
+        </section>
+
+        {/* ── Склад ────────────────────────────────────────────────── */}
+        <FadeIn delay={50}><WarehouseGallery /></FadeIn>
+
+        {/* ── Заявка ───────────────────────────────────────────────── */}
+        <section id="opt-form" className={s.formSection}>
+          <div className={s.formGrid}>
+            <div className={s.formAside}>
+              <span className={s.kickerLight}>Заявка на опт</span>
+              <h2 className={s.formTitle}>Посчитаем вашу партию</h2>
+              <p className={s.formLede}>Ответим в течение рабочего дня, с 9:00 до 19:00 по Москве. Пришлём:</p>
+              <ul className={s.formList}>
+                <li><Check size={18} strokeWidth={3} /> расчёт доставки по плотности</li>
+                <li><Check size={18} strokeWidth={3} /> расчёт выкупа и комиссии</li>
+                <li><Check size={18} strokeWidth={3} /> какие документы нужны под ваш товар</li>
+              </ul>
+              <a href={TG} target="_blank" rel="noopener noreferrer" className={s.btnLight}>
+                <MessageCircle size={18} strokeWidth={2.4} /> Быстрее — в Telegram
+              </a>
+            </div>
             <B2BForm variant="opt" />
           </div>
         </section>
 
+        {/* ── Розница ──────────────────────────────────────────────── */}
         <FadeIn delay={50}>
           <section className={s.section}>
             <div className={s.inner}>
@@ -267,6 +368,7 @@ export default function KargoPage() {
           </section>
         </FadeIn>
 
+        {/* ── SEO-текст ────────────────────────────────────────────── */}
         <FadeIn delay={50}>
           <section className={`${s.section} ${s.muted}`}>
             <div className={s.inner}>
@@ -291,6 +393,7 @@ export default function KargoPage() {
           </section>
         </FadeIn>
 
+        {/* ── FAQ ──────────────────────────────────────────────────── */}
         <FadeIn delay={50}>
           <section className={sl.faq}>
             <div className={sl.faqInner}>
