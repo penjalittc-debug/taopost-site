@@ -70,6 +70,11 @@ type Payload = {
   contact?: string;
   category?: string;
   description?: string;
+  // Опт/карго (форма на /kargo-dostavka, с 04.11.2026)
+  opt?: boolean;
+  budget?: string;
+  needBuyout?: boolean;
+  needDocs?: boolean;
 };
 
 // Куда LeadForm отправляет клиента писать после заявки — см. LEAD_TG_USERNAME там.
@@ -277,8 +282,18 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   const volume = (data.volume || '').trim().slice(0, 60);
   const category = (data.category || '').trim().slice(0, 80);
   const description = (data.description || '').trim().slice(0, 2000);
+  const isOpt = data.opt === true;
+  const budget = (data.budget || '').trim().slice(0, 60);
+  const needs = isOpt
+    ? [data.needBuyout ? 'выкуп / поиск поставщика' : null, data.needDocs ? 'документы' : null]
+        .filter(Boolean).join(', ')
+    : '';
+  // Для опта компания не обязательна: пишут и физлица-селлеры. Нужен хоть кто-то по имени.
+  const who = company || contact;
+  const tag = isOpt ? 'ОПТ' : 'B2B';
+  const page = isOpt ? 'taopost.ru/kargo-dostavka' : 'taopost.ru/business';
 
-  if (!company || !phone || !volume) {
+  if (!who || !phone || !volume) {
     return NextResponse.json({ error: 'Missing required B2B fields' }, { status: 400 });
   }
 
@@ -286,13 +301,15 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   const submittedAt = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
 
   const text = [
-    'Новая B2B-заявка на оптовый расчёт',
+    isOpt ? 'Новая заявка ОПТ (карго)' : 'Новая B2B-заявка на оптовый расчёт',
     '',
-    `Компания: ${company}`,
+    company ? `Компания: ${company}` : null,
     contact ? `Контактное лицо: ${contact}` : null,
     `Контакт: ${phone}`,
     `Объём: ${volume}`,
     category ? `Категория: ${category}` : null,
+    budget ? `Сумма закупки: ${budget}` : null,
+    needs ? `Нужно: ${needs}` : null,
     description ? `Описание: ${description}` : null,
     '',
     `Получено: ${submittedAt} МСК`,
@@ -303,13 +320,13 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
 <html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;padding:24px;margin:0;color:#0f172a">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e5e7eb">
     <div style="background:#0A0F1C;padding:22px 26px;color:#fff">
-      <div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;opacity:.85">TaoPost · B2B</div>
-      <div style="font-size:22px;font-weight:700;margin-top:6px">Новая оптовая заявка</div>
+      <div style="font-size:13px;letter-spacing:1px;text-transform:uppercase;opacity:.85">TaoPost · ${tag}</div>
+      <div style="font-size:22px;font-weight:700;margin-top:6px">${isOpt ? 'Новая заявка ОПТ (карго)' : 'Новая оптовая заявка'}</div>
     </div>
     <table style="width:100%;border-collapse:collapse">
       <tbody>
-        <tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Компания</td>
-            <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(company)}</td></tr>
+        ${company ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Компания</td>
+            <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(company)}</td></tr>` : ''}
         ${contact ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Контакт</td>
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(contact)}</td></tr>` : ''}
         <tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Телефон / TG</td>
@@ -318,12 +335,16 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(volume)}</td></tr>
         ${category ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Категория</td>
             <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(category)}</td></tr>` : ''}
+        ${budget ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Сумма закупки</td>
+            <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(budget)}</td></tr>` : ''}
+        ${needs ? `<tr><td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px">Нужно</td>
+            <td style="padding:14px 26px;border-bottom:1px solid #f3f4f6;font-weight:600">${esc(needs)}</td></tr>` : ''}
         ${description ? `<tr><td style="padding:14px 26px;color:#6b7280;font-size:12px;text-transform:uppercase;letter-spacing:.5px;vertical-align:top">Задача</td>
             <td style="padding:14px 26px;line-height:1.55;white-space:pre-wrap">${esc(description)}</td></tr>` : ''}
         ${formatTrafficHtml(traffic)}
       </tbody>
     </table>
-    <div style="padding:14px 26px;background:#f9fafb;color:#6b7280;font-size:12px">Получено: ${esc(submittedAt)} МСК · taopost.ru/business</div>
+    <div style="padding:14px 26px;background:#f9fafb;color:#6b7280;font-size:12px">Получено: ${esc(submittedAt)} МСК · ${page}</div>
   </div>
 </body></html>`;
 
@@ -331,20 +352,22 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
   const to = process.env.RESEND_TO || 'support@taopost.ru';
 
   const tgText = [
-    '🏭 <b>Новая B2B-заявка (опт)</b>',
+    isOpt ? '📦 <b>Новая заявка ОПТ (карго)</b>' : '🏭 <b>Новая B2B-заявка (опт)</b>',
     '',
-    `<b>Компания:</b> ${esc(company)}`,
+    company ? `<b>Компания:</b> ${esc(company)}` : null,
     contact ? `<b>Контактное лицо:</b> ${esc(contact)}` : null,
     `<b>Контакт:</b> ${esc(phone)}`,
     `<b>Объём:</b> ${esc(volume)}`,
     category ? `<b>Категория:</b> ${esc(category)}` : null,
+    budget ? `<b>Сумма закупки:</b> ${esc(budget)}` : null,
+    needs ? `<b>Нужно:</b> ${esc(needs)}` : null,
     description ? `<b>Задача:</b> ${esc(description)}` : null,
     '',
-    `<i>${esc(submittedAt)} МСК · taopost.ru/business</i>`,
+    `<i>${esc(submittedAt)} МСК · ${page}</i>`,
   ].filter(Boolean).join('\n');
 
   const result = await deliverLead({
-    subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
+    subject: `${tag}: ${who} — ${volume}${category ? ', ' + category : ''}${budget ? ', ' + budget : ''}`,
     telegramText: tgText,
     plainText: text,
     html,
@@ -354,7 +377,7 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
             from,
             to,
             replyTo: 'support@taopost.ru',
-            subject: `B2B: ${company} — ${volume}${category ? ', ' + category : ''}`,
+            subject: `${tag}: ${who} — ${volume}${category ? ', ' + category : ''}${budget ? ', ' + budget : ''}`,
             text,
             html,
           });

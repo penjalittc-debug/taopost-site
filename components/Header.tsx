@@ -7,6 +7,7 @@ import { Send, Menu, X, User } from 'lucide-react';
 const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
   { label: 'Тарифы', href: '/tarify' },
+  { label: 'Опт и карго', href: '/kargo-dostavka' },
   { label: 'Маркетплейсы', href: '/#marketplaces' },
   { label: 'Для бизнеса', href: '/business' },
   { label: 'Гарантии', href: '/garantii' },

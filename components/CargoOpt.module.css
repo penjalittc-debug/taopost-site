@@ -1,0 +1,186 @@
+/* Страница /kargo-dostavka (опт и карго, 04.11.2026) и калькулятор CargoCalc.
+   Палитра как у ServiceLanding: #111827 заголовки, #4B5563 текст, #005C43 бренд. */
+
+.section { padding: 56px 24px; }
+.muted { background: #F9FAFB; }
+.inner { max-width: 1000px; margin: 0 auto; }
+.formWrap { max-width: 720px; margin: 0 auto; }
+.sub { font-size: 15.5px; line-height: 1.65; color: #4B5563; margin: -12px 0 24px; }
+.h3 { font-size: 20px; font-weight: 700; color: #111827; margin: 36px 0 16px; }
+
+/* ── Кнопки под hero ─────────────────────────────────────────── */
+.heroCta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 24px 8px;
+  margin-top: -16px;
+}
+.btnPrimary, .btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 26px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btnPrimary {
+  background: #FF5A47;
+  color: #fff;
+  box-shadow: 0 12px 30px -10px rgba(255,90,71,0.55);
+}
+.btnGhost {
+  background: #fff;
+  color: #005C43;
+  border: 2px solid #005C43;
+}
+
+/* ── Тарифы ──────────────────────────────────────────────────── */
+.tariffs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.tariff {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.tariffHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  cursor: pointer;
+  list-style: none;
+}
+.tariffHead::-webkit-details-marker { display: none; }
+.tariffFrom { color: #005C43; white-space: nowrap; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left;
+  padding: 8px 20px;
+  font-size: 12px;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  border-top: 1px solid #F3F4F6;
+}
+.table td { padding: 8px 20px; border-top: 1px solid #F3F4F6; color: #374151; }
+.table td:last-child { font-weight: 700; color: #111827; text-align: right; }
+.table th:last-child { text-align: right; }
+
+.packGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.packItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14.5px;
+  color: #374151;
+}
+.packItem b { color: #111827; }
+
+/* ── Калькулятор ─────────────────────────────────────────────── */
+.calc {
+  background: #fff;
+  border: 1px solid rgba(10,15,28,0.06);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 24px 60px -24px rgba(10,15,28,0.18);
+}
+.calcHead { display: flex; align-items: center; gap: 10px; color: #005C43; margin-bottom: 22px; }
+.calcTitle { font-size: 21px; font-weight: 700; color: #111827; margin: 0; }
+.calcGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.calcGrid > :nth-child(-n+2) { grid-column: span 1; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.label { font-size: 13px; font-weight: 700; color: #374151; }
+.input {
+  width: 100%;
+  padding: 13px 15px;
+  border-radius: 12px;
+  border: 2px solid #E5E7EB;
+  font-size: 15px;
+  font-family: inherit;
+  color: #0A0F1C;
+  background: #fff;
+  box-sizing: border-box;
+  outline: none;
+}
+.input:focus { border-color: #005C43; box-shadow: 0 0 0 4px rgba(0,92,67,0.12); }
+
+.result { margin-top: 24px; border-top: 1px solid #F3F4F6; padding-top: 18px; }
+.resRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 0;
+  font-size: 15px;
+  color: #374151;
+}
+.resRow b { color: #111827; white-space: nowrap; }
+.resHint { color: #6B7280; font-size: 13.5px; }
+.resTotal { border-top: 1px dashed #E5E7EB; margin-top: 6px; padding-top: 14px; font-size: 17px; font-weight: 700; }
+.resTotal b { color: #005C43; font-size: 22px; }
+.resNote { font-size: 13.5px; line-height: 1.6; color: #6B7280; margin: 12px 0 0; }
+.calcBtn {
+  margin-top: 18px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 14px;
+  background: #005C43;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ── Розница и SEO-текст ─────────────────────────────────────── */
+.retail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #EEF8F4;
+  border-radius: 20px;
+  padding: 28px 32px;
+}
+.retailTitle { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+.retailText { font-size: 15.5px; line-height: 1.65; color: #4B5563; margin: 0; }
+.seo p { font-size: 16px; line-height: 1.75; color: #4B5563; margin: 0 0 16px; max-width: 820px; }
+
+@media (max-width: 720px) {
+  .calc { padding: 22px; }
+  .calcGrid { grid-template-columns: 1fr; }
+  .retail { flex-direction: column; align-items: flex-start; padding: 24px; }
+  .resRow { font-size: 14px; }
+  .tariffs { grid-template-columns: 1fr; }
+}

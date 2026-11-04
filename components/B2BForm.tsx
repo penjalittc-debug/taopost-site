@@ -1,24 +1,58 @@
 'use client';
-import { useState } from 'react';
-import { Send, CheckCircle2, Building2, Phone, Boxes, Tag } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Send, CheckCircle2, Building2, Phone, Boxes, Tag, Wallet } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
 import { collectTraffic } from '@/lib/traffic';
 
 type Status = 'idle' | 'sending' | 'ok' | 'error';
 
-export default function B2BForm() {
+/** Событие калькулятора карго: подставляет расчёт в форму опта. */
+export const OPT_CALC_EVENT = 'taopost:opt-calc';
+export type OptCalcDetail = { volume: string; category: string; summary: string };
+
+export const OPT_BUDGETS = [
+  'до 50 000 ₽',
+  '50 000 – 300 000 ₽',
+  '300 000 – 1 000 000 ₽',
+  'больше 1 000 000 ₽',
+];
+
+/**
+ * variant="b2b" — закупки под ключ (/business), как было.
+ * variant="opt" — карго оптом (/kargo-dostavka, с 04.11.2026): компания не
+ * обязательна (часто пишут физлица-селлеры), плюс сумма закупки, нужен ли
+ * выкуп и документы. Заявка помечается «ОПТ».
+ */
+export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }) {
+  const isOpt = variant === 'opt';
   const [company, setCompany] = useState('');
   const [contact, setContact] = useState('');
   const [phone, setPhone] = useState('');
   const [volume, setVolume] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
+  const [budget, setBudget] = useState('');
+  const [needBuyout, setNeedBuyout] = useState(false);
+  const [needDocs, setNeedDocs] = useState(false);
   const [website, setWebsite] = useState(''); // honeypot
   const [consent, setConsent] = useState(false); // 152-ФЗ: явное согласие на обработку ПДн
   const [status, setStatus] = useState<Status>('idle');
 
+  useEffect(() => {
+    if (!isOpt) return;
+    const onCalc = (e: Event) => {
+      const d = (e as CustomEvent<OptCalcDetail>).detail;
+      if (!d) return;
+      setVolume(d.volume);
+      setCategory((c) => c || d.category);
+      setDescription((t) => (t ? `${t}\n\n${d.summary}` : d.summary));
+    };
+    window.addEventListener(OPT_CALC_EVENT, onCalc);
+    return () => window.removeEventListener(OPT_CALC_EVENT, onCalc);
+  }, [isOpt]);
+
   const canSend =
-    company.trim().length > 1 &&
+    (isOpt ? contact.trim().length > 1 : company.trim().length > 1) &&
     phone.trim().length > 4 &&
     volume.trim().length > 0 &&
     consent;
@@ -33,19 +67,25 @@ export default function B2BForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           b2b: true,
+          opt: isOpt,
           company,
           contact,
           phone,
           volume,
           category,
           description,
+          ...(isOpt ? { budget, needBuyout, needDocs } : {}),
           website,
           traffic: collectTraffic(),
         }),
       });
       if (!res.ok) throw new Error('bad status');
       setStatus('ok');
-      ymReachGoal('b2b_form_submit', { category: category || 'не указана' });
+      if (isOpt) {
+        ymReachGoal('opt_form_submit', { category: category || 'не указана', budget: budget || 'не указана' });
+      } else {
+        ymReachGoal('b2b_form_submit', { category: category || 'не указана' });
+      }
     } catch {
       setStatus('error');
     }
@@ -58,18 +98,27 @@ export default function B2BForm() {
           <span className="b2bf__successIcon"><CheckCircle2 size={40} strokeWidth={2.2} /></span>
           <h3>Заявка принята</h3>
           <p>
-            Менеджер по оптовому направлению свяжется в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК),
-            пришлёт подборку фабрик и предварительную смету.
+            {isOpt
+              ? <>Менеджер по опту свяжется в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК) и пришлёт точный расчёт доставки.</>
+              : <>Менеджер по оптовому направлению свяжется в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК),
+                пришлёт подборку фабрик и предварительную смету.</>}
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="b2bf__form" noValidate>
-          <h2 className="b2bf__title">Запрос оптового расчёта</h2>
-          <p className="b2bf__lede">Расскажите про задачу — отправим смету с фабрикой, ценой и сроками.</p>
+          <h2 className="b2bf__title">{isOpt ? 'Заявка на оптовую доставку' : 'Запрос оптового расчёта'}</h2>
+          <p className="b2bf__lede">
+            {isOpt
+              ? 'Опишите груз — посчитаем доставку по плотности, выкуп и документы.'
+              : 'Расскажите про задачу — отправим смету с фабрикой, ценой и сроками.'}
+          </p>
 
           <div className="b2bf__row">
             <label className="b2bf__field">
-              <span className="b2bf__label"><Building2 size={14} strokeWidth={2.4} /> Компания / ИП</span>
+              <span className="b2bf__label">
+                <Building2 size={14} strokeWidth={2.4} /> Компания / ИП
+                {isOpt && <span className="b2bf__opt">— необязательно</span>}
+              </span>
               <input
                 type="text"
                 value={company}
@@ -80,7 +129,7 @@ export default function B2BForm() {
               />
             </label>
             <label className="b2bf__field">
-              <span className="b2bf__label">Контактное лицо</span>
+              <span className="b2bf__label">{isOpt ? 'Ваше имя' : 'Контактное лицо'}</span>
               <input
                 type="text"
                 value={contact}
@@ -128,12 +177,42 @@ export default function B2BForm() {
             </label>
           </div>
 
+          {isOpt && (
+            <>
+              <label className="b2bf__field">
+                <span className="b2bf__label"><Wallet size={14} strokeWidth={2.4} /> Сумма закупки товара</span>
+                <select
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                  className="b2bf__input"
+                >
+                  <option value="">Выберите</option>
+                  {OPT_BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </select>
+              </label>
+              <div className="b2bf__checks">
+                <label className="b2bf__check">
+                  <input type="checkbox" checked={needBuyout} onChange={(e) => setNeedBuyout(e.target.checked)} />
+                  <span>Нужен выкуп или поиск поставщика</span>
+                </label>
+                <label className="b2bf__check">
+                  <input type="checkbox" checked={needDocs} onChange={(e) => setNeedDocs(e.target.checked)} />
+                  <span>Нужны документы (для маркетплейсов / импорта)</span>
+                </label>
+              </div>
+            </>
+          )}
+
           <label className="b2bf__field">
-            <span className="b2bf__label">Что нужно сделать? <span className="b2bf__opt">— необязательно</span></span>
+            <span className="b2bf__label">
+              {isOpt ? 'Комментарий' : 'Что нужно сделать?'} <span className="b2bf__opt">— необязательно</span>
+            </span>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Например: помочь найти фабрику по образцу, протестировать партию, оформить документы для импорта…"
+              placeholder={isOpt
+                ? 'Например: 300 кг одежды из Гуанчжоу, 2 м³, нужна маркировка для Wildberries…'
+                : 'Например: помочь найти фабрику по образцу, протестировать партию, оформить документы для импорта…'}
               className="b2bf__input b2bf__textarea"
               rows={4}
             />
@@ -170,7 +249,7 @@ export default function B2BForm() {
             className="b2bf__submit"
           >
             <Send size={18} strokeWidth={2.5} />
-            {status === 'sending' ? 'Отправляем…' : 'Запросить расчёт'}
+            {status === 'sending' ? 'Отправляем…' : isOpt ? 'Отправить заявку на опт' : 'Запросить расчёт'}
           </button>
 
           {status === 'error' && (
@@ -278,6 +357,22 @@ export default function B2BForm() {
           margin: 0;
         }
         .b2bf__err a { color: #005C43; font-weight: 600; }
+        .b2bf__checks { display: flex; flex-direction: column; gap: 10px; }
+        .b2bf__check {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 14.5px;
+          color: #374151;
+          cursor: pointer;
+        }
+        .b2bf__check input {
+          width: 18px;
+          height: 18px;
+          accent-color: #005C43;
+          flex-shrink: 0;
+          cursor: pointer;
+        }
         .b2bf__consent {
           display: flex;
           align-items: flex-start;
