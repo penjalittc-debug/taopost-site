@@ -1,3 +1,4 @@
+import OptBand from '@/components/OptBand';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
@@ -96,6 +97,8 @@ export default function ServiceLanding({ service }: { service: Service }) {
             </div>
           </section>
         </FadeIn>
+
+        {service.optCta && <FadeIn delay={50}><OptBand place={`service_${service.slug}`} /></FadeIn>}
 
         <FadeIn delay={50}><LeadForm /></FadeIn>
 

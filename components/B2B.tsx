@@ -69,6 +69,15 @@ export default function B2B() {
             Подробнее и форма
             <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
+          <Link
+            href="/kargo-dostavka"
+            className="b2b__btn b2b__btn--ghost"
+            data-ym-goal="opt_open_page"
+            data-ym-params='{"place":"home_b2b"}'
+          >
+            Карго оптом от 1,3 $/кг
+            <ArrowRight size={18} strokeWidth={2.5} />
+          </Link>
         </div>
       </div>
 
@@ -216,6 +225,15 @@ export default function B2B() {
         .b2b__btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 18px 36px -10px rgba(255,90,71,0.65), inset 0 -2px 0 rgba(0,0,0,0.14);
+        }
+        .b2b__btn--ghost {
+          background: transparent;
+          border: 1.5px solid rgba(255,255,255,0.35);
+          box-shadow: none;
+        }
+        .b2b__btn--ghost:hover {
+          background: rgba(255,255,255,0.08);
+          box-shadow: none;
         }
 
         @media (max-width: 1080px) {

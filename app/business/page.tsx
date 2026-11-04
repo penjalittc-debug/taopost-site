@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import B2BForm from '@/components/B2BForm';
@@ -6,13 +7,13 @@ import { CheckCircle2, Factory, FileCheck2, ShieldCheck, Container, Users } from
 import s from './business.module.css';
 
 export const metadata: Metadata = {
-  title: 'Опт из Китая для бизнеса — закупки на 1688 под ключ | TaoPost',
+  title: 'Товары из Китая оптом — закупка у производителя и доставка | TaoPost',
   description:
-    'Оптовые закупки в Китае под ключ: поиск фабрики на 1688, минимальные партии, сертификация, контейнерные перевозки, документы для импорта в РФ. Выделенный менеджер.',
+    'Товары из Китая оптом под ключ: поиск производителя на 1688, выкуп с комиссией 3–8 %, проверка партии, карго от 1,3 $/кг, документы для маркетплейсов. Опт от 50 000 ₽.',
   alternates: { canonical: 'https://taopost.ru/business' },
   openGraph: {
-    title: 'TaoPost для бизнеса — опт из Китая под ключ',
-    description: 'Поиск фабрики, переговоры, контроль качества, документы и логистика для импорта в РФ.',
+    title: 'Товары из Китая оптом — TaoPost',
+    description: 'Поиск производителя, выкуп, проверка партии и карго-доставка от 1,3 $/кг. Опт от 50 000 ₽.',
     url: 'https://taopost.ru/business',
     siteName: 'TaoPost',
     locale: 'ru_RU',
@@ -85,12 +86,13 @@ export default function BusinessPage() {
               TaoPost для бизнеса
             </span>
             <h1 className={s.title}>
-              Оптовые закупки <span className={s.accent}>в Китае под ключ</span>
+              Товары из Китая оптом <span className={s.accent}>— закупка и доставка под ключ</span>
             </h1>
             <p className={s.lede}>
-              Поиск фабрики на 1688, переговоры, контроль качества, документы и контейнерная
-              логистика — за B2B-клиентом закрепляется отдельный менеджер. Работаем с ИП, ООО и
-              самозанятыми, помогаем выйти на маркетплейсы РФ.
+              Покупаем оптом напрямую у производителя: ищем фабрику на 1688, договариваемся о цене,
+              выкупаем с комиссией 3–8 %, проверяем партию на нашем складе в Гуанчжоу и везём{' '}
+              <Link href="/kargo-dostavka" className={s.accent}>карго от 1,3 $/кг</Link>. Опт — от 50 000 ₽
+              закупки. Работаем с ИП, ООО и самозанятыми, помогаем выйти на Wildberries и Ozon.
             </p>
           </div>
         </section>
@@ -126,6 +128,21 @@ export default function BusinessPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className={s.section}>
+          <div className={s.container}>
+            <h2 className={s.h2}>Сколько стоит доставка оптовой партии</h2>
+            <p className={s.stepText} style={{ maxWidth: 760, fontSize: 16 }}>
+              Доставка до Москвы — по плотности груза, от 1,3 $/кг, 15–20 дней авто. Оплата в рублях
+              по курсу ЦБ + 5 ₽ за $. Тарифы по видам груза, упаковка и калькулятор —
+              на странице{' '}
+              <Link href="/kargo-dostavka" style={{ color: '#005C43', fontWeight: 700 }}>
+                карго доставка из Китая оптом
+              </Link>
+              . Сборные партии от разных поставщиков объединяем на складе в одну отправку.
+            </p>
           </div>
         </section>
 

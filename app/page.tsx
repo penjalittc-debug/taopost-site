@@ -10,6 +10,7 @@ import FAQTeaser from '@/components/FAQTeaser';
 import CTAV2 from '@/components/CTAV2';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
+import OptBand from '@/components/OptBand';
 import { PRODUCTS } from '@/lib/products';
 
 const jsonLd = {
@@ -228,6 +229,7 @@ export default function Home() {
         <FadeIn delay={50}><PriceComparison /></FadeIn>
         <FadeIn delay={50}><HowItWorks /></FadeIn>
         <FadeIn delay={50}><ParcelCalculator /></FadeIn>
+        <FadeIn delay={50}><OptBand place="home" /></FadeIn>
         {/* Форма сразу после калькулятора: человек только что увидел цену —
             это пик готовности действовать. До 18.09.2026 на главной не было
             ни одной формы, все 11 кнопок вели в Telegram, и посетитель, не

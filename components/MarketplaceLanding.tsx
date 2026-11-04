@@ -246,6 +246,15 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                 Рассчитать стоимость
               </Link>
             </div>
+            {mp.slug === '1688' && (
+              <p className={s.subHintCtaMid} style={{ marginTop: 18 }}>
+                Закупка от 50 000 ₽? Везём{' '}
+                <Link href="/kargo-dostavka" style={{ color: '#005C43', fontWeight: 700 }}>
+                  карго из Китая оптом от 1,3 $/кг
+                </Link>
+                {' '}— ставка по плотности груза, документы для маркетплейсов.
+              </p>
+            )}
           </div>
         </section>
 
