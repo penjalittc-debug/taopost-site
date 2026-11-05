@@ -62,7 +62,7 @@ type Payload = {
   website?: string;
   traffic?: Traffic;
   // Где клиент хочет получить ответ (LeadForm с 10.10.2026, B2BForm с 05.11.2026):
-  // telegram | whatsapp | max | call. messenger — ник в Telegram или номер в
+  // telegram | whatsapp | max. «call» от старых страниц игнорируем. messenger — ник в Telegram или номер в
   // WhatsApp/Max; tg — старое имя поля для ника (страницы, открытые до выкладки).
   contactVia?: string;
   messenger?: string;
@@ -97,7 +97,7 @@ function normalizeTg(raw?: string): { nick: string | null; text: string } {
 
 type ContactInfo = {
   via: ContactVia | null;
-  viaLabel: string;      // «в Telegram», «звонком»…
+  viaLabel: string;      // «в Telegram», «в WhatsApp», «в Max»
   hint: string;          // подсказка менеджеру
   messenger: string;     // что уходит в приложение: @ник или номер
   rowLabel: string;      // подпись строки с ником/номером: Telegram / WhatsApp / Max
@@ -109,7 +109,6 @@ const VIA_LABEL: Record<ContactVia, string> = {
   telegram: 'в Telegram',
   whatsapp: 'в WhatsApp',
   max: 'в Max',
-  call: 'звонком',
 };
 
 /** Способ связи и ник/номер в мессенджере — одинаково для всех веток. */
@@ -139,7 +138,7 @@ function contactInfo(rawVia: unknown, rawMessenger: string | undefined, phone: s
     const digits = number.replace(/\D/g, '');
     return {
       ...base,
-      hint: `клиенту обещали написать в ${name} в ближайшее время (9:00–22:00 МСК)`,
+      hint: `клиенту обещали написать в ${name} в рабочее время`,
       messenger: number,
       rowLabel: name,
       rowText: raw ? number : `${number} (тот же, что телефон)`,
@@ -347,7 +346,7 @@ export async function POST(req: NextRequest) {
     formatTrafficText(data.traffic) ? `<code>${esc(formatTrafficText(data.traffic))}</code>` : null,
   ].filter(Boolean).join('\n');
 
-  const subjectVia = ci.via === 'call' ? ' · перезвонить' : ci.via ? ` · ответ ${ci.viaLabel}` : '';
+  const subjectVia = ci.via ? ` · ответ ${ci.viaLabel}` : '';
 
   const result = await deliverLead({
     subject: `Заявка: ${fromCity} → ${toCity}, ${weight} кг, ${transportLabel}${subjectVia}`,
@@ -502,7 +501,7 @@ async function handleB2B(data: Payload, traffic?: Traffic) {
     `<i>${esc(submittedAt)} МСК · ${page}</i>`,
   ].filter(Boolean).join('\n');
 
-  const viaSubject = ci.via === 'call' ? ' · перезвонить' : ci.via ? ` · ответ ${ci.viaLabel}` : '';
+  const viaSubject = ci.via ? ` · ответ ${ci.viaLabel}` : '';
   const result = await deliverLead({
     subject: `${tag}: ${who} — ${volume}${category ? ', ' + category : ''}${budget ? ', ' + budget : ''}${viaSubject}`,
     telegramText: tgText,

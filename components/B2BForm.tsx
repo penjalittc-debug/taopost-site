@@ -12,7 +12,6 @@ const VIA_PHRASE: Record<ContactVia, string> = {
   telegram: 'напишет вам в\u00a0Telegram',
   whatsapp: 'напишет вам в\u00a0WhatsApp',
   max: 'напишет вам в\u00a0Max',
-  call: 'перезвонит',
 };
 
 /** Событие калькулятора карго: подставляет расчёт в форму опта. */
@@ -83,7 +82,7 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
           contact,
           phone,
           contactVia,
-          messenger: contactVia === 'call' ? '' : messenger,
+          messenger,
           volume,
           category,
           description,
@@ -156,7 +155,7 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
           </div>
 
           <label className="b2bf__field">
-            <span className="b2bf__label"><Phone size={14} strokeWidth={2.4} /> Телефон</span>
+            <span className="b2bf__label"><Phone size={14} strokeWidth={2.4} /> Телефон (WhatsApp / Max)</span>
             <input
               type="tel"
               value={phone}

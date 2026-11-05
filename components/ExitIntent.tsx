@@ -223,10 +223,11 @@ export default function ExitIntent() {
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               className="ei__input"
-              placeholder="Telegram или телефон — пришлём гайд (необязательно)"
-              aria-label="Контакт для отправки гайда"
-              inputMode="tel"
-              autoComplete="tel"
+              placeholder="Ник в Telegram или номер WhatsApp / Max (необязательно)"
+              aria-label="Telegram, WhatsApp или Max для отправки гайда"
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck={false}
             />
 
             <button

@@ -163,8 +163,9 @@ export async function deliverLead(opts: {
 // не ответило «принято» — роут откатывается на deliverLead (почта → файл),
 // чтобы заявка не потерялась.
 
-export type ContactVia = 'telegram' | 'whatsapp' | 'max' | 'call';
-export const CONTACT_VIAS: readonly ContactVia[] = ['telegram', 'whatsapp', 'max', 'call'];
+// Звонка нет (решение владельца 05.11.2026: звонить клиентам некому) — только мессенджеры.
+export type ContactVia = 'telegram' | 'whatsapp' | 'max';
+export const CONTACT_VIAS: readonly ContactVia[] = ['telegram', 'whatsapp', 'max'];
 
 /** Приводит то, что прислала форма, к одному из четырёх способов связи. */
 export function parseContactVia(v: unknown): ContactVia | null {

@@ -1,28 +1,28 @@
 'use client';
 import { Send, Phone, MessageCircle, MessageSquare, AtSign } from 'lucide-react';
 
-// Где клиенту удобнее получить ответ (с 05.11.2026 — четыре варианта).
-// Значения совпадают с contactVia в /api/calculator и в админке приложения.
-export type ContactVia = 'telegram' | 'whatsapp' | 'max' | 'call';
+// Где клиенту удобнее получить ответ — только мессенджеры. Звонка нет
+// (решение владельца 05.11.2026: звонить клиентам некому, заявки с одним
+// телефоном терялись). Значения совпадают с contactVia в /api/calculator и в
+// админке приложения.
+export type ContactVia = 'telegram' | 'whatsapp' | 'max';
 
 export const CONTACT_VIA_NAME: Record<ContactVia, string> = {
   telegram: 'Telegram',
   whatsapp: 'WhatsApp',
   max: 'Max',
-  call: 'Звонок',
 };
 
 const OPTIONS: Array<{ id: ContactVia; Icon: typeof Send }> = [
   { id: 'telegram', Icon: Send },
   { id: 'whatsapp', Icon: MessageCircle },
   { id: 'max', Icon: MessageSquare },
-  { id: 'call', Icon: Phone },
 ];
 
 /**
- * Четыре кнопки «Telegram · WhatsApp · Max · Звонок» и поле под выбранный
- * мессенджер: ник для Telegram, номер для WhatsApp/Max (если не тот же, что
- * телефон). Для звонка дополнительного поля нет.
+ * Три кнопки «Telegram · WhatsApp · Max» (выбор обязателен, по умолчанию
+ * Telegram) и поле под выбранный мессенджер: ник для Telegram, номер для
+ * WhatsApp/Max (если не тот же, что телефон).
  */
 export default function ContactViaPicker({
   value,
@@ -103,7 +103,7 @@ export default function ContactViaPicker({
         }
         .cvp__label :global(svg) { color: #6B7280; }
         .cvp__opt { font-weight: 500; color: #6B7280; }
-        .cvp__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .cvp__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .cvp__btn {
           display: inline-flex; align-items: center; justify-content: center; gap: 8px;
           padding: 13px 12px; border-radius: 12px; border: 2px solid #E5E7EB;
@@ -112,6 +112,11 @@ export default function ContactViaPicker({
         }
         .cvp__btn :global(svg) { flex-shrink: 0; }
         .cvp__btn--active { border-color: #005C43; background: rgba(0,92,67,0.06); color: #004232; }
+        /* Узкая карточка: три кнопки в ряд не влезают с иконкой сбоку — ставим её над подписью. */
+        @media (max-width: 520px) {
+          .cvp__grid { gap: 8px; }
+          .cvp__btn { flex-direction: column; gap: 4px; padding: 10px 4px; font-size: 13px; }
+        }
         .cvp__input {
           width: 100%; padding: 14px 16px; border-radius: 12px;
           border: 2px solid #E5E7EB; font-size: 15px; outline: none;

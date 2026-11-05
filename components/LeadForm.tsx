@@ -52,7 +52,7 @@ export default function LeadForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           toCity, phone, transport, weight, website, contactVia,
-          messenger: contactVia === 'call' ? '' : messenger,
+          messenger,
           traffic: collectTraffic(),
           page: window.location.pathname,
         }),
@@ -71,15 +71,14 @@ export default function LeadForm() {
         <div className="lf__copy">
           <span className="lf__eyebrow">
             <span className="lf__dot" />
-            Telegram, WhatsApp, Max или звонок
+            Telegram, WhatsApp или Max
           </span>
           <h2 className="lf__title">
             Оставьте заявку — <span className="lf__accent">посчитаем доставку</span>
           </h2>
           <p className="lf__lede">
             Укажите город и телефон — посчитаем стоимость и поможем оформить первый заказ.
-            Ответим там, где вам удобно: в Telegram, WhatsApp, Max или перезвоним
-            с 9:00 до 22:00 МСК.
+            Ответим там, где вам удобно: в Telegram, WhatsApp или Max.
           </p>
           <ul className="lf__benefits">
             <li><CheckCircle2 size={18} strokeWidth={2.4} /> Без предоплаты и обязательств</li>
@@ -100,20 +99,12 @@ export default function LeadForm() {
                     с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
                   </p>
                 </>
-              ) : contactVia === 'call' ? (
-                <>
-                  <h3>Заявка принята!</h3>
-                  <p>
-                    Перезвоним с 9:00 до 22:00 МСК. Если удобнее — напишите в&nbsp;Telegram,
-                    там ответим быстрее.
-                  </p>
-                </>
               ) : (
                 <>
                   <h3>Заявка принята!</h3>
                   <p>
-                    Напишем вам в&nbsp;{CONTACT_VIA_NAME[contactVia]} в&nbsp;ближайшее время
-                    (9:00–22:00 МСК). Не хотите ждать — напишите нам в&nbsp;Telegram.
+                    Напишем вам в&nbsp;{CONTACT_VIA_NAME[contactVia]} в&nbsp;рабочее время.
+                    Не хотите ждать — напишите нам в&nbsp;Telegram, там отвечаем сразу.
                   </p>
                 </>
               )}
@@ -126,11 +117,8 @@ export default function LeadForm() {
                 data-ym-params='{"place":"lead_form_success"}'
               >
                 <Send size={18} strokeWidth={2.5} />
-                {contactVia === 'telegram' ? 'Получить расчёт в Telegram' : 'Написать в Telegram'}
+                {contactVia === 'telegram' ? 'Получить расчёт в Telegram' : 'Написать нам в Telegram'}
               </a>
-              {contactVia === 'telegram' && (
-                <p className="lf__successNote">Нет Telegram? Ничего страшного — перезвоним с 9:00 до 22:00 МСК.</p>
-              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="lf__form" noValidate>
@@ -147,7 +135,7 @@ export default function LeadForm() {
               </label>
 
               <label className="lf__field">
-                <span className="lf__label"><Phone size={14} strokeWidth={2.4} /> Телефон</span>
+                <span className="lf__label"><Phone size={14} strokeWidth={2.4} /> Телефон (WhatsApp / Max)</span>
                 <input
                   type="tel"
                   value={phone}
@@ -366,7 +354,6 @@ export default function LeadForm() {
           width: 100%; box-sizing: border-box; padding: 16px 14px; border-radius: 14px; font-size: 16px; white-space: nowrap;
           box-shadow: 0 12px 30px -10px rgba(0,136,204,0.55);
         }
-        .lf__successNote { font-size: 13.5px !important; color: #6B7280 !important; margin: 14px 0 0 !important; }
 
         @media (max-width: 880px) {
           .lf { padding: 64px 18px; }
