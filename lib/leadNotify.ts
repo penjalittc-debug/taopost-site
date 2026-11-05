@@ -154,3 +154,104 @@ export async function deliverLead(opts: {
 
   return { ok: channels.length > 0, channels, failed };
 }
+
+// ── Заявка в админку приложения (app.taopost.ru → «Заявки с сайта») ─────────
+// С 05.11.2026 главный канал — приложение: менеджеры видят заявку в разделе
+// /admin/leads и получают пуш, а не ищут её на почте. Сайт и приложение живут
+// на одном сервере, поэтому шлём напрямую на 127.0.0.1 с общим ключом
+// SITE_LEAD_KEY (его кладёт в .env сайта деплой приложения). Если приложение
+// не ответило «принято» — роут откатывается на deliverLead (почта → файл),
+// чтобы заявка не потерялась.
+
+export type ContactVia = 'telegram' | 'whatsapp' | 'max' | 'call';
+export const CONTACT_VIAS: readonly ContactVia[] = ['telegram', 'whatsapp', 'max', 'call'];
+
+/** Приводит то, что прислала форма, к одному из четырёх способов связи. */
+export function parseContactVia(v: unknown): ContactVia | null {
+  return typeof v === 'string' && (CONTACT_VIAS as readonly string[]).includes(v) ? (v as ContactVia) : null;
+}
+
+export type AppLead = {
+  kind: 'calc' | 'opt' | 'b2b' | 'exit';
+  phone?: string;
+  contactVia?: ContactVia | null;
+  messenger?: string; // ник в Telegram или номер в WhatsApp/Max
+  name?: string;
+  company?: string;
+  toCity?: string;
+  transport?: 'auto' | 'air';
+  weight?: string;
+  volume?: string;
+  details?: Record<string, string>; // подписи по-русски → значение
+  traffic?: Record<string, string | undefined>;
+  page?: string;
+};
+
+function cut(v: unknown, max: number): string | undefined {
+  if (typeof v !== 'string') return undefined;
+  const s = v.trim().slice(0, max);
+  return s || undefined;
+}
+
+/**
+ * Отправляет заявку в приложение. Возвращает номер заявки, если приложение её
+ * приняло (200 и ok:true), иначе null — тогда нужен резерв через deliverLead.
+ */
+export async function sendToApp(lead: AppLead): Promise<number | null> {
+  const key = process.env.SITE_LEAD_KEY;
+  if (!key) return null; // ключа нет — сразу резерв
+
+  const url = process.env.APP_LEAD_URL || 'http://127.0.0.1:3001/api/site-leads';
+
+  const details: Record<string, string> = {};
+  for (const [k, v] of Object.entries(lead.details || {})) {
+    const label = cut(k, 60);
+    const value = cut(v, 2000);
+    if (label && value) details[label] = value;
+  }
+  const traffic: Record<string, string> = {};
+  for (const [k, v] of Object.entries(lead.traffic || {})) {
+    const value = cut(v, 300);
+    if (value) traffic[k.slice(0, 40)] = value;
+  }
+
+  const body = {
+    kind: lead.kind,
+    phone: cut(lead.phone, 60),
+    contactVia: lead.contactVia || undefined,
+    messenger: cut(lead.messenger, 64),
+    name: cut(lead.name, 120),
+    company: cut(lead.company, 120),
+    toCity: cut(lead.toCity, 80),
+    transport: lead.transport,
+    weight: cut(lead.weight, 20),
+    volume: cut(lead.volume, 60),
+    details: Object.keys(details).length ? details : undefined,
+    traffic: Object.keys(traffic).length ? traffic : undefined,
+    page: cut(lead.page, 300),
+  };
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-site-key': key },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) {
+      console.error('[lead] app HTTP', res.status, (await res.text().catch(() => '')).slice(0, 300));
+      return null;
+    }
+    const json = (await res.json().catch(() => null)) as { ok?: boolean; number?: unknown } | null;
+    if (!json?.ok) {
+      console.error('[lead] app answered without ok:', json);
+      return null;
+    }
+    const n = Number(json.number);
+    // Приняла, но номер не вернула — всё равно считаем доставленной (0 = «без номера»).
+    return Number.isFinite(n) ? n : 0;
+  } catch (e) {
+    console.error('[lead] app error:', e);
+    return null;
+  }
+}

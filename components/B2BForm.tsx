@@ -3,8 +3,17 @@ import { useEffect, useState } from 'react';
 import { Send, CheckCircle2, Building2, Phone, Boxes, Tag, Wallet } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
 import { collectTraffic } from '@/lib/traffic';
+import ContactViaPicker, { type ContactVia } from './ContactViaPicker';
 
 type Status = 'idle' | 'sending' | 'ok' | 'error';
+
+/** Как менеджер свяжется — для текста после отправки. */
+const VIA_PHRASE: Record<ContactVia, string> = {
+  telegram: 'напишет вам в\u00a0Telegram',
+  whatsapp: 'напишет вам в\u00a0WhatsApp',
+  max: 'напишет вам в\u00a0Max',
+  call: 'перезвонит',
+};
 
 /** Событие калькулятора карго: подставляет расчёт в форму опта. */
 export const OPT_CALC_EVENT = 'taopost:opt-calc';
@@ -28,6 +37,8 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
   const [company, setCompany] = useState('');
   const [contact, setContact] = useState('');
   const [phone, setPhone] = useState('');
+  const [contactVia, setContactVia] = useState<ContactVia>('telegram');
+  const [messenger, setMessenger] = useState(''); // ник в Telegram или номер в WhatsApp/Max
   const [volume, setVolume] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
@@ -53,7 +64,7 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
 
   const canSend =
     (isOpt ? contact.trim().length > 1 : company.trim().length > 1) &&
-    phone.trim().length > 4 &&
+    phone.replace(/\D/g, '').length >= 10 &&
     volume.trim().length > 0 &&
     consent;
 
@@ -71,20 +82,23 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
           company,
           contact,
           phone,
+          contactVia,
+          messenger: contactVia === 'call' ? '' : messenger,
           volume,
           category,
           description,
           ...(isOpt ? { budget, needBuyout, needDocs } : {}),
           website,
           traffic: collectTraffic(),
+          page: window.location.pathname,
         }),
       });
       if (!res.ok) throw new Error('bad status');
       setStatus('ok');
       if (isOpt) {
-        ymReachGoal('opt_form_submit', { category: category || 'не указана', budget: budget || 'не указана' });
+        ymReachGoal('opt_form_submit', { category: category || 'не указана', budget: budget || 'не указана', contactVia });
       } else {
-        ymReachGoal('b2b_form_submit', { category: category || 'не указана' });
+        ymReachGoal('b2b_form_submit', { category: category || 'не указана', contactVia });
       }
     } catch {
       setStatus('error');
@@ -99,8 +113,8 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
           <h3>Заявка принята</h3>
           <p>
             {isOpt
-              ? <>Менеджер по опту свяжется в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК) и пришлёт точный расчёт доставки.</>
-              : <>Менеджер по оптовому направлению свяжется в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК),
+              ? <>Менеджер по опту {VIA_PHRASE[contactVia]} в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК) и пришлёт точный расчёт доставки.</>
+              : <>Менеджер по оптовому направлению {VIA_PHRASE[contactVia]} в течение рабочего дня (с&nbsp;9:00 до&nbsp;19:00 МСК),
                 пришлёт подборку фабрик и предварительную смету.</>}
           </p>
         </div>
@@ -142,17 +156,24 @@ export default function B2BForm({ variant = 'b2b' }: { variant?: 'b2b' | 'opt' }
           </div>
 
           <label className="b2bf__field">
-            <span className="b2bf__label"><Phone size={14} strokeWidth={2.4} /> Телефон или Telegram</span>
+            <span className="b2bf__label"><Phone size={14} strokeWidth={2.4} /> Телефон</span>
             <input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+7 ___ ___ __ __ или @username"
+              placeholder="+7 ___ ___ __ __"
               className="b2bf__input"
               autoComplete="tel"
               inputMode="tel"
             />
           </label>
+
+          <ContactViaPicker
+            value={contactVia}
+            onChange={setContactVia}
+            messenger={messenger}
+            onMessengerChange={setMessenger}
+          />
 
           <div className="b2bf__row">
             <label className="b2bf__field">

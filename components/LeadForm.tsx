@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { Send, CheckCircle2, Phone, MapPin, Truck, Plane, AtSign } from 'lucide-react';
+import { Send, CheckCircle2, Phone, MapPin, Truck, Plane } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
 import { collectTraffic } from '@/lib/traffic';
+import ContactViaPicker, { CONTACT_VIA_NAME, type ContactVia } from './ContactViaPicker';
 
 type Transport = 'auto' | 'air';
-type ContactVia = 'telegram' | 'call';
 type Status = 'idle' | 'sending' | 'ok' | 'error';
 
 // Куда ведёт кнопка после заявки — личка менеджера, к которой через
@@ -32,7 +32,7 @@ export default function LeadForm() {
   const [transport, setTransport] = useState<Transport>('auto');
   const [weight, setWeight] = useState('');
   const [contactVia, setContactVia] = useState<ContactVia>('telegram');
-  const [tg, setTg] = useState('');
+  const [messenger, setMessenger] = useState(''); // ник в Telegram или номер в WhatsApp/Max
   const [website, setWebsite] = useState(''); // honeypot — должно остаться пустым
   const [consent, setConsent] = useState(false); // 152-ФЗ: явное согласие на обработку ПДн
   const [status, setStatus] = useState<Status>('idle');
@@ -52,8 +52,9 @@ export default function LeadForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           toCity, phone, transport, weight, website, contactVia,
-          tg: contactVia === 'telegram' ? tg : '',
+          messenger: contactVia === 'call' ? '' : messenger,
           traffic: collectTraffic(),
+          page: window.location.pathname,
         }),
       });
       if (!res.ok) throw new Error('bad status');
@@ -70,15 +71,15 @@ export default function LeadForm() {
         <div className="lf__copy">
           <span className="lf__eyebrow">
             <span className="lf__dot" />
-            Отвечаем в Telegram круглосуточно
+            Telegram, WhatsApp, Max или звонок
           </span>
           <h2 className="lf__title">
-            Оставьте заявку — <span className="lf__accent">пришлём расчёт в Telegram</span>
+            Оставьте заявку — <span className="lf__accent">посчитаем доставку</span>
           </h2>
           <p className="lf__lede">
             Укажите город и телефон — посчитаем стоимость и поможем оформить первый заказ.
-            Быстрее всего в Telegram: отвечаем за пару минут в любое время. Нет Telegram —
-            перезвоним с 9:00 до 22:00 МСК.
+            Ответим там, где вам удобно: в Telegram, WhatsApp, Max или перезвоним
+            с 9:00 до 22:00 МСК.
           </p>
           <ul className="lf__benefits">
             <li><CheckCircle2 size={18} strokeWidth={2.4} /> Без предоплаты и обязательств</li>
@@ -99,12 +100,20 @@ export default function LeadForm() {
                     с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
                   </p>
                 </>
-              ) : (
+              ) : contactVia === 'call' ? (
                 <>
                   <h3>Заявка принята!</h3>
                   <p>
                     Перезвоним с 9:00 до 22:00 МСК. Если удобнее — напишите в&nbsp;Telegram,
                     там ответим быстрее.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3>Заявка принята!</h3>
+                  <p>
+                    Напишем вам в&nbsp;{CONTACT_VIA_NAME[contactVia]} в&nbsp;ближайшее время
+                    (9:00–22:00 МСК). Не хотите ждать — напишите нам в&nbsp;Telegram.
                   </p>
                 </>
               )}
@@ -150,43 +159,12 @@ export default function LeadForm() {
                 />
               </label>
 
-              <div className="lf__field">
-                <span className="lf__label">Где удобнее получить ответ</span>
-                <div className="lf__transport">
-                  <button
-                    type="button"
-                    onClick={() => setContactVia('telegram')}
-                    className={`lf__transportBtn${contactVia === 'telegram' ? ' lf__transportBtn--active' : ''}`}
-                  >
-                    <Send size={16} strokeWidth={2.3} /> Telegram
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setContactVia('call')}
-                    className={`lf__transportBtn${contactVia === 'call' ? ' lf__transportBtn--active' : ''}`}
-                  >
-                    <Phone size={16} strokeWidth={2.3} /> Звонок
-                  </button>
-                </div>
-              </div>
-
-              {contactVia === 'telegram' && (
-                <label className="lf__field">
-                  <span className="lf__label">
-                    <AtSign size={14} strokeWidth={2.4} /> Ник в Telegram <span className="lf__opt">— необязательно</span>
-                  </span>
-                  <input
-                    type="text"
-                    value={tg}
-                    onChange={(e) => setTg(e.target.value.replace(/\s/g, '').slice(0, 64))}
-                    placeholder="@username"
-                    className="lf__input"
-                    autoComplete="off"
-                    autoCapitalize="off"
-                    spellCheck={false}
-                  />
-                </label>
-              )}
+              <ContactViaPicker
+                value={contactVia}
+                onChange={setContactVia}
+                messenger={messenger}
+                onMessengerChange={setMessenger}
+              />
 
               <div className="lf__field">
                 <span className="lf__label">Способ доставки</span>

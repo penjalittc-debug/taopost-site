@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { X, Gift, Send } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
+import { collectTraffic } from '@/lib/traffic';
 
 type Reason = 'expensive' | 'unclear' | 'no_trust' | 'just_browsing' | 'other';
 
@@ -125,12 +126,15 @@ export default function ExitIntent() {
       fetch('/api/calculator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        // Сервер сам разберёт: похоже на номер — телефон, иначе ник в Telegram.
         body: JSON.stringify({
-          toCity: 'exit-intent',
-          phone: contact.trim().slice(0, 80),
-          weight: '',
-          transport: 'auto',
+          exit: true,
+          contact: contact.trim().slice(0, 80),
+          reason,
+          otherText: reason === 'other' ? otherText.slice(0, 140) : '',
           website: '',
+          traffic: collectTraffic(),
+          page: window.location.pathname,
         }),
       }).catch(() => {});
     }
