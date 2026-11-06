@@ -10,7 +10,7 @@ const COMMISSION_PERCENT = 3;
 const GUARANTEE_PERCENT = 5;
 const GUARANTEE_MIN_RUB = 200;
 const AUTO_RATE_RUB_KG = 450;
-const AIR_RATE_RUB_KG = 2700;
+const AIR_RATE_RUB_KG = 2400;
 
 function rub(value: number): string {
   if (!Number.isFinite(value) || Number.isNaN(value)) return '0 ₽';
@@ -173,7 +173,7 @@ export default function Wholesale1688Calc() {
                       transition: 'all .15s',
                     }}
                   >
-                    Авиа · 2 700 ₽/кг
+                    Авиа · 2 400 ₽/кг
                   </button>
                 </div>
               </div>

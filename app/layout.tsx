@@ -16,7 +16,7 @@ const rubik = Rubik({
 
 export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 — от 350 ₽/кг",
-  description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 700 ₽/кг. Москва, СПб и вся РФ за 15–25 дней.",
+  description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 400 ₽/кг. Москва, СПб и вся РФ за 15–25 дней.",
   metadataBase: new URL("https://taopost.ru"),
   alternates: {
     canonical: "https://taopost.ru",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "TaoPost — Доставка из Китая в Россию | Taobao, Poizon, 1688",
-    description: "Карго доставка из Китая в Россию. Одежда, обувь, электроника с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 700 ₽/кг. Доставляем по всей России.",
+    description: "Карго доставка из Китая в Россию. Одежда, обувь, электроника с Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 400 ₽/кг. Доставляем по всей России.",
     url: "https://taopost.ru",
     siteName: "TaoPost",
     locale: "ru_RU",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "TaoPost — Доставка из Китая в Россию",
-    description: "Карго доставка из Китая в Россию. Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 700 ₽/кг.",
+    description: "Карго доставка из Китая в Россию. Taobao, Poizon, Pinduoduo, 1688. Авто от 350 ₽/кг, авиа от 2 400 ₽/кг.",
     images: ["https://taopost.ru/og-image.png"],
   },
 };

@@ -22,3 +22,11 @@ export function retailRate(billableKg: number): number {
 
 /** «до 10 кг — 450 ₽/кг, от 10 кг — 400 ₽/кг, от 20 кг — 350 ₽/кг» */
 export const RETAIL_LADDER_TEXT = 'до 10 кг — 450 ₽/кг, от 10 кг — 400 ₽/кг, от 20 кг — 350 ₽/кг';
+
+/** Авиа (владелец 06.11.2026): от 2 400 ₽/кг, 3–5 дней. Копия AIR_RATE_RUB / AIR_DAYS_* приложения. */
+export const AIR_FROM_RUB = 2400;
+export const AIR_DAYS_TEXT = '3–5 дней';
+
+/** Сборные грузы от 30 кг — «от 300 ₽/кг» (владелец 06.11.2026): это сборный груз по
+ *  сетке карго (3,1 $ и ниже + упаковка), считает менеджер; розница ниже 350 не опускается. */
+export const CONSOLIDATED_FROM_RUB = 300;

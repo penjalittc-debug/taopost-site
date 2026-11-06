@@ -8,7 +8,7 @@ const AUTO_ROWS = [
 ];
 
 const AIR_ROWS = [
-  { route: 'Гуанчжоу → Москва', time: '5–7 дней', price: 'от 2 700 ₽/кг', note: 'Авиадоставка' },
+  { route: 'Гуанчжоу → Москва', time: '3–5 дней', price: 'от 2 400 ₽/кг', note: 'Авиадоставка' },
 ];
 
 type Service = {

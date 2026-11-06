@@ -1,10 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
-import { RETAIL_MIN_RUB, RETAIL_TIERS } from '@/lib/retailTariff';
+import { AIR_DAYS_TEXT, AIR_FROM_RUB, CONSOLIDATED_FROM_RUB } from '@/lib/retailTariff';
 
-/** Вес, с которого действует 350 ₽/кг (последняя ступень лесенки). */
-const HEAVY_FROM_KG = RETAIL_TIERS[RETAIL_TIERS.length - 1].fromKg;
+const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
 
 type Segment = {
@@ -62,14 +61,14 @@ const SEGMENTS: Segment[] = [
     mp: 'Poizon',
     mpSlug: 'poizon',
     mpColor: '#1a1a2e',
-    subtitle: 'Оригинальные кроссовки и брендовая одежда с Poizon (得物). С проверкой подлинности, от 1 пары, авиа за 5-7 дней.',
+    subtitle: 'Оригинальные кроссовки и брендовая одежда с Poizon (得物). С проверкой подлинности, от 1 пары, авиа за 3-5 дней.',
     cardTag: 'Авиа · Poizon',
     cardBadge: 'От 1 пары',
     CardBadgeIcon: Plane,
-    priceFrom: '2 700',
+    priceFrom: '2 400',
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
-    cardFoot: '5–7 дней авиа · от 1 пары · аутентификация',
+    cardFoot: '3–5 дней авиа · от 1 пары · аутентификация',
     ctaLabel: 'Заказать с Poizon',
     cta: APP_CTA,
     cta2: CALC_CTA,
@@ -140,13 +139,22 @@ export default function HeroV3() {
             {/* Телефон: карточки цен уходят ниже кнопок, поэтому обе цены — сразу под заголовком. */}
             <div className="hero3__mPrices">
               <button type="button" onClick={() => setActiveId('clothing')}
-                className={`hero3__mPrice${!isCargo ? ' hero3__mPrice--on' : ''}`}>
+                className={`hero3__mPrice${seg.id === 'clothing' ? ' hero3__mPrice--on' : ''}`}>
                 <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
               </button>
               <button type="button" onClick={() => setActiveId('wholesale')}
                 className={`hero3__mPrice hero3__mPrice--cargo${isCargo ? ' hero3__mPrice--on' : ''}`}
                 data-ym-goal="hero_segment_click" data-ym-params='{"segment":"wholesale","place":"m_prices"}'>
-                <span>Сборные от {HEAVY_FROM_KG} кг</span><b>от {RETAIL_MIN_RUB} ₽/кг</b>
+                <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
+              </button>
+              <a href="/kargo-dostavka" className="hero3__mPrice hero3__mPrice--opt"
+                data-ym-goal="opt_open_page" data-ym-params='{"place":"m_prices_cargo"}'>
+                <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
+              </a>
+              <button type="button" onClick={() => setActiveId('sneakers')}
+                className={`hero3__mPrice hero3__mPrice--air${seg.id === 'sneakers' ? ' hero3__mPrice--on' : ''}`}
+                data-ym-goal="hero_segment_click" data-ym-params='{"segment":"sneakers","place":"m_prices_air"}'>
+                <span>Авиа · {AIR_DAYS_TEXT}</span><b>от {AIR_PRICE} ₽/кг</b>
               </button>
             </div>
 
@@ -252,8 +260,8 @@ export default function HeroV3() {
                 <Plane size={20} strokeWidth={2.3} />
               </div>
               <div>
-                <div className="hero3__aviaTitle">Авиа от 2 700 ₽/кг</div>
-                <div className="hero3__aviaSub">5–7 дней</div>
+                <div className="hero3__aviaTitle">Авиа от {AIR_PRICE} ₽/кг</div>
+                <div className="hero3__aviaSub">{AIR_DAYS_TEXT}</div>
               </div>
             </div>
 
@@ -265,9 +273,9 @@ export default function HeroV3() {
               data-ym-goal="hero_segment_click"
               data-ym-params={`{"segment":"${isCargo ? 'clothing' : 'wholesale'}","place":"alt_card"}`}
             >
-              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${HEAVY_FROM_KG} кг`}</div>
+              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${CARGO_MIN_KG} кг`}</div>
               <div className="hero3__altValue">
-                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {RETAIL_MIN_RUB} <span>₽/кг</span></>}
+                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CONSOLIDATED_FROM_RUB} <span>₽/кг</span></>}
               </div>
               <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : `плотный опт — от ${CARGO_RATE} $/кг`} →</div>
             </button>
@@ -651,10 +659,16 @@ export default function HeroV3() {
             font-family: inherit; cursor: pointer;
           }
           .hero3__mPrice span { font-size: 12px; font-weight: 600; color: #6B7280; }
-          .hero3__mPrice b { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #0A0F1C; }
+          .hero3__mPrice b { font-size: clamp(17px, 5.2vw, 22px); font-weight: 700; letter-spacing: -0.5px; color: #0A0F1C; white-space: nowrap; }
           .hero3__mPrice--cargo { background: #0A0F1C; border-color: #0A0F1C; }
           .hero3__mPrice--cargo span { color: #9CA3AF; }
           .hero3__mPrice--cargo b { color: #5DCAA5; }
+          .hero3__mPrice--opt { background: #E8F7F3; border-color: #C6EDE4; text-decoration: none; }
+          .hero3__mPrice--opt span { color: #004232; }
+          .hero3__mPrice--opt b { color: #005C43; }
+          .hero3__mPrice--air { background: #FFF1EE; border-color: #FFD9D2; }
+          .hero3__mPrice--air span { color: #B23A2A; }
+          .hero3__mPrice--air b { color: #E54632; }
           .hero3__mPrice--on { border-color: #005C43; box-shadow: 0 0 0 2px rgba(0,92,67,0.25); }
         }
         @media (max-width: 560px) {

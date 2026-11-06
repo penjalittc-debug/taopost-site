@@ -88,12 +88,12 @@ const serviceJsonLd = {
   "provider": { "@id": "https://taopost.ru/#organization" },
   "areaServed": { "@type": "Country", "name": "Россия" },
   "url": "https://taopost.ru",
-  "description": "Выкуп и доставка товаров с Taobao, Poizon, Pinduoduo, 1688, Tmall, Goofish. Авто 15-25 дней, авиа 5-7 дней. Собственный склад в Гуанчжоу, гарантия сохранности, проверка качества.",
+  "description": "Выкуп и доставка товаров с Taobao, Poizon, Pinduoduo, 1688, Tmall, Goofish. Авто 15-25 дней, авиа 3-5 дней. Собственный склад в Гуанчжоу, гарантия сохранности, проверка качества.",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "RUB",
     "lowPrice": "350",
-    "highPrice": "2700",
+    "highPrice": "2400",
     "offerCount": 2,
     "offers": [
       {
@@ -113,11 +113,11 @@ const serviceJsonLd = {
       {
         "@type": "Offer",
         "name": "Авиадоставка из Китая",
-        "price": "2700",
+        "price": "2400",
         "priceCurrency": "RUB",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "2700",
+          "price": "2400",
           "priceCurrency": "RUB",
           "unitCode": "KGM",
           "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "KGM" }

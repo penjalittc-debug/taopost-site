@@ -9,12 +9,12 @@ import PageCta from '@/components/PageCta';
 import s from './tarify.module.css';
 
 export const metadata: Metadata = {
-  title: 'Тарифы TaoPost — авто от 350 ₽/кг, авиа от 2 700 ₽/кг',
-  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней от 350 ₽/кг (до 10 кг — 450, от 10 кг — 400, от 20 кг — 350), авиа 5-7 дней от 2 700 ₽/кг. Калькулятор стоимости, гарантия сохранности.',
+  title: 'Тарифы TaoPost — авто от 350 ₽/кг, авиа от 2 400 ₽/кг',
+  description: 'Прозрачные тарифы на доставку из Китая в Россию. Авто 15-25 дней от 350 ₽/кг (до 10 кг — 450, от 10 кг — 400, от 20 кг — 350), авиа 3-5 дней от 2 400 ₽/кг. Калькулятор стоимости, гарантия сохранности.',
   alternates: { canonical: 'https://taopost.ru/tarify' },
   openGraph: {
     title: 'Тарифы доставки из Китая в Россию | TaoPost',
-    description: 'Авто 15-25 дней от 350 ₽/кг (до 10 кг — 450, от 10 кг — 400, от 20 кг — 350), авиа 5-7 дней от 2 700 ₽/кг. Калькулятор стоимости и прозрачные условия.',
+    description: 'Авто 15-25 дней от 350 ₽/кг (до 10 кг — 450, от 10 кг — 400, от 20 кг — 350), авиа 3-5 дней от 2 400 ₽/кг. Калькулятор стоимости и прозрачные условия.',
     url: 'https://taopost.ru/tarify',
     siteName: 'TaoPost',
     locale: 'ru_RU',
@@ -81,11 +81,11 @@ const serviceLd = {
     '@type': 'AggregateOffer',
     priceCurrency: 'RUB',
     lowPrice: '450',
-    highPrice: '2700',
+    highPrice: '2400',
     offerCount: 2,
     offers: [
       { '@type': 'Offer', name: 'Автодоставка', price: '450', priceCurrency: 'RUB' },
-      { '@type': 'Offer', name: 'Авиадоставка', price: '2700', priceCurrency: 'RUB' },
+      { '@type': 'Offer', name: 'Авиадоставка', price: '2400', priceCurrency: 'RUB' },
     ],
   },
 };
@@ -104,7 +104,7 @@ export default function TarifyPage() {
           title={<>Тарифы доставки<br /><span style={{ color: '#005C43' }}>из Китая в Россию</span></>}
           lede={
             <>
-              Авто: до 10 кг — 450 ₽/кг, от 10 кг — 400, от 20 кг — 350 (15-25 дней). Авиа от 2 700 ₽/кг (5-7 дней).
+              Авто: до 10 кг — 450 ₽/кг, от 10 кг — 400, от 20 кг — 350 (15-25 дней). Авиа от 2 400 ₽/кг (3-5 дней).
               Минимальный счёт за доставку — 450 ₽ (1 кг). Калькулятор ниже.
               <br />
               <span style={{ display: 'inline-block', marginTop: 10 }}>
