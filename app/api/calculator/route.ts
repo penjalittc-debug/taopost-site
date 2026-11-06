@@ -118,7 +118,12 @@ function contactInfo(rawVia: unknown, rawMessenger: string | undefined, phone: s
   const raw = (rawMessenger || '').trim().slice(0, 64);
 
   if (via === 'telegram' || (!via && raw)) {
-    const tg = normalizeTg(raw);
+    // В поле ника вписали тот же телефон (06.11.2026 — так почти в каждой
+    // заявке): это не контакт в Telegram, менеджер видит телефон и так.
+    const rawDigits = raw.replace(/\D/g, '');
+    const samePhone = /^[+\d\s()-]+$/.test(raw) && rawDigits.length >= 7 &&
+      rawDigits.slice(-10) === phone.replace(/\D/g, '').slice(-10);
+    const tg = normalizeTg(samePhone ? '' : raw);
     const shown = tg.nick ? `@${tg.nick}` : tg.text;
     return {
       ...base,

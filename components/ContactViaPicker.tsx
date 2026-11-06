@@ -7,6 +7,16 @@ import { Send, Phone, MessageCircle, MessageSquare, AtSign } from 'lucide-react'
 // админке приложения.
 export type ContactVia = 'telegram' | 'whatsapp' | 'max';
 
+/**
+ * В поле «Ник в Telegram» часто вписывают телефон (06.11.2026: все заявки за
+ * день — с номером вместо ника). По номеру Telegram находит человека, только
+ * если тот сам это разрешил, поэтому номер там бесполезен — подсказываем.
+ */
+export function looksLikePhone(v: string): boolean {
+  const t = v.trim();
+  return /^[+\d\s()-]+$/.test(t) && t.replace(/\D/g, '').length >= 7;
+}
+
 export const CONTACT_VIA_NAME: Record<ContactVia, string> = {
   telegram: 'Telegram',
   whatsapp: 'WhatsApp',
@@ -36,6 +46,7 @@ export default function ContactViaPicker({
   onMessengerChange: (v: string) => void;
 }) {
   const isNumber = value === 'whatsapp' || value === 'max';
+  const nickIsPhone = value === 'telegram' && looksLikePhone(messenger);
 
   return (
     <>
@@ -62,18 +73,30 @@ export default function ContactViaPicker({
       {value === 'telegram' && (
         <label className="cvp__field">
           <span className="cvp__label">
-            <AtSign size={14} strokeWidth={2.4} /> Ник в Telegram <span className="cvp__opt">— необязательно</span>
+            <AtSign size={14} strokeWidth={2.4} /> Ник в Telegram <span className="cvp__opt">— по нику мы точно вас найдём</span>
           </span>
           <input
             type="text"
             value={messenger}
             onChange={(e) => onMessengerChange(e.target.value.replace(/\s/g, '').slice(0, 64))}
             placeholder="@username"
-            className="cvp__input"
+            className={`cvp__input${nickIsPhone ? ' cvp__input--warn' : ''}`}
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
+            aria-invalid={nickIsPhone || undefined}
           />
+          {nickIsPhone ? (
+            <span className="cvp__hint cvp__hint--warn" role="alert">
+              Это номер, а нужен ник — вида @ivan. Он есть в Telegram: Настройки → Имя пользователя.
+              Нет ника — оставьте поле пустым или выберите WhatsApp / Max.
+            </span>
+          ) : (
+            <span className="cvp__hint">
+              Ник — в Telegram: Настройки → Имя пользователя. Нет ника — оставьте пустым,
+              после заявки просто напишите нам.
+            </span>
+          )}
         </label>
       )}
 
@@ -124,6 +147,9 @@ export default function ContactViaPicker({
           font-family: inherit; color: #0A0F1C; background: #fff;
         }
         .cvp__input:focus { border-color: #005C43; box-shadow: 0 0 0 4px rgba(0,92,67,0.12); }
+        .cvp__input--warn, .cvp__input--warn:focus { border-color: #F59E0B; box-shadow: 0 0 0 4px rgba(245,158,11,0.14); }
+        .cvp__hint { font-size: 12.5px; color: #6B7280; line-height: 1.5; }
+        .cvp__hint--warn { color: #92400E; font-weight: 600; }
       `}</style>
     </>
   );

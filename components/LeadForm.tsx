@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Send, CheckCircle2, Phone, MapPin, Truck, Plane } from 'lucide-react';
 import { ymReachGoal } from '@/lib/metrika';
 import { collectTraffic } from '@/lib/traffic';
-import ContactViaPicker, { CONTACT_VIA_NAME, type ContactVia } from './ContactViaPicker';
+import ContactViaPicker, { CONTACT_VIA_NAME, looksLikePhone, type ContactVia } from './ContactViaPicker';
 
 type Transport = 'auto' | 'air';
 type Status = 'idle' | 'sending' | 'ok' | 'error';
@@ -94,10 +94,18 @@ export default function LeadForm() {
               {contactVia === 'telegram' ? (
                 <>
                   <h3>Заявка принята — остался один шаг</h3>
-                  <p>
-                    Откройте Telegram и отправьте сообщение — текст уже набран. Ответим
-                    с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
-                  </p>
+                  {messenger.trim() && !looksLikePhone(messenger) ? (
+                    <p>
+                      Откройте Telegram и отправьте сообщение — текст уже набран. Ответим
+                      с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
+                    </p>
+                  ) : (
+                    <p>
+                      <strong>Без ника мы можем не найти вас в&nbsp;Telegram</strong> — по номеру
+                      он показывает не всех. Нажмите кнопку и отправьте сообщение — текст уже
+                      набран. Ответим с&nbsp;расчётом за пару минут.
+                    </p>
+                  )}
                 </>
               ) : (
                 <>
