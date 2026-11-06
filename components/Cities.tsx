@@ -28,7 +28,7 @@ export default function Cities() {
             Доставка <span className="tp-gradient-text">по всей России</span>
           </h2>
           <p className="tp-lede">
-            Из Гуанчжоу в любой город — СДЭК, Boxberry, 5Post или курьером до двери
+            Из Гуанчжоу в любой город через наш склад в Москве — пункт выдачи СДЭК или курьер до двери
           </p>
         </div>
 
