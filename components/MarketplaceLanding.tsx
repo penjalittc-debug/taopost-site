@@ -152,11 +152,13 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                   </div>
                   <div className={s.factRow}>
                     <span className={s.factKey}>Тариф</span>
-                    <span className={s.factVal}>от 350 ₽/кг</span>
+                    <span className={s.factVal}>{mp.factTariff ?? 'от 350 ₽/кг'}</span>
                   </div>
                   <div className={s.factRow}>
                     <span className={s.factKey}>Комиссия выкупа</span>
-                    <span className={`${s.factVal} ${s.factValAccent}`}>5% · мин. 1 000 ₽</span>
+                    {/* 07.11.2026: было «5 % · мин. 1 000 ₽» — устарело с 22.08.2026
+                        (единая комиссия 10 %, мин. 500 ₽; опт 1688 — от 3 %). */}
+                    <span className={`${s.factVal} ${s.factValAccent}`}>{mp.factCommission ?? '10 % · мин. 500 ₽'}</span>
                   </div>
                 </div>
               </div>
