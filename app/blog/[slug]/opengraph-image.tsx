@@ -1,13 +1,15 @@
 import { ImageResponse } from 'next/og';
-import { articles, getArticleBySlug } from '@/lib/blog';
+import { getArticleBySlug } from '@/lib/blog';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const alt = 'TaoPost';
 
-export async function generateImageMetadata() {
-  return articles.map((a) => ({ id: a.slug, alt: a.title, size, contentType }));
-}
+// 07.11.2026: убран generateImageMetadata — он вешал на КАЖДУЮ страницу
+// все картинки раздела (39 og:image у города), и Google обходил ~400
+// мусорных адресов вида /orenburg/opengraph-image/moskva (Search Console:
+// «просканировано, не проиндексировано» 387 шт.). Теперь одна картинка
+// на страницу — по её собственному params.
 
 type Props = { params: Promise<{ slug: string }> };
 
