@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
 
 type Segment = {
@@ -20,7 +21,14 @@ type Segment = {
   route: { from: string; to: string };
   cardFoot: string;
   ctaLabel: string;
+  /** Куда ведут кнопки: розница — в кабинет и калькулятор, карго — на /kargo-dostavka. */
+  cta: { href: string; text: string; external: boolean };
+  cta2: { href: string; text: string };
 };
+
+const CARGO_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
+const APP_CTA = { href: 'https://app.taopost.ru/?src=site', text: 'Оформить в личном кабинете', external: true };
+const CALC_CTA = { href: '#calculator', text: 'Рассчитать стоимость' };
 
 const SEGMENTS: Segment[] = [
   {
@@ -40,6 +48,8 @@ const SEGMENTS: Segment[] = [
     route: { from: 'Гуанчжоу', to: 'Москва' },
     cardFoot: '15–25 дней · от 1 кг · с отслеживанием',
     ctaLabel: 'Заказать с Taobao',
+    cta: APP_CTA,
+    cta2: CALC_CTA,
   },
   {
     id: 'sneakers',
@@ -57,24 +67,29 @@ const SEGMENTS: Segment[] = [
     route: { from: 'Гуанчжоу', to: 'Москва' },
     cardFoot: '5–7 дней авиа · от 1 пары · аутентификация',
     ctaLabel: 'Заказать с Poizon',
+    cta: APP_CTA,
+    cta2: CALC_CTA,
   },
   {
+    // До 06.11.2026 вкладка «Опт с 1688» показывала 450 ₽/кг — оптовик видел
+    // розничную цену. Теперь это карго по сетке опта (владелец 06.11: от 30 кг).
     id: 'wholesale',
-    label: 'Опт с 1688',
+    label: 'Карго оптом',
     Icon: Boxes,
     mp: '1688',
     mpSlug: '1688',
-    mpColor: '#ff6600',
-    subtitle: 'Оптовые партии напрямую с фабрик Китая через 1688. Контроль качества, документы для бизнеса, консолидация заказов.',
-    cardTag: 'Опт · 1688',
-    cardBadge: 'Иу/Гуанчжоу',
+    mpColor: '#005C43',
+    subtitle: `Карго для селлеров и магазинов: груз от ${CARGO_MIN_KG} кг, ставка по плотности, выкуп с 1688 от 3 %, документы для Wildberries и Ozon.`,
+    cardTag: `Карго · от ${CARGO_MIN_KG} кг`,
+    cardBadge: 'Для бизнеса',
     CardBadgeIcon: Truck,
-    priceFrom: '450',
-    priceFixed: true,
-    priceUnit: '₽/кг',
-    route: { from: 'Иу', to: 'Москва' },
-    cardFoot: '15–25 дней · от 50 шт · фото-отчёт',
-    ctaLabel: 'Опт с 1688',
+    priceFrom: CARGO_RATE,
+    priceUnit: '$/кг',
+    route: { from: 'Гуанчжоу', to: 'Москва' },
+    cardFoot: '15–20 дней · по плотности груза · с документами',
+    ctaLabel: 'Карго оптом',
+    cta: { href: '/kargo-dostavka#calc', text: 'Рассчитать карго', external: false },
+    cta2: { href: '/kargo-dostavka', text: 'Тарифы карго' },
   },
 ];
 
@@ -97,6 +112,7 @@ export default function HeroV3() {
   const [activeId, setActiveId] = useState<Segment['id']>('clothing');
   const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
   const BadgeIcon = seg.CardBadgeIcon;
+  const isCargo = seg.id === 'wholesale';
 
   return (
     <section className="hero3">
@@ -113,9 +129,22 @@ export default function HeroV3() {
             </span>
 
             <h1 className="hero3__title">
-              Доставка и выкуп товаров из Китая —<br />
-              <span className="hero3__titleAccent">экономия до&nbsp;60%</span>
+              Доставка и карго из Китая —<br />
+              <span className="hero3__titleAccent">от 1&nbsp;кг до&nbsp;тонны</span>
             </h1>
+
+            {/* Телефон: карточки цен уходят ниже кнопок, поэтому обе цены — сразу под заголовком. */}
+            <div className="hero3__mPrices">
+              <button type="button" onClick={() => setActiveId('clothing')}
+                className={`hero3__mPrice${!isCargo ? ' hero3__mPrice--on' : ''}`}>
+                <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
+              </button>
+              <button type="button" onClick={() => setActiveId('wholesale')}
+                className={`hero3__mPrice hero3__mPrice--cargo${isCargo ? ' hero3__mPrice--on' : ''}`}
+                data-ym-goal="hero_segment_click" data-ym-params='{"segment":"wholesale","place":"m_prices"}'>
+                <span>Карго от {CARGO_MIN_KG} кг</span><b>от {CARGO_RATE} $/кг</b>
+              </button>
+            </div>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
               {SEGMENTS.map((s) => {
@@ -143,24 +172,23 @@ export default function HeroV3() {
 
             <div className="hero3__ctas">
               <a
-                href="https://app.taopost.ru/?src=site"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={seg.cta.href}
+                {...(seg.cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="hero3__btn hero3__btn--primary"
-                data-ym-goal="cabinet_click"
+                data-ym-goal={isCargo ? 'opt_open_page' : 'cabinet_click'}
                 data-ym-params={`{"place":"hero","segment":"${seg.id}"}`}
               >
-                <User size={18} strokeWidth={2.5} />
-                Оформить в личном кабинете
+                {isCargo ? <CalcIcon size={18} strokeWidth={2.5} /> : <User size={18} strokeWidth={2.5} />}
+                {seg.cta.text}
               </a>
               <a
-                href="#calculator"
+                href={seg.cta2.href}
                 className="hero3__btn hero3__btn--ghost"
-                data-ym-goal="scroll_to_calculator"
-                data-ym-params='{"place":"hero"}'
+                data-ym-goal={isCargo ? 'opt_open_page' : 'scroll_to_calculator'}
+                data-ym-params={`{"place":"hero2","segment":"${seg.id}"}`}
               >
-                <CalcIcon size={18} strokeWidth={2.5} />
-                Рассчитать стоимость
+                {isCargo ? <Boxes size={18} strokeWidth={2.5} /> : <CalcIcon size={18} strokeWidth={2.5} />}
+                {seg.cta2.text}
               </a>
             </div>
 
@@ -225,10 +253,20 @@ export default function HeroV3() {
               </div>
             </div>
 
-            <div className="hero3__card hero3__card--save">
-              <div className="hero3__saveValue">−60%</div>
-              <div className="hero3__saveLabel">к розничной цене в РФ</div>
-            </div>
+            {/* Вторая дверь: на экране всегда видны обе цены — посылки и карго. */}
+            <button
+              type="button"
+              className="hero3__card hero3__card--alt"
+              onClick={() => setActiveId(isCargo ? 'clothing' : 'wholesale')}
+              data-ym-goal="hero_segment_click"
+              data-ym-params={`{"segment":"${isCargo ? 'clothing' : 'wholesale'}","place":"alt_card"}`}
+            >
+              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Карго оптом · от ${CARGO_MIN_KG} кг`}</div>
+              <div className="hero3__altValue">
+                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CARGO_RATE} <span>$/кг</span></>}
+              </div>
+              <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : 'для селлеров и магазинов'} →</div>
+            </button>
           </div>
         </div>
 
@@ -532,6 +570,28 @@ export default function HeroV3() {
         }
         .hero3__saveLabel { font-size: 11px; color: #9CA3AF; margin-top: 2px; font-weight: 500; }
 
+        .hero3__mPrices { display: none; }
+        .hero3__card--alt {
+          top: -8px; right: 0;
+          padding: 16px 20px;
+          z-index: 3;
+          background: #0A0F1C;
+          color: #fff;
+          border: none;
+          text-align: left;
+          cursor: pointer;
+          font-family: inherit;
+          transition: transform .2s ease;
+        }
+        .hero3__card--alt:hover { transform: translateY(-3px); }
+        .hero3__altLabel { font-size: 12px; color: #9CA3AF; font-weight: 600; }
+        .hero3__altValue {
+          font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; color: #5DCAA5; margin: 4px 0 2px;
+        }
+        .hero3__altValue small { font-size: 14px; font-weight: 500; color: #9CA3AF; letter-spacing: 0; }
+        .hero3__altValue span { font-size: 15px; letter-spacing: 0; }
+        .hero3__altMore { font-size: 12px; color: #D1D5DB; font-weight: 500; }
+
         .hero3__stats {
           margin-top: 80px;
           display: grid;
@@ -579,13 +639,27 @@ export default function HeroV3() {
           .hero3__card--main { right: 40px; }
           .hero3__lede { min-height: 0; }
         }
+        @media (max-width: 960px) {
+          .hero3__mPrices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: -6px 0 20px; }
+          .hero3__mPrice {
+            display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left;
+            padding: 12px 14px; border-radius: 16px; background: #fff; border: 1.5px solid #E5E7EB;
+            font-family: inherit; cursor: pointer;
+          }
+          .hero3__mPrice span { font-size: 12px; font-weight: 600; color: #6B7280; }
+          .hero3__mPrice b { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #0A0F1C; }
+          .hero3__mPrice--cargo { background: #0A0F1C; border-color: #0A0F1C; }
+          .hero3__mPrice--cargo span { color: #9CA3AF; }
+          .hero3__mPrice--cargo b { color: #5DCAA5; }
+          .hero3__mPrice--on { border-color: #005C43; box-shadow: 0 0 0 2px rgba(0,92,67,0.25); }
+        }
         @media (max-width: 560px) {
           .hero3__visual { height: 420px; }
           .hero3__card--main { padding: 22px; right: 30px; }
           .hero3__priceValue { font-size: 52px; }
           .hero3__card--avia { padding: 14px 16px; }
-          .hero3__card--save { padding: 12px 16px; right: 12px; }
-          .hero3__saveValue { font-size: 22px; }
+          .hero3__card--alt { padding: 12px 16px; right: 8px; }
+          .hero3__altValue { font-size: 24px; }
           .hero3__stats { grid-template-columns: 1fr; padding: 20px; margin-top: 60px; }
           .hero3__ctas { flex-direction: column; }
           .hero3__btn { justify-content: center; }

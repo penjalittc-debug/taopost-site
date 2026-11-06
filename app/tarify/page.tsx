@@ -108,7 +108,7 @@ export default function TarifyPage() {
               минимальный счёт за доставку — 450 ₽ (1 кг). Калькулятор ниже.
               <br />
               <span style={{ display: 'inline-block', marginTop: 10 }}>
-                Закупка от 50 000 ₽?{' '}
+                Груз от 30 кг?{' '}
                 <a href="/kargo-dostavka" style={{ color: '#005C43', fontWeight: 700 }}>
                   Карго оптом — от 1,3 $/кг по плотности груза →
                 </a>

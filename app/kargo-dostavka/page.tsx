@@ -12,7 +12,7 @@ import WarehouseGallery from '@/components/WarehouseGallery';
 import {
   BUYER_PACKAGING,
   MIN_USD_PER_KG,
-  OPT_MIN_GOODS_RUB,
+  CARGO_MIN_KG,
   USD_MARKUP_RUB,
 } from '@/lib/cargoTariffs';
 import sl from '@/components/ServiceLanding.module.css';
@@ -27,13 +27,13 @@ import s from '@/components/CargoOpt.module.css';
 // (репо taopost). Все цифры — решения владельца или уже опубликованы на сайте.
 
 const MIN_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
-const MIN_GOODS = OPT_MIN_GOODS_RUB.toLocaleString('ru-RU');
+const MIN_KG = CARGO_MIN_KG;
 const TG = 'https://t.me/taopostsupport?start=opt';
 
 const TITLE = `Карго из Китая в Россию оптом — от ${MIN_RATE} $/кг, свой склад | TaoPost`;
 const DESCRIPTION =
   `Карго доставка из Китая в Россию и Москву: ставка по плотности груза от ${MIN_RATE} $/кг, ` +
-  `выкуп с 1688 от 3 %, документы для Wildberries и Ozon. Опт от ${MIN_GOODS} ₽. Свой склад в Гуанчжоу.`;
+  `выкуп с 1688 от 3 %, документы для Wildberries и Ozon. Карго от ${MIN_KG} кг. Свой склад в Гуанчжоу.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -116,8 +116,8 @@ const FAQ = [
     a: `По плотности груза: вес делим на объём. Например, 300 кг в 1,5 м³ — это 200 кг/м³. Для каждой плотности своя ставка в долларах за кг, от ${MIN_RATE} $. Если плотность ниже 100 кг/м³, груз лёгкий и считается за кубометр. Отдельно — разгрузка и упаковка за место.`,
   },
   {
-    q: 'С какой суммы считается опт?',
-    a: `От ${MIN_GOODS} ₽ суммы товара в закупке. Если меньше — действует розничный тариф 450 ₽/кг от 1 кг, без объёмного веса.`,
+    q: 'С какого веса действует карго?',
+    a: `От ${MIN_KG} кг в одной отправке. Если груз легче — действует розничный тариф 450 ₽/кг от 1 кг, без объёмного веса.`,
   },
   {
     q: 'Сколько стоит выкуп с 1688?',
@@ -177,7 +177,7 @@ export default function KargoPage() {
                 <span>›</span>
                 <span>Карго доставка</span>
               </nav>
-              <span className={s.heroPill}><span className={s.pulseDot} /> Опт и карго · от {MIN_GOODS} ₽ закупки</span>
+              <span className={s.heroPill}><span className={s.pulseDot} /> Опт и карго · от {MIN_KG} кг</span>
               <h1 className={s.heroTitle}>
                 Карго доставка из Китая в Россию <span className={s.heroAccent}>оптом от {MIN_RATE} $/кг</span>
               </h1>
@@ -356,7 +356,7 @@ export default function KargoPage() {
             <div className={s.inner}>
               <div className={s.retail}>
                 <div>
-                  <h2 className={s.retailTitle}>Закупка меньше {MIN_GOODS} ₽?</h2>
+                  <h2 className={s.retailTitle}>Груз легче {MIN_KG} кг?</h2>
                   <p className={s.retailText}>
                     Для небольших заказов — розничное карго из Китая от 1 кг: 450 ₽/кг на любой вес,
                     объёмный вес не считаем, упаковка входит в цену.

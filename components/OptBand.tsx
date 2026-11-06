@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import s from './ServiceLanding.module.css';
 
-/** Плашка «Закупка от 50 000 ₽ → опт» (04.11.2026): главная и страницы услуг. */
+/** Плашка «Груз от 30 кг → карго» (04.11.2026, порог 30 кг с 06.11): главная и страницы услуг. */
 export default function OptBand({ place }: { place: string }) {
   return (
     <section className={s.optBand}>
       <div className={s.optInner}>
         <div>
-          <strong className={s.optTitle}>Закупка от 50 000 ₽? Это уже опт</strong>
+          <strong className={s.optTitle}>Груз от 30 кг? Это уже карго</strong>
           <p className={s.optText}>
             Карго из Китая оптом — от 1,3 $/кг по плотности груза, выкуп с 1688 от 3 %,
             документы для Wildberries и Ozon.
@@ -19,7 +19,7 @@ export default function OptBand({ place }: { place: string }) {
           data-ym-goal="opt_open_page"
           data-ym-params={`{"place":"${place}"}`}
         >
-          Тарифы на опт →
+          Тарифы карго →
         </Link>
       </div>
     </section>
