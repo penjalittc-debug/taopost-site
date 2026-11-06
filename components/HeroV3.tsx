@@ -114,8 +114,37 @@ const STATS = [
 export default function HeroV3() {
   const [activeId, setActiveId] = useState<Segment['id']>('clothing');
   const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
-  const BadgeIcon = seg.CardBadgeIcon;
   const isCargo = seg.id === 'wholesale';
+
+  // Четыре цены первого экрана; 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
+  const priceTiles = (v: 'm' | 'd') => {
+    const cls = (mod: string, on: boolean) =>
+      `hero3__tile hero3__tile--${v}${mod ? ` hero3__tile--${mod}` : ''}${on ? ' hero3__tile--on' : ''}`;
+    return (
+      <>
+        <button type="button" onClick={() => setActiveId('clothing')} className={cls('', seg.id === 'clothing')}
+          data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"clothing","place":"${v}_tiles"}`}>
+          <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
+          {v === 'd' && <small>от 10 кг — 400 ₽ · от 20 кг — 350 ₽</small>}
+        </button>
+        <button type="button" onClick={() => setActiveId('wholesale')} className={cls('cons', isCargo)}
+          data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"wholesale","place":"${v}_tiles"}`}>
+          <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
+          {v === 'd' && <small>товары от разных продавцов в одной отправке</small>}
+        </button>
+        <a href="/kargo-dostavka" className={cls('opt', false)}
+          data-ym-goal="opt_open_page" data-ym-params={`{"place":"${v}_tiles_cargo"}`}>
+          <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
+          {v === 'd' && <small>по плотности груза · документы для WB и Ozon →</small>}
+        </a>
+        <button type="button" onClick={() => setActiveId('sneakers')} className={cls('air', seg.id === 'sneakers')}
+          data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"sneakers","place":"${v}_tiles_air"}`}>
+          <span>Авиа · {AIR_DAYS_TEXT}</span><b>от {AIR_PRICE} ₽/кг</b>
+          {v === 'd' && <small>для срочных и дорогих товаров</small>}
+        </button>
+      </>
+    );
+  };
 
   return (
     <section className="hero3">
@@ -136,27 +165,8 @@ export default function HeroV3() {
               <span className="hero3__titleAccent">от 1&nbsp;кг до&nbsp;тонны</span>
             </h1>
 
-            {/* Телефон: карточки цен уходят ниже кнопок, поэтому обе цены — сразу под заголовком. */}
-            <div className="hero3__mPrices">
-              <button type="button" onClick={() => setActiveId('clothing')}
-                className={`hero3__mPrice${seg.id === 'clothing' ? ' hero3__mPrice--on' : ''}`}>
-                <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
-              </button>
-              <button type="button" onClick={() => setActiveId('wholesale')}
-                className={`hero3__mPrice hero3__mPrice--cargo${isCargo ? ' hero3__mPrice--on' : ''}`}
-                data-ym-goal="hero_segment_click" data-ym-params='{"segment":"wholesale","place":"m_prices"}'>
-                <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
-              </button>
-              <a href="/kargo-dostavka" className="hero3__mPrice hero3__mPrice--opt"
-                data-ym-goal="opt_open_page" data-ym-params='{"place":"m_prices_cargo"}'>
-                <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
-              </a>
-              <button type="button" onClick={() => setActiveId('sneakers')}
-                className={`hero3__mPrice hero3__mPrice--air${seg.id === 'sneakers' ? ' hero3__mPrice--on' : ''}`}
-                data-ym-goal="hero_segment_click" data-ym-params='{"segment":"sneakers","place":"m_prices_air"}'>
-                <span>Авиа · {AIR_DAYS_TEXT}</span><b>от {AIR_PRICE} ₽/кг</b>
-              </button>
-            </div>
+            {/* Телефон и узкое окно: те же 4 цены сразу под заголовком (на широком экране — справа). */}
+            <div className="hero3__mPrices">{priceTiles('m')}</div>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
               {SEGMENTS.map((s) => {
@@ -223,62 +233,13 @@ export default function HeroV3() {
             </div>
           </div>
 
+          {/* Широкий экран (06.11.2026, владелец: «450 прям в глаза бьёт»): вместо одной
+              огромной цены — четыре равных блока: посылки, сборные, карго, авиа. */}
           <div className="hero3__visual">
-            <div className="hero3__card hero3__card--main" key={seg.id}>
-              <div className="hero3__cardHead">
-                <span className="hero3__cardTag" style={{ color: seg.mpColor }}>{seg.cardTag}</span>
-                <span className="hero3__cardBadge">
-                  <BadgeIcon size={14} strokeWidth={2.5} />
-                  {seg.cardBadge}
-                </span>
-              </div>
-              <div className="hero3__price">
-                {!seg.priceFixed && <span className="hero3__priceFrom">от</span>}
-                <span className="hero3__priceValue">{seg.priceFrom}</span>
-                <span className="hero3__priceCur">{seg.priceUnit}</span>
-              </div>
-              <div className="hero3__route">
-                <div className="hero3__routePoint">
-                  <MapPin size={14} strokeWidth={2.5} />
-                  {seg.route.from}
-                </div>
-                <div className="hero3__routeLine">
-                  <span className="hero3__routeDot" />
-                  <span className="hero3__routeDot" />
-                  <span className="hero3__routeDot" />
-                </div>
-                <div className="hero3__routePoint hero3__routePoint--end">
-                  <MapPin size={14} strokeWidth={2.5} />
-                  {seg.route.to}
-                </div>
-              </div>
-              <div className="hero3__cardFoot">{seg.cardFoot}</div>
+            <div className="hero3__dPrices">{priceTiles('d')}</div>
+            <div className="hero3__dRoute">
+              <MapPin size={15} strokeWidth={2.5} /> Гуанчжоу → Москва · авто 2 рейса в неделю, авиа пн и чт
             </div>
-
-            <div className="hero3__card hero3__card--avia">
-              <div className="hero3__aviaIcon">
-                <Plane size={20} strokeWidth={2.3} />
-              </div>
-              <div>
-                <div className="hero3__aviaTitle">Авиа от {AIR_PRICE} ₽/кг</div>
-                <div className="hero3__aviaSub">{AIR_DAYS_TEXT}</div>
-              </div>
-            </div>
-
-            {/* Вторая дверь: на экране всегда видны обе цены — посылки и карго. */}
-            <button
-              type="button"
-              className="hero3__card hero3__card--alt"
-              onClick={() => setActiveId(isCargo ? 'clothing' : 'wholesale')}
-              data-ym-goal="hero_segment_click"
-              data-ym-params={`{"segment":"${isCargo ? 'clothing' : 'wholesale'}","place":"alt_card"}`}
-            >
-              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${CARGO_MIN_KG} кг`}</div>
-              <div className="hero3__altValue">
-                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CONSOLIDATED_FROM_RUB} <span>₽/кг</span></>}
-              </div>
-              <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : `плотный опт — от ${CARGO_RATE} $/кг`} →</div>
-            </button>
           </div>
         </div>
 
@@ -482,10 +443,7 @@ export default function HeroV3() {
         }
         .hero3__trustItem--link:hover { color: #005C43; }
 
-        .hero3__visual {
-          position: relative;
-          height: 480px;
-        }
+        .hero3__visual { position: relative; }
         .hero3__card {
           position: absolute;
           background: #fff;
@@ -583,6 +541,40 @@ export default function HeroV3() {
         .hero3__saveLabel { font-size: 11px; color: #9CA3AF; margin-top: 2px; font-weight: 500; }
 
         .hero3__mPrices { display: none; }
+        .hero3__dPrices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .hero3 :global(.hero3__tile) {
+          display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left;
+          background: #fff; border: 1.5px solid #E5E7EB; font-family: inherit; cursor: pointer;
+          text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        .hero3 :global(.hero3__tile:hover) { transform: translateY(-3px); }
+        .hero3 :global(.hero3__tile span) { font-weight: 600; color: #6B7280; }
+        .hero3 :global(.hero3__tile b) { font-weight: 700; letter-spacing: -0.5px; color: #0A0F1C; white-space: nowrap; }
+        .hero3 :global(.hero3__tile small) { font-size: 13px; line-height: 1.4; color: #6B7280; font-weight: 500; }
+        .hero3 :global(.hero3__tile--m) { padding: 12px 14px; border-radius: 16px; }
+        .hero3 :global(.hero3__tile--m span) { font-size: 12px; }
+        .hero3 :global(.hero3__tile--m b) { font-size: clamp(17px, 5.2vw, 22px); }
+        .hero3 :global(.hero3__tile--d) {
+          padding: 24px 22px; border-radius: 22px; min-height: 172px;
+          box-shadow: 0 1px 2px rgba(10,15,28,0.04), 0 24px 60px -24px rgba(10,15,28,0.14);
+        }
+        .hero3 :global(.hero3__tile--d span) { font-size: 14px; }
+        .hero3 :global(.hero3__tile--d b) { font-size: clamp(30px, 2.8vw, 42px); line-height: 1.1; margin: 4px 0 6px; }
+        .hero3 :global(.hero3__tile--cons) { background: #0A0F1C; border-color: #0A0F1C; }
+        .hero3 :global(.hero3__tile--cons span), .hero3 :global(.hero3__tile--cons small) { color: #9CA3AF; }
+        .hero3 :global(.hero3__tile--cons b) { color: #5DCAA5; }
+        .hero3 :global(.hero3__tile--opt) { background: #E8F7F3; border-color: #C6EDE4; }
+        .hero3 :global(.hero3__tile--opt span), .hero3 :global(.hero3__tile--opt small) { color: #004232; }
+        .hero3 :global(.hero3__tile--opt b) { color: #005C43; }
+        .hero3 :global(.hero3__tile--air) { background: #FFF1EE; border-color: #FFD9D2; }
+        .hero3 :global(.hero3__tile--air span), .hero3 :global(.hero3__tile--air small) { color: #B23A2A; }
+        .hero3 :global(.hero3__tile--air b) { color: #E54632; }
+        .hero3 :global(.hero3__tile--on) { border-color: #005C43; box-shadow: 0 0 0 2px rgba(0,92,67,0.25); }
+        .hero3__dRoute {
+          display: flex; align-items: center; gap: 8px; margin-top: 16px; padding: 12px 16px;
+          border-radius: 14px; background: #F9FAFB; font-size: 13.5px; font-weight: 600; color: #374151;
+        }
+        .hero3__dRoute :global(svg) { color: #005C43; }
         .hero3__card--alt {
           top: -8px; right: 0;
           padding: 16px 20px;
@@ -653,23 +645,7 @@ export default function HeroV3() {
         }
         @media (max-width: 960px) {
           .hero3__mPrices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: -6px 0 20px; }
-          .hero3__mPrice {
-            display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left;
-            padding: 12px 14px; border-radius: 16px; background: #fff; border: 1.5px solid #E5E7EB;
-            font-family: inherit; cursor: pointer;
-          }
-          .hero3__mPrice span { font-size: 12px; font-weight: 600; color: #6B7280; }
-          .hero3__mPrice b { font-size: clamp(17px, 5.2vw, 22px); font-weight: 700; letter-spacing: -0.5px; color: #0A0F1C; white-space: nowrap; }
-          .hero3__mPrice--cargo { background: #0A0F1C; border-color: #0A0F1C; }
-          .hero3__mPrice--cargo span { color: #9CA3AF; }
-          .hero3__mPrice--cargo b { color: #5DCAA5; }
-          .hero3__mPrice--opt { background: #E8F7F3; border-color: #C6EDE4; text-decoration: none; }
-          .hero3__mPrice--opt span { color: #004232; }
-          .hero3__mPrice--opt b { color: #005C43; }
-          .hero3__mPrice--air { background: #FFF1EE; border-color: #FFD9D2; }
-          .hero3__mPrice--air span { color: #B23A2A; }
-          .hero3__mPrice--air b { color: #E54632; }
-          .hero3__mPrice--on { border-color: #005C43; box-shadow: 0 0 0 2px rgba(0,92,67,0.25); }
+          .hero3__visual { display: none; }
         }
         @media (max-width: 560px) {
           .hero3__visual { height: 420px; }
