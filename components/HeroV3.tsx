@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
+import { CARGO_MIN_KG, CONSOLIDATED_FROM_RUB, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
 
 type Segment = {
@@ -142,7 +142,7 @@ export default function HeroV3() {
               <button type="button" onClick={() => setActiveId('wholesale')}
                 className={`hero3__mPrice hero3__mPrice--cargo${isCargo ? ' hero3__mPrice--on' : ''}`}
                 data-ym-goal="hero_segment_click" data-ym-params='{"segment":"wholesale","place":"m_prices"}'>
-                <span>Карго от {CARGO_MIN_KG} кг</span><b>от {CARGO_RATE} $/кг</b>
+                <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
               </button>
             </div>
 
@@ -261,11 +261,11 @@ export default function HeroV3() {
               data-ym-goal="hero_segment_click"
               data-ym-params={`{"segment":"${isCargo ? 'clothing' : 'wholesale'}","place":"alt_card"}`}
             >
-              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Карго оптом · от ${CARGO_MIN_KG} кг`}</div>
+              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${CARGO_MIN_KG} кг`}</div>
               <div className="hero3__altValue">
-                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CARGO_RATE} <span>$/кг</span></>}
+                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CONSOLIDATED_FROM_RUB} <span>₽/кг</span></>}
               </div>
-              <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : 'для селлеров и магазинов'} →</div>
+              <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : `плотный опт — от ${CARGO_RATE} $/кг`} →</div>
             </button>
           </div>
         </div>
