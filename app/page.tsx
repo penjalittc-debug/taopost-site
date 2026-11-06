@@ -92,7 +92,7 @@ const serviceJsonLd = {
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "RUB",
-    "lowPrice": "450",
+    "lowPrice": "350",
     "highPrice": "2700",
     "offerCount": 2,
     "offers": [

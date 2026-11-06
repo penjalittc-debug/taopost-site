@@ -1,6 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { CARGO_MIN_KG, CONSOLIDATED_FROM_RUB, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
+import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
+import { RETAIL_MIN_RUB, RETAIL_TIERS } from '@/lib/retailTariff';
+
+/** Вес, с которого действует 350 ₽/кг (последняя ступень лесенки). */
+const HEAVY_FROM_KG = RETAIL_TIERS[RETAIL_TIERS.length - 1].fromKg;
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
 
 type Segment = {
@@ -15,7 +19,7 @@ type Segment = {
   cardBadge: string;
   CardBadgeIcon: typeof Truck;
   priceFrom: string;
-  /** Ставка единая — без «от» перед ценой (авто: 450 ₽/кг на любой вес). */
+  /** Без «от» перед ценой (базовая ставка до 10 кг; лесенка — в cardFoot). */
   priceFixed?: boolean;
   priceUnit: string;
   route: { from: string; to: string };
@@ -46,7 +50,7 @@ const SEGMENTS: Segment[] = [
     priceFixed: true,
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
-    cardFoot: '15–25 дней · от 1 кг · с отслеживанием',
+    cardFoot: 'до 10 кг · от 10 кг — 400 ₽ · от 20 кг — 350 ₽',
     ctaLabel: 'Заказать с Taobao',
     cta: APP_CTA,
     cta2: CALC_CTA,
@@ -142,7 +146,7 @@ export default function HeroV3() {
               <button type="button" onClick={() => setActiveId('wholesale')}
                 className={`hero3__mPrice hero3__mPrice--cargo${isCargo ? ' hero3__mPrice--on' : ''}`}
                 data-ym-goal="hero_segment_click" data-ym-params='{"segment":"wholesale","place":"m_prices"}'>
-                <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
+                <span>Сборные от {HEAVY_FROM_KG} кг</span><b>от {RETAIL_MIN_RUB} ₽/кг</b>
               </button>
             </div>
 
@@ -261,9 +265,9 @@ export default function HeroV3() {
               data-ym-goal="hero_segment_click"
               data-ym-params={`{"segment":"${isCargo ? 'clothing' : 'wholesale'}","place":"alt_card"}`}
             >
-              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${CARGO_MIN_KG} кг`}</div>
+              <div className="hero3__altLabel">{isCargo ? 'Посылки от 1 кг' : `Сборные грузы · от ${HEAVY_FROM_KG} кг`}</div>
               <div className="hero3__altValue">
-                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {CONSOLIDATED_FROM_RUB} <span>₽/кг</span></>}
+                {isCargo ? <>450 <span>₽/кг</span></> : <><small>от</small> {RETAIL_MIN_RUB} <span>₽/кг</span></>}
               </div>
               <div className="hero3__altMore">{isCargo ? 'для себя, без минимального веса' : `плотный опт — от ${CARGO_RATE} $/кг`} →</div>
             </button>

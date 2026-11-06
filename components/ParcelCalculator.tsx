@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { retailRate } from '@/lib/retailTariff';
 import {
   Loader2, MapPin, Mail, Package, Ruler, Send, Store, Truck, User, Warehouse, X, Footprints,
 } from 'lucide-react';
@@ -14,9 +15,8 @@ import {
 const API_BASE = 'https://app.taopost.ru/api/public/calc';
 
 // ── Тарифное ядро: копия констант src/lib/tariff.ts приложения ──
-// Единый тариф 450 ₽/кг (21.08.2026), вес округляется вверх до 0,5 кг,
+// Тариф лесенкой (06.11.2026, lib/retailTariff): 450 / 400 / 350 ₽/кг, вес округляется вверх до 0,5 кг,
 // минимум — 1 кг (17.09.2026), объёмный вес НЕ применяется, упаковка включена.
-const RATE_RUB = 450;
 const WEIGHT_STEP_KG = 0.5;
 // Ниже килограмма счёт не опускается: посылка на 300 г стоит как килограмм.
 const MIN_BILLABLE_KG = 1;
@@ -71,7 +71,8 @@ export default function ParcelCalculator() {
     : { l: box?.l, w: box?.w, h: box?.h };
 
   const billable = billableKg(weightKg);
-  const cargoRub = billable * RATE_RUB;
+  const rateRub = retailRate(billable);
+  const cargoRub = billable * rateRub;
   const weightG = Math.round(weightKg * 1000);
   const hasWeight = weightG >= 100;
   // Потолок стороны — 99 см (реш. владельца 01.09.2026). Крупногабарит
@@ -257,7 +258,7 @@ export default function ParcelCalculator() {
                 </div>
                 <div className="pc__cargoSub">
                   До распределительного центра в РФ · к оплате{' '}
-                  {String(billable).replace('.', ',')} кг × {RATE_RUB} ₽/кг · срок{' '}
+                  {String(billable).replace('.', ',')} кг × {rateRub} ₽/кг · срок{' '}
                   {CARGO_DAYS_MIN}–{CARGO_DAYS_MAX} дней · упаковка включена
                 </div>
               </div>

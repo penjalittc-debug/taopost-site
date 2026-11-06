@@ -164,9 +164,6 @@ export function bandLabel(b: TariffBand, kind: BuyerTariffKind): string {
   return `${b.from} – ${b.to} ${unit}`;
 }
 
-/** Сборные грузы от 30 кг — «от 350 ₽/кг» на главной (владелец 06.11.2026). По сетке
- *  сборного груза 2,7–3,1 $ + упаковка и разгрузка за место это не ниже расчёта. */
-export const CONSOLIDATED_FROM_RUB = 350;
 /** Порог карго: вес отправки, кг. Легче — розница 450 ₽/кг (владелец 06.11.2026). */
 export const CARGO_MIN_KG = 30;
 /** Надбавка к курсу ЦБ, ₽ за $. */
