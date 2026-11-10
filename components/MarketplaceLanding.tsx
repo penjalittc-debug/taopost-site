@@ -57,7 +57,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'RUB',
-      lowPrice: '350',
+      lowPrice: '390',
       highPrice: '2400',
       offerCount: 2,
     },
@@ -152,7 +152,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
                   </div>
                   <div className={s.factRow}>
                     <span className={s.factKey}>Тариф</span>
-                    <span className={s.factVal}>{mp.factTariff ?? 'от 350 ₽/кг'}</span>
+                    <span className={s.factVal}>{mp.factTariff ?? 'от 390 ₽/кг'}</span>
                   </div>
                   <div className={s.factRow}>
                     <span className={s.factKey}>Комиссия выкупа</span>

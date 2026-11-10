@@ -18,7 +18,7 @@ type Segment = {
   cardBadge: string;
   CardBadgeIcon: typeof Truck;
   priceFrom: string;
-  /** Без «от» перед ценой (базовая ставка до 10 кг; лесенка — в cardFoot). */
+  /** Без «от» перед ценой (базовая ставка до 35 кг; лесенка — в cardFoot). */
   priceFixed?: boolean;
   priceUnit: string;
   route: { from: string; to: string };
@@ -49,7 +49,7 @@ const SEGMENTS: Segment[] = [
     priceFixed: true,
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
-    cardFoot: 'до 10 кг · от 10 кг — 400 ₽ · от 20 кг — 350 ₽',
+    cardFoot: 'до 35 кг · от 35 кг — 420 ₽ · от 60 кг — 390 ₽',
     ctaLabel: 'Заказать с Taobao',
     cta: APP_CTA,
     cta2: CALC_CTA,
@@ -125,7 +125,7 @@ export default function HeroV3() {
         <button type="button" onClick={() => setActiveId('clothing')} className={cls('', seg.id === 'clothing')}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"clothing","place":"${v}_tiles"}`}>
           <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
-          {v === 'd' && <small>от 10 кг — 400 ₽ · от 20 кг — 350 ₽</small>}
+          {v === 'd' && <small>от 35 кг — 420 ₽ · от 60 кг — 390 ₽</small>}
         </button>
         <button type="button" onClick={() => setActiveId('wholesale')} className={cls('cons', isCargo)}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"wholesale","place":"${v}_tiles"}`}>
