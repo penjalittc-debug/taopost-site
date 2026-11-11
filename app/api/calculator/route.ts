@@ -85,8 +85,6 @@ type Payload = {
   needDocs?: boolean;
 };
 
-// Куда LeadForm отправляет клиента писать после заявки — см. LEAD_TG_USERNAME там.
-const LEAD_TG_USERNAME = 'taopostsupport';
 
 /** Ник в Telegram из «@nick», «nick» или ссылки t.me/nick; иначе — как ввели (бывает, пишут номер). */
 function normalizeTg(raw?: string): { nick: string | null; text: string } {
@@ -127,7 +125,7 @@ function contactInfo(rawVia: unknown, rawMessenger: string | undefined, phone: s
     const shown = tg.nick ? `@${tg.nick}` : tg.text;
     return {
       ...base,
-      hint: via ? `клиенту предложено написать в @${LEAD_TG_USERNAME} — сначала проверьте личку, звонить не нужно` : '',
+      hint: via ? 'напишите клиенту первыми — в личку мы его больше не зовём (с 11.11.2026), звонить не нужно' : '',
       messenger: shown,
       rowLabel: shown ? 'Telegram' : '',
       rowText: shown,

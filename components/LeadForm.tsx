@@ -8,23 +8,10 @@ import ContactViaPicker, { CONTACT_VIA_NAME, looksLikePhone, type ContactVia } f
 type Transport = 'auto' | 'air';
 type Status = 'idle' | 'sending' | 'ok' | 'error';
 
-// Куда ведёт кнопка после заявки — личка менеджера, к которой через
-// Telegram Business подключена Лиза. Звонить каждому команда не успевает,
-// а Лиза отвечает сразу и круглосуточно. Но Telegram не даёт Business-боту
-// писать первым: он отвечает только тем, кто написал сам. Поэтому ник в форме
-// — запасной вариант для менеджера, а главное — чтобы клиент написал первым.
-const LEAD_TG_USERNAME = 'taopostsupport';
-
-/** Сообщение, которое клиент отправит одной кнопкой: Лизе хватит его, чтобы сразу посчитать. */
-function leadMessage(city: string, transport: Transport, weight: string): string {
-  const parts = [`доставка в ${city.trim()}`, transport === 'air' ? 'авиа' : 'авто'];
-  if (weight.trim()) parts.push(`примерно ${weight.trim()} кг`);
-  return `Здравствуйте! Заявка с сайта taopost.ru: ${parts.join(', ')}. Подскажите, сколько будет стоить?`;
-}
-
-function tgLink(text: string): string {
-  return `https://t.me/${LEAD_TG_USERNAME}?text=${encodeURIComponent(text)}`;
-}
+// Куда ведёт кнопка после заявки — общий чат TaoPost (решение владельца
+// 11.11.2026): в личке @taopostsupport больше не консультируем, там автоответ.
+// Заявка при этом уже лежит у менеджера в админке — он напишет клиенту сам.
+const CHAT_TG = 'https://t.me/Taopostchat_official';
 
 export default function LeadForm() {
   const [toCity, setToCity] = useState('');
@@ -93,17 +80,16 @@ export default function LeadForm() {
               <span className="lf__successIcon"><CheckCircle2 size={40} strokeWidth={2.2} /></span>
               {contactVia === 'telegram' ? (
                 <>
-                  <h3>Заявка принята — остался один шаг</h3>
+                  <h3>Заявка принята!</h3>
                   {messenger.trim() && !looksLikePhone(messenger) ? (
                     <p>
-                      Откройте Telegram и отправьте сообщение — текст уже набран. Ответим
-                      с&nbsp;расчётом за пару минут, в&nbsp;любое время суток.
+                      Менеджер напишет вам в&nbsp;Telegram с&nbsp;расчётом в&nbsp;рабочее время.
+                      Не хотите ждать — задайте вопрос в&nbsp;нашем чате, там отвечаем сразу.
                     </p>
                   ) : (
                     <p>
                       <strong>Без ника мы можем не найти вас в&nbsp;Telegram</strong> — по номеру
-                      он показывает не всех. Нажмите кнопку и отправьте сообщение — текст уже
-                      набран. Ответим с&nbsp;расчётом за пару минут.
+                      он показывает не всех. Напишите в&nbsp;наш чат — ответим там с&nbsp;расчётом.
                     </p>
                   )}
                 </>
@@ -112,12 +98,12 @@ export default function LeadForm() {
                   <h3>Заявка принята!</h3>
                   <p>
                     Напишем вам в&nbsp;{CONTACT_VIA_NAME[contactVia]} в&nbsp;рабочее время.
-                    Не хотите ждать — напишите нам в&nbsp;Telegram, там отвечаем сразу.
+                    Не хотите ждать — задайте вопрос в&nbsp;нашем Telegram-чате, там отвечаем сразу.
                   </p>
                 </>
               )}
               <a
-                href={tgLink(leadMessage(toCity, transport, weight))}
+                href={CHAT_TG}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`lf__tg${contactVia === 'telegram' ? ' lf__tg--main' : ''}`}
@@ -125,7 +111,7 @@ export default function LeadForm() {
                 data-ym-params='{"place":"lead_form_success"}'
               >
                 <Send size={18} strokeWidth={2.5} />
-                {contactVia === 'telegram' ? 'Получить расчёт в Telegram' : 'Написать нам в Telegram'}
+                Написать в чат TaoPost
               </a>
             </div>
           ) : (
@@ -231,8 +217,8 @@ export default function LeadForm() {
 
               {status === 'error' && (
                 <p className="lf__err">
-                  Не удалось отправить. Напишите нам в{' '}
-                  <a href={tgLink(leadMessage(toCity, transport, weight))} target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
+                  Не удалось отправить. Напишите в наш чат в{' '}
+                  <a href={CHAT_TG} target="_blank" rel="noopener noreferrer">Telegram</a>{' '}
                   или позвоните <a href="tel:+79776967778">+7 977 696-77-78</a>.
                 </p>
               )}

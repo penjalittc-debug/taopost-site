@@ -28,7 +28,7 @@ import s from '@/components/CargoOpt.module.css';
 
 const MIN_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
 const MIN_KG = CARGO_MIN_KG;
-const TG = 'https://t.me/taopostsupport?start=opt';
+const TG = 'https://t.me/Taopostchat_official';
 
 const TITLE = `Карго из Китая в Россию оптом — от ${MIN_RATE} $/кг, свой склад | TaoPost`;
 const DESCRIPTION =
