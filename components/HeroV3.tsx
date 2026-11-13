@@ -65,7 +65,7 @@ const SEGMENTS: Segment[] = [
     cardTag: 'Авиа · Poizon',
     cardBadge: 'От 1 пары',
     CardBadgeIcon: Plane,
-    priceFrom: '2 400',
+    priceFrom: AIR_PRICE,
     priceUnit: '₽/кг',
     route: { from: 'Гуанчжоу', to: 'Москва' },
     cardFoot: '3–5 дней авиа · от 1 пары · аутентификация',
@@ -238,7 +238,7 @@ export default function HeroV3() {
           <div className="hero3__visual">
             <div className="hero3__dPrices">{priceTiles('d')}</div>
             <div className="hero3__dRoute">
-              <MapPin size={15} strokeWidth={2.5} /> Гуанчжоу → Москва · авто 2 рейса в неделю, авиа пн и чт
+              <MapPin size={15} strokeWidth={2.5} /> Гуанчжоу → Москва · авто 2 рейса в неделю, авиа — дату назначает менеджер
             </div>
           </div>
         </div>

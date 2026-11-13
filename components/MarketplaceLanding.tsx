@@ -58,7 +58,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
       '@type': 'AggregateOffer',
       priceCurrency: 'RUB',
       lowPrice: '390',
-      highPrice: '2400',
+      highPrice: '2500',
       offerCount: 2,
     },
   };

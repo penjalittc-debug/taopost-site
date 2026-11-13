@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Calculator as CalcIcon, TrendingUp, AlertTriangle } from 'lucide-react';
+import { AIR_FROM_RUB } from '@/lib/retailTariff';
 
 const DEFAULT_CNY_RATE = 13;
 const COMMISSION_PERCENT = 3;
@@ -10,7 +11,8 @@ const COMMISSION_PERCENT = 3;
 const GUARANTEE_PERCENT = 5;
 const GUARANTEE_MIN_RUB = 200;
 const AUTO_RATE_RUB_KG = 450;
-const AIR_RATE_RUB_KG = 2400;
+// Авиа — нижняя граница «от …»: точную ставку менеджер называет по фото товара.
+const AIR_RATE_RUB_KG = AIR_FROM_RUB;
 
 function rub(value: number): string {
   if (!Number.isFinite(value) || Number.isNaN(value)) return '0 ₽';
@@ -173,7 +175,7 @@ export default function Wholesale1688Calc() {
                       transition: 'all .15s',
                     }}
                   >
-                    Авиа · 2 400 ₽/кг
+                    Авиа · от {AIR_RATE_RUB_KG.toLocaleString('ru-RU')} ₽/кг
                   </button>
                 </div>
               </div>
