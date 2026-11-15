@@ -36,8 +36,9 @@ const d = (from: number, to: number | null, usd: number, perM3 = false): TariffB
 export const BUYER_TARIFFS: BuyerTariff[] = [
   {
     id: 'consolidated', name: 'Сборный груз', kind: 'weight',
+    // Ставки — решение владельца 15.11.2026 (было 3,3 / 3,1 / 2,9 / 2,7 и ступени 100–300 / от 300).
     // Легче 5 кг — по первой ступени [ДОПУЩЕНИЕ A143].
-    bands: [d(0, 30, 3.3), d(30, 100, 3.1), d(100, 300, 2.9), d(300, null, 2.7)],
+    bands: [d(0, 30, 4.5), d(30, 100, 4.0), d(100, 200, 3.6), d(200, null, 3.3)],
   },
   {
     id: 'clothes', name: 'Одежда', kind: 'density',
