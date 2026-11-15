@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
-import { AIR_DAYS_TEXT, AIR_FROM_RUB, CONSOLIDATED_FROM_RUB } from '@/lib/retailTariff';
+import { AIR_DAYS_TEXT, AIR_FROM_RUB } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
@@ -116,7 +116,7 @@ export default function HeroV3() {
   const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
   const isCargo = seg.id === 'wholesale';
 
-  // Четыре цены первого экрана; 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
+  // Три цены первого экрана (плитку «Сборные от 330 ₽» убрали 15.11.2026 — путала клиентов); 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
   const priceTiles = (v: 'm' | 'd') => {
     const cls = (mod: string, on: boolean) =>
       `hero3__tile hero3__tile--${v}${mod ? ` hero3__tile--${mod}` : ''}${on ? ' hero3__tile--on' : ''}`;
@@ -127,21 +127,16 @@ export default function HeroV3() {
           <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
           {v === 'd' && <small>от 35 кг — 420 ₽ · от 60 кг — 390 ₽</small>}
         </button>
-        <button type="button" onClick={() => setActiveId('wholesale')} className={cls('cons', isCargo)}
-          data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"wholesale","place":"${v}_tiles"}`}>
-          <span>Сборные от {CARGO_MIN_KG} кг</span><b>от {CONSOLIDATED_FROM_RUB} ₽/кг</b>
-          {v === 'd' && <small>товары от разных продавцов в одной отправке</small>}
-        </button>
-        <a href="/kargo-dostavka" className={cls('opt', false)}
-          data-ym-goal="opt_open_page" data-ym-params={`{"place":"${v}_tiles_cargo"}`}>
-          <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
-          {v === 'd' && <small>по плотности груза · документы для WB и Ozon →</small>}
-        </a>
         <button type="button" onClick={() => setActiveId('sneakers')} className={cls('air', seg.id === 'sneakers')}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"sneakers","place":"${v}_tiles_air"}`}>
           <span>Авиа · {AIR_DAYS_TEXT}</span><b>от {AIR_PRICE} ₽/кг</b>
           {v === 'd' && <small>для срочных и дорогих товаров</small>}
         </button>
+        <a href="/kargo-dostavka" className={`${cls('opt', isCargo)} hero3__tile--wide`}
+          data-ym-goal="opt_open_page" data-ym-params={`{"place":"${v}_tiles_cargo"}`}>
+          <span>Карго оптом · от {CARGO_MIN_KG} кг</span><b>от {CARGO_RATE} $/кг</b>
+          {v === 'd' && <small>по плотности груза · документы для WB и Ozon →</small>}
+        </a>
       </>
     );
   };
@@ -165,7 +160,7 @@ export default function HeroV3() {
               <span className="hero3__titleAccent">от 1&nbsp;кг до&nbsp;тонны</span>
             </h1>
 
-            {/* Телефон и узкое окно: те же 4 цены сразу под заголовком (на широком экране — справа). */}
+            {/* Телефон и узкое окно: те же 3 цены сразу под заголовком (на широком экране — справа). */}
             <div className="hero3__mPrices">{priceTiles('m')}</div>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
@@ -560,15 +555,13 @@ export default function HeroV3() {
         }
         .hero3 :global(.hero3__tile--d span) { font-size: 14px; }
         .hero3 :global(.hero3__tile--d b) { font-size: clamp(30px, 2.8vw, 42px); line-height: 1.1; margin: 4px 0 6px; }
-        .hero3 :global(.hero3__tile--cons) { background: #0A0F1C; border-color: #0A0F1C; }
-        .hero3 :global(.hero3__tile--cons span), .hero3 :global(.hero3__tile--cons small) { color: #9CA3AF; }
-        .hero3 :global(.hero3__tile--cons b) { color: #5DCAA5; }
         .hero3 :global(.hero3__tile--opt) { background: #E8F7F3; border-color: #C6EDE4; }
         .hero3 :global(.hero3__tile--opt span), .hero3 :global(.hero3__tile--opt small) { color: #004232; }
         .hero3 :global(.hero3__tile--opt b) { color: #005C43; }
         .hero3 :global(.hero3__tile--air) { background: #FFF1EE; border-color: #FFD9D2; }
         .hero3 :global(.hero3__tile--air span), .hero3 :global(.hero3__tile--air small) { color: #B23A2A; }
         .hero3 :global(.hero3__tile--air b) { color: #E54632; }
+        .hero3 :global(.hero3__tile--wide) { grid-column: 1 / -1; }
         .hero3 :global(.hero3__tile--on) { border-color: #005C43; box-shadow: 0 0 0 2px rgba(0,92,67,0.25); }
         .hero3__dRoute {
           display: flex; align-items: center; gap: 8px; margin-top: 16px; padding: 12px 16px;
