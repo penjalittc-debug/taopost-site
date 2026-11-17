@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { Send, MessageCircle, BookOpen } from 'lucide-react';
 import { SERVICES } from '@/lib/services';
+import { APP_STORE_URL } from '@/lib/appStore';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
@@ -176,8 +177,19 @@ export default function Footer() {
 
               <div className="ftr__contact">
                 <div className="ftr__contactLabel">Мобильное приложение</div>
-                <a href="/prilozhenie" className="ftr__contactValue">
-                  Официальное приложение TaoPost — iPhone и Android
+                <a
+                  href={APP_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ftr__contactValue ftr__contactValue--accent"
+                  data-ym-goal="app_store_click"
+                  data-ym-params='{"place":"footer"}'
+                  style={{ display: 'block' }}
+                >
+                  iPhone — скачать в App Store
+                </a>
+                <a href="/prilozhenie" className="ftr__contactValue" style={{ display: 'block', marginTop: 4 }}>
+                  Android — скоро, подробнее о приложении
                 </a>
               </div>
             </div>

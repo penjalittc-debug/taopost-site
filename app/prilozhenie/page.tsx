@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import { APP_STORE_URL } from '@/lib/appStore';
 import LegalLayout, { LegalSection as Section } from '@/components/LegalLayout';
 
 export const metadata = {
   title: 'Мобильное приложение — TaoPost',
-  description: 'Официальное мобильное приложение TaoPost для iPhone и Android: заказы, отслеживание посылок, оплата и чат с поддержкой.',
+  description: 'Официальное приложение TaoPost Карго: iPhone — в App Store, Android — скоро. Заказы, отслеживание посылок, оплата и чат с поддержкой.',
   alternates: { canonical: 'https://taopost.ru/prilozhenie' },
   robots: { index: true, follow: true },
   openGraph: {
@@ -18,14 +19,13 @@ export const metadata = {
 
 // Страница-подтверждение для App Review (Guideline 4.1(b), 01.11.2026): связывает
 // приложение в магазинах с компанией с сайта. Разбор — org/06-it/14-app-store-relaunch.md
-// в репо приложения. Когда приложение появится в магазинах — заменить «готовится
-// к публикации» на ссылки.
+// в репо приложения. iPhone — в App Store с 17.11.2026; Android ещё готовится.
 export default function PrilozheniePage() {
   return (
     <LegalLayout pill="Приложение" title="Мобильное приложение TaoPost" wide>
       <Section title="Официальное приложение">
         <p>
-          «TaoPost — доставка из Китая» — официальное мобильное приложение сервиса TaoPost для iPhone и Android.
+          «TaoPost Карго» — официальное мобильное приложение сервиса TaoPost для iPhone и Android.
           Правообладатель и оператор сервиса — компания 广州亚世名进出口有限公司 (Guangzhou Yashiming Import &amp;
           Export Co., Ltd., регистрационный код КНР 91440100MAEGJX2C1Y). <a href="/certificate.jpg" target="_blank"
           rel="noopener noreferrer">Бизнес-лицензия компании</a>.
@@ -37,13 +37,32 @@ export default function PrilozheniePage() {
       </Section>
 
       <Section title="Где скачать">
+        <p>
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ym-goal="app_store_click"
+            data-ym-params='{"place":"prilozhenie"}'
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: '#111827', color: '#fff', textDecoration: 'none',
+              borderRadius: 12, padding: '12px 20px', fontWeight: 700, fontSize: 16,
+            }}
+          >
+            Скачать в App Store
+          </a>
+        </p>
         <ul>
-          <li><strong>iPhone</strong> — App Store, готовится к публикации.</li>
+          <li>
+            <strong>iPhone</strong> — <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">«TaoPost Карго»
+            в App Store</a>, бесплатно. Нужна iOS 15 или новее.
+          </li>
           <li><strong>Android</strong> — Google Play и RuStore, готовится к публикации.</li>
           <li>
-            <strong>Уже сейчас</strong> — веб-версия <a href="https://app.taopost.ru/?src=site" target="_blank"
+            <strong>На любом устройстве</strong> — веб-версия <a href="https://app.taopost.ru/?src=site" target="_blank"
             rel="noopener noreferrer">app.taopost.ru</a>. Её можно добавить на экран «Домой» и пользоваться как
-            приложением.
+            приложением. Вход тот же, что в приложении.
           </li>
         </ul>
       </Section>
@@ -73,7 +92,7 @@ export default function PrilozheniePage() {
 
       <Section title="In English">
         <p>
-          &laquo;TaoPost&raquo; is the official mobile app of the TaoPost service for iPhone and Android. The service and
+          &laquo;TaoPost Карго&raquo; is the official mobile app of the TaoPost service for iPhone and Android. The service and
           the TaoPost brand are operated by Guangzhou Yashiming Import &amp; Export Co., Ltd. (Unified Social Credit Code
           91440100MAEGJX2C1Y), see the <a href="/certificate.jpg" target="_blank" rel="noopener noreferrer">business
           license</a>. The app connects only to our own backend at app.taopost.ru. TaoPost is an independent purchasing

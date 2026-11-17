@@ -1,3 +1,4 @@
+import { APP_STORE_ID } from "@/lib/appStore";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Rubik } from "next/font/google";
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 — от 390 ₽/кг",
   description: "Карго из Китая в Россию: выкуп и доставка с Taobao, Poizon, Pinduoduo, 1688. Авто от 390 ₽/кг, авиа от 2 500 ₽/кг. Москва, СПб и вся РФ за 15–25 дней.",
   metadataBase: new URL("https://taopost.ru"),
+  // Плашка Apple «Открыть / Загрузить» над сайтом в Safari на iPhone.
+  itunes: { appId: APP_STORE_ID },
   alternates: {
     canonical: "https://taopost.ru",
   },

@@ -1,5 +1,6 @@
 'use client';
-import { Send, MessageCircle, Clock, User } from 'lucide-react';
+import { Send, MessageCircle, Clock, User, Smartphone } from 'lucide-react';
+import { APP_STORE_URL } from '@/lib/appStore';
 
 export default function CTAV2() {
   return (
@@ -61,6 +62,17 @@ export default function CTAV2() {
               >
                 <MessageCircle size={18} strokeWidth={2.3} />
                 Наш канал
+              </a>
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ctav2__btn ctav2__btn--ghost"
+                data-ym-goal="app_store_click"
+                data-ym-params='{"place":"cta_bottom"}'
+              >
+                <Smartphone size={18} strokeWidth={2.3} />
+                Приложение для iPhone
               </a>
             </div>
 
