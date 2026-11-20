@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CARGO_MIN_KG } from '@/lib/cargoTariffs';
+import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
 import { AIR_DAYS_TEXT, AIR_FROM_RUB, RETAIL_BASE_RUB, RETAIL_TIERS } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
@@ -30,8 +30,7 @@ type Segment = {
   cta2: { href: string; text: string };
 };
 
-// Главная: владелец 20.11.2026 — «от 1,6 $/кг» (минимум сетки 1,3 $ на главной не показываем).
-const CARGO_RATE = '1,6';
+const CARGO_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
 // Сборные грузы — рублёвая лесенка личного кабинета 450 / 420 / 390 (владелец 20.11.2026).
 const CONS_FIRST = RETAIL_BASE_RUB;
 const CONS_LADDER = RETAIL_TIERS.slice(1).map((t) => `от ${t.fromKg} кг — ${t.rateRub} ₽`).join(' · ');

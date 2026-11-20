@@ -75,7 +75,7 @@ export default function B2B() {
             data-ym-goal="opt_open_page"
             data-ym-params='{"place":"home_b2b"}'
           >
-            Карго оптом от 1,3 $/кг
+            Карго оптом от 1,6 $/кг
             <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </div>

@@ -252,7 +252,7 @@ export default function MarketplaceLanding({ mp, calculator }: Props) {
               <p className={s.subHintCtaMid} style={{ marginTop: 18 }}>
                 Груз от 50 кг? Везём{' '}
                 <Link href="/kargo-dostavka" style={{ color: '#005C43', fontWeight: 700 }}>
-                  карго из Китая оптом от 1,3 $/кг
+                  карго из Китая оптом от 1,6 $/кг
                 </Link>
                 {' '}— ставка по плотности груза, документы для маркетплейсов.
               </p>

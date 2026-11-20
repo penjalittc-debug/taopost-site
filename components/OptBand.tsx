@@ -9,7 +9,7 @@ export default function OptBand({ place }: { place: string }) {
         <div>
           <strong className={s.optTitle}>Груз от 50 кг? Это уже карго</strong>
           <p className={s.optText}>
-            Карго из Китая оптом — от 1,3 $/кг по плотности груза, выкуп с 1688 от 3 %,
+            Карго из Китая оптом — от 1,6 $/кг по плотности груза, выкуп с 1688 от 3 %,
             документы для Wildberries и Ozon.
           </p>
         </div>
