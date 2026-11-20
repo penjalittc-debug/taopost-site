@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { BUYER_TARIFFS, CARGO_MIN_KG } from '@/lib/cargoTariffs';
-import { AIR_DAYS_TEXT, AIR_FROM_RUB } from '@/lib/retailTariff';
+import { CARGO_MIN_KG } from '@/lib/cargoTariffs';
+import { AIR_DAYS_TEXT, AIR_FROM_RUB, RETAIL_BASE_RUB, RETAIL_TIERS } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
@@ -32,11 +32,9 @@ type Segment = {
 
 // Главная: владелец 20.11.2026 — «от 1,6 $/кг» (минимум сетки 1,3 $ на главной не показываем).
 const CARGO_RATE = '1,6';
-// Сборный груз — лесенка в $ по весу (владелец 15.11.2026: 4,5 / 4 / 3,6 / 3,3), берётся из сетки.
-const CONS_BANDS = BUYER_TARIFFS.find((t) => t.id === 'consolidated')!.bands;
-const usd = (n: number) => n.toLocaleString('ru-RU');
-const CONS_FIRST = usd(CONS_BANDS[0].usd);
-const CONS_LADDER = CONS_BANDS.slice(1).map((b) => `от ${b.from} кг — ${usd(b.usd)} $`).join(' · ');
+// Сборные грузы — рублёвая лесенка личного кабинета 450 / 420 / 390 (владелец 20.11.2026).
+const CONS_FIRST = RETAIL_BASE_RUB;
+const CONS_LADDER = RETAIL_TIERS.slice(1).map((t) => `от ${t.fromKg} кг — ${t.rateRub} ₽`).join(' · ');
 const APP_CTA = { href: 'https://app.taopost.ru/?src=site', text: 'Оформить в личном кабинете', external: true };
 const CALC_CTA = { href: '#calculator', text: 'Рассчитать стоимость' };
 
@@ -123,7 +121,7 @@ export default function HeroV3() {
   const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
   const isCargo = seg.id === 'wholesale';
 
-  // Четыре цены первого экрана (20.11.2026): посылки, авиа, карго, сборные в $ (не «от 330 ₽» — та путала клиентов); 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
+  // Четыре цены первого экрана (20.11.2026): посылки, авиа, карго, сборные лесенкой 450/420/390 ₽ (не «от 330 ₽» — та путала клиентов); 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
   const priceTiles = (v: 'm' | 'd') => {
     const cls = (mod: string, on: boolean) =>
       `hero3__tile hero3__tile--${v}${mod ? ` hero3__tile--${mod}` : ''}${on ? ' hero3__tile--on' : ''}`;
@@ -132,7 +130,7 @@ export default function HeroV3() {
         <button type="button" onClick={() => setActiveId('clothing')} className={cls('', seg.id === 'clothing')}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"clothing","place":"${v}_tiles"}`}>
           <span>Посылки от 1 штуки</span><b>450 ₽/кг</b>
-          {v === 'd' && <small>от 35 кг — 420 ₽ · от 60 кг — 390 ₽</small>}
+          {v === 'd' && <small>товары с Taobao, Pinduoduo и Poizon</small>}
         </button>
         <button type="button" onClick={() => setActiveId('sneakers')} className={cls('air', seg.id === 'sneakers')}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"sneakers","place":"${v}_tiles_air"}`}>
@@ -146,7 +144,7 @@ export default function HeroV3() {
         </a>
         <a href="/sbornye-gruzy" className={cls('cons', false)}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"consolidated","place":"${v}_tiles_cons"}`}>
-          <span>Сборные грузы</span><b>{CONS_FIRST} $/кг</b>
+          <span>Сборные грузы</span><b>{CONS_FIRST} ₽/кг</b>
           {v === 'd' && <small>{CONS_LADDER}</small>}
         </a>
       </>
