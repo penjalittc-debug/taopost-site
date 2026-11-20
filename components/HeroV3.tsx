@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CARGO_MIN_KG, MIN_USD_PER_KG } from '@/lib/cargoTariffs';
+import { CARGO_MIN_KG } from '@/lib/cargoTariffs';
 import { AIR_DAYS_TEXT, AIR_FROM_RUB } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
@@ -30,7 +30,8 @@ type Segment = {
   cta2: { href: string; text: string };
 };
 
-const CARGO_RATE = MIN_USD_PER_KG.toLocaleString('ru-RU');
+// Главная: владелец 20.11.2026 — «от 1,6 $/кг» (минимум сетки 1,3 $ на главной не показываем).
+const CARGO_RATE = '1,6';
 const APP_CTA = { href: 'https://app.taopost.ru/?src=site', text: 'Оформить в личном кабинете', external: true };
 const CALC_CTA = { href: '#calculator', text: 'Рассчитать стоимость' };
 
@@ -135,7 +136,7 @@ export default function HeroV3() {
         </button>
         <a href="/kargo-dostavka" className={`${cls('opt', isCargo)} hero3__tile--wide`}
           data-ym-goal="opt_open_page" data-ym-params={`{"place":"${v}_tiles_cargo"}`}>
-          <span>Карго оптом · от {CARGO_MIN_KG} кг</span><b>от {CARGO_RATE} $/кг</b>
+          <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
           {v === 'd' && <small>по плотности груза · документы для WB и Ozon →</small>}
         </a>
       </>
