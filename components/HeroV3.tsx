@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CARGO_MIN_KG } from '@/lib/cargoTariffs';
+import { BUYER_TARIFFS, CARGO_MIN_KG } from '@/lib/cargoTariffs';
 import { AIR_DAYS_TEXT, AIR_FROM_RUB } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
@@ -32,6 +32,11 @@ type Segment = {
 
 // Главная: владелец 20.11.2026 — «от 1,6 $/кг» (минимум сетки 1,3 $ на главной не показываем).
 const CARGO_RATE = '1,6';
+// Сборный груз — лесенка в $ по весу (владелец 15.11.2026: 4,5 / 4 / 3,6 / 3,3), берётся из сетки.
+const CONS_BANDS = BUYER_TARIFFS.find((t) => t.id === 'consolidated')!.bands;
+const usd = (n: number) => n.toLocaleString('ru-RU');
+const CONS_FIRST = usd(CONS_BANDS[0].usd);
+const CONS_LADDER = CONS_BANDS.slice(1).map((b) => `от ${b.from} кг — ${usd(b.usd)} $`).join(' · ');
 const APP_CTA = { href: 'https://app.taopost.ru/?src=site', text: 'Оформить в личном кабинете', external: true };
 const CALC_CTA = { href: '#calculator', text: 'Рассчитать стоимость' };
 
@@ -118,7 +123,7 @@ export default function HeroV3() {
   const seg = SEGMENTS.find((s) => s.id === activeId) || SEGMENTS[0];
   const isCargo = seg.id === 'wholesale';
 
-  // Три цены первого экрана (плитку «Сборные от 330 ₽» убрали 15.11.2026 — путала клиентов); 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
+  // Четыре цены первого экрана (20.11.2026): посылки, авиа, карго, сборные в $ (не «от 330 ₽» — та путала клиентов); 'm' — компактно (телефон), 'd' — крупно, с подписью (компьютер).
   const priceTiles = (v: 'm' | 'd') => {
     const cls = (mod: string, on: boolean) =>
       `hero3__tile hero3__tile--${v}${mod ? ` hero3__tile--${mod}` : ''}${on ? ' hero3__tile--on' : ''}`;
@@ -126,7 +131,7 @@ export default function HeroV3() {
       <>
         <button type="button" onClick={() => setActiveId('clothing')} className={cls('', seg.id === 'clothing')}
           data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"clothing","place":"${v}_tiles"}`}>
-          <span>Посылки от 1 кг</span><b>450 ₽/кг</b>
+          <span>Посылки от 1 штуки</span><b>450 ₽/кг</b>
           {v === 'd' && <small>от 35 кг — 420 ₽ · от 60 кг — 390 ₽</small>}
         </button>
         <button type="button" onClick={() => setActiveId('sneakers')} className={cls('air', seg.id === 'sneakers')}
@@ -134,10 +139,15 @@ export default function HeroV3() {
           <span>Авиа · {AIR_DAYS_TEXT}</span><b>от {AIR_PRICE} ₽/кг</b>
           {v === 'd' && <small>для срочных и дорогих товаров</small>}
         </button>
-        <a href="/kargo-dostavka" className={`${cls('opt', isCargo)} hero3__tile--wide`}
+        <a href="/kargo-dostavka" className={cls('opt', isCargo)}
           data-ym-goal="opt_open_page" data-ym-params={`{"place":"${v}_tiles_cargo"}`}>
           <span>Карго оптом</span><b>от {CARGO_RATE} $/кг</b>
           {v === 'd' && <small>по плотности груза · документы для WB и Ozon →</small>}
+        </a>
+        <a href="/sbornye-gruzy" className={cls('cons', false)}
+          data-ym-goal="hero_segment_click" data-ym-params={`{"segment":"consolidated","place":"${v}_tiles_cons"}`}>
+          <span>Сборные грузы</span><b>{CONS_FIRST} $/кг</b>
+          {v === 'd' && <small>{CONS_LADDER}</small>}
         </a>
       </>
     );
@@ -162,7 +172,7 @@ export default function HeroV3() {
               <span className="hero3__titleAccent">от 1&nbsp;кг до&nbsp;тонны</span>
             </h1>
 
-            {/* Телефон и узкое окно: те же 3 цены сразу под заголовком (на широком экране — справа). */}
+            {/* Телефон и узкое окно: те же 4 цены сразу под заголовком (на широком экране — справа). */}
             <div className="hero3__mPrices">{priceTiles('m')}</div>
 
             <div className="hero3__chips" role="tablist" aria-label="Что вы хотите заказать">
@@ -563,6 +573,9 @@ export default function HeroV3() {
         }
         .hero3 :global(.hero3__tile--d span) { font-size: 14px; }
         .hero3 :global(.hero3__tile--d b) { font-size: clamp(30px, 2.8vw, 42px); line-height: 1.1; margin: 4px 0 6px; }
+        .hero3 :global(.hero3__tile--cons) { background: #0A0F1C; border-color: #0A0F1C; }
+        .hero3 :global(.hero3__tile--cons span), .hero3 :global(.hero3__tile--cons small) { color: #9CA3AF; }
+        .hero3 :global(.hero3__tile--cons b) { color: #5DCAA5; }
         .hero3 :global(.hero3__tile--opt) { background: #E8F7F3; border-color: #C6EDE4; }
         .hero3 :global(.hero3__tile--opt span), .hero3 :global(.hero3__tile--opt small) { color: #004232; }
         .hero3 :global(.hero3__tile--opt b) { color: #005C43; }
