@@ -1,7 +1,8 @@
 import { APP_STORE_ID } from "@/lib/appStore";
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Rubik } from "next/font/google";
+import { preload } from "react-dom";
+import "./fonts.css";
 import "./globals.css";
 import MetrikaTracker from "@/components/MetrikaTracker";
 import AppLinkSource from "@/components/AppLinkSource";
@@ -9,11 +10,10 @@ import ExitIntent from "@/components/ExitIntent";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import CookieNotice from "@/components/CookieNotice";
 
-const rubik = Rubik({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700", "800"],
-  display: "swap",
-});
+// Шрифт — локальные файлы (app/fonts.css, public/fonts), не next/font/google:
+// сборка на сервере в Москве падала, когда Google Fonts был недоступен (20.11.2026).
+// Кириллицу подгружаем заранее, чтобы текст не мигал.
+const RUBIK_PRELOAD = ['/fonts/rubik-cyrillic-wght-normal.woff2', '/fonts/rubik-latin-wght-normal.woff2'];
 
 export const metadata: Metadata = {
   title: "TaoPost — Доставка из Китая: Taobao, Poizon, 1688 — от 390 ₽/кг",
@@ -64,12 +64,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  for (const href of RUBIK_PRELOAD) preload(href, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
   return (
     <html lang="ru">
       <head>
         <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = 'manual'; if (!location.hash) window.scrollTo(0, 0);` }} />
       </head>
-      <body className={rubik.className}>
+      <body className="font-rubik">
         <Script id="yandex-metrika" strategy="afterInteractive">{`
           (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
