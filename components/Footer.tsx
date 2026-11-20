@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Send, MessageCircle, BookOpen } from 'lucide-react';
 import { SERVICES } from '@/lib/services';
-import { APP_STORE_URL } from '@/lib/appStore';
+import AppBadges from './AppBadges';
 
 const NAV_LINKS = [
   { label: 'О компании', href: '/o-kompanii' },
@@ -64,6 +64,10 @@ export default function Footer() {
                 <MessageCircle size={18} strokeWidth={2.3} />
               </a>
             </div>
+            {/* 20.11.2026: приложения — наверху футера, значками (раньше были
+                текстом в самом конце колонки «Контакты», их не замечали). */}
+            <div className="ftr__appsTitle">Мобильное приложение</div>
+            <AppBadges place="footer" />
           </div>
 
           <div>
@@ -172,24 +176,6 @@ export default function Footer() {
                   data-ym-params='{"place":"footer"}'
                 >
                   app.taopost.ru — оформить заказ онлайн
-                </a>
-              </div>
-
-              <div className="ftr__contact">
-                <div className="ftr__contactLabel">Мобильное приложение</div>
-                <a
-                  href={APP_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ftr__contactValue ftr__contactValue--accent"
-                  data-ym-goal="app_store_click"
-                  data-ym-params='{"place":"footer"}'
-                  style={{ display: 'block' }}
-                >
-                  iPhone — скачать в App Store
-                </a>
-                <a href="/prilozhenie" className="ftr__contactValue" style={{ display: 'block', marginTop: 4 }}>
-                  Android — скоро, подробнее о приложении
                 </a>
               </div>
             </div>
@@ -495,6 +481,14 @@ export default function Footer() {
         }
         .ftr__warehousePhone:hover .ftr__warehousePhoneValue { color: #fff; }
 
+        .ftr__appsTitle {
+          font-size: 12px;
+          font-weight: 700;
+          color: #F9FAFB;
+          margin: 26px 0 12px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
         .ftr__apps {
           display: flex;
           flex-direction: column;

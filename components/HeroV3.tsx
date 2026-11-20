@@ -5,6 +5,7 @@ import { AIR_DAYS_TEXT, AIR_FROM_RUB } from '@/lib/retailTariff';
 
 const AIR_PRICE = AIR_FROM_RUB.toLocaleString('ru-RU');
 import { Calculator as CalcIcon, ShieldCheck, Package, MapPin, Plane, Truck, Sparkles, Star, Boxes, Phone, FileCheck2, Shirt, Footprints, User } from 'lucide-react';
+import AppBadges from './AppBadges';
 
 type Segment = {
   id: 'clothing' | 'sneakers' | 'wholesale';
@@ -226,6 +227,11 @@ export default function HeroV3() {
                 </span>
               ))}
             </div>
+
+            {/* 20.11.2026: приложения на первом экране — владелец: «люди должны сразу видеть». */}
+            <div className="hero3__apps">
+              <AppBadges place="hero" theme="light" />
+            </div>
           </div>
 
           {/* Широкий экран (06.11.2026, владелец: «450 прям в глаза бьёт»): вместо одной
@@ -424,6 +430,7 @@ export default function HeroV3() {
           color: #005C43;
         }
 
+        .hero3__apps { margin-top: 18px; }
         .hero3__trust {
           display: flex; gap: 22px; flex-wrap: wrap;
         }

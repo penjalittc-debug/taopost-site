@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { APP_STORE_URL } from '@/lib/appStore';
+import { ANDROID_URL } from '@/lib/androidApp';
+import AppBadges from '@/components/AppBadges';
 import LegalLayout, { LegalSection as Section } from '@/components/LegalLayout';
 
 export const metadata = {
   title: 'Мобильное приложение — TaoPost',
-  description: 'Официальное приложение TaoPost Карго: iPhone — в App Store, Android — скоро. Заказы, отслеживание посылок, оплата и чат с поддержкой.',
+  description: 'Официальное приложение TaoPost Карго: iPhone — в App Store, Android — APK для установки. Заказы, отслеживание посылок, оплата и чат с поддержкой.',
   alternates: { canonical: 'https://taopost.ru/prilozhenie' },
   robots: { index: true, follow: true },
   openGraph: {
@@ -19,7 +21,7 @@ export const metadata = {
 
 // Страница-подтверждение для App Review (Guideline 4.1(b), 01.11.2026): связывает
 // приложение в магазинах с компанией с сайта. Разбор — org/06-it/14-app-store-relaunch.md
-// в репо приложения. iPhone — в App Store с 17.11.2026; Android ещё готовится.
+// в репо приложения. iPhone — в App Store с 17.11.2026; Android — APK с app.taopost.ru/android (20.11.2026), RuStore и Google Play готовятся.
 export default function PrilozheniePage() {
   return (
     <LegalLayout pill="Приложение" title="Мобильное приложение TaoPost" wide>
@@ -37,28 +39,19 @@ export default function PrilozheniePage() {
       </Section>
 
       <Section title="Где скачать">
-        <p>
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-ym-goal="app_store_click"
-            data-ym-params='{"place":"prilozhenie"}'
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 10,
-              background: '#111827', color: '#fff', textDecoration: 'none',
-              borderRadius: 12, padding: '12px 20px', fontWeight: 700, fontSize: 16,
-            }}
-          >
-            Скачать в App Store
-          </a>
-        </p>
+        <div style={{ margin: '8px 0 16px' }}>
+          <AppBadges place="prilozhenie" theme="light" />
+        </div>
         <ul>
           <li>
             <strong>iPhone</strong> — <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">«TaoPost Карго»
             в App Store</a>, бесплатно. Нужна iOS 15 или новее.
           </li>
-          <li><strong>Android</strong> — Google Play и RuStore, готовится к публикации.</li>
+          <li>
+            <strong>Android</strong> — <a href={ANDROID_URL} target="_blank" rel="noopener noreferrer"
+            data-ym-goal="android_click" data-ym-params='{"place":"prilozhenie"}'>скачать приложение (APK)</a>,
+            бесплатно, с инструкцией по установке. В RuStore и Google Play — готовится к публикации.
+          </li>
           <li>
             <strong>На любом устройстве</strong> — веб-версия <a href="https://app.taopost.ru/?src=site" target="_blank"
             rel="noopener noreferrer">app.taopost.ru</a>. Её можно добавить на экран «Домой» и пользоваться как
