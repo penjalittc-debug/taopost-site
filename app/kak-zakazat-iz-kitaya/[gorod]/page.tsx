@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   // страницы городов дубликатами. Берём первое предложение localText.
   const firstSentence = city.localText ? city.localText.split('. ')[0].trim() + '.' : '';
   const description = firstSentence
-    ? `${firstSentence} Срок — ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа). Выкуп с Taobao, Poizon, 1688 — комиссия 10% (мин. 500 ₽), от 20 000 ₽ — 5%.`
+    ? `${firstSentence} Срок — ${city.deliveryDays} (авто) или ${city.deliveryDaysAvia} (авиа). Выкуп с Taobao, Poizon, 1688 — комиссия 10% (мин. 500 ₽), от 15 000 ₽ — 7%, от 35 000 ₽ — 5%.`
     : `Пошаговая инструкция как заказать товары из Китая ${city.nameIn}. Доставка с Taobao, Poizon, Pinduoduo, 1688 ${city.nameIn} — ${city.deliveryDays}. Выкуп, проверка, гарантия сохранности.`;
   return {
     title: `Доставка из Китая ${city.nameIn} — Taobao, Poizon, 1688 | TaoPost`,
@@ -131,7 +131,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
     },
     {
       q: 'Берёте ли вы комиссию за выкуп?',
-      a: 'Комиссия за выкуп — 10% от стоимости товаров, минимум 500 ₽, а при заказе от 20 000 ₽ — 5%. Плюс вы платите стоимость товара и доставку до России.',
+      a: 'Комиссия за выкуп — 10% от стоимости товаров, минимум 500 ₽, а при заказе от 15 000 ₽ — 7%, от 35 000 ₽ — 5%. Плюс вы платите стоимость товара и доставку до России.',
     },
     {
       q: 'Что если товар придёт бракованным?',
@@ -222,7 +222,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
               </div>
               <div className={s.statCard}>
                 <div className={s.statValue}>10%</div>
-                <div className={s.statLabel}>Комиссия выкупа (от 20 000 ₽ — 5%)</div>
+                <div className={s.statLabel}>Комиссия выкупа (от 15 000 ₽ — 7%, от 35 000 ₽ — 5%)</div>
               </div>
             </div>
 
@@ -259,7 +259,7 @@ export default async function CityGuidePage({ params }: { params: Promise<Params
             <div className={s.stepsGrid}>
               {[
                 { n: 1, t: 'Заказ', d: 'Отправляете ссылки на товары в личном кабинете или менеджеру' },
-                { n: 2, t: 'Выкуп', d: 'Мы выкупаем товар у продавца в Китае — комиссия 10% (мин. 500 ₽), от 20 000 ₽ — 5%' },
+                { n: 2, t: 'Выкуп', d: 'Мы выкупаем товар у продавца в Китае — комиссия 10% (мин. 500 ₽), от 15 000 ₽ — 7%, от 35 000 ₽ — 5%' },
                 { n: 3, t: 'Склад', d: 'Товар приходит на наш склад в Гуанчжоу — проверка, фото, упаковка' },
                 { n: 4, t: 'Доставка', d: `Отправка ${city.nameIn} — авто (${city.deliveryDays}) или авиа (${city.deliveryDaysAvia})` },
               ].map((st) => (
